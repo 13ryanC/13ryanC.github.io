@@ -1,4 +1,6 @@
-baseURL = "/"
+# Update this value to your GitHub Pages URL, e.g.
+# "https://<USERNAME>.github.io/<REPOSITORY>/" if hosting as a project page.
+baseURL = "https://example.github.io/"
 title = "MyResearchNotes"
 languageCode = "en-us"
 
