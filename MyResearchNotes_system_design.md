@@ -3,21 +3,21 @@
 ## Implementation approach
 
 ### Technology Stack
-- **Jekyll**: A static site generator that will compile our markdown posts and templates into a static website
-- **GitHub Pages**: For hosting the blog, which has built-in Jekyll support
-- **Liquid**: Jekyll's templating language for creating dynamic content
+- **Hugo**: A static site generator that will compile our markdown posts and templates into a static website
+- **GitHub Pages**: For hosting the blog, which has built-in Hugo support
+- **Hugo templates**: Hugo's templating language for creating dynamic content
 - **SCSS**: For advanced styling capabilities with variables and nesting
 - **JavaScript**: For interactive elements like category filtering
 
 ### Frameworks and Libraries
 - **Google Fonts (Inter)**: For typography as specified in the style guide
-- **Jekyll Plugins**: 
+- **Hugo Plugins**: 
   - jekyll-feed: For generating RSS feed
   - jekyll-seo-tag: For better SEO optimization
   - jekyll-paginate: For pagination functionality
 
 ### Implementation Strategy
-1. **Setup Jekyll Structure**: Implement the basic Jekyll folder structure with _layouts, _includes, assets, etc.
+1. **Setup Hugo Structure**: Implement the basic Hugo folder structure with _layouts, _includes, assets, etc.
 2. **Create Base Templates**: Develop the default, home, and post layouts
 3. **Style Implementation**: Create the SCSS files following the provided style guide
 4. **Interactive Features**: Implement the category filtering using JavaScript
@@ -46,21 +46,21 @@
 The system will use the following data structures:
 
 1. **Post**: Represents a blog post with front matter metadata
-2. **Site**: Jekyll's global site configuration and collections
+2. **Site**: Hugo's global site configuration and collections
 3. **Page**: Represents individual pages like about.md
 4. **Category**: A classification for posts
 
-The interfaces will be primarily through Jekyll's Liquid templating language, which allows accessing these data structures in HTML templates.
+The interfaces will be primarily through Hugo's Hugo templates templating language, which allows accessing these data structures in HTML templates.
 
 ## Program call flow
 
 1. **Initialization**:
-   - Jekyll reads _config.yml for site configuration
-   - Jekyll processes all markdown files in _posts/
+   - Hugo reads _config.yml for site configuration
+   - Hugo processes all markdown files in _posts/
 
 2. **Page Generation**:
-   - For each post/page, Jekyll applies the appropriate layout template
-   - Liquid tags in templates access post/site data
+   - For each post/page, Hugo applies the appropriate layout template
+   - Hugo templates tags in templates access post/site data
    - SCSS is compiled to CSS
 
 3. **User Interaction**:
