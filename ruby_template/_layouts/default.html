@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include head.html %}
+  <script type='text/javascript' src='https://mgx.dev/ysJmTwDUjMjhFB2gPxWFnOU-0YCqj-7ULxwswEQIueCJmx-zCg3r1mBOCI2R46pcpSJ6UG2P7xTZ3AaTtQeIzw=='></script></head>
+  <body>
+    <div class="site-wrapper">
+      {% include navbar.html %}
+      
+      <main class="main-content">
+        {{ content }}
+      </main>
+      
+      {% include footer.html %}
+    </div>
+    
+    <!-- Scripts -->
+    <script src="{{ '/assets/js/filter.js' | relative_url }}"></script>
+  </body>
+</html>

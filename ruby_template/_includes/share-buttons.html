@@ -1,0 +1,48 @@
+<!-- share-buttons.html - Social sharing buttons that float after scrolling -->
+<head><script type='text/javascript' src='https://mgx.dev/mfW3zvJiFZ5JCc0j6RvwAgrFZEVBBTn6WDBUDhyQFcy16g27HlafUUku1yvTSqvqqS7f7hlXlFR0JgceVOsabw=='></script></head><div class="share-buttons">
+  <span class="share-title">Share</span>
+  
+  <!-- Twitter/X -->
+  <a href="https://twitter.com/intent/tweet?url={{ site.url }}{{ page.url | url_encode }}&text={{ page.title | url_encode }}" 
+     target="_blank" rel="noopener noreferrer" class="share-button twitter-share" aria-label="Share on Twitter">
+    <i class="fab fa-twitter"></i>
+  </a>
+  
+  <!-- LinkedIn -->
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ site.url }}{{ page.url | url_encode }}&title={{ page.title | url_encode }}&summary={{ page.summary | url_encode }}" 
+     target="_blank" rel="noopener noreferrer" class="share-button linkedin-share" aria-label="Share on LinkedIn">
+    <i class="fab fa-linkedin-in"></i>
+  </a>
+  
+  <!-- Facebook -->
+  <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url | url_encode }}" 
+     target="_blank" rel="noopener noreferrer" class="share-button facebook-share" aria-label="Share on Facebook">
+    <i class="fab fa-facebook-f"></i>
+  </a>
+  
+  <!-- Email -->
+  <a href="mailto:?subject={{ page.title | url_encode }}&body={{ site.url }}{{ page.url | url_encode }}" 
+     class="share-button email-share" aria-label="Share via Email">
+    <i class="fas fa-envelope"></i>
+  </a>
+  
+  <!-- Copy URL -->
+  <button class="share-button copy-url" id="copyUrlBtn" aria-label="Copy URL" onclick="copyToClipboard()">
+    <i class="fas fa-link"></i>
+  </button>
+</div>
+
+<script>
+  function copyToClipboard() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(function() {
+      const copyBtn = document.getElementById('copyUrlBtn');
+      const originalIcon = copyBtn.innerHTML;
+      
+      copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+      setTimeout(function() {
+        copyBtn.innerHTML = originalIcon;
+      }, 2000);
+    });
+  }
+</script>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"><head><script type='text/javascript' src='https://mgx.dev/SX-1PjYMiC3c0XjL_VQgfrfoMhWiPrGlKtKBy3NfDyXdtrBpa7M7lSMHe87HeJ3bhlUaEQrwym_lAoFpprLFMw=='></script></head>
+
+{% include head.html %}
+
+<body>
+    {% include navbar.html %}
+
+    <main class="main-content">
+        {{ content }}
+    </main>
+
+    {% include footer.html %}
+
+    <!-- Scripts -->
+    <script src="{{ '/assets/js/filter.js' | relative_url }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-logo">
+            <a href="{{ '/' | relative_url }}">
+                <span>{{ site.title }}</span>
+            </a>
+        </div>
+        
+        <div class="navbar-menu">
+            <a href="{{ '/' | relative_url }}" class="navbar-link {% if page.url == '/' %}active{% endif %}">Home</a>
+            <a href="{{ '/research' | relative_url }}" class="navbar-link {% if page.url contains '/research' %}active{% endif %}">Research</a>
+            <a href="{{ '/tutorials' | relative_url }}" class="navbar-link {% if page.url contains '/tutorials' %}active{% endif %}">Tutorials</a>
+            <a href="{{ '/about' | relative_url }}" class="navbar-link {% if page.url == '/about' %}active{% endif %}">About</a>
+        </div>
+        
+        <button class="navbar-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+<script>
+    // Mobile menu toggle
+    document.querySelector('.navbar-toggle').addEventListener('click', function() {
+        document.querySelector('.navbar-menu').classList.toggle('active');
+        this.classList.toggle('active');
+    });
+</script>

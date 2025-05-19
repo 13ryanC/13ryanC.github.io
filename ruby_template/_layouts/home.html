@@ -1,0 +1,48 @@
+---
+layout: default
+---
+
+<div class="home-container">
+  <!-- Hero section with the most recent post -->
+  {% assign latest_post = site.posts.first %}
+  <section class="hero-section" style="background-image: url('{{ latest_post.hero | relative_url }}');">
+    <div class="hero-content">
+      <h1 class="site-title">{{ site.title }}</h1>
+      <p class="site-tagline">{{ site.description }}</p>
+      <a href="{{ latest_post.url | relative_url }}" class="cta-button">Read article</a>
+    </div>
+  </section>
+
+  <!-- Category filter bar -->
+  <div class="category-filter-bar" id="category-filter">
+    <div class="filter-container">
+      <button class="filter-btn active" data-category="all">All</button>
+      <button class="filter-btn" data-category="research">Research</button>
+      <button class="filter-btn" data-category="opinion">Opinion</button>
+      <button class="filter-btn" data-category="tutorials">Tutorials</button>
+      <button class="filter-btn" data-category="news">News</button>
+    </div>
+  </div>
+
+  <!-- Articles grid -->
+  <div class="articles-grid">
+    {% for post in paginator.posts %}
+      <div class="grid-item" data-category="{{ post.category | downcase }}">
+        {% include post-card.html %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  {% if paginator.total_pages > 1 %}
+  <div class="pagination">
+    {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-prev">← Older</a>
+    {% endif %}
+    
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-next">Newer →</a>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
