@@ -1,15 +1,19 @@
 # MyResearchNotes
 
-This repository contains the source for **MyResearchNotes**, a Hugo-based blog inspired by the style of the DeepMind blog. The site is designed for publishing research articles and tutorials related to AI.
+This repository contains the source for **MyResearchNotes**, a Hugo-based blog powered by the [PaperMod](https://github.com/adityatelange/hugo-PaperMod) theme. The site is designed for publishing research articles and tutorials related to AI.
 
 ## Local Development
 
 1. Install [Hugo](https://gohugo.io/).
-2. Serve the site locally:
+2. Clone the PaperMod theme:
+   ```bash
+   git submodule update --init --recursive
+   ```
+3. Serve the site locally:
    ```bash
    hugo server -D
    ```
-3. Visit `http://localhost:1313` in your browser.
+4. Visit `http://localhost:1313` in your browser.
 
 ## Deployment
 
