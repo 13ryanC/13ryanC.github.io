@@ -2,13 +2,13 @@
 
 ## Project Overview
 
-We will create a GitHub Pages-hosted Jekyll blog named 'My ResearchNotes' that looks and feels inspired by DeepMind's public blog while maintaining original branding and styling. The platform will serve as a professional research notes blog with a clean, modern interface optimized for readability and content discovery.
+We will create a GitHub Pages-hosted Hugo blog named 'My ResearchNotes' that looks and feels inspired by DeepMind's public blog while maintaining original branding and styling. The platform will serve as a professional research notes blog with a clean, modern interface optimized for readability and content discovery.
 
 This document outlines the requirements for building the blog platform, focusing on both user experience and technical implementation.
 
 ## Original Requirements
 
-Create the full codebase for a GitHub Pages–hosted Jekyll blog named "My ResearchNotes". The site must look and feel inspired by DeepMind's public blog while remaining original in branding and styling.
+Create the full codebase for a GitHub Pages–hosted Hugo blog named "My ResearchNotes". The site must look and feel inspired by DeepMind's public blog while remaining original in branding and styling.
 
 The repository should follow a specific layout structure including configuration files, layouts, includes, assets, and sample content. The homepage and post page UX should follow specific design requirements with a hero section, category filters, article grid, and pagination. The style guide specifies color palette, typography, and accessibility requirements.
 
@@ -20,7 +20,7 @@ The repository should follow a specific layout structure including configuration
 
 2. **Effortless Content Discovery**: Implement intuitive category filtering and navigation that helps readers easily find and explore topics of interest.
 
-3. **Developer-Friendly Implementation**: Ensure the codebase is well-organized, documented, and easy to extend or modify for developers using GitHub Pages and Jekyll.
+3. **Developer-Friendly Implementation**: Ensure the codebase is well-organized, documented, and easy to extend or modify for developers using GitHub Pages and Hugo.
 
 
 ### User Stories
@@ -39,13 +39,13 @@ The repository should follow a specific layout structure including configuration
 
 | Product | Pros | Cons |
 |---------|------|------|
-| DeepMind Blog | - Clean, professional design<br>- Clear typography<br>- Excellent content categorization<br>- Strong visual identity | - Complex custom implementation<br>- Not Jekyll-based<br>- Resource-intensive media elements |
+| DeepMind Blog | - Clean, professional design<br>- Clear typography<br>- Excellent content categorization<br>- Strong visual identity | - Complex custom implementation<br>- Not Hugo-based<br>- Resource-intensive media elements |
 | Distill.pub | - Academic focus<br>- Interactive visualizations<br>- Strong typography<br>- Clean reading experience | - Complex implementation<br>- Specialized for ML papers<br>- Limited customization options |
-| GitHub Pages (default) | - Simple setup<br>- Free hosting<br>- Git-based workflow<br>- Jekyll compatibility | - Basic designs<br>- Limited dynamic features<br>- Minimal UX elements |
+| GitHub Pages (default) | - Simple setup<br>- Free hosting<br>- Git-based workflow<br>- Hugo compatibility | - Basic designs<br>- Limited dynamic features<br>- Minimal UX elements |
 | Medium | - Clean reading experience<br>- Social engagement features<br>- Strong typography<br>- Mobile responsive | - Limited customization<br>- Platform lock-in<br>- Not self-hosted |
 | Google AI Blog | - Clean design<br>- Technical content focus<br>- Good categorization<br>- Corporate backing | - Corporate constraints<br>- Limited personal branding<br>- Not open-source |
 | OpenAI Blog | - Minimalist design<br>- Research focus<br>- Strong readability<br>- Technical depth | - Limited discovery features<br>- Minimal categorization<br>- Custom implementation |
-| Jekyll Academic Theme | - Research-focused<br>- Jekyll compatible<br>- Open-source<br>- GitHub Pages ready | - Academic rather than blog focus<br>- Sometimes cluttered UX<br>- Limited visual appeal |
+| Hugo Academic Theme | - Research-focused<br>- Hugo compatible<br>- Open-source<br>- GitHub Pages ready | - Academic rather than blog focus<br>- Sometimes cluttered UX<br>- Limited visual appeal |
 
 ### Competitive Quadrant Chart
 
@@ -64,7 +64,7 @@ quadrantChart
     "Medium": [0.3, 0.7]
     "Google AI Blog": [0.7, 0.6]
     "OpenAI Blog": [0.8, 0.5]
-    "Jekyll Academic Theme": [0.6, 0.4]
+    "Hugo Academic Theme": [0.6, 0.4]
     "MyAI Notes (Target)": [0.7, 0.8]
 ```
 
@@ -72,11 +72,11 @@ quadrantChart
 
 ### Requirements Analysis
 
-The MyAI Notes blog platform will be built using Jekyll and hosted on GitHub Pages to ensure ease of maintenance and deployment. The platform must provide a professional research-focused reading experience with intuitive navigation while maintaining excellent performance and accessibility.
+The MyAI Notes blog platform will be built using Hugo and hosted on GitHub Pages to ensure ease of maintenance and deployment. The platform must provide a professional research-focused reading experience with intuitive navigation while maintaining excellent performance and accessibility.
 
 The implementation must follow the repository structure provided in the requirements, with specific attention to:
 
-1. **Jekyll Configuration**: Ensuring GitHub Pages compatibility with the appropriate plugins and settings.
+1. **Hugo Configuration**: Ensuring GitHub Pages compatibility with the appropriate plugins and settings.
 
 2. **Layout Structure**: Creating modular, reusable components for consistent design across the site.
 
@@ -98,7 +98,7 @@ The implementation must follow the repository structure provided in the requirem
 1. **Repository Structure**
    - Must follow the specified directory layout
    - Must include all required files and directories
-   - Must implement proper Jekyll configuration
+   - Must implement proper Hugo configuration
 
 2. **Homepage Implementation**
    - Must implement hero section with latest post's hero image
@@ -266,7 +266,7 @@ The implementation must follow the repository structure provided in the requirem
 
 1. **Phase 1: Core Structure Setup** (Week 1)
    - Repository setup
-   - Jekyll configuration
+   - Hugo configuration
    - Base layouts and includes
    - Initial styling
 
@@ -296,7 +296,7 @@ The implementation must follow the repository structure provided in the requirem
 
 ## Conclusion
 
-The MyAI Notes blog platform will provide a professional and visually appealing environment for publishing research notes. By following the DeepMind-inspired design principles while maintaining original branding, the platform will offer an excellent reading experience focused on content discoverability and readability. The implementation on GitHub Pages using Jekyll ensures ease of maintenance and deployment, making it an ideal solution for researchers and technical writers.
+The MyAI Notes blog platform will provide a professional and visually appealing environment for publishing research notes. By following the DeepMind-inspired design principles while maintaining original branding, the platform will offer an excellent reading experience focused on content discoverability and readability. The implementation on GitHub Pages using Hugo ensures ease of maintenance and deployment, making it an ideal solution for researchers and technical writers.
 
 
 ## Market Research
@@ -305,11 +305,11 @@ The MyAI Notes blog platform will provide a professional and visually appealing 
 
 The academic and research blog landscape has evolved significantly in recent years, with a focus on clean design, content discoverability, and mobile accessibility. Several platforms and frameworks have emerged as leaders in this space:
 
-1. **Jekyll-Based Academic Solutions**
-   - **Al-folio**: A popular Jekyll theme designed specifically for academics with 13,000+ GitHub stars
-   - **Minimal Mistakes**: A versatile Jekyll theme with academic customization options (12,900+ stars)
+1. **Hugo-Based Academic Solutions**
+   - **Al-folio**: A popular Hugo theme designed specifically for academics with 13,000+ GitHub stars
+   - **Minimal Mistakes**: A versatile Hugo theme with academic customization options (12,900+ stars)
    - **Just-the-Docs**: Excellence for research documentation with good search capabilities (8,200+ stars)
-   - **Chirpy**: Modern Jekyll theme with excellent responsive design and built-in search (8,700+ stars)
+   - **Chirpy**: Modern Hugo theme with excellent responsive design and built-in search (8,700+ stars)
 
 2. **Research-Focused Publication Platforms**
    - **Distill.pub**: Interactive ML research publication platform
@@ -385,7 +385,7 @@ Recent design trends in academic and research blogs include:
 Based on our research and analysis, we recommend the following implementation approach for the MyAI Notes blog platform:
 
 1. **Base Framework**
-   - Use Jekyll with GitHub Pages for simple deployment and maintenance
+   - Use Hugo with GitHub Pages for simple deployment and maintenance
    - Implement a custom theme inspired by DeepMind but with unique branding
    - Focus on performance optimization from the start
 
@@ -405,7 +405,7 @@ Based on our research and analysis, we recommend the following implementation ap
    - Use modern CSS features (Grid/Flexbox) for layouts
    - Implement JavaScript judiciously for interactive elements
    - Optimize images for web delivery
-   - Leverage Jekyll's built-in features for pagination and collections
+   - Leverage Hugo's built-in features for pagination and collections
 
 5. **Content Strategy**
    - Develop sample posts across different categories
@@ -416,7 +416,7 @@ Based on our research and analysis, we recommend the following implementation ap
 
 1. **Initial Setup**
    - Create repository structure according to requirements
-   - Configure Jekyll and necessary plugins
+   - Configure Hugo and necessary plugins
    - Implement base layouts and includes
 
 2. **Core Development**
@@ -438,6 +438,6 @@ Based on our research and analysis, we recommend the following implementation ap
 
 The MyAI Notes blog platform presents an opportunity to create a modern, professional research blog with a focus on content discoverability and reading experience. By following the design principles inspired by DeepMind's blog while maintaining original branding, we can create a distinctive platform that serves as an excellent showcase for research content.
 
-The technical implementation using Jekyll and GitHub Pages ensures ease of maintenance and deployment, making it accessible to researchers and content creators without requiring extensive technical knowledge. The modular architecture allows for future expansion and customization as needs evolve.
+The technical implementation using Hugo and GitHub Pages ensures ease of maintenance and deployment, making it accessible to researchers and content creators without requiring extensive technical knowledge. The modular architecture allows for future expansion and customization as needs evolve.
 
 By prioritizing content readability, responsive design, and intuitive navigation, the platform will provide an excellent user experience for both content creators and readers, ultimately supporting the effective communication of research findings and ideas.

@@ -1,0 +1,10 @@
+{{ define "main" }}
+<div class="articles-grid">
+  {{ range .Paginator.Pages }}
+    <div class="grid-item">
+      {{ partial "post-card.html" . }}
+    </div>
+  {{ end }}
+</div>
+{{ template "_internal/pagination.html" . }}
+{{ end }}

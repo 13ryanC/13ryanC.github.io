@@ -1,0 +1,10 @@
+baseURL = "/"
+title = "MyResearchNotes"
+languageCode = "en-us"
+paginate = 9
+
+[params]
+  description = "Exploring the frontiers of AI research and applications"
+  twitter = "myresearchnotes"
+  github = "myresearchnotes"
+  linkedin = "myresearchnotes"
