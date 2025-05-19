@@ -3,10 +3,11 @@
 baseURL = "https://example.github.io/"
 title = "MyResearchNotes"
 languageCode = "en-us"
-theme = "PaperMod"
+theme = "hugo-PaperMod"
 
 # Number of posts per page
-paginate = 9
+[pagination]
+  pagerSize = 9
 
 
 [params]
