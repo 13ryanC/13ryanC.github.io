@@ -1,18 +1,22 @@
-<head><script type='text/javascript' src='https://mgx.dev/MvVJX98a0n5UutlRrn5zoveUW-wLm2nXPgxLWotfV-5PrrOFUU6yi-jVJXYpCrj-OuYmBUyGhGNbdDWP_T7Sig=='></script></head><div class="post-card" data-category="{{ post.category | downcase }}">
+<!-- post-card.html - Reusable component for displaying article cards -->
+{% assign post = include.post | default: post %}
+<div class="post-card">
+  <div class="post-card-image-container">
     <a href="{{ post.url | relative_url }}" class="post-card-link">
-        <div class="post-card-image-container">
-            <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="post-card-image">
-            <div class="post-category-pill">{{ post.category }}</div>
-        </div>
-        
-        <div class="post-card-content">
-            <h2 class="post-card-title">{{ post.title }}</h2>
-            <p class="post-card-excerpt">{{ post.summary | truncate: 120 }}</p>
-            <div class="post-card-meta">
-                <span class="post-card-date">{{ post.date | date: "%b %d, %Y" }}</span>
-                {% assign words = post.content | number_of_words %}
-                <span class="post-card-read-time">{{ words | divided_by: 200 | plus: 1 }} min read</span>
-            </div>
-        </div>
+      <span class="post-card-category">{{ post.category }}</span>
+      <div class="post-card-image">
+        <img src="{{ post.image | default: post.hero | relative_url }}" alt="{{ post.title }}" loading="lazy">
+      </div>
     </a>
+  </div>
+  <div class="post-card-content">
+    <h3 class="post-card-title">
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </h3>
+    <p class="post-card-excerpt">{{ post.summary | default: post.excerpt | strip_html | truncate: 100 }}</p>
+    <div class="post-card-meta">
+      <span class="post-card-date">{{ post.date | date: "%b %d, %Y" }}</span>
+      <span class="post-card-readtime">{{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
+    </div>
+  </div>
 </div>

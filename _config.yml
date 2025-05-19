@@ -1,3 +1,4 @@
+# Site settings
 title: "MyResearchNotes"
 description: "Exploring the frontiers of AI research and applications"
 baseurl: ""
@@ -5,11 +6,19 @@ url: ""
 
 # Build settings
 markdown: kramdown
+permalink: /:categories/:title/
 paginate: 9
 paginate_path: "/page:num/"
-permanent_links: /:categories/:title/
 
-# Default front matter for posts
+# Author settings
+author:
+  name: Research Team
+  email: contact@example.com
+
+# Collections
+collections: []
+
+# Default settings
 defaults:
   - scope:
       path: ""
@@ -17,16 +26,31 @@ defaults:
     values:
       layout: "post"
       author: "Research Team"
+      comments: false
 
-# Plugins
+# Social settings
+twitter_username: myresearchnotes
+github_username: myresearchnotes
+linkedin_username: myresearchnotes
+
+# SEO settings
+twitter:
+  username: myresearchnotes
+  card: summary_large_image
+logo: /assets/images/logo.png
+
+# Plugin settings
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-paginate
 
-# Social settings for SEO
-twitter_username: myresearchnotes
-github_username: myresearchnotes
-
-# Collections
-collections: []
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .git
+  - .github
+  - README.md

@@ -2,36 +2,58 @@
 layout: default
 ---
 
-<!-- Hero Section -->
-<div class="post-hero" style="background-image: url('{{ page.hero | relative_url }}');">
-    <div class="post-hero-content">
-        <div class="post-category-label">{{ page.category }}</div>
+<article class="post">
+  <!-- Hero header section -->
+  <div class="post-hero" style="background-image: url('{{ page.hero | relative_url }}');">
+    <div class="post-hero-overlay">
+      <div class="post-header-content">
+        <span class="post-category">{{ page.category }}</span>
         <h1 class="post-title">{{ page.title }}</h1>
-        <p class="post-subheading">{{ page.summary }}</p>
+        <p class="post-subtitle">{{ page.summary }}</p>
+        
         <div class="post-meta">
-            <span class="post-author">By {{ page.author }}</span>
-            <span class="post-date">{{ page.date | date: "%B %d, %Y" }}</span>
+          <span class="post-author">By {{ page.author }}</span>
+          <span class="post-date">{{ page.date | date: "%B %d, %Y" }}</span>
+          <span class="post-read-time">{{ content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<!-- Post Content -->
-<article class="post-content">
-    {{ content }}
+  <!-- Share buttons that appear after scrolling -->
+  <div class="share-container" id="shareContainer">
+    {% include share-buttons.html %}
+  </div>
+  
+  <!-- Main content -->
+  <div class="post-content-wrapper">
+    <div class="post-content">
+      {{ content }}
+    </div>
+  </div>
+  
+  <!-- More in this category section -->
+  <div class="more-posts">
+    <h3>More in {{ page.category }}</h3>
+    <div class="related-posts">
+      {% assign related_posts = site.categories[page.category] | where_exp:"post", "post.url != page.url" | limit: 3 %}
+      {% for post in related_posts %}
+        <div class="related-post-card">
+          {% include post-card.html %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 </article>
 
-<!-- Share Buttons (floating) -->
-{% include share-buttons.html %}
-
-<!-- Related Posts -->
-<section class="related-posts">
-    <div class="container">
-        <h2>More in {{ page.category }}</h2>
-        <div class="related-posts-grid">
-            {% assign related_posts = site.categories[page.category] | where_exp:"post", "post.url != page.url" | limit:3 %}
-            {% for post in related_posts %}
-                {% include post-card.html %}
-            {% endfor %}
-        </div>
-    </div>
-</section>
+<script>
+  // Script to show share buttons after scrolling
+  window.addEventListener('scroll', function() {
+    const shareContainer = document.getElementById('shareContainer');
+    if (window.scrollY > 300) {
+      shareContainer.classList.add('visible');
+    } else {
+      shareContainer.classList.remove('visible');
+    }
+  });
+</script>
