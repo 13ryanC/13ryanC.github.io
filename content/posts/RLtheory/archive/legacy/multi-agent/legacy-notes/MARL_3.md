@@ -270,9 +270,9 @@ Below is a structured tour of those sources, together with the best‑known comp
 
 | Parameter              | Scaling law                             | Consequence                                                                                                                                              |           |      |   |                                                                                                                                                                                                                                             |
 | ---------------------- | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---- | - | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Number of pure actions | (                                       | A                                                                                                                                                        | =\prod\_i | A\_i | ) | The payoff table grows **exponentially** in the number of players; storing it already becomes infeasible for modest $n$ unless we adopt *succinct* encodings such as graphical, circuit or polymatrix games. ([people.seas.harvard.edu][1]) |
-| Mixed strategies       | Continuous simplex $\Delta(A_i)$        | Optimisation problems involve real‑valued variables and constraints, not just combinatorial search.                                                      |           |      |   |                                                                                                                                                                                                                                             |
-| Succinct encodings     | Pay‑offs computed by circuits or graphs | Eliminates the table blow‑up, **but** many decision questions become *coNP‑ or $\#$P‑hard* on these compact descriptions. ([people.seas.harvard.edu][1]) |           |      |   |                                                                                                                                                                                                                                             |
+| Number of pure actions | (                                       | A                                                                                                                                                        | =\prod\_i | A\_i | ) | The payoff table grows **exponentially** in the number of players; storing it already becomes infeasible for modest \(n\) unless we adopt *succinct* encodings such as graphical, circuit or polymatrix games. ([people.seas.harvard.edu][1]) |
+| Mixed strategies       | Continuous simplex \(\Delta(A_i)\)        | Optimisation problems involve real‑valued variables and constraints, not just combinatorial search.                                                      |           |      |   |                                                                                                                                                                                                                                             |
+| Succinct encodings     | Pay‑offs computed by circuits or graphs | Eliminates the table blow‑up, **but** many decision questions become *coNP‑ or \(\#\)P‑hard* on these compact descriptions. ([people.seas.harvard.edu][1]) |           |      |   |                                                                                                                                                                                                                                             |
 
 ---
 
@@ -282,10 +282,10 @@ Below is a structured tour of those sources, together with the best‑known comp
 
 | Variant of the problem                         | Formal statement                                                                  | Complexity status                                                                                                                             | Notes        |    |       |                                                                                               |
 | ---------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | -- | ----- | --------------------------------------------------------------------------------------------- |
-| **Compute one NE** (general game, ≥ 2 players) | Output a mixed‑strategy profile $\sigma$ with no profitable unilateral deviation. | **PPAD‑complete** for 2‑player and ≥ 3‑player games (no polynomial‑time algorithm is known unless PPAD = P). ([MIT CSAIL][2], [MIT CSAIL][3]) |              |    |       |                                                                                               |
-| **Compute one NE, zero‑sum 2‑player**          | Same, but $R_1=-R_2$.                                                             | **Polynomial time** via a pair of linear programmes (one primal, one dual). ([econweb.ucsd.edu][4])                                           |              |    |       |                                                                                               |
+| **Compute one NE** (general game, ≥ 2 players) | Output a mixed‑strategy profile \(\sigma\) with no profitable unilateral deviation. | **PPAD‑complete** for 2‑player and ≥ 3‑player games (no polynomial‑time algorithm is known unless PPAD = P). ([MIT CSAIL][2], [MIT CSAIL][3]) |              |    |       |                                                                                               |
+| **Compute one NE, zero‑sum 2‑player**          | Same, but \(R_1=-R_2\).                                                             | **Polynomial time** via a pair of linear programmes (one primal, one dual). ([econweb.ucsd.edu][4])                                           |              |    |       |                                                                                               |
 | **Verify** whether a given profile is an NE    | “Is NE?” decision problem.                                                        | **coNP‑complete** for succinct representations; polynomial for explicit tables (just test best responses). ([people.seas.harvard.edu][1])     |              |    |       |                                                                                               |
-| **Count NE**                                   | Return                                                                            | NE                                                                                                                                            | or decide if | NE |  > k. | **$\#$P‑complete** even for two‑player symmetric games. ([people.cs.pitt.edu][5], [arXiv][6]) |
+| **Count NE**                                   | Return                                                                            | NE                                                                                                                                            | or decide if | NE |  > k. | **\(\#\)P‑complete** even for two‑player symmetric games. ([people.cs.pitt.edu][5], [arXiv][6]) |
 
 > **PPAD** (“Polynomial Parity Arguments on Directed graphs”) is a class of total search problems whose solutions are guaranteed by a parity argument; Nash equilibrium sits at its core. ([MIT CSAIL][2])
 
@@ -304,15 +304,15 @@ finding one reduces to linear programming and is thus solvable in polynomial tim
 
 | Guarantee                                             | Status                                                                                                   |
 | ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| $\varepsilon$=0.5 well‑supported NE in bimatrix games | Polynomial‑time LP‑based algorithms exist. ([epubs.siam.org][8])                                         |
-| Any constant $\varepsilon<\frac12$                    | Quasi‑polynomial time and matching lower bounds; no fully‑polynomial scheme is known. ([ACM SIGecom][9]) |
-| $\varepsilon$-NE in n‑player games                    | Requires $2^{\Omega(n)}$ queries to pay‑offs in the oracle model. ([arXiv][10])                          |
+| \(\varepsilon\)=0.5 well‑supported NE in bimatrix games | Polynomial‑time LP‑based algorithms exist. ([epubs.siam.org][8])                                         |
+| Any constant \(\varepsilon<\frac12\)                    | Quasi‑polynomial time and matching lower bounds; no fully‑polynomial scheme is known. ([ACM SIGecom][9]) |
+| \(\varepsilon\)-NE in n‑player games                    | Requires \(2^{\Omega(n)}\) queries to pay‑offs in the oracle model. ([arXiv][10])                          |
 
 ---
 
 ## 3 Strategic complexity & multiplicity
 
-* **Multiple equilibria**: Normal‑form games can harbour an exponential number of Nash equilibria, making *selection* or *prediction* difficult. Counting is $\#$P‑hard (above).
+* **Multiple equilibria**: Normal‑form games can harbour an exponential number of Nash equilibria, making *selection* or *prediction* difficult. Counting is \(\#\)P‑hard (above).
 * **Equilibrium refinements** (trembling‑hand perfect, proper, etc.) add further fixed‑point constraints—no polynomial algorithms are known in general, and most decision problems are NP‑ or PSPACE‑hard in succinct representations. *Practical takeaway*: you seldom have the luxury of computing refined equilibria in large games.
 
 ---
@@ -322,7 +322,7 @@ finding one reduces to linear programming and is thus solvable in polynomial tim
 | Learning dynamic            | Convergence guarantee                                                                                              | Complexity issue                                              |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
 | Best‑response dynamics      | Converges only in potential or zero‑sum games; may cycle otherwise.                                                | Detecting convergence is PSPACE‑hard.                         |
-| No‑regret / fictitious play | Time‑average play converges to CE, **not** necessarily NE; number of steps can be exponential in $1/\varepsilon$.  | Relates to hardness of approximating NE. ([MIT CSAIL][2])     |
+| No‑regret / fictitious play | Time‑average play converges to CE, **not** necessarily NE; number of steps can be exponential in \(1/\varepsilon\).  | Relates to hardness of approximating NE. ([MIT CSAIL][2])     |
 | Replicator dynamics         | Continuous‑time ODE; may take exponential time to approach equilibrium and can get stuck at unstable fixed points. | Illustrates that even *analog* computation is not a shortcut. |
 
 ---
@@ -349,13 +349,13 @@ finding one reduces to linear programming and is thus solvable in polynomial tim
 
 ### Cheat‑sheet of complexity results for normal‑form games
 
-| Task                         | General game (explicit table)                        | 2‑player zero‑sum                        | $k$-player succinct game                                   |
+| Task                         | General game (explicit table)                        | 2‑player zero‑sum                        | \(k\)-player succinct game                                   |
 | ---------------------------- | ---------------------------------------------------- | ---------------------------------------- | ---------------------------------------------------------- |
 | Find one NE                  | **PPAD‑complete** ([MIT CSAIL][2])                   | **P** (LP) ([econweb.ucsd.edu][4])       | **PPAD‑complete** ([people.seas.harvard.edu][1])           |
-| Verify NE                    | **P**                                                | **P**                                    | coNP‑ or coNP$\#$P‑complete ([people.seas.harvard.edu][1]) |
-| Count NE                     | $\#$P‑complete ([people.cs.pitt.edu][5])             | $\#$P‑complete ([arXiv][6])              | $\#$P‑complete                                             |
+| Verify NE                    | **P**                                                | **P**                                    | coNP‑ or coNP\(\#\)P‑complete ([people.seas.harvard.edu][1]) |
+| Count NE                     | \(\#\)P‑complete ([people.cs.pitt.edu][5])             | \(\#\)P‑complete ([arXiv][6])              | \(\#\)P‑complete                                             |
 | Compute CE                   | **P** (LP) ([NeurIPS Proceedings][7])                | **P**                                    | **P**                                                      |
-| ε‑NE ($ \varepsilon\le 0.5$) | Quasi‑poly / exp time lower bound ([ACM SIGecom][9]) | Poly‑time for ½‑NE ([epubs.siam.org][8]) | 2^{Ω(n)} queries needed ([arXiv][10])                      |
+| ε‑NE (\( \varepsilon\le 0.5\)) | Quasi‑poly / exp time lower bound ([ACM SIGecom][9]) | Poly‑time for ½‑NE ([epubs.siam.org][8]) | 2^{Ω(n)} queries needed ([arXiv][10])                      |
 
 ---
 
@@ -376,8 +376,8 @@ Normal‑form games look deceptively static, but underneath they are a rich mine
 ---
 
 
-Below is a **focused “complexity map”** for **repeated normal‑form games** (RNGs)—i.e., a single stage game $G=\langle I,\{A_i\},\{R_i\}\rangle$ played over a horizon
-$t=0,1,\dots$—together with the best‑established results on why the model becomes hard the moment it is iterated.
+Below is a **focused “complexity map”** for **repeated normal‑form games** (RNGs)—i.e., a single stage game \(G=\langle I,\{A_i\},\{R_i\}\rangle\) played over a horizon
+\(t=0,1,\dots\)—together with the best‑established results on why the model becomes hard the moment it is iterated.
 
 > **Note on the chapter PDF** – the file you shared earlier has timed‑out on the server, so I cannot reopen it for verbatim quotations. The summary below therefore rests on the public literature; if you want precise excerpts from the book again, please re‑upload the PDF.
 
@@ -385,13 +385,13 @@ $t=0,1,\dots$—together with the best‑established results on why the model be
 
 ## 1 Representational explosion
 
-| Dimension                    | One‑shot game           | Repeated for $T$ rounds (finite)                                   | Repeated, $T=\infty$ (discount $\delta$) |                 |                    |        |            |
+| Dimension                    | One‑shot game           | Repeated for \(T\) rounds (finite)                                   | Repeated, \(T=\infty\) (discount \(\delta\)) |                 |                    |        |            |
 | ---------------------------- | ----------------------- | ------------------------------------------------------------------ | ---------------------------------------- | --------------- | ------------------ | ------ | ---------- |
 | Pure‑history space           | 1 joint action          | (                                                                  | A                                        | ^{T}) histories | countably infinite |        |            |
-| Strategy space per player    | $\Delta(A_i)$ (simplex) | functions $h_t \mapsto a_{i,t}$ ⇒ **doubles exponentially** in $T$ | **uncountable**                          |                 |                    |        |            |
+| Strategy space per player    | \(\Delta(A_i)\) (simplex) | functions \(h_t \mapsto a_{i,t}\) ⇒ **doubles exponentially** in \(T\) | **uncountable**                          |                 |                    |        |            |
 | Storage need (explicit tree) | (\Theta(                | A                                                                  | ))                                       | (\Theta(        | A                  | ^{T})) | impossible |
 
-Succinct encodings (graphical or circuit games) mitigate storage but trigger new hardness results (coNP‐ or $\#$P‑completeness for several decision tasks) .
+Succinct encodings (graphical or circuit games) mitigate storage but trigger new hardness results (coNP‐ or \(\#\)P‑completeness for several decision tasks) .
 
 ---
 
@@ -399,14 +399,14 @@ Succinct encodings (graphical or circuit games) mitigate storage but trigger new
 
 ### 2.1 **Subgame‑perfect equilibrium (SPE) by backward induction**
 
-*If the stage game has a **unique** Nash equilibrium*, backward induction gives the unique SPE in **$O(T\cdot|A|)$** time (lectures in MIT‑OCW) ([MIT OpenCourseWare][1]).
+*If the stage game has a **unique** Nash equilibrium*, backward induction gives the unique SPE in **\(O(T\cdot|A|)\)** time (lectures in MIT‑OCW) ([MIT OpenCourseWare][1]).
 
 ### 2.2 What makes the finite case hard
 
 | Hard task                                                       | Complexity result                                                                                                           | Intuition                                                       |
 | --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| *Does there exist* an SPE with average pay‑off ≥ $\mathbf{v}$?  | **NP‑hard** in general succinct games (folklore; reduction from Subset‑Sum).                                                | Incentive‑compatibility constraints couple all rounds.          |
-| *Enumerate* all SPE outcome paths                               | Number of paths can grow **exponentially in $T$** (each history‑contingent threat choice branches).                         | Each punishment continuation is a game tree itself.             |
+| *Does there exist* an SPE with average pay‑off ≥ \(\mathbf{v}\)?  | **NP‑hard** in general succinct games (folklore; reduction from Subset‑Sum).                                                | Incentive‑compatibility constraints couple all rounds.          |
+| *Enumerate* all SPE outcome paths                               | Number of paths can grow **exponentially in \(T\)** (each history‑contingent threat choice branches).                         | Each punishment continuation is a game tree itself.             |
 | *Compute minimal‑memory strategy* that attains a given SPE path | Requires solving a shortest‑path in an exponentially‑sized automaton space; **NP‑hard** (Rubinstein‑style automata models). | Balancing reward and memory creates a bi–criteria optimisation. |
 
 ---
@@ -415,7 +415,7 @@ Succinct encodings (graphical or circuit games) mitigate storage but trigger new
 
 ### 3.1 The Folk Theorem’s upside
 
-For perfect monitoring and discount factor $\delta$ near 1, **every** payoff vector that is
+For perfect monitoring and discount factor \(\delta\) near 1, **every** payoff vector that is
 (i) feasible and (ii) individually‑rational can be supported by an SPE.
 Classic constructive proofs (Abreu–Pearce–Stacchetti 1990) rely on “grim‑trigger” threat automata.
 
@@ -424,7 +424,7 @@ Classic constructive proofs (Abreu–Pearce–Stacchetti 1990) rely on “grim�
 | Players                          | Task                                                                                                                                                                                                        | Complexity status                                                                                           |    |                                                                                   |
 | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | -- | --------------------------------------------------------------------------------- |
 | 2                                | Find one (approx.) Nash equilibrium                                                                                                                                                                         | **Polynomial time** (Littman & Stone, 2005) – uses Folk Theorem to cut to a 2‑D linear feasibility problem. |    |                                                                                   |
-| ≥ 3                              | Find any $\varepsilon$-NE (even (\varepsilon=1/                                                                                                                                                             | A                                                                                                           | )) | **PPAD‑complete**  – a reduction shows k‑player one‑shot ↔ (k+1)-player repeated. |
+| ≥ 3                              | Find any \(\varepsilon\)-NE (even (\varepsilon=1/                                                                                                                                                             | A                                                                                                           | )) | **PPAD‑complete**  – a reduction shows k‑player one‑shot ↔ (k+1)-player repeated. |
 | Graphical games, constant degree | Still PPAD‑hard unless players are **computationally bounded**; with a polynomial‑time bound and standard crypto assumptions, Halpern‑Pass‑Seeman devise an efficient algorithm for a *computational* SPE . |                                                                                                             |    |                                                                                   |
 
 Hence the Folk Theorem enlarges the equilibrium **set**, but does **not** make any particular equilibrium easier to locate once you have three or more strategic agents.
@@ -435,7 +435,7 @@ Hence the Folk Theorem enlarges the equilibrium **set**, but does **not** make a
 
 * Measuring complexity by the **number of states** in a finite automaton that realises a strategy:
 
-  * Tit‑for‑Tat needs 2 states, Grim Trigger 2, but certain payoff profiles require machines whose size grows **at least linearly in $1/(1-\delta)$**.
+  * Tit‑for‑Tat needs 2 states, Grim Trigger 2, but certain payoff profiles require machines whose size grows **at least linearly in \(1/(1-\delta)\)**.
   * Rubinstein (1986) showed that players who minimise *both* average payoff loss and automaton size may be stuck with the classical Prisoner’s‑Dilemma outcome even when cooperation is supportable ([ScienceDirect][2]).
 
 ---
@@ -444,7 +444,7 @@ Hence the Folk Theorem enlarges the equilibrium **set**, but does **not** make a
 
 | Learning dynamic                 | Converges in RNG?                                                                                                                                                     | Complexity insight                                                                                               |
 | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| No‑regret (MWU, Hedge)           | Time‑average play → Correlated Equilibrium in zero‑sum 2‑player; **need not** reach NE in general‑sum or ≥ 3 player games.                                            | Myth‑of‑Folk‑Theorem paper proves any dynamics that yields an $\varepsilon$-NE would solve a PPAD‑hard problem . |
+| No‑regret (MWU, Hedge)           | Time‑average play → Correlated Equilibrium in zero‑sum 2‑player; **need not** reach NE in general‑sum or ≥ 3 player games.                                            | Myth‑of‑Folk‑Theorem paper proves any dynamics that yields an \(\varepsilon\)-NE would solve a PPAD‑hard problem . |
 | Last‑iterate (stabilised regret) | Algorithms exist for **zero‑sum** RNGs (Dinh et al. 2021) but rely on strong convexity assumptions ([Proceedings of Machine Learning Research][3]).                   |                                                                                                                  |
 | Independent Q‑learning           | PAC‑style sample complexity is exponential in horizon for general‑sum repeated games (hardness of independent learning in Markov games) ([sham.seas.harvard.edu][4]). |                                                                                                                  |
 
@@ -453,7 +453,7 @@ Hence the Folk Theorem enlarges the equilibrium **set**, but does **not** make a
 ## 6 Algorithmic work‑arounds
 
 * **Poly‑time constructive schemes** for two‑player repeated games with large action sets (Conitzer & Sandholm “Fast Equilibrium Computation…”) sidestep full enumeration via outcome‑sampling and curse‑of‑dimensionality heuristics ([CMU School of Computer Science][5]).
-* **Set‐valued dynamic programming** (Abreu‑Sannikov; Goldlücke‑Kranz) approximate the entire equilibrium payoff frontier; runtime is polynomial in $|A|$ but pseudo‑polynomial in $1/(1-\delta)$ ([econtheory.org][6]).
+* **Set‐valued dynamic programming** (Abreu‑Sannikov; Goldlücke‑Kranz) approximate the entire equilibrium payoff frontier; runtime is polynomial in \(|A|\) but pseudo‑polynomial in \(1/(1-\delta)\) ([econtheory.org][6]).
 * **Public‑signal decomposition** lets one compute Perfect‑Public‑Equilibrium payoffs via linear programmes when the monitoring structure is common‑knowledge and low‑dimensional ([arXiv][7]).
 
 ---
@@ -490,9 +490,9 @@ The emphasis is strictly on the *modelling* and *computational* burdens that ari
 
 | Aspect                                      | Where the difficulty comes from                                                                                                                                                                                                             | Practical consequences                                                                                                                                                            |                                                                                                                |                                                                                                                                                                        |                                                                    |      |         |                                                                                                                                                                                                                                           |
 | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | ---- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Pay‑off table size**                      | A profile is a Cartesian product $A=\prod_{i=1}^{n}A_i$.  The number of rows in the table is (                                                                                                                                              | A                                                                                                                                                                                 | = \prod\_i                                                                                                     | A\_i                                                                                                                                                                   | ), which is *exponential in the number of players* whenever each ( | A\_i | \ge 2). | Storing or even reading the full table becomes infeasible for modest $n$.  Designers adopt *succinct representations* (graphical, polymatrix, circuit, continuous utilities) at the cost of losing the simple rectangular data structure. |
+| **Pay‑off table size**                      | A profile is a Cartesian product \(A=\prod_{i=1}^{n}A_i\).  The number of rows in the table is (                                                                                                                                              | A                                                                                                                                                                                 | = \prod\_i                                                                                                     | A\_i                                                                                                                                                                   | ), which is *exponential in the number of players* whenever each ( | A\_i | \ge 2). | Storing or even reading the full table becomes infeasible for modest \(n\).  Designers adopt *succinct representations* (graphical, polymatrix, circuit, continuous utilities) at the cost of losing the simple rectangular data structure. |
 | **Action‑space heterogeneity**              | Players may have different numbers or types of actions (discrete, continuous, parameterised).                                                                                                                                               | A uniform tabular layout no longer suffices; one must transform continuous choices into discretised grids or analytic payoff functions.                                           |                                                                                                                |                                                                                                                                                                        |                                                                    |      |         |                                                                                                                                                                                                                                           |
-| **Mixed and behavioural strategies**        | Even before talking about “optimal” behaviour, the mere *set* of probabilistic strategies is a simplex in (\mathbb R^{                                                                                                                      | A\_i                                                                                                                                                                              | }) (or an infinite‑dimensional object if $A_i$ is continuous).                                                 | Any downstream computation—e.g., sampling random behaviour for simulation—must handle floating‑point probability vectors and, potentially, numerical stability issues. |                                                                    |      |         |                                                                                                                                                                                                                                           |
+| **Mixed and behavioural strategies**        | Even before talking about “optimal” behaviour, the mere *set* of probabilistic strategies is a simplex in (\mathbb R^{                                                                                                                      | A\_i                                                                                                                                                                              | }) (or an infinite‑dimensional object if \(A_i\) is continuous).                                                 | Any downstream computation—e.g., sampling random behaviour for simulation—must handle floating‑point probability vectors and, potentially, numerical stability issues. |                                                                    |      |         |                                                                                                                                                                                                                                           |
 | **Reward‑structure tagging**                | Zero‑sum, common‑reward, and general‑sum labels are defined **at this level**.  They do not create algorithmic hardness per se, but they *fork* all subsequent modelling paths (e.g., how you log performance or allocate rewards in code). | Every simulation or data pipeline must carry the tag so that later modules (learning, evaluation, visualisation) can interpret payoffs correctly.                                 |                                                                                                                |                                                                                                                                                                        |                                                                    |      |         |                                                                                                                                                                                                                                           |
 | **Preference encoding vs. numeric payoffs** | In many domains only ordinal preferences (rankings) are known, not cardinal utilities.  Converting those into numeric payoffs is non‑trivial and can bias later analysis.                                                                   | Modellers must decide on scaling, normalisation and tie‑breaking conventions **before** any solution concept enters.                                                              |                                                                                                                |                                                                                                                                                                        |                                                                    |      |         |                                                                                                                                                                                                                                           |
 | **Data consistency & validation**           | A payoff array provided by domain experts or scraped from logs can be inconsistent (e.g., illegal actions, missing entries).                                                                                                                | Without validated, complete data, *no* theoretical or empirical study—equilibrium‑based or otherwise—can proceed.  Automated checks and domain‑specific constraints are required. |                                                                                                                |                                                                                                                                                                        |                                                                    |      |         |                                                                                                                                                                                                                                           |
@@ -504,28 +504,28 @@ The emphasis is strictly on the *modelling* and *computational* burdens that ari
 
 A repeated game is specified by:
 
-* the stage game $G=\langle I,\{A_i\},\{R_i\}\rangle$;
-* a horizon $T\in\mathbb N\cup\{\infty\}$ or a termination rule (e.g., geometric $p_\text{stop}$);
+* the stage game \(G=\langle I,\{A_i\},\{R_i\}\rangle\);
+* a horizon \(T\in\mathbb N\cup\{\infty\}\) or a termination rule (e.g., geometric \(p_\text{stop}\));
 * an aggregation rule for per‑round rewards (sum, average, discounted sum).
 
 ### 2.1 Explosion of the underlying game tree
 
-* **Joint‑action histories**: after $t$ rounds there are $|A|^t$ distinct paths.
-* **Explicit extensive‑form** representation therefore needs $\Theta\left(\sum_{k=0}^{T-1}|A|^{k}\right)$ nodes—exponential in $T$.
+* **Joint‑action histories**: after \(t\) rounds there are \(|A|^t\) distinct paths.
+* **Explicit extensive‑form** representation therefore needs \(\Theta\left(\sum_{k=0}^{T-1}|A|^{k}\right)\) nodes—exponential in \(T\).
 * Memory and disk usage grow prohibitively quickly; any simulator that logs complete histories must implement pruning, compression, or on‑the‑fly roll‑outs.
 
 ### 2.2 Strategy‑space size before optimisation
 
-A *pure* strategy for player $i$ is a deterministic function
+A *pure* strategy for player \(i\) is a deterministic function
 
 $$
 \pi_i:\mathcal H_t \to A_i, \quad 
 \mathcal H_t = \bigl(A\bigr)^{t}
 $$
 
-where $\mathcal H_t$ is the set of length‑$t$ joint histories. Even for modest horizons this means:
+where \(\mathcal H_t\) is the set of length‑\(t\) joint histories. Even for modest horizons this means:
 
-* $\bigl| \text{PureStrategies}_i \bigr| = |A_i|^{|A|^{T}}$ *(double‑exponential)*.
+* \(\bigl| \text{PureStrategies}_i \bigr| = |A_i|^{|A|^{T}}\) *(double‑exponential)*.
 * Mixed strategies would be probability distributions over this already enormous set.
 
 Hence, **long before** introducing equilibria, the very *act of naming* an arbitrary strategy becomes impossible without some compact description (state machines, parameterised policies, decision trees, neural networks, etc.).
@@ -543,8 +543,8 @@ The repeated framework is agnostic to *how* players learn what happened in previ
 
 | Monitoring assumption                                                     | Data the modeller must track                                 | Implementation burden                                                          |
 | ------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| **Perfect public monitoring** (everyone observes the exact joint action)  | Single shared log of actions; same for all players           | Simple, but log still $\Theta(T)$ long.                                        |
-| **Imperfect or private monitoring** (noisy, player‑specific observations) | Separate observation histories $o_{i,0:T-1}$ for each player | Multiplicative storage; one must define observation channels and random seeds. |
+| **Perfect public monitoring** (everyone observes the exact joint action)  | Single shared log of actions; same for all players           | Simple, but log still \(\Theta(T)\) long.                                        |
+| **Imperfect or private monitoring** (noisy, player‑specific observations) | Separate observation histories \(o_{i,0:T-1}\) for each player | Multiplicative storage; one must define observation channels and random seeds. |
 
 Importantly, these logging mechanisms are required purely to **specify** what information players *could* condition on later, without regard to equilibria.
 
@@ -560,7 +560,7 @@ Yet all of these considerations arise before we ask “what is an optimal policy
 
 ### 2.6 Simulation runtime vs. horizon length
 
-Running $M$ roll‑outs of length $T$ with $n$ players and per‑step logging cost $c$:
+Running \(M\) roll‑outs of length \(T\) with \(n\) players and per‑step logging cost \(c\):
 
 $$
 \text{CPU time} = O(M \cdot T \cdot c),\qquad
@@ -568,7 +568,7 @@ $$
 \text{Disk} = O(M \cdot T).
 $$
 
-When $T$ is large or unbounded, faithfully simulating every round may not be viable; approximate, event‑driven or batch‑update simulators are needed.
+When \(T\) is large or unbounded, faithfully simulating every round may not be viable; approximate, event‑driven or batch‑update simulators are needed.
 
 ---
 
@@ -619,7 +619,7 @@ A model is *higher* in the hierarchy precisely because it **strictly adds at lea
 | ----- | ----------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---- | --------------------------- |
 | **0** | **MDP** (single agent)                          | • agent count fixed to 1                                    | Baseline reference.                                                                                                                                                |      |                             |
 | **1** | **Normal‑form game**                            | • multiple agents *I*                                       | Descriptive size multiplies by (\prod\_i                                                                                                                           | A\_i | ).                          |
-| **2** | **Repeated normal‑form game**                   | • discrete time<br>• joint‑action history                   | Information sets explode: (                                                                                                                                        | A    | ^t) histories at depth $t$. |
+| **2** | **Repeated normal‑form game**                   | • discrete time<br>• joint‑action history                   | Information sets explode: (                                                                                                                                        | A    | ^t) histories at depth \(t\). |
 | **3** | **Stochastic game** (a.k.a. Markov game)        | • explicit environment state *S*<br>• transition kernel *T* | Every pay‑off row now indexed by *state* as well as *joint action*.  Simulation must sample *T*.                                                                   |      |                             |
 | **4** | **Partially Observable Stochastic Game** (POSG) | • private observation sets Oᵢ<br>• observation kernels Oᵢ   | Descriptive size adds the observation matrices; information sets for policies become each player’s private observation history, giving the largest strategy space. |      |                             |
 
@@ -635,15 +635,15 @@ Each arrow means that **you cannot write down the model on the right unless you 
 
 Let
 
-* $n = |I|$ players
-* $m = \max_i |A_i|$ max pure actions per player
-* $|S|$ number of states
-* $|O|$ max observations per player
+* \(n = |I|\) players
+* \(m = \max_i |A_i|\) max pure actions per player
+* \(|S|\) number of states
+* \(|O|\) max observations per player
 
-| Model       | Minimal description length (big‑O, bits) | Number of possible length‑$T$ histories seen by one agent |           |   |                                 |    |   |                    |
+| Model       | Minimal description length (big‑O, bits) | Number of possible length‑\(T\) histories seen by one agent |           |   |                                 |    |   |                    |
 | ----------- | ---------------------------------------- | --------------------------------------------------------- | --------- | - | ------------------------------- | -- | - | ------------------ |
-| Normal‑form | $O(m^{n})$                             | 1                                                         |           |   |                                 |    |   |                    |
-| Repeated    | $O(m^{n})$ (for stage game)            | $m^{nT}$                                                  |           |   |                                 |    |   |                    |
+| Normal‑form | \(O(m^{n})\)                             | 1                                                         |           |   |                                 |    |   |                    |
+| Repeated    | \(O(m^{n})\) (for stage game)            | \(m^{nT}\)                                                  |           |   |                                 |    |   |                    |
 | Stochastic  | (O(                                      | S                                                         | ;m^{,n} + | S | ^2 m^{,n})) (pay‑offs + kernel) | (( | S | ,m^{,n})^{T})      |
 | POSG        | previous row + (O(n,                     | S                                                         | ,         | O | ,m^{,n})) (obs. tables)         | (( | O | )^{nT}) per player |
 

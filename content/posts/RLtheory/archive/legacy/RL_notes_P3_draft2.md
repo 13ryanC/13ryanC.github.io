@@ -11,34 +11,34 @@ image: /assets/images/card3.png
 
 This section summarizes key results and concepts related to Value Iteration and Policy Iteration in the context of Markov Decision Processes (MDPs) with a focus on their theoretical underpinnings and practical implications.
 A. Sensitivity of Greedy Policies (Continuity/Sensitivity Result)
-Core Idea: A greedy policy derived from an approximate value function $V$ will yield a policy whose true value function $V_\pi$ is "close" to the optimal value function $V^$, provided $V$ itself is close to $V^$.
-Mathematical Expression: The value function of the greedy policy, $V_\pi$, is bounded in its distance from $V^$ by a factor related to the maximum difference between the chosen $V$ and $V^$. Specifically, the maximum distance is scaled by $2\gamma / (1-\gamma)$, where $\gamma$ is the discount factor.
-Geometric Interpretation: If $V$ is a point in the high-dimensional value function space, and $V^$ is the optimal value function, then the value function $V_\pi$ obtained by greedifying $V$ will lie within a "box" or "square" region around $V^$, whose size is proportional to the distance between $V$ and $V^$. As $V$ approaches $V^$, $V_\pi$ also approaches $V^*$.
+Core Idea: A greedy policy derived from an approximate value function \(V\) will yield a policy whose true value function \(V_\pi\) is "close" to the optimal value function \(V^\), provided \(V\) itself is close to \(V^\).
+Mathematical Expression: The value function of the greedy policy, \(V_\pi\), is bounded in its distance from \(V^\) by a factor related to the maximum difference between the chosen \(V\) and \(V^\). Specifically, the maximum distance is scaled by \(2\gamma / (1-\gamma)\), where \(\gamma\) is the discount factor.
+Geometric Interpretation: If \(V\) is a point in the high-dimensional value function space, and \(V^\) is the optimal value function, then the value function \(V_\pi\) obtained by greedifying \(V\) will lie within a "box" or "square" region around \(V^\), whose size is proportional to the distance between \(V\) and \(V^\). As \(V\) approaches \(V^\), \(V_\pi\) also approaches \(V^*\).
 Significance: This result is crucial for understanding the robustness of greedy policies to errors in value function estimation. It ensures that even if we don't have the perfectly optimal value function, a greedy policy derived from a reasonably good approximation will still perform near-optimally.
 B. Value Function Space Properties
 Convexity: The set of all valid value functions for all possible policies in an MDP forms a convex set. While not formally proven in the lecture, this property is mentioned as a known result.
-Corners of the Minimum Enclosing Rectangle: For this convex set, the upper-right corner of its minimum enclosing rectangle corresponds to $V^*$ (the maximum possible value for each state independently). The lower-left corner would correspond to the minimum possible values (if considering costs, or if minimizing rewards). Both of these extreme points belong to the set of valid value functions.
+Corners of the Minimum Enclosing Rectangle: For this convex set, the upper-right corner of its minimum enclosing rectangle corresponds to \(V^*\) (the maximum possible value for each state independently). The lower-left corner would correspond to the minimum possible values (if considering costs, or if minimizing rewards). Both of these extreme points belong to the set of valid value functions.
 Extreme Points: The extreme points (or "corners") of the value function polytope correspond to value functions of deterministic, memoryless policies.
 C. Value Iteration (VI)
-Algorithm: Value iteration is an iterative method for approximating $V^*$. It starts with an initial value function (e.g., all zeros) and repeatedly applies the Bellman optimality operator $T$.
-$V_{k+1} = T(V_k)$, where $T(V)(s) = \max_a [R(s,a) + \gamma \sum_{s'} P(s'|s,a)V(s')]$.
-Convergence: Value iteration converges to $V^$ geometrically fast. The distance (in infinity norm) between $V_k$ and $V^$ decreases by a factor of $\gamma$ at each iteration.
-$||V_{k+1} - V^||_\infty \le \gamma ||V_k - V^||_\infty$.
-Iteration Complexity: The number of iterations $k$ required to achieve an $\epsilon$-optimal approximation of $V^$ (i.e., $||V_k - V^||_\infty \le \epsilon$) is approximately $O(\frac{1}{1-\gamma} \log \frac{1}{\epsilon})$. More precisely, $k \ge \frac{1}{1-\gamma} \log(\frac{\epsilon (1-\gamma)}{||V_0 - V^*||_\infty})$.
-Relevance: Value iteration's convergence properties, combined with the sensitivity result, provide a concrete method to find a near-optimal policy by first approximating $V^*$.
+Algorithm: Value iteration is an iterative method for approximating \(V^*\). It starts with an initial value function (e.g., all zeros) and repeatedly applies the Bellman optimality operator \(T\).
+\(V_{k+1} = T(V_k)\), where \(T(V)(s) = \max_a [R(s,a) + \gamma \sum_{s'} P(s'|s,a)V(s')]\).
+Convergence: Value iteration converges to \(V^\) geometrically fast. The distance (in infinity norm) between \(V_k\) and \(V^\) decreases by a factor of \(\gamma\) at each iteration.
+\(||V_{k+1} - V^||_\infty \le \gamma ||V_k - V^||_\infty\).
+Iteration Complexity: The number of iterations \(k\) required to achieve an \(\epsilon\)-optimal approximation of \(V^\) (i.e., \(||V_k - V^||_\infty \le \epsilon\)) is approximately \(O(\frac{1}{1-\gamma} \log \frac{1}{\epsilon})\). More precisely, \(k \ge \frac{1}{1-\gamma} \log(\frac{\epsilon (1-\gamma)}{||V_0 - V^*||_\infty})\).
+Relevance: Value iteration's convergence properties, combined with the sensitivity result, provide a concrete method to find a near-optimal policy by first approximating \(V^*\).
 D. Policy Iteration (PI)
 Algorithm: Policy iteration alternates between two steps:
-Policy Evaluation: For the current policy $\pi_k$, compute its true value function $V_{\pi_k}$. This involves solving a system of linear equations.
-Policy Improvement: Derive a new greedy policy $\pi_{k+1}$ with respect to $V_{\pi_k}$.
-Convergence: Policy iteration is guaranteed to find an optimal policy in a finite number of iterations, specifically at most $S \cdot A$ iterations (where S is the number of states and A is the number of actions), assuming ties are resolved systematically. This is because the sequence of policies generated is monotonically improving, and there are a finite number of distinct deterministic policies.
+Policy Evaluation: For the current policy \(\pi_k\), compute its true value function \(V_{\pi_k}\). This involves solving a system of linear equations.
+Policy Improvement: Derive a new greedy policy \(\pi_{k+1}\) with respect to \(V_{\pi_k}\).
+Convergence: Policy iteration is guaranteed to find an optimal policy in a finite number of iterations, specifically at most \(S \cdot A\) iterations (where S is the number of states and A is the number of actions), assuming ties are resolved systematically. This is because the sequence of policies generated is monotonically improving, and there are a finite number of distinct deterministic policies.
 Comparison with Value Iteration:Accuracy: PI finds the exact optimal policy (or its value function), while VI provides an approximation that gets arbitrarily close.
 Complexity: PI iterations are more expensive (solving linear equations), but it generally converges in fewer iterations than VI for achieving exact optimality. For obtaining a near-optimal policy (low accuracy), VI might be faster due to cheaper per-iteration cost.
-Runtime: The overall runtime for PI to find an optimal policy is often quoted as $O(S^4 A^2 / (1-\gamma))$, but a more precise analysis considering the cost of policy evaluation yields $O(S^2 A \cdot S)$ or similar if policy evaluation is performed efficiently. The lecture mentions a comparison that shows PI's runtime might be $O(S^4 A^2 H)$, where $H$ is the effective horizon, which can be seen as $1/(1-\gamma)$.
+Runtime: The overall runtime for PI to find an optimal policy is often quoted as \(O(S^4 A^2 / (1-\gamma))\), but a more precise analysis considering the cost of policy evaluation yields \(O(S^2 A \cdot S)\) or similar if policy evaluation is performed efficiently. The lecture mentions a comparison that shows PI's runtime might be \(O(S^4 A^2 H)\), where \(H\) is the effective horizon, which can be seen as \(1/(1-\gamma)\).
 E. Computational Complexity
 Arithmetic/Logic Operations Model: The discussion primarily uses a model where basic arithmetic and logic operations (addition, multiplication, maximization) each count as one "step," regardless of the size of the numbers involved.
 Binary Computation Model (Turing Machine): An alternative is the Turing machine model, where the size of numbers (number of bits) and the time to read input tables matter. This model is generally more precise but also more complex.
-Worst-Case Lower Bounds: The theoretical lower bounds for finding an optimal policy often involve a dependence on $S$ (number of states) and $A$ (number of actions), suggesting that every state-action pair must be "touched" at least once. The $1/(1-\gamma)$ factor often appears as a characteristic time or "effective horizon."
-Vanishing Discount Approach (Gamma goes to 1): Taking $\gamma \to 1$ relates to the average reward setting. In this context, the value functions are often normalized by multiplying with $(1-\gamma)$ to converge to the average reward. The "span" of value functions plays a role in bounding the complexity in the average reward setting.
+Worst-Case Lower Bounds: The theoretical lower bounds for finding an optimal policy often involve a dependence on \(S\) (number of states) and \(A\) (number of actions), suggesting that every state-action pair must be "touched" at least once. The \(1/(1-\gamma)\) factor often appears as a characteristic time or "effective horizon."
+Vanishing Discount Approach (Gamma goes to 1): Taking \(\gamma \to 1\) relates to the average reward setting. In this context, the value functions are often normalized by multiplying with \((1-\gamma)\) to converge to the average reward. The "span" of value functions plays a role in bounding the complexity in the average reward setting.
 F. Value Difference Identity/Decomposition
 Purpose: This is a fundamental identity that relates the value functions of two different policies or an approximate value function to the optimal one.
 Utility: It is widely used in proofs and derivations in reinforcement learning, including analyses of convergence and bounds. It often allows for direct comparison and decomposition of value differences.
@@ -50,26 +50,26 @@ How does Value Iteration converge, and what determines its geometric convergence
 What is the primary difference in how Value Iteration and Policy Iteration achieve an optimal policy?
 When might Value Iteration be preferred over Policy Iteration, and vice versa, in terms of computational efficiency?
 Explain the concept of "geometric convergence" as it applies to Value Iteration.
-What is the "vanishing discount approach," and why is it relevant when considering $\gamma \to 1$?
-How does the "effective horizon" ($H \approx 1/(1-\gamma)$) factor into the iteration complexity of Value Iteration?
+What is the "vanishing discount approach," and why is it relevant when considering \(\gamma \to 1\)?
+How does the "effective horizon" (\(H \approx 1/(1-\gamma)\)) factor into the iteration complexity of Value Iteration?
 What is the "Value Difference Decomposition" identity, and why is it considered important?
 What are the two computational models discussed for analyzing the complexity of MDP algorithms, and which one is primarily used in this lecture?
 Quiz Answer Key
-The continuity/sensitivity result states that if you take any value function $V$ and derive a greedy policy from it, the value function of that policy, $V_\pi$, will be close to the optimal value function $V^$ if $V$ itself was close to $V^$. This means small errors in value function approximation lead to small errors in the value of the resulting policy.
-The space of all valid value functions forms a convex set. Additionally, the upper-right corner of the minimum enclosing rectangle of this set corresponds to the optimal value function $V^*$, and it belongs to the set.
-Value Iteration converges to the optimal value function $V^$ by repeatedly applying the Bellman optimality operator $T$. Its geometric convergence rate means that the error (distance to $V^$) is reduced by a constant factor ($\gamma$, the discount factor) at each iteration.
+The continuity/sensitivity result states that if you take any value function \(V\) and derive a greedy policy from it, the value function of that policy, \(V_\pi\), will be close to the optimal value function \(V^\) if \(V\) itself was close to \(V^\). This means small errors in value function approximation lead to small errors in the value of the resulting policy.
+The space of all valid value functions forms a convex set. Additionally, the upper-right corner of the minimum enclosing rectangle of this set corresponds to the optimal value function \(V^*\), and it belongs to the set.
+Value Iteration converges to the optimal value function \(V^\) by repeatedly applying the Bellman optimality operator \(T\). Its geometric convergence rate means that the error (distance to \(V^\)) is reduced by a constant factor (\(\gamma\), the discount factor) at each iteration.
 Value Iteration iteratively refines the value function until it approximates the optimal value function, from which a policy can be extracted. Policy Iteration, on the other hand, alternates between evaluating a policy and then greedily improving it, directly converging to an optimal policy in a finite number of steps.
 Value Iteration might be preferred for low-accuracy approximations because its per-iteration cost is lower. Policy Iteration, despite its higher per-iteration cost (due to policy evaluation), is preferred for finding the exact optimal policy, as it's guaranteed to converge in a finite number of iterations.
-Geometric convergence, in the context of Value Iteration, means that the difference between the current value function approximation $V_k$ and the true optimal value function $V^*$ shrinks by a constant multiplicative factor (the discount factor $\gamma$) with each successive iteration. This implies exponentially fast reduction in error.
-The vanishing discount approach considers the behavior of value functions as the discount factor $\gamma$ approaches 1. This limit often relates to the average reward setting, where value functions are normalized by $(1-\gamma)$ to represent the long-term average reward rather than a discounted sum.
-The effective horizon, $H \approx 1/(1-\gamma)$, represents the characteristic time scale for rewards to significantly impact the total discounted return. In Value Iteration, this factor determines the number of iterations required for convergence, indicating that problems with $\gamma$ very close to 1 require many more steps.
+Geometric convergence, in the context of Value Iteration, means that the difference between the current value function approximation \(V_k\) and the true optimal value function \(V^*\) shrinks by a constant multiplicative factor (the discount factor \(\gamma\)) with each successive iteration. This implies exponentially fast reduction in error.
+The vanishing discount approach considers the behavior of value functions as the discount factor \(\gamma\) approaches 1. This limit often relates to the average reward setting, where value functions are normalized by \((1-\gamma)\) to represent the long-term average reward rather than a discounted sum.
+The effective horizon, \(H \approx 1/(1-\gamma)\), represents the characteristic time scale for rewards to significantly impact the total discounted return. In Value Iteration, this factor determines the number of iterations required for convergence, indicating that problems with \(\gamma\) very close to 1 require many more steps.
 The Value Difference Decomposition is a fundamental identity that literally breaks down the difference between value functions into components, often relating to immediate rewards and future discounted values under different policies. It is crucial because it forms the basis for many proofs and analyses in reinforcement learning, including convergence guarantees and bounds.
 The two computational models discussed are the arithmetic and logic operations model (where basic operations count as one unit) and the binary computation model (like a Turing machine, where bit-level operations and input size matter). The lecture primarily uses the simpler arithmetic and logic operations model.
 III. Essay Format Questions
 Compare and contrast Value Iteration and Policy Iteration in terms of their algorithmic steps, convergence guarantees, and computational complexity. Discuss scenarios where one might be more advantageous than the other, providing a detailed justification for your reasoning.
 The lecture emphasizes the "continuity/sensitivity result" for greedy policies. Explain the mathematical intuition behind this result and its practical implications for designing and evaluating reinforcement learning algorithms. How does it relate to the goal of finding a near-optimal policy?
 Discuss the properties of the value function space, particularly its convexity and the significance of its extreme points. How do these theoretical properties help in understanding the behavior of Value Iteration and Policy Iteration algorithms?
-Analyze the role of the discount factor $\gamma$ in the convergence properties and computational complexity of Value Iteration. Specifically, explain why the $1/(1-\gamma)$ term is crucial and how the "vanishing discount approach" (as $\gamma \to 1$) connects to the average reward setting.
+Analyze the role of the discount factor \(\gamma\) in the convergence properties and computational complexity of Value Iteration. Specifically, explain why the \(1/(1-\gamma)\) term is crucial and how the "vanishing discount approach" (as \(\gamma \to 1\)) connects to the average reward setting.
 Beyond the specific algorithms, consider the broader discussion on computational complexity. Evaluate the "arithmetic and logic operations model" versus the "binary computation model" for analyzing RL algorithms. Discuss the trade-offs and implications of choosing one model over the other, especially in the context of "worst-case" versus "instance-dependent" complexity.
 IV. Glossary of Key Terms
 Value Function (V): A function that maps states to a real number, representing the expected cumulative reward an agent can achieve starting from that state and following a particular policy.
@@ -77,15 +77,15 @@ Optimal Value Function (V):* The maximum possible expected cumulative reward ach
 Policy (π): A rule that dictates the action to be taken in each state. A deterministic policy maps states to actions; a stochastic policy maps states to a probability distribution over actions.
 Greedy Policy: A policy that, for any given state, chooses the action that maximizes the immediate reward plus the discounted expected value of the next state, based on a given value function.
 Markov Decision Process (MDP): A mathematical framework for modeling decision-making in situations where outcomes are partly random and partly under the control of a decision maker. Defined by states, actions, transition probabilities, and rewards.
-Discount Factor (γ): A value between 0 and 1 used to weigh immediate rewards more heavily than future rewards. A higher $\gamma$ emphasizes long-term rewards, while a lower $\gamma$ prioritizes short-term gains.
-Bellman Optimality Operator (T): An operator applied to a value function that updates the value of each state to the maximum expected value achievable by taking one optimal step. $V_{k+1} = T(V_k)$.
-Value Iteration (VI): An iterative algorithm that repeatedly applies the Bellman optimality operator to a value function until it converges to the optimal value function $V^*$.
+Discount Factor (γ): A value between 0 and 1 used to weigh immediate rewards more heavily than future rewards. A higher \(\gamma\) emphasizes long-term rewards, while a lower \(\gamma\) prioritizes short-term gains.
+Bellman Optimality Operator (T): An operator applied to a value function that updates the value of each state to the maximum expected value achievable by taking one optimal step. \(V_{k+1} = T(V_k)\).
+Value Iteration (VI): An iterative algorithm that repeatedly applies the Bellman optimality operator to a value function until it converges to the optimal value function \(V^*\).
 Policy Iteration (PI): An iterative algorithm that alternates between evaluating the value function of a policy (policy evaluation) and then improving the policy based on that value function (policy improvement).
 Geometric Convergence: A property of iterative algorithms where the error (distance to the true solution) decreases by a constant multiplicative factor in each step, leading to exponential convergence.
 Convex Set: A set where for any two points within the set, the line segment connecting them is also entirely contained within the set.
-Effective Horizon (H): A concept related to the discount factor, roughly $1/(1-\gamma)$, which represents the number of time steps over which future rewards significantly contribute to the total discounted return.
-Infinity Norm ($||\cdot||_\infty$): Also known as the maximum norm; for a vector, it is the maximum absolute value of its components. Used to measure the distance between value functions.
-Vanishing Discount Approach: An analytical technique where the discount factor $\gamma$ is considered to approach 1. This often allows for connecting discounted MDPs to average reward MDPs.
+Effective Horizon (H): A concept related to the discount factor, roughly \(1/(1-\gamma)\), which represents the number of time steps over which future rewards significantly contribute to the total discounted return.
+Infinity Norm (\(||\cdot||_\infty\)): Also known as the maximum norm; for a vector, it is the maximum absolute value of its components. Used to measure the distance between value functions.
+Vanishing Discount Approach: An analytical technique where the discount factor \(\gamma\) is considered to approach 1. This often allows for connecting discounted MDPs to average reward MDPs.
 Value Difference Decomposition (Identity): A fundamental mathematical identity in reinforcement learning that expresses the difference between two value functions (e.g., of different policies) in terms of their immediate rewards and future discounted values.
 Deterministic Memoryless Policies: Policies that select a specific action for each state without considering past states or actions, and without any randomness. Their value functions often correspond to the "extreme points" of the value function space.
 
@@ -148,10 +148,10 @@ The high-dimensional space of value functions is a crucial concept for understan
 Here are the details about what this space is like:
 
 *   **Nature of the Space**:
-    *   It is represented as **$R^S$**, where 'S' is the number of states in the finite state-action discounted Markov Decision Process (MDP). Each point in this space corresponds to a function `v` that maps states to real numbers.
+    *   It is represented as **\(R^S\)**, where 'S' is the number of states in the finite state-action discounted Markov Decision Process (MDP). Each point in this space corresponds to a function `v` that maps states to real numbers.
 
 *   **Structure of Value Functions within this Space**:
-    *   The set of **all possible value functions for all possible policies forms a convex set** within $R^S$. This means that if you take any two valid value functions for policies and draw a line between them, every point on that line also represents a valid value function for some policy.
+    *   The set of **all possible value functions for all possible policies forms a convex set** within \(R^S\). This means that if you take any two valid value functions for policies and draw a line between them, every point on that line also represents a valid value function for some policy.
     *   This set has a "funny structure".
     *   The **optimal value function, `v_star`**, is a specific point within this convex set. It is characterized as the **upper-right corner of the minimum enclosing rectangle** of the value function set. This means `v_star` represents the highest achievable value from each state.
     *   Similarly, the value function resulting from minimizing rewards (or maximizing costs) would correspond to the lower-left corner of this minimum enclosing rectangle, and this point also belongs to the set of valid value functions.
@@ -160,7 +160,7 @@ Here are the details about what this space is like:
     *   Even if some states are completely disconnected from others (e.g., trap states), the value function space still holds this convex structure. If the MDP has disconnected components, the set will have a product structure, but a product of convex sets remains convex.
 
 *   **Relationship to the Policy Error Bound Theorem**:
-    *   The theorem starts by taking **any arbitrary function `v`**, which is just a point in this $R^S$ space. This `v` does not necessarily have to be a valid value function of any specific policy.
+    *   The theorem starts by taking **any arbitrary function `v`**, which is just a point in this \(R^S\) space. This `v` does not necessarily have to be a valid value function of any specific policy.
     *   A **greedy policy (`pi`) is then chosen with respect to this `v`**. This greedy policy's value function, `v_pi`, is then guaranteed to be "almost optimal".
     *   **Geometrically, the theorem states that `v_pi` will live within a specific "box" or "set" around `v_star`**. This "box" is defined such that its size is determined by the **maximum absolute difference (`||v - v_star||_infinity`)** between your initial guess `v` and the true `v_star`, inflated by a "blow up factor" of **`(2 * gamma / (1 - gamma))`**.
     *   Since `v_pi` also has to be a valid value function, it must reside within both this calculated "box" and the convex polytope of value functions.
@@ -193,8 +193,8 @@ Here are the full details to understand value iteration:
         *   The `max_a` indicates that the operator selects the maximum one-step look-ahead value over all possible actions for each state.
 
 *   **The High-Dimensional Value Function Space and Value Iteration**
-    *   The space of all possible value functions is represented as **$R^S$**, where 'S' is the number of states.
-    *   The set of all valid value functions for all possible policies forms a **convex set** within this $R^S$ space.
+    *   The space of all possible value functions is represented as **\(R^S\)**, where 'S' is the number of states.
+    *   The set of all valid value functions for all possible policies forms a **convex set** within this \(R^S\) space.
     *   The **optimal value function, `v_star`, is the sole attractive fixed point** in this space. It also corresponds to the upper-right corner of the minimum enclosing rectangle of the value function set.
     *   When visualizing value iteration in this space, you **start at an initial point** (e.g., the zero point) and then **move along a "vector field" towards `v_star`**.
     *   **No matter where you start in the space, you will geometrically fast approach `v_star`**. The vector field can look in many different ways (e.g., swirling), but progress towards `v_star` is guaranteed without slowing down or getting stuck in "flat barriers".
@@ -207,10 +207,10 @@ Here are the full details to understand value iteration:
 
 *   **Computational Complexity for Epsilon-Optimality**
     *   Value iteration allows you to **calculate a function `v_k` such that it is within an epsilon distance to `v_star`** in the maximum norm.
-    *   The number of iterations `k` required to achieve this $\epsilon$-optimal approximation is given by: **`k >= log(1/epsilon) / log(1/gamma)`** (or a slightly different form, `log(1/epsilon) * 1/(1-gamma)` which is an upper bound on `log(1/epsilon)/log(1/gamma)`).
+    *   The number of iterations `k` required to achieve this \(\epsilon\)-optimal approximation is given by: **`k >= log(1/epsilon) / log(1/gamma)`** (or a slightly different form, `log(1/epsilon) * 1/(1-gamma)` which is an upper bound on `log(1/epsilon)/log(1/gamma)`).
     *   This `1/(1-gamma)` factor is often called the **"effective horizon" (H)** or a "characteristic time". It indicates that calculations can take longer if `gamma` is very close to 1. This "blow up factor" is **real** and can be demonstrated with examples.
-    *   **Achieving an $\epsilon$-optimal approximation to the optimal value function is a reasonable goal because of the policy error bound theorem**. If `v_k` is sufficiently close to `v_star`, then the greedy policy derived from `v_k` will be near-optimal. The policy error bound states: `||v_pi - v_star||_infinity <= (2 * gamma / (1 - gamma)) * ||v - v_star||_infinity`. This means that if `||v - v_star||_infinity` (your error from value iteration) is small, the error in the derived policy's value function (`v_pi`) will also be bounded, scaled by the "blow-up factor" `2 * gamma / (1 - gamma)`.
-    *   Combining these results provides an estimate of the **computational complexity to obtain a near-optimal policy using value iteration**: this would be approximately $S^2A / (1-\gamma) * \log(1/\delta)$, where $S$ is the number of states, $A$ is the number of actions, and $\delta$ is the desired precision.
+    *   **Achieving an \(\epsilon\)-optimal approximation to the optimal value function is a reasonable goal because of the policy error bound theorem**. If `v_k` is sufficiently close to `v_star`, then the greedy policy derived from `v_k` will be near-optimal. The policy error bound states: `||v_pi - v_star||_infinity <= (2 * gamma / (1 - gamma)) * ||v - v_star||_infinity`. This means that if `||v - v_star||_infinity` (your error from value iteration) is small, the error in the derived policy's value function (`v_pi`) will also be bounded, scaled by the "blow-up factor" `2 * gamma / (1 - gamma)`.
+    *   Combining these results provides an estimate of the **computational complexity to obtain a near-optimal policy using value iteration**: this would be approximately \(S^2A / (1-\gamma) * \log(1/\delta)\), where \(S\) is the number of states, \(A\) is the number of actions, and \(\delta\) is the desired precision.
     *   When comparing value iteration to policy iteration, value iteration is generally "cheap" in terms of per-iteration cost. For **low accuracy requirements, value iteration can win** over policy iteration because its dependence on accuracy (`log(1/delta)`) is logarithmic, whereas policy iteration's accuracy dependence is effectively unbounded (as it finds the optimal policy, requiring full precision). However, for very high accuracy, policy iteration eventually converges to the truly optimal policy in a finite number of iterations, making it preferable in that regime.
 
 *   **General Complexity Considerations**
@@ -223,7 +223,7 @@ Yes, the paper you've mentioned, **"The Value Function Polytope in Reinforcement
 
 Here's how the paper relates to our discussion:
 
-*   **Proof of Convexity**: The sources state that the set of all possible value functions for all possible policies forms a **convex set** within the $R^S$ space (where $S$ is the number of states). While this was noted as a known property and "happens to be true," it was also mentioned that it "was not part of the lectures" to prove it. Instead, it was proven in a "nice paper just last year or two years ago".
+*   **Proof of Convexity**: The sources state that the set of all possible value functions for all possible policies forms a **convex set** within the \(R^S\) space (where \(S\) is the number of states). While this was noted as a known property and "happens to be true," it was also mentioned that it "was not part of the lectures" to prove it. Instead, it was proven in a "nice paper just last year or two years ago".
 *   **Authorship**: The authors mentioned in connection to this proof were **"dabashi and dale" and "some other folks"**. The paper you cited aligns with these authors and the subject matter, indicating it is indeed the work being referred to.
 *   **Structure of the Space**: This convexity is a key aspect of the "funny structure" of the value function space. The sources emphasize that this space is not just any convex set but has specific properties:
     *   The **optimal value function, `v_star`**, is located at the **upper-right corner of the minimum enclosing rectangle** of this high-dimensional convex set.
@@ -390,39 +390,39 @@ The runtime of approximate planning with Value Iteration is primarily determined
 
 Here's a detailed breakdown:
 
-*   **Purpose of Value Iteration**: Value Iteration is a method for calculating a sequence of value functions, $v_k$, by iteratively applying the Bellman optimality operator $T$. It aims to compute an **epsilon-optimal approximation to the optimal value function ($v_\star$)**. Achieving an epsilon-optimal approximation of $v_\star$ is considered a reasonable goal because, according to the policy error bound theorem, a policy greedy with respect to this approximation will also be epsilon-optimal.
+*   **Purpose of Value Iteration**: Value Iteration is a method for calculating a sequence of value functions, \(v_k\), by iteratively applying the Bellman optimality operator \(T\). It aims to compute an **epsilon-optimal approximation to the optimal value function (\(v_\star\))**. Achieving an epsilon-optimal approximation of \(v_\star\) is considered a reasonable goal because, according to the policy error bound theorem, a policy greedy with respect to this approximation will also be epsilon-optimal.
 
-*   **Iteration Complexity Formula**: The number of iterations, $k$, needed for Value Iteration to reach a function $v_k$ that is at most `epsilon` distance from $v_\star$ (in the maximum norm) is given by:
-    $k \approx \frac{\log(1/\epsilon)}{ \log(1/\gamma)}$
+*   **Iteration Complexity Formula**: The number of iterations, \(k\), needed for Value Iteration to reach a function \(v_k\) that is at most `epsilon` distance from \(v_\star\) (in the maximum norm) is given by:
+    \(k \approx \frac{\log(1/\epsilon)}{ \log(1/\gamma)}\)
 
     This can often be approximated as:
-    $k \approx \frac{1}{1-\gamma} \log(1/\epsilon)$
+    \(k \approx \frac{1}{1-\gamma} \log(1/\epsilon)\)
 
     This formula shows that the number of iterations depends on two main factors: the desired accuracy (`epsilon`) and the discount factor (`gamma`).
 
 *   **Components of the Runtime:**
 
-    *   **Precision ($\epsilon$ or `data`)**:
-        *   The term $\log(1/\epsilon)$ (or $\log(1/\text{data})$ if `data` is used to denote precision) indicates that higher accuracy (smaller `epsilon`) requires more iterations. This logarithmic dependence means that each order of magnitude improvement in accuracy requires a constant additional number of iterations.
+    *   **Precision (\(\epsilon\) or `data`)**:
+        *   The term \(\log(1/\epsilon)\) (or \(\log(1/\text{data})\) if `data` is used to denote precision) indicates that higher accuracy (smaller `epsilon`) requires more iterations. This logarithmic dependence means that each order of magnitude improvement in accuracy requires a constant additional number of iterations.
         *   The instructor mentioned that for "data optimal policy", this term appears in the complexity.
 
-    *   **Discount Factor ($\gamma$) and Effective Horizon**:
-        *   The term $\frac{1}{1-\gamma}$ is often referred to as a **"characteristic time"** or **"effective horizon"**. It signifies "how long does it take roughly to get to your answer in the lack of extra structure".
-        *   **As `gamma` approaches 1 (e.g., $1 - 10^{-5}$), this factor becomes very large** (e.g., $10^5$), indicating that the number of iterations can be substantial. This scenario is particularly relevant when considering **long horizons** or modeling the **average reward setting** (vanishing discount approach).
+    *   **Discount Factor (\(\gamma\)) and Effective Horizon**:
+        *   The term \(\frac{1}{1-\gamma}\) is often referred to as a **"characteristic time"** or **"effective horizon"**. It signifies "how long does it take roughly to get to your answer in the lack of extra structure".
+        *   **As `gamma` approaches 1 (e.g., \(1 - 10^{-5}\)), this factor becomes very large** (e.g., \(10^5\)), indicating that the number of iterations can be substantial. This scenario is particularly relevant when considering **long horizons** or modeling the **average reward setting** (vanishing discount approach).
         *   The instructor stressed that this **"blow up factor is real"** in a worst-case scenario, meaning you can construct examples where this factor is truly needed.
 
     *   **State Space (S) and Action Space (A)**:
         *   While the iteration complexity formula above gives the *number of iterations*, each iteration of Value Iteration involves calculations over all states and actions.
-        *   When considering the total computational cost for finding a near-optimal policy, the number of operations per iteration typically scales with the size of the state space (S) and action space (A). The full estimate for the number of operations is given as: $S^2 \times A \times \frac{1}{1-\gamma} \times \log(1/\text{data})$.
+        *   When considering the total computational cost for finding a near-optimal policy, the number of operations per iteration typically scales with the size of the state space (S) and action space (A). The full estimate for the number of operations is given as: \(S^2 \times A \times \frac{1}{1-\gamma} \times \log(1/\text{data})\).
         *   This accounts for the fact that each Bellman update usually requires iterating through all states and actions.
 
-*   **Geometric Convergence**: Value Iteration exhibits **geometric convergence**. This means that the distance between $v_k$ and $v_\star$ decreases by a factor of `gamma` with each iteration. The process "happens pretty fast" if `gamma` is not too close to 1. No matter where you start in the value function space, applying the $T$ operator will lead you geometrically fast to $v_\star$, which is the unique attractive fixed point.
+*   **Geometric Convergence**: Value Iteration exhibits **geometric convergence**. This means that the distance between \(v_k\) and \(v_\star\) decreases by a factor of `gamma` with each iteration. The process "happens pretty fast" if `gamma` is not too close to 1. No matter where you start in the value function space, applying the \(T\) operator will lead you geometrically fast to \(v_\star\), which is the unique attractive fixed point.
 
 *   **Finite Horizon Problems**: For problems with a known finite horizon (e.g., an episode terminating within 100 steps), it's considered a **finite horizon problem**, and the typical approach is **backwards induction**, where calculations are performed from the final step backwards. In such cases, one would not necessarily aim to solve the infinite horizon discounted return problem.
 
 *   **Instance-Dependent Complexity vs. Worst-Case Bounds**: While for "some instances" (like a small MDP where the optimal policy doesn't change even for very small `gamma`), the worst-case planning horizon might seem "overkill", finding the "best runtime no matter what the instance was" is a "too hard" question. The focus is generally on worst-case, algorithm-independent bounds.
 
-*   **Comparison to Policy Iteration**: Policy Iteration is a contrasting algorithm that can find an **optimal policy** (not just an epsilon-optimal approximation of the value function) in a finite number of iterations that depends on S and A, but **does not depend on $\log(1/\text{data})$**. This implies that for very high accuracy (where `data` approaches zero), Policy Iteration would "definitely win" over Value Iteration because Value Iteration's complexity grows unboundedly with increasing accuracy. However, for "low accuracy," Value Iteration can be cheaper due to its lower cost per iteration.
+*   **Comparison to Policy Iteration**: Policy Iteration is a contrasting algorithm that can find an **optimal policy** (not just an epsilon-optimal approximation of the value function) in a finite number of iterations that depends on S and A, but **does not depend on \(\log(1/\text{data})\)**. This implies that for very high accuracy (where `data` approaches zero), Policy Iteration would "definitely win" over Value Iteration because Value Iteration's complexity grows unboundedly with increasing accuracy. However, for "low accuracy," Value Iteration can be cheaper due to its lower cost per iteration.
 
 *   **Computation Model**: The discussed complexities typically count arithmetic and logic operations (e.g., adding, multiplying, finding the maximum of two numbers each count as one operation). This is distinct from a binary computation model like a Turing machine, where the bit size of inputs matters.
 
@@ -433,41 +433,41 @@ Here's a detailed breakdown:
 
 ### 1. The Goal: Approximating the Optimal Value Function
 
-The primary goal is to compute an **epsilon-optimal approximation to the optimal value function ($v_\star$)**. This is considered a reasonable objective because of a fundamental result in reinforcement learning theory:
-*   **Policy Error Bound Theorem**: If you have a value function $v$ that is "close enough" to the optimal value function $v_\star$, then the policy derived by acting greedily with respect to $v$ (a "greedy policy") will also be close to optimal. This is described as a **"continuity design"** or **"sensitivity result"**.
-    *   Geometrically, this means if your chosen value function $v$ is close to $v_\star$ in the value function space, the value function of the policy $\pi$ greedy with respect to $v$ (denoted $v_\pi$) will reside within a bounded region around $v_\star$. Specifically, the distance between $v_\pi$ and $v_\star$ is bounded by a factor (related to $2\gamma/(1-\gamma)$) times the maximum distance between $v$ and $v_\star$. As the distance between $v$ and $v_\star$ goes to zero, $v_\pi$ converges to $v_\star$.
+The primary goal is to compute an **epsilon-optimal approximation to the optimal value function (\(v_\star\))**. This is considered a reasonable objective because of a fundamental result in reinforcement learning theory:
+*   **Policy Error Bound Theorem**: If you have a value function \(v\) that is "close enough" to the optimal value function \(v_\star\), then the policy derived by acting greedily with respect to \(v\) (a "greedy policy") will also be close to optimal. This is described as a **"continuity design"** or **"sensitivity result"**.
+    *   Geometrically, this means if your chosen value function \(v\) is close to \(v_\star\) in the value function space, the value function of the policy \(\pi\) greedy with respect to \(v\) (denoted \(v_\pi\)) will reside within a bounded region around \(v_\star\). Specifically, the distance between \(v_\pi\) and \(v_\star\) is bounded by a factor (related to \(2\gamma/(1-\gamma)\)) times the maximum distance between \(v\) and \(v_\star\). As the distance between \(v\) and \(v_\star\) goes to zero, \(v_\pi\) converges to \(v_\star\).
 
 ### 2. Value Iteration: The Core Algorithm for Approximation
 
-Value Iteration is a "super simple way" of calculating a sequence of value functions, $v_k$, by iteratively applying the **Bellman optimality operator ($T$)**.
-*   **Geometric Convergence**: Value Iteration exhibits **geometric convergence**. This means that the distance between $v_k$ and $v_\star$ (in the maximum norm) decreases by a factor of `gamma` with each iteration. Regardless of the starting point, applying the $T$ operator leads "geometrically fast" to $v_\star$, which is the unique attractive fixed point of the operator.
+Value Iteration is a "super simple way" of calculating a sequence of value functions, \(v_k\), by iteratively applying the **Bellman optimality operator (\(T\))**.
+*   **Geometric Convergence**: Value Iteration exhibits **geometric convergence**. This means that the distance between \(v_k\) and \(v_\star\) (in the maximum norm) decreases by a factor of `gamma` with each iteration. Regardless of the starting point, applying the \(T\) operator leads "geometrically fast" to \(v_\star\), which is the unique attractive fixed point of the operator.
 
 #### Runtime and Complexity of Value Iteration:
 
 The runtime of approximate planning with Value Iteration is determined by two main factors: **the number of iterations required to reach a desired accuracy** and **the computational cost of each iteration**.
 
 1.  **Number of Iterations (Iteration Complexity)**:
-    *   The number of iterations, $k$, needed for $v_k$ to be at most `epsilon` distance from $v_\star$ (in the maximum norm) is approximately:
-        $k \approx \frac{\log(1/\epsilon)}{\log(1/\gamma)}$
+    *   The number of iterations, \(k\), needed for \(v_k\) to be at most `epsilon` distance from \(v_\star\) (in the maximum norm) is approximately:
+        \(k \approx \frac{\log(1/\epsilon)}{\log(1/\gamma)}\)
     *   This can often be approximated as:
-        $k \approx \frac{1}{1-\gamma} \log(1/\epsilon)$
-    *   **Precision ($\epsilon$)**: The $\log(1/\epsilon)$ term means that higher accuracy (smaller `epsilon`) requires more iterations. This logarithmic dependence implies a constant additional number of iterations for each order of magnitude improvement in accuracy.
-    *   **Discount Factor ($\gamma$) and "Effective Horizon"**: The $\frac{1}{1-\gamma}$ factor is a **"characteristic time"** or **"effective horizon"**. It signifies roughly "how long it takes to get to your answer in the lack of extra structure".
-        *   When `gamma` is very close to 1 (e.g., $1 - 10^{-5}$), this factor becomes very large (e.g., $10^5$), indicating a substantial number of iterations. This scenario is particularly relevant when considering **long horizons** or modeling the **average reward setting** (the "vanishing discount approach").
+        \(k \approx \frac{1}{1-\gamma} \log(1/\epsilon)\)
+    *   **Precision (\(\epsilon\))**: The \(\log(1/\epsilon)\) term means that higher accuracy (smaller `epsilon`) requires more iterations. This logarithmic dependence implies a constant additional number of iterations for each order of magnitude improvement in accuracy.
+    *   **Discount Factor (\(\gamma\)) and "Effective Horizon"**: The \(\frac{1}{1-\gamma}\) factor is a **"characteristic time"** or **"effective horizon"**. It signifies roughly "how long it takes to get to your answer in the lack of extra structure".
+        *   When `gamma` is very close to 1 (e.g., \(1 - 10^{-5}\)), this factor becomes very large (e.g., \(10^5\)), indicating a substantial number of iterations. This scenario is particularly relevant when considering **long horizons** or modeling the **average reward setting** (the "vanishing discount approach").
         *   The instructor emphasizes that this **"blow up factor is real" in a worst-case scenario**, meaning examples can be constructed where this factor is truly needed.
 
 2.  **Cost per Iteration**:
-    *   Each iteration of Value Iteration involves computations over all states ($S$) and actions ($A$). The cost per iteration is generally proportional to $S \times A \times S$ (if transitions are dense, $S^2 A$) because for each state, you iterate through actions, and for each action, you sum over possible next states.
-    *   **Total Runtime**: The total number of operations for Value Iteration to compute a "data optimal policy" (where "data" refers to the precision `epsilon`) is roughly $S^2 \times A \times \frac{1}{1-\gamma} \times \log(1/\text{data})$.
+    *   Each iteration of Value Iteration involves computations over all states (\(S\)) and actions (\(A\)). The cost per iteration is generally proportional to \(S \times A \times S\) (if transitions are dense, \(S^2 A\)) because for each state, you iterate through actions, and for each action, you sum over possible next states.
+    *   **Total Runtime**: The total number of operations for Value Iteration to compute a "data optimal policy" (where "data" refers to the precision `epsilon`) is roughly \(S^2 \times A \times \frac{1}{1-\gamma} \times \log(1/\text{data})\).
 
 ### 3. Comparison with Policy Iteration
 
 **Policy Iteration** offers a contrasting approach to finding an optimal policy:
 *   **Optimal Policy Discovery**: Unlike Value Iteration, which yields an epsilon-optimal *value function*, Policy Iteration, in a finite number of iterations, can discover an **optimal policy**.
-*   **Iteration Count**: The number of iterations for Policy Iteration to find an optimal policy depends on the number of states ($S$) and actions ($A$), specifically, it's bounded by something like $S^4 \times A$. Crucially, this bound **does not depend on the $\log(1/\text{data})$ accuracy factor**.
+*   **Iteration Count**: The number of iterations for Policy Iteration to find an optimal policy depends on the number of states (\(S\)) and actions (\(A\)), specifically, it's bounded by something like \(S^4 \times A\). Crucially, this bound **does not depend on the \(\log(1/\text{data})\) accuracy factor**.
 *   **Trade-offs**:
     *   For **very high accuracy** (when `data` approaches zero), Policy Iteration "definitely wins" because Value Iteration's complexity grows unboundedly with increasing accuracy. Policy Iteration essentially "bumps into" the optimal policy.
-    *   However, for **low accuracy**, Value Iteration can be cheaper due to its potentially lower cost per iteration (comparing $S^2 A$ for Value Iteration versus $S^3 A^2$ for computing the value of a policy within Policy Iteration).
+    *   However, for **low accuracy**, Value Iteration can be cheaper due to its potentially lower cost per iteration (comparing \(S^2 A\) for Value Iteration versus \(S^3 A^2\) for computing the value of a policy within Policy Iteration).
 
 ### 4. Important Considerations for Planning
 
@@ -479,97 +479,97 @@ The runtime of approximate planning with Value Iteration is determined by two ma
 *   **Computational Model**: The complexities discussed generally count **arithmetic and logic operations** (e.g., maximum of two numbers, addition, multiplication each count as one operation). This is distinct from a "binary computation model" like a Turing machine, where the bit size of inputs matters.
 
 
-The instructor discusses normalization in the context of the **average reward setting** and when the discount factor $\gamma$ approaches 1.
+The instructor discusses normalization in the context of the **average reward setting** and when the discount factor \(\gamma\) approaches 1.
 
 Here's more detail on what the instructor says about normalization:
 
-*   **Context: $\gamma$ approaching 1 and Average Reward**
-    *   When the discount factor $\gamma$ gets very close to 1 (e.g., $1 - 10^{-5}$), the term $1/(1-\gamma)$ becomes very large (e.g., $10^5$). This factor is referred to as a "characteristic time" or "effective horizon".
-    *   In this scenario, the value function $v_\pi$ (the value of a policy $\pi$) can become very large. For example, if you get a reward of 1 at every step, the total discounted reward can be as high as $1/(1-\gamma)$. This unnormalized value function "could be as large as one over one minus gamma".
-    *   The case where $\gamma$ goes to 1 is also referred to as the **"vanishing discount approach"** and is a way to model the **average reward setting**.
+*   **Context: \(\gamma\) approaching 1 and Average Reward**
+    *   When the discount factor \(\gamma\) gets very close to 1 (e.g., \(1 - 10^{-5}\)), the term \(1/(1-\gamma)\) becomes very large (e.g., \(10^5\)). This factor is referred to as a "characteristic time" or "effective horizon".
+    *   In this scenario, the value function \(v_\pi\) (the value of a policy \(\pi\)) can become very large. For example, if you get a reward of 1 at every step, the total discounted reward can be as high as \(1/(1-\gamma)\). This unnormalized value function "could be as large as one over one minus gamma".
+    *   The case where \(\gamma\) goes to 1 is also referred to as the **"vanishing discount approach"** and is a way to model the **average reward setting**.
 
 *   **What is Normalized and How**
-    *   To deal with the potentially large values of $v_\pi$ as $\gamma$ approaches 1, one might **"normalize it" by pre-multiplying with $(1-\gamma)$**. This means instead of considering $v_\pi$, you would look at $(1-\gamma) v_\pi$.
+    *   To deal with the potentially large values of \(v_\pi\) as \(\gamma\) approaches 1, one might **"normalize it" by pre-multiplying with \((1-\gamma)\)**. This means instead of considering \(v_\pi\), you would look at \((1-\gamma) v_\pi\).
 
 *   **The Intuition Behind Normalization**
-    *   The instructor provides an intuition for this normalization: You can think of $(1-\gamma)$ as a normalizing factor for a **geometric probability distribution**.
-    *   Specifically, if you consider picking a time point $k$ with probability $\gamma^k$, then $(1-\gamma)$ is the normalizing factor to make this a proper probability distribution.
-    *   Therefore, pre-multiplying the value function by $(1-\gamma)$ is akin to **calculating a weighted average over time**. If there is "sufficient structure" and "regularity in the MDP," as $\gamma$ goes to 1, this normalized quantity will converge to the value function for the average reward.
+    *   The instructor provides an intuition for this normalization: You can think of \((1-\gamma)\) as a normalizing factor for a **geometric probability distribution**.
+    *   Specifically, if you consider picking a time point \(k\) with probability \(\gamma^k\), then \((1-\gamma)\) is the normalizing factor to make this a proper probability distribution.
+    *   Therefore, pre-multiplying the value function by \((1-\gamma)\) is akin to **calculating a weighted average over time**. If there is "sufficient structure" and "regularity in the MDP," as \(\gamma\) goes to 1, this normalized quantity will converge to the value function for the average reward.
 
 *   **Relevance to "Hot Instances" and Lower Bounds**
-    *   The instructor suggests that in the average reward literature, there's an indication that the large $1/(1-\gamma)$ factor (or something analogous, like a "mixing rate") is "real" in terms of computational difficulty.
-    *   In MDPs that are "not too nice," the "span of the optimal value function" (or similar quantities) might "explode" as $\gamma$ goes to 1. These are considered "hot instances" where calculations would take longer.
-    *   Conversely, "easier instances" are those where this span is kept finite as $\gamma$ approaches 1.
+    *   The instructor suggests that in the average reward literature, there's an indication that the large \(1/(1-\gamma)\) factor (or something analogous, like a "mixing rate") is "real" in terms of computational difficulty.
+    *   In MDPs that are "not too nice," the "span of the optimal value function" (or similar quantities) might "explode" as \(\gamma\) goes to 1. These are considered "hot instances" where calculations would take longer.
+    *   Conversely, "easier instances" are those where this span is kept finite as \(\gamma\) approaches 1.
 
 In essence, normalization helps to manage the scale of value functions in long-horizon or average reward problems, where values can otherwise become unbounded as the discount factor approaches one, and it provides a way to interpret the discounted sum as an average.
 
 
 
 
-The concept of normalization becomes particularly important when considering the **average reward setting** or when the discount factor $\gamma$ approaches 1. This scenario is often referred to as the **"vanishing discount approach"**.
+The concept of normalization becomes particularly important when considering the **average reward setting** or when the discount factor \(\gamma\) approaches 1. This scenario is often referred to as the **"vanishing discount approach"**.
 
-### Unnormalized Value Functions and the Challenge of $\gamma \to 1$
+### Unnormalized Value Functions and the Challenge of \(\gamma \to 1\)
 
-*   When the discount factor $\gamma$ is very close to 1, the term $1/(1-\gamma)$ can become very large. For example, if $\gamma = 1 - 10^{-5}$, then $1/(1-\gamma)$ is $10^5$. This factor represents a **"characteristic time"** or **"effective horizon"**, indicating roughly "how long it takes to get to your answer in the lack of extra structure".
-*   In this scenario, the **unnormalized value function** $v_\pi$ for a given policy $\pi$ can also become very large. The instructor states that the value function "could be as large as one over one minus gamma" if, for instance, you receive a reward of 1 at every step. This unbounded growth in value functions as $\gamma$ approaches 1 presents a computational challenge.
+*   When the discount factor \(\gamma\) is very close to 1, the term \(1/(1-\gamma)\) can become very large. For example, if \(\gamma = 1 - 10^{-5}\), then \(1/(1-\gamma)\) is \(10^5\). This factor represents a **"characteristic time"** or **"effective horizon"**, indicating roughly "how long it takes to get to your answer in the lack of extra structure".
+*   In this scenario, the **unnormalized value function** \(v_\pi\) for a given policy \(\pi\) can also become very large. The instructor states that the value function "could be as large as one over one minus gamma" if, for instance, you receive a reward of 1 at every step. This unbounded growth in value functions as \(\gamma\) approaches 1 presents a computational challenge.
 
 ### Normalization of Value Functions
 
-*   To address the issue of exploding value function magnitudes when $\gamma$ approaches 1, one can **"normalize"** the value function.
-*   **How to Normalize**: This is done by **pre-multiplying the value function $v_\pi$ by $(1-\gamma)$**. So, instead of working with $v_\pi$, you would consider $(1-\gamma)v_\pi$.
-*   **Intuition Behind Normalization**: The factor $(1-\gamma)$ can be thought of as a **normalizing factor for a geometric probability distribution**. If you consider picking a time point $k$ with probability $\gamma^k$, then $(1-\gamma)$ is the factor that makes this a proper probability distribution. Therefore, pre-multiplying $v_\pi$ by $(1-\gamma)$ is analogous to calculating a **weighted average over time**.
+*   To address the issue of exploding value function magnitudes when \(\gamma\) approaches 1, one can **"normalize"** the value function.
+*   **How to Normalize**: This is done by **pre-multiplying the value function \(v_\pi\) by \((1-\gamma)\)**. So, instead of working with \(v_\pi\), you would consider \((1-\gamma)v_\pi\).
+*   **Intuition Behind Normalization**: The factor \((1-\gamma)\) can be thought of as a **normalizing factor for a geometric probability distribution**. If you consider picking a time point \(k\) with probability \(\gamma^k\), then \((1-\gamma)\) is the factor that makes this a proper probability distribution. Therefore, pre-multiplying \(v_\pi\) by \((1-\gamma)\) is analogous to calculating a **weighted average over time**.
 
 ### Convergence to the Average Reward Value Function
 
-*   If the Markov Decision Process (MDP) has **"sufficient structure"** and **"regularity"**, then as $\gamma$ approaches 1, this **normalized quantity, $(1-\gamma)v_\pi$, will converge to the value function for the average reward setting**. This is precisely why the vanishing discount approach is used to model average reward problems.
+*   If the Markov Decision Process (MDP) has **"sufficient structure"** and **"regularity"**, then as \(\gamma\) approaches 1, this **normalized quantity, \((1-\gamma)v_\pi\), will converge to the value function for the average reward setting**. This is precisely why the vanishing discount approach is used to model average reward problems.
 
 ### Implications for Computational Complexity
 
-*   The relationship between the discounted setting (as $\gamma \to 1$) and the average reward setting has significant implications for computational complexity, particularly concerning **lower bounds** on the number of operations needed for planning.
-*   **The "Blow Up Factor is Real"**: The instructor emphasizes that the large $1/(1-\gamma)$ factor, reflecting the "characteristic time," is **"real" in a worst-case scenario** for computational difficulty. There are instances where this factor truly reflects the required computational effort.
+*   The relationship between the discounted setting (as \(\gamma \to 1\)) and the average reward setting has significant implications for computational complexity, particularly concerning **lower bounds** on the number of operations needed for planning.
+*   **The "Blow Up Factor is Real"**: The instructor emphasizes that the large \(1/(1-\gamma)\) factor, reflecting the "characteristic time," is **"real" in a worst-case scenario** for computational difficulty. There are instances where this factor truly reflects the required computational effort.
 *   **Average Reward Literature and Lower Bounds**: Although the average reward setting doesn't directly have a discount factor, the literature in this area suggests that a related quantity, such as the **"mixing rate"** of the MDP or the **"span of the optimal value function"**, plays a similar role in determining computational difficulty.
 *   **"Hot Instances" vs. "Easier Instances"**:
-    *   For MDPs that are **"not too nice,"** the span of the optimal value function (or similar quantities for normalized value functions) can **"explode" as $\gamma$ goes to 1**. These are considered **"hot instances"** where calculations would take longer.
-    *   Conversely, **"easier instances"** are those MDPs where the span is kept finite as $\gamma$ approaches 1.
+    *   For MDPs that are **"not too nice,"** the span of the optimal value function (or similar quantities for normalized value functions) can **"explode" as \(\gamma\) goes to 1**. These are considered **"hot instances"** where calculations would take longer.
+    *   Conversely, **"easier instances"** are those MDPs where the span is kept finite as \(\gamma\) approaches 1.
 *   The instructor notes that while there's indication in the average reward literature that such a lower bound involving these factors is "real," a very clean presentation of this result for the discounted setting is not commonly found, despite the fundamental nature of the question.
 
 
 
 
-The **vanishing discount approach** is a method used in reinforcement learning theory where the **discount factor $\gamma$ approaches 1**. This approach is primarily used to think about the **long horizon case** or to model the **average reward setting**.
+The **vanishing discount approach** is a method used in reinforcement learning theory where the **discount factor \(\gamma\) approaches 1**. This approach is primarily used to think about the **long horizon case** or to model the **average reward setting**.
 
 Here are the full details on the vanishing discount approach:
 
 *   **Motivation: Unbounded Value Functions**
-    *   When the discount factor $\gamma$ is very close to 1 (e.g., $1 - 10^{-5}$), the term **$1/(1-\gamma)$ becomes extremely large**. This factor is referred to as a **"characteristic time"** or **"effective horizon"**.
-    *   In this scenario, the **unnormalized value function** $v_\pi$ for a policy $\pi$ can also become very large, potentially "as large as one over one minus gamma" if, for example, a reward of 1 is received at every step. This unbounded growth presents a challenge for analysis and computation.
+    *   When the discount factor \(\gamma\) is very close to 1 (e.g., \(1 - 10^{-5}\)), the term **\(1/(1-\gamma)\) becomes extremely large**. This factor is referred to as a **"characteristic time"** or **"effective horizon"**.
+    *   In this scenario, the **unnormalized value function** \(v_\pi\) for a policy \(\pi\) can also become very large, potentially "as large as one over one minus gamma" if, for example, a reward of 1 is received at every step. This unbounded growth presents a challenge for analysis and computation.
 
 *   **Normalization as a Solution**
-    *   To manage the scale of these value functions as $\gamma$ approaches 1, one can **"normalize it" by pre-multiplying with $(1-\gamma)$**. Instead of considering $v_\pi$, you would analyze **$(1-\gamma)v_\pi$**.
-    *   The instructor explains the intuition: $(1-\gamma)$ acts as a **normalizing factor for a geometric probability distribution**. If you consider picking a time point $k$ with probability $\gamma^k$, then $(1-\gamma)$ ensures this is a proper probability distribution. Thus, pre-multiplying the value function by $(1-\gamma)$ effectively calculates a **"weighted average over time"**.
+    *   To manage the scale of these value functions as \(\gamma\) approaches 1, one can **"normalize it" by pre-multiplying with \((1-\gamma)\)**. Instead of considering \(v_\pi\), you would analyze **\((1-\gamma)v_\pi\)**.
+    *   The instructor explains the intuition: \((1-\gamma)\) acts as a **normalizing factor for a geometric probability distribution**. If you consider picking a time point \(k\) with probability \(\gamma^k\), then \((1-\gamma)\) ensures this is a proper probability distribution. Thus, pre-multiplying the value function by \((1-\gamma)\) effectively calculates a **"weighted average over time"**.
 
 *   **Connection to the Average Reward Setting**
-    *   The vanishing discount approach is fundamentally linked to the **average reward setting**. If the Markov Decision Process (MDP) has "sufficient structure" and "regularity," the **normalized quantity, $(1-\gamma)v_\pi$, will converge to the value function for the average reward** as $\gamma$ goes to 1.
+    *   The vanishing discount approach is fundamentally linked to the **average reward setting**. If the Markov Decision Process (MDP) has "sufficient structure" and "regularity," the **normalized quantity, \((1-\gamma)v_\pi\), will converge to the value function for the average reward** as \(\gamma\) goes to 1.
     *   It's important to note that the average reward setting itself **does not have a discount factor**.
 
 *   **Implications for Computational Complexity and Lower Bounds**
-    *   The instructor stresses that the large factor of $1/(1-\gamma)$ is **"real" in worst-case computational scenarios**. This means it reflects a genuine computational difficulty.
-    *   While the average reward literature doesn't use $\gamma$ directly, it suggests that quantities like the **"mixing rate"** of the MDP or the **"span of the optimal value function"** play a similar role in determining computational difficulty.
-    *   **"Hot instances"** are MDPs that are "not too nice," where the span of the optimal value function can **"explode" as $\gamma$ goes to 1**, implying that calculations will take longer.
-    *   Conversely, **"easier instances"** are those MDPs where this span remains finite as $\gamma$ approaches 1.
-    *   Despite its fundamental nature, a very clear presentation of a lower bound involving this $1/(1-\gamma)$ factor for the discounted setting is "not commonly found".
+    *   The instructor stresses that the large factor of \(1/(1-\gamma)\) is **"real" in worst-case computational scenarios**. This means it reflects a genuine computational difficulty.
+    *   While the average reward literature doesn't use \(\gamma\) directly, it suggests that quantities like the **"mixing rate"** of the MDP or the **"span of the optimal value function"** play a similar role in determining computational difficulty.
+    *   **"Hot instances"** are MDPs that are "not too nice," where the span of the optimal value function can **"explode" as \(\gamma\) goes to 1**, implying that calculations will take longer.
+    *   Conversely, **"easier instances"** are those MDPs where this span remains finite as \(\gamma\) approaches 1.
+    *   Despite its fundamental nature, a very clear presentation of a lower bound involving this \(1/(1-\gamma)\) factor for the discounted setting is "not commonly found".
 
 
-When Vlad mentions "mixing" in relation to the discount factor $\gamma$, he is referring to the **mixing rate of the Markov Decision Process (MDP)**, which plays a role analogous to the large $1/(1-\gamma)$ factor in the average reward setting.
+When Vlad mentions "mixing" in relation to the discount factor \(\gamma\), he is referring to the **mixing rate of the Markov Decision Process (MDP)**, which plays a role analogous to the large \(1/(1-\gamma)\) factor in the average reward setting.
 
 Here's a more detailed explanation:
 
-*   **Average Reward Setting and its Analogy to Discounted Problems**: The average reward setting, unlike discounted problems, does not inherently have a discount factor. However, the "vanishing discount approach," where the discount factor $\gamma$ approaches 1, is often used to model or understand the average reward setting. In this context, the behavior of the value function as $\gamma \to 1$ is crucial.
-*   **The Role of Span in Convergence**: For the normalized value function, $(1-\gamma)v_\pi$, to converge to the average reward value function as $\gamma$ approaches 1 (a process described as having "sufficient structure" and "regularity" in the MDP), it is necessary for the **"span of the value function" (specifically, the optimal value function)** to remain bounded.
+*   **Average Reward Setting and its Analogy to Discounted Problems**: The average reward setting, unlike discounted problems, does not inherently have a discount factor. However, the "vanishing discount approach," where the discount factor \(\gamma\) approaches 1, is often used to model or understand the average reward setting. In this context, the behavior of the value function as \(\gamma \to 1\) is crucial.
+*   **The Role of Span in Convergence**: For the normalized value function, \((1-\gamma)v_\pi\), to converge to the average reward value function as \(\gamma\) approaches 1 (a process described as having "sufficient structure" and "regularity" in the MDP), it is necessary for the **"span of the value function" (specifically, the optimal value function)** to remain bounded.
 *   **Mixing Rate as a Fundamental Quantity**: The instructor states that the **mixing rate** of the MDP is a "more fundamental quantity" than the discount factor itself, and it is related to the **span of the optimal value function**.
 *   **Computational Difficulty and "Hot Instances"**:
-    *   In MDPs that are "not too nice," the **span of the optimal value function can "explode"** as $\gamma$ goes to 1. These are characterized as **"hot instances"** where calculations for finding optimal policies would take longer. The instructor emphasizes that the large $1/(1-\gamma)$ "blow up factor is real" in such worst-case scenarios for computational difficulty.
-    *   Conversely, **"easier instances"** are those where the span is kept finite as $\gamma$ approaches 1.
+    *   In MDPs that are "not too nice," the **span of the optimal value function can "explode"** as \(\gamma\) goes to 1. These are characterized as **"hot instances"** where calculations for finding optimal policies would take longer. The instructor emphasizes that the large \(1/(1-\gamma)\) "blow up factor is real" in such worst-case scenarios for computational difficulty.
+    *   Conversely, **"easier instances"** are those where the span is kept finite as \(\gamma\) approaches 1.
 *   **Lower Bounds in Average Reward Literature**: In the average reward literature, there's an indication that quantities like the mixing rate or something related to the span are involved in **lower bounds** for computational complexity. This suggests that the inherent difficulty of these problems is tied to how quickly the MDP "mixes" or reaches its steady state, which is reflected in the span of the value function.
 
 In summary, while the average reward setting lacks a discount factor, its connection to the vanishing discount approach highlights that the **mixing rate of an MDP, often expressed through the "span of the value function," becomes a critical factor determining both the convergence properties and the inherent computational complexity** for long-horizon and average reward problems.
@@ -578,13 +578,13 @@ The **mixing rate of a Markov Decision Process (MDP)** is a crucial concept, par
 
 Here are the details regarding the mixing rate of an MDP:
 
-*   **Analogy to the Discount Factor in Average Reward Setting**: In the average reward setting, which inherently does not have a discount factor, the concept of a "mixing rate" emerges as a counterpart to the $1/(1-\gamma)$ factor found in discounted problems as $\gamma$ approaches 1. The "vanishing discount approach," where $\gamma$ goes to 1, is used to model the average reward setting.
+*   **Analogy to the Discount Factor in Average Reward Setting**: In the average reward setting, which inherently does not have a discount factor, the concept of a "mixing rate" emerges as a counterpart to the \(1/(1-\gamma)\) factor found in discounted problems as \(\gamma\) approaches 1. The "vanishing discount approach," where \(\gamma\) goes to 1, is used to model the average reward setting.
 *   **Connection to the Span of the Optimal Value Function**: Vlad clarifies that the mixing rate is **"a more fundamental quantity"** that is directly related to the **"span of the optimal value function"**. The span refers to the range of values the optimal value function can take across different states.
-*   **Role in Convergence**: For the normalized value function, $(1-\gamma)v_\pi$, to converge to the average reward value function as $\gamma$ approaches 1, the MDP needs to have "sufficient structure" and "regularity". A key aspect of this regularity is that the **span of the normalized value functions must remain bounded as $\gamma$ goes to 1**.
+*   **Role in Convergence**: For the normalized value function, \((1-\gamma)v_\pi\), to converge to the average reward value function as \(\gamma\) approaches 1, the MDP needs to have "sufficient structure" and "regularity". A key aspect of this regularity is that the **span of the normalized value functions must remain bounded as \(\gamma\) goes to 1**.
 *   **Implications for Computational Complexity**:
-    *   The large factor of $1/(1-\gamma)$, which represents a "characteristic time" or "effective horizon" for calculations, is **"real" in worst-case computational scenarios**. This means that the computational difficulty can genuinely "blow up".
-    *   For MDPs that are **"not too nice,"** the span of the optimal value function can **"explode" as $\gamma$ goes to 1**. These are referred to as **"hot instances,"** and finding optimal policies for them will take longer due to the large span.
-    *   Conversely, **"easier instances"** are MDPs where the span remains finite as $\gamma$ approaches 1.
+    *   The large factor of \(1/(1-\gamma)\), which represents a "characteristic time" or "effective horizon" for calculations, is **"real" in worst-case computational scenarios**. This means that the computational difficulty can genuinely "blow up".
+    *   For MDPs that are **"not too nice,"** the span of the optimal value function can **"explode" as \(\gamma\) goes to 1**. These are referred to as **"hot instances,"** and finding optimal policies for them will take longer due to the large span.
+    *   Conversely, **"easier instances"** are MDPs where the span remains finite as \(\gamma\) approaches 1.
 *   **Lower Bounds in Average Reward Literature**: The average reward literature suggests that quantities like the mixing rate or something related to the span are involved in **lower bounds for computational complexity**. This implies that there are inherent limits to how quickly these problems can be solved, and these limits are tied to the MDP's mixing properties. Vlad notes that a very clean presentation of this result for the discounted setting is "not commonly found," despite the fundamental nature of the question.
 
 In essence, the mixing rate (via the span of the value function) is a critical property of an MDP that dictates how quickly information propagates and how difficult it is to find optimal policies, especially in long-horizon or average reward scenarios, playing a role analogous to the inverse of the discount factor's proximity to one.
@@ -595,21 +595,21 @@ Here's a detailed breakdown:
 
 *   **Counting Computational Operations**: When discussing the complexity of algorithms for MDPs, the operations counted are typically **arithmetic and logic operations** (e.g., max of two numbers, adding two numbers, multiplying two numbers all count as one operation). This is distinct from a binary computation model like a Turing machine, where the size of the input in bits matters.
 
-*   **The Role of the $1/(1-\gamma)$ Factor (Effective Horizon)**:
-    *   For discounted infinite horizon problems, the term $1/(1-\gamma)$ is considered a **"characteristic time"** or **"effective horizon"**. It indicates roughly how long it takes to reach an answer in the absence of extra structure in the MDP.
-    *   When the discount factor $\gamma$ is very close to 1 (e.g., $1 - 10^{-5}$), this factor becomes very large (e.g., $10^5$), implying a potentially huge computational cost.
+*   **The Role of the \(1/(1-\gamma)\) Factor (Effective Horizon)**:
+    *   For discounted infinite horizon problems, the term \(1/(1-\gamma)\) is considered a **"characteristic time"** or **"effective horizon"**. It indicates roughly how long it takes to reach an answer in the absence of extra structure in the MDP.
+    *   When the discount factor \(\gamma\) is very close to 1 (e.g., \(1 - 10^{-5}\)), this factor becomes very large (e.g., \(10^5\)), implying a potentially huge computational cost.
     *   Vlad emphasizes that this **"blow up factor is real"** in worst-case computational scenarios, meaning one can construct examples where this large factor genuinely represents the computational difficulty.
 
 *   **Connection to the Vanishing Discount and Average Reward Settings**:
-    *   The **vanishing discount approach**, where $\gamma$ approaches 1, is used to model the **long horizon case** or the **average reward setting**.
+    *   The **vanishing discount approach**, where \(\gamma\) approaches 1, is used to model the **long horizon case** or the **average reward setting**.
     *   In the average reward setting, there is no inherent discount factor. However, the lower bounds in average reward literature implicitly suggest the reality of this large factor.
 
 *   **Mixing Rate and Span of the Optimal Value Function**:
     *   In the average reward setting, the **"mixing rate" of the MDP is a more fundamental quantity** that determines computational difficulty.
     *   This mixing rate is related to the **"span of the optimal value function"**. The span refers to the range of values the optimal value function can take across different states.
-    *   For the normalized value function $(1-\gamma)v_\pi$ to converge to the average reward value function as $\gamma \to 1$, the span of the normalized value functions must remain bounded.
-    *   **"Hot instances"** are MDPs that are "not too nice," where the span of the optimal value function can **"explode" as $\gamma$ goes to 1**, making calculations take longer.
-    *   **"Easier instances"** are MDPs where the span remains finite as $\gamma$ approaches 1.
+    *   For the normalized value function \((1-\gamma)v_\pi\) to converge to the average reward value function as \(\gamma \to 1\), the span of the normalized value functions must remain bounded.
+    *   **"Hot instances"** are MDPs that are "not too nice," where the span of the optimal value function can **"explode" as \(\gamma\) goes to 1**, making calculations take longer.
+    *   **"Easier instances"** are MDPs where the span remains finite as \(\gamma\) approaches 1.
     *   The average reward literature indicates that something related to the span is involved in **lower bounds for computational complexity**. Despite its fundamental nature, a very clear presentation of this result for the *discounted* setting is "not commonly found".
 
 *   **Specific Lower Bounds Mentioned**:
@@ -617,32 +617,32 @@ Here's a detailed breakdown:
     *   **This specific lower bound "has no gamma here and the data dependence is not shown either"**. This raises the question of whether a lower bound *should* depend on accuracy (data).
 
 *   **Accuracy (Epsilon) Dependence and Algorithm Comparison**:
-    *   For value iteration, the number of iterations required to achieve an $\epsilon$-optimal approximation is roughly $S^2 A / (1-\gamma) \times \log(1/\epsilon)$. This shows a dependence on $\log(1/\epsilon)$, meaning higher accuracy (smaller $\epsilon$) requires more iterations.
-    *   For **policy iteration**, the number of iterations required to discover an *optimal* policy (not just $\epsilon$-optimal) is given as $S^4 \times S^3 A^2 \times H$, where H is related to $1/(1-\gamma)$. Crucially, **this bound on policy iteration for finding an *optimal* policy does *not* explicitly depend on $\epsilon$ (data)**. This is because once the accuracy is small enough to demand the optimal policy, policy iteration finds it without further dependence on the specific $\epsilon$ value.
-    *   This implies that for **very high accuracy, policy iteration often wins** because its bound is not unbounded with $\log(1/\epsilon)$. However, for low accuracy, value iteration might be cheaper per iteration and win.
+    *   For value iteration, the number of iterations required to achieve an \(\epsilon\)-optimal approximation is roughly \(S^2 A / (1-\gamma) \times \log(1/\epsilon)\). This shows a dependence on \(\log(1/\epsilon)\), meaning higher accuracy (smaller \(\epsilon\)) requires more iterations.
+    *   For **policy iteration**, the number of iterations required to discover an *optimal* policy (not just \(\epsilon\)-optimal) is given as \(S^4 \times S^3 A^2 \times H\), where H is related to \(1/(1-\gamma)\). Crucially, **this bound on policy iteration for finding an *optimal* policy does *not* explicitly depend on \(\epsilon\) (data)**. This is because once the accuracy is small enough to demand the optimal policy, policy iteration finds it without further dependence on the specific \(\epsilon\) value.
+    *   This implies that for **very high accuracy, policy iteration often wins** because its bound is not unbounded with \(\log(1/\epsilon)\). However, for low accuracy, value iteration might be cheaper per iteration and win.
     *   The "Heaven and Hell MDP" example was used to demonstrate an **algorithm-independent lower bound**, suggesting that any algorithm cannot avoid reading all input numbers.
 
 *   **Overall Difficulty in Proving Exact Lower Bounds**:
-    *   Proving exact lower bounds for MDPs is extremely challenging. Vlad draws an analogy to matrix multiplication, where even for fundamental problems, the exact exponent of complexity (e.g., whether it's $d^3$ or $d^{2.37...}$) is still unknown.
+    *   Proving exact lower bounds for MDPs is extremely challenging. Vlad draws an analogy to matrix multiplication, where even for fundamental problems, the exact exponent of complexity (e.g., whether it's \(d^3\) or \(d^{2.37...}\)) is still unknown.
     *   The difficulty increases when considering instance-dependent complexities or trying to find a "best runtime no matter what the instance was".
     *   The way probability tables (transition probabilities) are represented can also affect calculation speed, further complicating the analysis of lower bounds.
 
-In essence, while there's a strong theoretical indication that the computational cost for planning in MDPs (especially in worst-case, long-horizon scenarios) scales with the "effective horizon" $1/(1-\gamma)$ and the size of the state and action spaces, a universally "clean" and tight lower bound proof that precisely captures all these dependencies, particularly for the discounted setting, remains an active area of discussion and research.
+In essence, while there's a strong theoretical indication that the computational cost for planning in MDPs (especially in worst-case, long-horizon scenarios) scales with the "effective horizon" \(1/(1-\gamma)\) and the size of the state and action spaces, a universally "clean" and tight lower bound proof that precisely captures all these dependencies, particularly for the discounted setting, remains an active area of discussion and research.
 
-The reason there is **no data dependence** (i.e., dependence on $\epsilon$, the desired precision or sub-optimality level) in the lower bound for the computational complexity of planning in MDPs stems from the behavior of **policy iteration**.
+The reason there is **no data dependence** (i.e., dependence on \(\epsilon\), the desired precision or sub-optimality level) in the lower bound for the computational complexity of planning in MDPs stems from the behavior of **policy iteration**.
 
 Here's a detailed explanation:
 
 *   **The Lower Bound and Data Dependence**: A general lower bound mentioned indicates that an algorithm must touch "basically every state action pair S times". This lower bound, expressed in terms of elementary arithmetic operations, "has no gamma here and the data dependence is not shown either". The question then arises: "should there be a data dependence?" and the source states, "the answer turns out to be no".
 
 *   **Policy Iteration's Role**: The absence of data dependence is explained by considering how policy iteration works in contrast to value iteration:
-    *   **Value Iteration's Dependence on Accuracy**: For value iteration, the number of iterations required to achieve an $\epsilon$-optimal approximation to the optimal value function is roughly $S^2 A / (1-\gamma) \times \log(1/\epsilon)$. This explicitly shows a **logarithmic dependence on $1/\epsilon$** (the inverse of the precision), meaning that as you demand higher accuracy (smaller $\epsilon$), the number of iterations (and thus operations) increases.
-    *   **Policy Iteration's Independence from Accuracy (for optimality)**: Policy iteration operates differently. It starts with a policy, evaluates its value function, then "greedifies" to find a new policy, and repeats. A key property of policy iteration is that **"after only this many iterations it discovers a policy which is optimal"**. The bound on the number of iterations for policy iteration to find an *optimal* policy is given as $S^4 \times S^3 A^2 \times H$ (where $H$ is related to $1/(1-\gamma)$), and **crucially, this bound does *not* explicitly depend on $\epsilon$**.
-    *   **Why the Difference?**: The instructor clarifies that once the accuracy (data) is "small enough" to effectively demand the *optimal policy*, policy iteration will find that optimal policy without further increasing its computational effort based on $\epsilon$. It's as if it "bumps into that" optimal policy like a "magnet". This means that for "really really high accuracy," policy iteration "definitely wins" because its bound "is not unbounded with log(1/epsilon)". In other words, while value iteration needs more steps to refine its approximation to an ever-smaller $\epsilon$, policy iteration reaches a point where it identifies the *exact* optimal policy, and beyond that, the notion of $\epsilon$-optimality becomes less relevant for its convergence.
+    *   **Value Iteration's Dependence on Accuracy**: For value iteration, the number of iterations required to achieve an \(\epsilon\)-optimal approximation to the optimal value function is roughly \(S^2 A / (1-\gamma) \times \log(1/\epsilon)\). This explicitly shows a **logarithmic dependence on \(1/\epsilon\)** (the inverse of the precision), meaning that as you demand higher accuracy (smaller \(\epsilon\)), the number of iterations (and thus operations) increases.
+    *   **Policy Iteration's Independence from Accuracy (for optimality)**: Policy iteration operates differently. It starts with a policy, evaluates its value function, then "greedifies" to find a new policy, and repeats. A key property of policy iteration is that **"after only this many iterations it discovers a policy which is optimal"**. The bound on the number of iterations for policy iteration to find an *optimal* policy is given as \(S^4 \times S^3 A^2 \times H\) (where \(H\) is related to \(1/(1-\gamma)\)), and **crucially, this bound does *not* explicitly depend on \(\epsilon\)**.
+    *   **Why the Difference?**: The instructor clarifies that once the accuracy (data) is "small enough" to effectively demand the *optimal policy*, policy iteration will find that optimal policy without further increasing its computational effort based on \(\epsilon\). It's as if it "bumps into that" optimal policy like a "magnet". This means that for "really really high accuracy," policy iteration "definitely wins" because its bound "is not unbounded with log(1/epsilon)". In other words, while value iteration needs more steps to refine its approximation to an ever-smaller \(\epsilon\), policy iteration reaches a point where it identifies the *exact* optimal policy, and beyond that, the notion of \(\epsilon\)-optimality becomes less relevant for its convergence.
 
-In essence, the argument is that for finding a truly *optimal* policy (as opposed to just an $\epsilon$-optimal one), the concept of data dependence (or $\epsilon$) in the lower bound vanishes because algorithms like policy iteration can converge to the exact optimal policy within a bound that is independent of how finely you specify the required precision.
+In essence, the argument is that for finding a truly *optimal* policy (as opposed to just an \(\epsilon\)-optimal one), the concept of data dependence (or \(\epsilon\)) in the lower bound vanishes because algorithms like policy iteration can converge to the exact optimal policy within a bound that is independent of how finely you specify the required precision.
 
-The sources indicate that in the context of planning in Markov Decision Processes (MDPs), particularly for the average reward setting or when the discount factor $\gamma$ approaches 1 (the "vanishing discount approach"), **the mixing rate of the MDP is considered a more fundamental quantity that determines computational difficulty**.
+The sources indicate that in the context of planning in Markov Decision Processes (MDPs), particularly for the average reward setting or when the discount factor \(\gamma\) approaches 1 (the "vanishing discount approach"), **the mixing rate of the MDP is considered a more fundamental quantity that determines computational difficulty**.
 
 The source then clarifies that this mixing rate is closely associated with, and even identified as, **"the span of the value function span of the optimal value function"**. Therefore, rather than the span being *more* fundamental than the mixing rate, the source presents them as intertwined or perhaps interchangeable concepts that capture the inherent difficulty of an MDP.
 
@@ -650,15 +650,15 @@ Here's why the span (as a characteristic of the mixing rate) is considered funda
 
 *   **Definition of Span**: The span refers to the **range of values the optimal value function can take across different states**. It essentially measures how much the value of being in one state can differ from being in another state, according to the optimal policy.
 
-*   **Convergence and Normalization**: When considering the vanishing discount approach, where $\gamma$ approaches 1, the goal is often to understand the long-horizon behavior, which relates to the average reward setting. For the normalized value function, $(1-\gamma)v_\pi$, to converge to the average reward value function as $\gamma \to 1$, a crucial condition is that **the span of these normalized value functions must remain bounded**.
+*   **Convergence and Normalization**: When considering the vanishing discount approach, where \(\gamma\) approaches 1, the goal is often to understand the long-horizon behavior, which relates to the average reward setting. For the normalized value function, \((1-\gamma)v_\pi\), to converge to the average reward value function as \(\gamma \to 1\), a crucial condition is that **the span of these normalized value functions must remain bounded**.
 
 *   **Instance Difficulty ("Hot Instances")**:
-    *   In MDPs that are "not too nice," referred to as **"hot instances," the span of the optimal value function can "explode" as $\gamma$ goes to 1**. This means the difference between the highest and lowest possible values becomes extremely large. When the span explodes, it signifies that calculations will take longer.
-    *   Conversely, **"easier instances"** are those MDPs where the span remains finite as $\gamma$ approaches 1.
+    *   In MDPs that are "not too nice," referred to as **"hot instances," the span of the optimal value function can "explode" as \(\gamma\) goes to 1**. This means the difference between the highest and lowest possible values becomes extremely large. When the span explodes, it signifies that calculations will take longer.
+    *   Conversely, **"easier instances"** are those MDPs where the span remains finite as \(\gamma\) approaches 1.
 
-*   **Relation to Lower Bounds**: The average reward literature, which is closely related to the $\gamma \to 1$ case, indicates that **"something related to the span is involved in lower bounds for computational complexity"**. This suggests that the inherent difficulty of solving an MDP to find an optimal policy is directly tied to this quantity, regardless of the specific algorithm used.
+*   **Relation to Lower Bounds**: The average reward literature, which is closely related to the \(\gamma \to 1\) case, indicates that **"something related to the span is involved in lower bounds for computational complexity"**. This suggests that the inherent difficulty of solving an MDP to find an optimal policy is directly tied to this quantity, regardless of the specific algorithm used.
 
-In summary, the span of the optimal value function is fundamental because its behavior (remaining bounded or exploding as $\gamma \to 1$) directly dictates the inherent computational difficulty of an MDP, particularly in long-horizon or average reward scenarios, and is implicated in the theoretical lower bounds for planning complexity.
+In summary, the span of the optimal value function is fundamental because its behavior (remaining bounded or exploding as \(\gamma \to 1\)) directly dictates the inherent computational difficulty of an MDP, particularly in long-horizon or average reward scenarios, and is implicated in the theoretical lower bounds for planning complexity.
 
 
 The "best case" scenario for the computational complexity of planning in MDPs is considered **trivial** and, in a sense, means **no calculations are necessary**.
@@ -666,7 +666,7 @@ The "best case" scenario for the computational complexity of planning in MDPs is
 This extreme best case occurs when:
 *   **Rewards are identically zero**: If all rewards are zero, then "every policy is doing equally well". In such a scenario, there is no need to perform any complex calculations to find an optimal policy, as any policy is effectively optimal. The instructor states, "you shouldn't do any calculations right like the best case you don't have to do calculations that's kind of silly".
 
-This contrasts sharply with the discussion around worst-case complexities, where the $1/(1-\gamma)$ factor (the "effective horizon") is highlighted as a "real" blow-up factor that can lead to significant computational costs. While the sources also mention "easier instances" of MDPs where the span of the optimal value function remains finite as the discount factor $\gamma$ approaches 1, this refers to specific structures that might alleviate some computational burden, rather than a scenario where no calculations are needed at all. The absolute "best case" is reserved for the most trivial MDPs.
+This contrasts sharply with the discussion around worst-case complexities, where the \(1/(1-\gamma)\) factor (the "effective horizon") is highlighted as a "real" blow-up factor that can lead to significant computational costs. While the sources also mention "easier instances" of MDPs where the span of the optimal value function remains finite as the discount factor \(\gamma\) approaches 1, this refers to specific structures that might alleviate some computational burden, rather than a scenario where no calculations are needed at all. The absolute "best case" is reserved for the most trivial MDPs.
 
 Policy iteration is a fundamental method for solving Markov Decision Processes (MDPs) to find an optimal policy. It operates through an iterative process that **alternates between evaluating a policy and improving it**.
 
@@ -680,8 +680,8 @@ Here's a breakdown of what policy iteration is and how it works:
 *   **Convergence to Optimality**: A key characteristic of policy iteration is that it is guaranteed to discover an **optimal policy** within a finite number of iterations, provided ties in the greedy operation are resolved systematically. This means that if multiple actions yield the same maximum value during the greedification step, the algorithm must consistently choose one (e.g., always picking the first one) to avoid "jittering".
 
 *   **Contrast with Value Iteration**: Policy iteration differs significantly from value iteration, especially concerning the precision required for convergence to an optimal policy:
-    *   **Value Iteration's Precision Dependence**: Value iteration calculates a sequence of value functions that converge to the optimal value function, typically achieving an $\epsilon$-optimal approximation. The number of iterations for value iteration to reach an $\epsilon$-optimal approximation depends logarithmically on $1/\epsilon$ (e.g., $S^2 A / (1-\gamma) \times \log(1/\epsilon)$). This means that as you demand higher accuracy (smaller $\epsilon$), the computational effort for value iteration increases.
-    *   **Policy Iteration's Independence from Precision (for optimality)**: In contrast, policy iteration, "after only this many iterations it discovers a policy which is optimal". The number of iterations (and thus operations) for policy iteration to find an *optimal* policy is bounded by roughly $S^4 \times S^3 A^2 \times H$ (where $H$ is the effective horizon, approximately $1/(1-\gamma)$). Crucially, **this bound does not explicitly depend on $\epsilon$ or $\delta$ (sub-optimality level)**.
+    *   **Value Iteration's Precision Dependence**: Value iteration calculates a sequence of value functions that converge to the optimal value function, typically achieving an \(\epsilon\)-optimal approximation. The number of iterations for value iteration to reach an \(\epsilon\)-optimal approximation depends logarithmically on \(1/\epsilon\) (e.g., \(S^2 A / (1-\gamma) \times \log(1/\epsilon)\)). This means that as you demand higher accuracy (smaller \(\epsilon\)), the computational effort for value iteration increases.
+    *   **Policy Iteration's Independence from Precision (for optimality)**: In contrast, policy iteration, "after only this many iterations it discovers a policy which is optimal". The number of iterations (and thus operations) for policy iteration to find an *optimal* policy is bounded by roughly \(S^4 \times S^3 A^2 \times H\) (where \(H\) is the effective horizon, approximately \(1/(1-\gamma)\)). Crucially, **this bound does not explicitly depend on \(\epsilon\) or \(\delta\) (sub-optimality level)**.
 
 *   **Computational Advantage for High Accuracy**: For "really really high accuracy," policy iteration "definitely wins" because its computational bound "is not unbounded with log(1/epsilon)". This is because it directly finds the optimal policy, essentially "bumping into" it like a "magnet". While value iteration might be cheaper for "low accuracy" scenarios due to its simpler per-iteration cost, policy iteration's ability to find the *exact* optimal policy without increasing iterations for arbitrarily high precision makes it superior for tasks demanding true optimality.
 
@@ -696,9 +696,9 @@ The runtime estimate is:
 Let's break down the components of this bound:
 *   **S**: Represents the number of states in the MDP.
 *   **A**: Represents the number of actions in the MDP.
-*   **H**: This refers to the **effective horizon**, which is approximately **1 divided by (1 - gamma)** (where gamma is the discount factor). This means the bound can also be expressed as $S^4 \times S^3 A^2 \times \frac{1}{1-\gamma}$.
+*   **H**: This refers to the **effective horizon**, which is approximately **1 divided by (1 - gamma)** (where gamma is the discount factor). This means the bound can also be expressed as \(S^4 \times S^3 A^2 \times \frac{1}{1-\gamma}\).
 
-A crucial characteristic of policy iteration is that it **discovers an optimal policy** within this many iterations. This is unlike value iteration, whose number of iterations to achieve an $\epsilon$-optimal approximation explicitly depends on $\log(1/\epsilon)$. For policy iteration, the bound for finding an *optimal* policy does **not explicitly depend on the precision ($\epsilon$ or $\delta$)**.
+A crucial characteristic of policy iteration is that it **discovers an optimal policy** within this many iterations. This is unlike value iteration, whose number of iterations to achieve an \(\epsilon\)-optimal approximation explicitly depends on \(\log(1/\epsilon)\). For policy iteration, the bound for finding an *optimal* policy does **not explicitly depend on the precision (\(\epsilon\) or \(\delta\))**.
 
 This independence from precision means that for "really really high accuracy," policy iteration "definitely wins" over value iteration because its bound "is not unbounded with log(1/epsilon)". The only condition for policy iteration to guarantee optimality within this bound is that **ties in the greedy operation must be resolved in a systematic manner**.
 
@@ -708,15 +708,15 @@ Between roughly 50:00 and 55:00, the discussion primarily focuses on the **compu
 
 Here's a breakdown of the key points:
 
-*   **Lower Bounds and Data Dependence**: The discussion begins by revisiting a general lower bound for computational complexity, which states that an algorithm must effectively "touch every state action pair S times". This lower bound is expressed in terms of elementary arithmetic operations and notably "has no gamma here and the data dependence is not shown either". The fundamental question posed is whether "should there be a data dependence" on the sub-optimality level (often denoted as $\delta$ or $\epsilon$) in this lower bound. The speaker asserts that "the answer turns out to be no".
+*   **Lower Bounds and Data Dependence**: The discussion begins by revisiting a general lower bound for computational complexity, which states that an algorithm must effectively "touch every state action pair S times". This lower bound is expressed in terms of elementary arithmetic operations and notably "has no gamma here and the data dependence is not shown either". The fundamental question posed is whether "should there be a data dependence" on the sub-optimality level (often denoted as \(\delta\) or \(\epsilon\)) in this lower bound. The speaker asserts that "the answer turns out to be no".
 
 *   **Policy Iteration as the Explanation**:
     *   To explain why there is no data dependence, **policy iteration** is introduced and contrasted with value iteration.
-    *   For value iteration, achieving an $\epsilon$-optimal approximation of the optimal value function requires a number of iterations that includes a **logarithmic dependence on $1/\epsilon$** (e.g., $S^2 A / (1-\gamma) \times \log(1/\text{data})$). This means that as you demand higher precision (smaller $\epsilon$), the number of iterations increases.
+    *   For value iteration, achieving an \(\epsilon\)-optimal approximation of the optimal value function requires a number of iterations that includes a **logarithmic dependence on \(1/\epsilon\)** (e.g., \(S^2 A / (1-\gamma) \times \log(1/\text{data})\)). This means that as you demand higher precision (smaller \(\epsilon\)), the number of iterations increases.
     *   Policy iteration, on the other hand, is highlighted because "after only this many iterations it discovers a policy which is optimal". This convergence to an *optimal* policy happens within a finite number of iterations, provided that "ties have to be resolved in a systematic manner" during the greedy operation.
 
 *   **Runtime Bound for Policy Iteration**:
-    *   The **runtime bound** for policy iteration, including the cost of computing the value function, is given as approximately **S to the power of 4 times S cubed A squared times H**. Here, 'S' is the number of states, 'A' is the number of actions, and 'H' is the effective horizon, approximately $1/(1-\gamma)$.
+    *   The **runtime bound** for policy iteration, including the cost of computing the value function, is given as approximately **S to the power of 4 times S cubed A squared times H**. Here, 'S' is the number of states, 'A' is the number of actions, and 'H' is the effective horizon, approximately \(1/(1-\gamma)\).
     *   Crucially, this bound for policy iteration **does not explicitly depend on the precision or sub-optimality level (data)**. This is the core reason for the "no data dependence" answer regarding the lower bound.
     *   The speaker emphasizes that "for really really high accuracy policy iteration definitely wins" compared to value iteration, because policy iteration's bound "is not unbounded with log(1/epsilon)". Policy iteration finds the exact optimal policy, effectively "bumping into that it's like a magnet". While value iteration might be more efficient for "low accuracy" scenarios due to cheaper per-iteration costs, policy iteration's ability to find the *exact* optimal policy without increasing iterations for arbitrarily high precision makes it superior for true optimality.
 
@@ -733,9 +733,9 @@ Breaking this down:
 *   **A** represents the number of **actions** in the MDP.
 *   **H** refers to the **effective horizon**, which is approximately **1 divided by (1 - gamma)**, where gamma is the discount factor.
 
-Therefore, the runtime bound can also be expressed as $S^4 \times S^3 A^2 \times \frac{1}{1-\gamma}$. This means that policy iteration "discovers a policy which is optimal" within this bound of operations.
+Therefore, the runtime bound can also be expressed as \(S^4 \times S^3 A^2 \times \frac{1}{1-\gamma}\). This means that policy iteration "discovers a policy which is optimal" within this bound of operations.
 
-A crucial point is that this bound ensures the discovery of an *optimal* policy, not just an $\epsilon$-optimal approximation like value iteration. This is why, for "really really high accuracy," policy iteration "definitely wins" because its computational bound "is not unbounded with log(1/epsilon)".
+A crucial point is that this bound ensures the discovery of an *optimal* policy, not just an \(\epsilon\)-optimal approximation like value iteration. This is why, for "really really high accuracy," policy iteration "definitely wins" because its computational bound "is not unbounded with log(1/epsilon)".
 
 However, there is a condition for this guarantee: **ties in the greedy operation must be resolved in a systematic manner**. This means if multiple actions yield the same maximum value during the policy improvement step, the algorithm must consistently choose one (e.g., always picking the first one) to prevent "jittering" and ensure convergence.
 
@@ -744,17 +744,17 @@ The difference between "high accuracy" and "low accuracy" iteration in the conte
 Here's a breakdown of the differences:
 
 *   **Definition of Accuracy**:
-    *   Accuracy, in this context, refers to how close the found policy's value function is to the true optimal value function. It is often quantified by a small number, $\epsilon$ (epsilon) or $\delta$ (delta), representing the sub-optimality level. A "high accuracy" requirement means a very small $\epsilon$ or $\delta$, demanding a policy that is extremely close to optimal, while "low accuracy" implies a larger, more permissible margin of error.
+    *   Accuracy, in this context, refers to how close the found policy's value function is to the true optimal value function. It is often quantified by a small number, \(\epsilon\) (epsilon) or \(\delta\) (delta), representing the sub-optimality level. A "high accuracy" requirement means a very small \(\epsilon\) or \(\delta\), demanding a policy that is extremely close to optimal, while "low accuracy" implies a larger, more permissible margin of error.
 
 *   **Value Iteration (VI) and Accuracy Dependence**:
-    *   **Goal**: Value iteration computes a sequence of value functions that converge to the optimal value function, $V^*$. It typically aims to find an $\epsilon$-optimal approximation of $V^*$.
-    *   **Iteration Complexity**: The number of iterations required for Value Iteration to reach an $\epsilon$-optimal approximation explicitly depends on $\log(1/\epsilon)$ (or $\log(1/\text{data})$, where data refers to the precision). Specifically, the runtime is estimated as $S^2 A / (1-\gamma) \times \log(1/\text{data})$.
-    *   **Implication for Accuracy**: This logarithmic dependence means that as you demand **higher accuracy** (i.e., smaller $\epsilon$), the computational effort for value iteration **increases significantly**. Conversely, for **low accuracy**, Value Iteration can be more efficient due to its simpler per-iteration cost.
+    *   **Goal**: Value iteration computes a sequence of value functions that converge to the optimal value function, \(V^*\). It typically aims to find an \(\epsilon\)-optimal approximation of \(V^*\).
+    *   **Iteration Complexity**: The number of iterations required for Value Iteration to reach an \(\epsilon\)-optimal approximation explicitly depends on \(\log(1/\epsilon)\) (or \(\log(1/\text{data})\), where data refers to the precision). Specifically, the runtime is estimated as \(S^2 A / (1-\gamma) \times \log(1/\text{data})\).
+    *   **Implication for Accuracy**: This logarithmic dependence means that as you demand **higher accuracy** (i.e., smaller \(\epsilon\)), the computational effort for value iteration **increases significantly**. Conversely, for **low accuracy**, Value Iteration can be more efficient due to its simpler per-iteration cost.
 
 *   **Policy Iteration (PI) and Accuracy Independence (for Optimality)**:
     *   **Goal**: Policy iteration directly finds an **optimal policy**. It does not merely approximate the optimal value function but rather "discovers a policy which is optimal".
-    *   **Iteration Complexity**: The runtime bound for Policy Iteration to find an *optimal* policy is given as approximately **S to the power of 4 times S cubed A squared times H** (where H is the effective horizon, $1/(1-\gamma)$).
-    *   **Implication for Accuracy**: Crucially, this bound for Policy Iteration **does not explicitly depend on the precision or sub-optimality level ($\epsilon$ or $\delta$)**. Policy Iteration effectively "bumps into" the optimal policy, like a "magnet," once a certain number of operations are performed.
+    *   **Iteration Complexity**: The runtime bound for Policy Iteration to find an *optimal* policy is given as approximately **S to the power of 4 times S cubed A squared times H** (where H is the effective horizon, \(1/(1-\gamma)\)).
+    *   **Implication for Accuracy**: Crucially, this bound for Policy Iteration **does not explicitly depend on the precision or sub-optimality level (\(\epsilon\) or \(\delta\))**. Policy Iteration effectively "bumps into" the optimal policy, like a "magnet," once a certain number of operations are performed.
     *   **Condition**: For this guarantee, "ties have to be resolved in a systematic manner" during the greedy policy improvement step.
 
 *   **Trade-off between VI and PI based on Accuracy**:
@@ -770,8 +770,8 @@ Based on the provided sources and our conversation history, **the term "delta" (
 Here's how "delta" is discussed in the context of solving MDPs:
 
 *   **Precision for Near-Optimality**: When solving an MDP, an algorithm might aim to find a policy whose value function is within a certain "delta" (or "epsilon") distance from the true optimal value function. This "delta" quantifies the acceptable level of sub-optimality or inaccuracy.
-*   **Impact on Value Iteration Runtime**: The computational complexity of **Value Iteration** to achieve a "delta"-optimal policy *does* explicitly depend on this precision level. Specifically, the runtime is given as proportional to $\text{S}^2 \text{A} / (1-\gamma) \times \log(1/\text{data})$ (where "data" is used interchangeably with "delta" for precision). This implies that demanding higher accuracy (a smaller "delta") significantly increases the computational effort for Value Iteration due to the logarithmic term.
-*   **Policy Iteration's Independence from Precision**: In contrast, **Policy Iteration** is highlighted because it directly "discovers a policy which is optimal" within a finite number of iterations, estimated as $\text{S}^4 \times \text{S}^3 \text{A}^2 \times \text{H}$ (where $\text{H}$ is the effective horizon, approximately $1/(1-\gamma)$). Crucially, this bound for Policy Iteration **does not explicitly depend on "delta"**. This leads to the conclusion that for "really really high accuracy," Policy Iteration "definitely wins" because its bound "is not unbounded with log(1/epsilon)" (or log(1/data)).
+*   **Impact on Value Iteration Runtime**: The computational complexity of **Value Iteration** to achieve a "delta"-optimal policy *does* explicitly depend on this precision level. Specifically, the runtime is given as proportional to \(\text{S}^2 \text{A} / (1-\gamma) \times \log(1/\text{data})\) (where "data" is used interchangeably with "delta" for precision). This implies that demanding higher accuracy (a smaller "delta") significantly increases the computational effort for Value Iteration due to the logarithmic term.
+*   **Policy Iteration's Independence from Precision**: In contrast, **Policy Iteration** is highlighted because it directly "discovers a policy which is optimal" within a finite number of iterations, estimated as \(\text{S}^4 \times \text{S}^3 \text{A}^2 \times \text{H}\) (where \(\text{H}\) is the effective horizon, approximately \(1/(1-\gamma)\)). Crucially, this bound for Policy Iteration **does not explicitly depend on "delta"**. This leads to the conclusion that for "really really high accuracy," Policy Iteration "definitely wins" because its bound "is not unbounded with log(1/epsilon)" (or log(1/data)).
 *   **Lower Bounds and Data Dependence**: The discussion also touches upon whether the theoretical lower bounds for computing an optimal policy should include a data (or delta) dependence. The speaker states that the answer "turns out to be no" because Policy Iteration can find an optimal policy without this dependence.
 
 Therefore, "delta" is a parameter that defines the desired **quality of the *solution*** rather than being a part of the fundamental mathematical definition of an MDP itself.
@@ -791,28 +791,28 @@ Here's a breakdown of why, drawing from the discussion:
     *   Crucially, this bound for Policy Iteration **does not explicitly depend on the precision `delta`**. The speaker emphasizes that this is why "for really really high accuracy policy iteration definitely wins" because its bound "is not unbounded with log(1/epsilon)". Policy Iteration "kind of like bump into that it's like a magnet" to find the optimal policy.
     *   This lack of `delta` dependence for finding the *optimal* policy through Policy Iteration is the core reason why the speaker asserts that the **general lower bound for computational complexity for finding an optimal policy "turns out to be no" data dependence**.
 
-In summary, the `S^2 A` term you mentioned is part of the Value Iteration runtime, which *does* require `delta` for precision. Policy Iteration, on the other hand, finds the *exact* optimal policy (making `delta` irrelevant for its final convergence) but has a different, typically higher, polynomial runtime complexity in terms of S and A. The distinction is critical: Value Iteration is for $\delta$-optimality with `log(1/delta)` dependence, while Policy Iteration is for *exact* optimality without `delta` dependence on the number of iterations to converge to that exact optimal policy.
+In summary, the `S^2 A` term you mentioned is part of the Value Iteration runtime, which *does* require `delta` for precision. Policy Iteration, on the other hand, finds the *exact* optimal policy (making `delta` irrelevant for its final convergence) but has a different, typically higher, polynomial runtime complexity in terms of S and A. The distinction is critical: Value Iteration is for \(\delta\)-optimality with `log(1/delta)` dependence, while Policy Iteration is for *exact* optimality without `delta` dependence on the number of iterations to converge to that exact optimal policy.
 
 
 The instructor's intuition regarding matrix multiplication is primarily used as an analogy to discuss the complexities and open problems in determining the precise computational bounds for algorithms, particularly in the context of solving MDPs. Here are the key points of their intuition:
 
-*   **Initial Cubic Upper Bound**: The common, straightforward understanding is that multiplying two square matrices (say, of dimension $N \times N$) takes **cubic time**, i.e., $N^3$ operations. This is considered an upper bound.
+*   **Initial Cubic Upper Bound**: The common, straightforward understanding is that multiplying two square matrices (say, of dimension \(N \times N\)) takes **cubic time**, i.e., \(N^3\) operations. This is considered an upper bound.
 *   **Actual Exponent is Unknown**: Despite this common understanding, the instructor emphasizes that **we don't actually know the actual exponent** for matrix multiplication in the worst case. This highlights that it's a famously difficult and unresolved problem in computer science.
 *   **Sub-Cubic Algorithms Exist**: The instructor acknowledges that algorithms exist that can reduce the exponent below three, mentioning "like 2.3 or something". These improvements are achieved through "blocking and a very clever techniques" or "problem decomposition and recycling designs". The instructor cites Gauss's work with complex numbers as an early example of such clever rearrangement of operations.
-*   **Trivial Lower Bound**: There is a trivial lower bound for matrix multiplication, which is **$N^2$** (or $d^2$ for dimension $d$). This is because you "have to write down the result", and an $N \times N$ matrix has $N^2$ entries.
+*   **Trivial Lower Bound**: There is a trivial lower bound for matrix multiplication, which is **\(N^2\)** (or \(d^2\) for dimension \(d\)). This is because you "have to write down the result", and an \(N \times N\) matrix has \(N^2\) entries.
 *   **Analogy to MDP Complexity**: The instructor draws a parallel between the difficulty of finding the exact exponent for matrix multiplication and the challenge of establishing precise, tight lower bounds for MDP algorithms. They suggest that similar ideas, like representing probability tables in different ways, could potentially speed up calculations in MDPs, just as clever techniques reduce the exponent in matrix multiplication.
 
 
-The value function space, in the context of Markov Decision Processes (MDPs) with S states, is represented as **$R^S$**. This means that each possible value function is a point in an S-dimensional space.
+The value function space, in the context of Markov Decision Processes (MDPs) with S states, is represented as **\(R^S\)**. This means that each possible value function is a point in an S-dimensional space.
 
 Here's a breakdown of its structure:
 
 *   **Convex Set**: The set of all possible value functions for all policies (the "value function polytope") is **convex**. This was a relatively recent discovery, proven in a paper by Dabashi and Dale, among others.
-*   **Bounding Rectangle and Optimal/Minimal Values**: If you consider the "minimum enclosing rectangle" of this convex set in the high-dimensional space, its **upper-right corner** corresponds to the **optimal value function ($V^*$)**, and its **lower-left corner** (representing minimized values, perhaps for costs) also **belongs to this set**.
+*   **Bounding Rectangle and Optimal/Minimal Values**: If you consider the "minimum enclosing rectangle" of this convex set in the high-dimensional space, its **upper-right corner** corresponds to the **optimal value function (\(V^*\))**, and its **lower-left corner** (representing minimized values, perhaps for costs) also **belongs to this set**.
 *   **Extreme Points**: All the **corners or extreme points of this value function space correspond to deterministic memoryless policies**.
-*   **Geometric Visualization**: The space "kind of looks like this", implying a shape where any points along lines connecting internal points are also within the set due to convexity. The optimal value function, $V^*$, is located at the "upper-right corner" of this space.
-*   **Continuity and Sensitivity**: A key theorem (often described as a continuity or sensitivity result) states that if you pick any value function `v` (which may or may not be within this exact polytope) and then derive a greedy policy `pi` from it, the value function of that policy, $V_\pi$, will be "almost optimal". Geometrically, $V_\pi$ is located within a "box of equal sizes" (a hypercube) grown from `v` towards $V^*$. As the initial `v` gets closer to $V^*$, the resulting $V_\pi$ also converges to $V^*$.
-*   **Value Iteration Trajectory**: When applying Value Iteration, you start at an initial value function (e.g., the zero vector) and iteratively apply the Bellman optimality operator `T`. This process involves moving points in this $R^S$ space, and these points **geometrically converge** towards $V^*$. $V^*$ is the unique **fixed point and attractive point** in this space under the `T` operator. The convergence is guaranteed to make progress; there are "no flatness" or "flat barriers" that would slow down the approach to $V^*$.
+*   **Geometric Visualization**: The space "kind of looks like this", implying a shape where any points along lines connecting internal points are also within the set due to convexity. The optimal value function, \(V^*\), is located at the "upper-right corner" of this space.
+*   **Continuity and Sensitivity**: A key theorem (often described as a continuity or sensitivity result) states that if you pick any value function `v` (which may or may not be within this exact polytope) and then derive a greedy policy `pi` from it, the value function of that policy, \(V_\pi\), will be "almost optimal". Geometrically, \(V_\pi\) is located within a "box of equal sizes" (a hypercube) grown from `v` towards \(V^*\). As the initial `v` gets closer to \(V^*\), the resulting \(V_\pi\) also converges to \(V^*\).
+*   **Value Iteration Trajectory**: When applying Value Iteration, you start at an initial value function (e.g., the zero vector) and iteratively apply the Bellman optimality operator `T`. This process involves moving points in this \(R^S\) space, and these points **geometrically converge** towards \(V^*\). \(V^*\) is the unique **fixed point and attractive point** in this space under the `T` operator. The convergence is guaranteed to make progress; there are "no flatness" or "flat barriers" that would slow down the approach to \(V^*\).
 *   **Role of Max Norm**: The use of the **maximum norm (infinity norm)** in analyzing these operations is crucial because the Bellman operator `T` (which involves maximization, adding rewards, and applying a linear operator for discounted future values) happens to be a **non-expansion or contraction in this specific norm**, ensuring the convergence properties work out.
 
 
@@ -821,11 +821,11 @@ Here's a breakdown of its structure:
 Here's how precision for near-optimality is understood and applied in the context of MDPs:
 
 *   **Definition and Goal**:
-    *   The goal is to find a policy whose value function is **within a certain `epsilon` distance from the true optimal value function ($V^*$)** in the maximum norm (infinity norm). This `epsilon` quantifies the desired precision, meaning how close to optimal the solution needs to be.
+    *   The goal is to find a policy whose value function is **within a certain `epsilon` distance from the true optimal value function (\(V^*\))** in the maximum norm (infinity norm). This `epsilon` quantifies the desired precision, meaning how close to optimal the solution needs to be.
     *   The use of the maximum norm is crucial because the Bellman optimality operator (`T`) that drives Value Iteration is a non-expansion or contraction in this specific norm, ensuring robust convergence properties.
 
 *   **Value Iteration and Precision Dependence**:
-    *   **Value Iteration** is an algorithm that iteratively applies the Bellman optimality operator `T` to a value function, causing it to **geometrically converge** towards the optimal value function $V^*$. The error (distance from $V^*$) reduces by a factor of `gamma` in each iteration.
+    *   **Value Iteration** is an algorithm that iteratively applies the Bellman optimality operator `T` to a value function, causing it to **geometrically converge** towards the optimal value function \(V^*\). The error (distance from \(V^*\)) reduces by a factor of `gamma` in each iteration.
     *   To calculate an `epsilon`-optimal approximation of the optimal value function using Value Iteration, the **number of iterations (`k`) required explicitly depends on `epsilon`**. The iteration complexity is roughly proportional to `log(1/epsilon) / (1-gamma)`.
     *   The overall computational complexity of Value Iteration to find a `data`-optimal policy is estimated as `S^2 * A / (1-gamma) * log(1/data)`. This formula clearly shows that **demanding higher precision (a smaller `data`) significantly increases the computational effort** due to the `log(1/data)` term.
     *   The term `1/(1-gamma)` is also a critical "blow-up factor" or "effective horizon" (`H`) that determines how fast geometric convergence is. When the discount factor `gamma` is very close to 1, this factor becomes very large, making convergence slower, even for a fixed `epsilon`.
@@ -837,8 +837,8 @@ Here's how precision for near-optimality is understood and applied in the contex
 
 *   **The "Continuity/Sensitivity Result" (Justification for Near-Optimality)**:
     *   A fundamental theorem supports the utility of aiming for near-optimality: if you take any value function `v` and derive a greedy policy `pi` with respect to it, the value function of that policy (`V_pi`) will be **"almost optimal to the degree that the function that you picked differs from the optimal value function"**.
-    *   Geometrically, this means if you start at a point `v` in the S-dimensional value function space (`R^S`) and grow a "box of equal sizes" from `v` towards $V^*$, the resulting `V_pi` will lie within this box and within the convex set of all valid value functions.
-    *   This theorem ensures that achieving an `epsilon`-optimal approximation of the value function ($V_k$ being `epsilon`-close to $V^*$) is a **"reasonable goal"** because the loss incurred by not having the truly optimal policy is limited by a policy error bound derived from this result. As the initial `v` gets closer to $V^*$, the resulting `V_pi` also converges to $V^*$.
+    *   Geometrically, this means if you start at a point `v` in the S-dimensional value function space (`R^S`) and grow a "box of equal sizes" from `v` towards \(V^*\), the resulting `V_pi` will lie within this box and within the convex set of all valid value functions.
+    *   This theorem ensures that achieving an `epsilon`-optimal approximation of the value function (\(V_k\) being `epsilon`-close to \(V^*\)) is a **"reasonable goal"** because the loss incurred by not having the truly optimal policy is limited by a policy error bound derived from this result. As the initial `v` gets closer to \(V^*\), the resulting `V_pi` also converges to \(V^*\).
 
 
 
@@ -847,7 +847,7 @@ Based on the sources and our conversation, your phrasing, "whether the delta (th
 Here's a breakdown of why, distinguishing between Value Iteration (VI) and Policy Iteration (PI):
 
 1.  **Value Iteration (VI) and Delta Dependence:**
-    *   **Value Iteration aims to calculate an `epsilon`-optimal (or `data`-optimal) approximation of the optimal value function ($V^*$)**. The `epsilon` or `data` here explicitly quantifies the desired precision.
+    *   **Value Iteration aims to calculate an `epsilon`-optimal (or `data`-optimal) approximation of the optimal value function (\(V^*\))**. The `epsilon` or `data` here explicitly quantifies the desired precision.
     *   The **number of iterations (`k`) required for Value Iteration is directly dependent on this precision `data` (or `epsilon`)**. Specifically, `k` is proportional to `log(1/data) / (1-gamma)`. This means a smaller `data` (higher precision) requires more iterations.
     *   The **overall computational complexity for Value Iteration** to find a `data`-optimal policy is estimated as **`S^2 * A / (1-gamma) * log(1/data)`**. The `S^2 * A` component represents the cost per iteration (performing computations across all states and actions), but the crucial `log(1/data)` factor remains, showing that **`delta` (precision) is absolutely required** and influences the total iteration count for Value Iteration.
 
@@ -865,11 +865,11 @@ Yes, the **value function space is convex**.
 
 Here's a breakdown of its structure regarding convexity:
 
-*   The value function space, for an MDP with S states, is represented as $\mathbf{R^S}$. Each possible value function is a point in this S-dimensional space.
+*   The value function space, for an MDP with S states, is represented as \(\mathbf{R^S}\). Each possible value function is a point in this S-dimensional space.
 *   The set of all possible value functions for all policies (sometimes referred to as the "value function polytope") is **convex**. This was highlighted as a "beautiful" and "neat result," which was not part of the standard lectures but was proven in a paper involving Dabashi and Dale within the last couple of years.
-*   Within this convex set, if you consider the "minimum enclosing rectangle" in the high-dimensional space, its **upper-right corner corresponds to the optimal value function ($V^*$)**, and its **lower-left corner** (representing minimized values, such as for costs) also **belongs to this set**. $V^*$ is specifically defined as this upper-right corner.
+*   Within this convex set, if you consider the "minimum enclosing rectangle" in the high-dimensional space, its **upper-right corner corresponds to the optimal value function (\(V^*\))**, and its **lower-left corner** (representing minimized values, such as for costs) also **belongs to this set**. \(V^*\) is specifically defined as this upper-right corner.
 *   All the **corners or extreme points of this value function space correspond to deterministic memoryless policies**.
-*   The instructor emphasizes that this convexity is an important characteristic to keep in mind when visualizing or thinking about how optimal policies are found within this space. When applying Value Iteration, the process involves moving points within this $R^S$ space, and these points geometrically converge towards $V^*$, which is the unique fixed and attractive point under the Bellman optimality operator. The convergence is guaranteed to make progress, with "no flatness" or "flat barriers" that would slow down the approach to $V^*$.
+*   The instructor emphasizes that this convexity is an important characteristic to keep in mind when visualizing or thinking about how optimal policies are found within this space. When applying Value Iteration, the process involves moving points within this \(R^S\) space, and these points geometrically converge towards \(V^*\), which is the unique fixed and attractive point under the Bellman optimality operator. The convergence is guaranteed to make progress, with "no flatness" or "flat barriers" that would slow down the approach to \(V^*\).
 
 
 
@@ -878,7 +878,7 @@ Policy Iteration's key insight lies in its ability to **directly discover an exa
 Here's a breakdown of this key insight:
 
 *   **Direct Path to Optimality**: Policy Iteration works by iteratively improving a policy: you start with an initial policy, evaluate its value function (Policy Evaluation), and then derive a new, improved policy by acting greedily with respect to that value function (Policy Improvement). This process iterates, and it is guaranteed to discover a policy that is **optimal**.
-*   **Independence from Precision ($\delta$)**: A crucial aspect of Policy Iteration's insight is that its convergence to the *exact* optimal policy does not depend on a predefined precision parameter (`delta` or `epsilon`), which is a stark contrast to Value Iteration. While the computational effort for Value Iteration to find a `delta`-optimal policy scales with `log(1/delta)` (meaning higher precision demands significantly more iterations), Policy Iteration's runtime bound does not have this `delta` dependence.
+*   **Independence from Precision (\(\delta\))**: A crucial aspect of Policy Iteration's insight is that its convergence to the *exact* optimal policy does not depend on a predefined precision parameter (`delta` or `epsilon`), which is a stark contrast to Value Iteration. While the computational effort for Value Iteration to find a `delta`-optimal policy scales with `log(1/delta)` (meaning higher precision demands significantly more iterations), Policy Iteration's runtime bound does not have this `delta` dependence.
 *   **Superiority for High Accuracy**: Because of this independence from the precision parameter, Policy Iteration "definitely wins" for "really really high accuracy" requirements, as Value Iteration's `log(1/epsilon)` term would otherwise become "unbounded". Policy Iteration "kind of like bump into that it's like a magnet" to find the optimal policy.
 *   **Guaranteed Convergence**: The process of Policy Iteration is guaranteed to improve the policy's value at a geometric rate. It involves jumping between the space of policies and the space of value functions, always moving towards optimality.
 *   **Systematic Tie Resolution**: To ensure convergence and avoid "jittering," any ties that arise when choosing between actions during the greedy policy improvement step must be resolved in a systematic and consistent manner.
@@ -886,12 +886,12 @@ Here's a breakdown of this key insight:
 In essence, the key insight is that it's possible to design an iterative algorithm that guarantees reaching the true optimal policy in a finite number of steps (whose bound is independent of accuracy), providing a fundamental alternative to value-function approximation methods that rely on achieving a certain `epsilon` level of sub-optimality.
 
 
-The discount factor, `gamma` ($\gamma$), significantly affects the computational bounds for solving Markov Decision Processes (MDPs), particularly for Value Iteration (VI) and, to some extent, Policy Iteration (PI).
+The discount factor, `gamma` (\(\gamma\)), significantly affects the computational bounds for solving Markov Decision Processes (MDPs), particularly for Value Iteration (VI) and, to some extent, Policy Iteration (PI).
 
 Here's how `gamma` affects these bounds:
 
 *   **Impact on Value Iteration (VI) Convergence and Complexity:**
-    *   **Geometric Convergence Rate:** In Value Iteration, the distance between the current value function approximation ($V_k$) and the optimal value function ($V^*$) decreases by a factor of `gamma` in each iteration when measured in the maximum norm. This means the error reduces as $V_k$ geometrically converges to $V^*$.
+    *   **Geometric Convergence Rate:** In Value Iteration, the distance between the current value function approximation (\(V_k\)) and the optimal value function (\(V^*\)) decreases by a factor of `gamma` in each iteration when measured in the maximum norm. This means the error reduces as \(V_k\) geometrically converges to \(V^*\).
     *   **Iteration Complexity:** To achieve an `epsilon`-optimal approximation of the optimal value function, the number of iterations (`k`) required by Value Iteration is approximately `log(1/epsilon) / (1-gamma)`. The `log(1/gamma)` in the denominator is often replaced by `(1-gamma)` because the difference between the two becomes negligible as `gamma` approaches 1.
     *   **Total Computational Complexity:** The overall computational complexity for Value Iteration to find a `data`-optimal policy is estimated as `S^2 * A / (1-gamma) * log(1/data)`. This formula clearly shows the direct dependence on `gamma`.
     *   **The "Blow-Up Factor" `1/(1-gamma)`:** This term is a critical "blow-up factor" that dictates how slow convergence can be. As `gamma` approaches 1 (e.g., `1 - 10^-5`), this factor becomes very large (e.g., `10^5`). This makes the geometric convergence, while technically fast for a fixed `gamma`, practically very slow when `gamma` is close to 1. It's also referred to as a "characteristic time" or "effective horizon". The instructor emphasizes that this factor is "real in a worst-case fashion".
@@ -907,29 +907,29 @@ In summary, `gamma`'s proximity to 1 significantly increases the computational e
 
 
 
-Value Iteration's (VI) key insight lies in its **iterative approach to approximate the optimal value function ($V^*$) by repeatedly applying the Bellman optimality operator ($T$)**. This method is distinguished by its convergence properties and its efficiency for finding near-optimal solutions.
+Value Iteration's (VI) key insight lies in its **iterative approach to approximate the optimal value function (\(V^*\)) by repeatedly applying the Bellman optimality operator (\(T\))**. This method is distinguished by its convergence properties and its efficiency for finding near-optimal solutions.
 
 Here's a breakdown of Value Iteration's key insights:
 
-*   **Geometric Convergence to an Approximation**: Value Iteration generates a sequence of value functions ($V_k$) that **geometrically converge to $V^*$**. This means that the distance between the current value function approximation ($V_k$) and the optimal value function ($V^*$) decreases by a factor of `gamma` in each iteration when measured in the maximum norm. This rapid convergence is due to $V^*$ being the **unique fixed and attractive point** of the Bellman optimality operator, ensuring continuous progress towards optimality without "flat barriers" that would slow convergence.
-*   **Controllable Precision for Near-Optimality**: A core aspect of VI is its ability to calculate an **`epsilon`-optimal (or `data`-optimal) approximation of the optimal value function**. The number of iterations (`k`) required to reach a specific `epsilon` distance from $V^*$ is directly dependent on the desired precision and the discount factor `gamma`. Specifically, `k` is approximately `log(1/epsilon) / (1-gamma)`. This explicit dependence means that for higher precision (smaller `epsilon`), more iterations are required, as reflected in the total computational complexity of `S^2 * A / (1-gamma) * log(1/data)`.
+*   **Geometric Convergence to an Approximation**: Value Iteration generates a sequence of value functions (\(V_k\)) that **geometrically converge to \(V^*\)**. This means that the distance between the current value function approximation (\(V_k\)) and the optimal value function (\(V^*\)) decreases by a factor of `gamma` in each iteration when measured in the maximum norm. This rapid convergence is due to \(V^*\) being the **unique fixed and attractive point** of the Bellman optimality operator, ensuring continuous progress towards optimality without "flat barriers" that would slow convergence.
+*   **Controllable Precision for Near-Optimality**: A core aspect of VI is its ability to calculate an **`epsilon`-optimal (or `data`-optimal) approximation of the optimal value function**. The number of iterations (`k`) required to reach a specific `epsilon` distance from \(V^*\) is directly dependent on the desired precision and the discount factor `gamma`. Specifically, `k` is approximately `log(1/epsilon) / (1-gamma)`. This explicit dependence means that for higher precision (smaller `epsilon`), more iterations are required, as reflected in the total computational complexity of `S^2 * A / (1-gamma) * log(1/data)`.
 *   **Computational Efficiency for Practical Solutions**: While the total complexity for Value Iteration includes a term dependent on precision, its **computations per iteration (`S^2 * A`) are considered "cheap"**. This makes Value Iteration particularly advantageous for scenarios where **a near-optimal policy is sufficient**. The instructor notes that for "low accuracies," Value Iteration "could win" compared to Policy Iteration, even though Policy Iteration "definitely wins" for "really really high accuracy" because Value Iteration's `log(1/epsilon)` term becomes "unbounded" as `epsilon` approaches zero. This highlights VI's practical strength in efficiently finding good, though not necessarily exact, solutions.
 
 
 
-Value Iteration (VI) converges by iteratively applying the **Bellman optimality operator ($T$)** to a sequence of value functions, gradually refining the approximation until it reaches the optimal value function ($V^*$).
+Value Iteration (VI) converges by iteratively applying the **Bellman optimality operator (\(T\))** to a sequence of value functions, gradually refining the approximation until it reaches the optimal value function (\(V^*\)).
 
 Here's a detailed explanation of how Value Iteration converges:
 
-*   **Iterative Application of the Bellman Optimality Operator**: Value Iteration starts with an initial value function, say $V_0$ (often the zero vector, but any function works), and then iteratively applies the Bellman optimality operator $T$ to generate successive approximations: $V_{k+1} = T(V_k)$. The Bellman optimality operator $T$ for a value function $V$ is defined as $T(V) = \max_a [R(s,a) + \gamma \sum_{s'} P(s'|s,a) V(s')]$. This operation involves a maximization over actions, immediate rewards, and discounted future values based on the current value function estimate.
+*   **Iterative Application of the Bellman Optimality Operator**: Value Iteration starts with an initial value function, say \(V_0\) (often the zero vector, but any function works), and then iteratively applies the Bellman optimality operator \(T\) to generate successive approximations: \(V_{k+1} = T(V_k)\). The Bellman optimality operator \(T\) for a value function \(V\) is defined as \(T(V) = \max_a [R(s,a) + \gamma \sum_{s'} P(s'|s,a) V(s')]\). This operation involves a maximization over actions, immediate rewards, and discounted future values based on the current value function estimate.
 
-*   **$V^*$ as the Unique Fixed and Attractive Point**: The optimal value function $V^*$ is the **unique fixed point** of the Bellman optimality operator $T$. This means that when $V^*$ is plugged into the operator, it returns itself: $V^* = T(V^*)$. Furthermore, $V^*$ is an **attractive point**. This implies that regardless of the initial starting point in the value function space, the sequence of value functions generated by Value Iteration will eventually converge towards $V^*$. You can imagine a "vector field" in the value function space where all paths lead to $V^*$.
+*   **\(V^*\) as the Unique Fixed and Attractive Point**: The optimal value function \(V^*\) is the **unique fixed point** of the Bellman optimality operator \(T\). This means that when \(V^*\) is plugged into the operator, it returns itself: \(V^* = T(V^*)\). Furthermore, \(V^*\) is an **attractive point**. This implies that regardless of the initial starting point in the value function space, the sequence of value functions generated by Value Iteration will eventually converge towards \(V^*\). You can imagine a "vector field" in the value function space where all paths lead to \(V^*\).
 
-*   **Geometric Convergence due to Contraction Mapping**: The operator $T$ is a **contraction mapping**. This is a crucial property for convergence. When measured in the maximum norm (infinity norm), the distance between the current value function approximation ($V_k$) and the optimal value function ($V^*$) **decreases by a factor of $\gamma$ (the discount factor) in each iteration**. This property means the error is reduced geometrically. The maximum norm is particularly suitable because the maximization operation within the $T$ operator is a non-expansion in this norm, allowing the overall operator to be a contraction.
+*   **Geometric Convergence due to Contraction Mapping**: The operator \(T\) is a **contraction mapping**. This is a crucial property for convergence. When measured in the maximum norm (infinity norm), the distance between the current value function approximation (\(V_k\)) and the optimal value function (\(V^*\)) **decreases by a factor of \(\gamma\) (the discount factor) in each iteration**. This property means the error is reduced geometrically. The maximum norm is particularly suitable because the maximization operation within the \(T\) operator is a non-expansion in this norm, allowing the overall operator to be a contraction.
 
-*   **Guaranteed Progress and No "Flat Barriers"**: Due to the contraction property, Value Iteration is guaranteed to make continuous **progress towards $V^*$**. There are "no flatness" or "flat barriers" that would slow down the approach to $V^*$. This ensures that the algorithm will not get stuck or plateau before reaching the optimal value function.
+*   **Guaranteed Progress and No "Flat Barriers"**: Due to the contraction property, Value Iteration is guaranteed to make continuous **progress towards \(V^*\)**. There are "no flatness" or "flat barriers" that would slow down the approach to \(V^*\). This ensures that the algorithm will not get stuck or plateau before reaching the optimal value function.
 
-*   **Convergence to an `epsilon`-Optimal Approximation**: Value Iteration is designed to calculate an `epsilon`-optimal (or `data`-optimal) approximation of the optimal value function. The number of iterations ($k$) required to reach a specific `epsilon` distance from $V^*$ is approximately `log(1/epsilon) / (1-gamma)`. This shows that as the desired precision increases (smaller `epsilon`), more iterations are needed.
+*   **Convergence to an `epsilon`-Optimal Approximation**: Value Iteration is designed to calculate an `epsilon`-optimal (or `data`-optimal) approximation of the optimal value function. The number of iterations (\(k\)) required to reach a specific `epsilon` distance from \(V^*\) is approximately `log(1/epsilon) / (1-gamma)`. This shows that as the desired precision increases (smaller `epsilon`), more iterations are needed.
 
 
 
@@ -938,18 +938,18 @@ Both Value Iteration (VI) and Policy Iteration (PI) are fundamental algorithms i
 Here's how they relate to finding an optimal policy and, by extension, an optimal trajectory:
 
 *   **Goal: Finding the Optimal Value Function or Optimal Policy**
-    *   The ultimate goal is to discover an **optimal policy** ($\pi^*$) that, for every state, selects the action that maximizes the expected discounted sum of future rewards. This policy then guides the agent to follow an "optimal trajectory" from any starting state.
-    *   The optimal policy is intimately linked to the **optimal value function** ($V^*$), which represents the maximum possible discounted sum of rewards achievable from each state.
+    *   The ultimate goal is to discover an **optimal policy** (\(\pi^*\)) that, for every state, selects the action that maximizes the expected discounted sum of future rewards. This policy then guides the agent to follow an "optimal trajectory" from any starting state.
+    *   The optimal policy is intimately linked to the **optimal value function** (\(V^*\)), which represents the maximum possible discounted sum of rewards achievable from each state.
 
 *   **Value Iteration's Approach to Optimality (and Trajectories):**
-    *   **Iterative Approximation of $V^*$**: Value Iteration begins with an initial value function (e.g., the zero vector) and iteratively applies the **Bellman optimality operator ($T$)** to generate a sequence of increasingly refined value function approximations ($V_k$). This process involves for each state, considering all possible actions and calculating the maximum one-step look-ahead value based on the current value function estimate.
-    *   **Geometric Convergence**: This sequence of value functions geometrically converges to $V^*$ because $V^*$ is the **unique fixed and attractive point** of the Bellman optimality operator. The error (distance from $V^*$) decreases by a factor of `gamma` in each iteration when measured in the maximum norm.
-    *   **Deriving a Policy**: Once $V^*$ has been approximated sufficiently (i.e., to an `epsilon`-optimal level), an `epsilon`-optimal policy can be derived by performing a **greedy one-step look-ahead** with respect to the final approximated value function. This greedy policy will then guide the agent along a near-optimal trajectory.
-    *   **Controllable Precision**: VI is particularly effective for calculating an `epsilon`-optimal approximation of $V^*$. The number of iterations required depends on the desired precision (`epsilon`) and the discount factor `gamma`. For "low accuracies" (where a near-optimal policy is sufficient), Value Iteration "could win" due to its "cheap" computations per iteration.
+    *   **Iterative Approximation of \(V^*\)**: Value Iteration begins with an initial value function (e.g., the zero vector) and iteratively applies the **Bellman optimality operator (\(T\))** to generate a sequence of increasingly refined value function approximations (\(V_k\)). This process involves for each state, considering all possible actions and calculating the maximum one-step look-ahead value based on the current value function estimate.
+    *   **Geometric Convergence**: This sequence of value functions geometrically converges to \(V^*\) because \(V^*\) is the **unique fixed and attractive point** of the Bellman optimality operator. The error (distance from \(V^*\)) decreases by a factor of `gamma` in each iteration when measured in the maximum norm.
+    *   **Deriving a Policy**: Once \(V^*\) has been approximated sufficiently (i.e., to an `epsilon`-optimal level), an `epsilon`-optimal policy can be derived by performing a **greedy one-step look-ahead** with respect to the final approximated value function. This greedy policy will then guide the agent along a near-optimal trajectory.
+    *   **Controllable Precision**: VI is particularly effective for calculating an `epsilon`-optimal approximation of \(V^*\). The number of iterations required depends on the desired precision (`epsilon`) and the discount factor `gamma`. For "low accuracies" (where a near-optimal policy is sufficient), Value Iteration "could win" due to its "cheap" computations per iteration.
 
 *   **Policy Iteration's Approach to Optimality (and Trajectories):**
     *   **Direct Discovery of Optimal Policy**: Policy Iteration works by alternating between two phases:
-        1.  **Policy Evaluation**: For a given policy, calculate its exact value function ($V^\pi$).
+        1.  **Policy Evaluation**: For a given policy, calculate its exact value function (\(V^\pi\)).
         2.  **Policy Improvement**: Derive a new, improved policy by acting **greedily** with respect to the value function just calculated. A greedy policy maximizes the one-step look-ahead value based on the current value function, choosing the action that yields the highest immediate reward plus discounted future value.
     *   **Guaranteed Exact Optimality**: This iterative process is guaranteed to discover an **exactly optimal policy**. This means it "bumps into" the optimal policy "like a magnet". Unlike Value Iteration, Policy Iteration's convergence to the exact optimal policy does not depend on a predefined precision parameter (`delta` or `epsilon`).
     *   **Systematic Tie Resolution**: To ensure convergence and prevent "jittering," any ties that arise when choosing between actions during the greedy policy improvement step must be resolved in a **systematic and consistent manner**.
@@ -970,7 +970,7 @@ Policy Iteration (PI) converges by an iterative process that **alternates betwee
 Here's how Policy Iteration converges:
 
 *   **Alternating Phases**: Policy Iteration begins with an initial policy. It then iteratively performs two main steps:
-    1.  **Policy Evaluation**: For a given policy, Policy Iteration **calculates its exact value function** ($V^\pi$). This involves determining the expected discounted sum of rewards for following that specific policy from each state.
+    1.  **Policy Evaluation**: For a given policy, Policy Iteration **calculates its exact value function** (\(V^\pi\)). This involves determining the expected discounted sum of rewards for following that specific policy from each state.
     2.  **Policy Improvement (Greedy Policy)**: After evaluating the policy, a **new, improved policy is derived by acting greedily** with respect to the value function just calculated. A "greedy policy" means that for each state, you perform a one-step look-ahead, choosing the action that **maximizes the immediate reward plus the discounted future value** from the next state, as estimated by the current value function.
 
 *   **Guaranteed Improvement and Exact Optimality**: This iterative process is **guaranteed to improve the policy** at each step, moving towards optimality at a **geometric rate**. Policy Iteration is notable because it is guaranteed to discover an **exactly optimal policy**. It "bumps into" the optimal policy "like a magnet," meaning it will definitively reach it without requiring an `epsilon` (precision) parameter like Value Iteration does.
@@ -989,9 +989,9 @@ The concept of "reducing exponents in upper bounds" being "fine" relates to the 
 
 Here's an explanation based on the sources:
 
-*   **Improving Upper Bounds as an "Adversarial Enterprise"**: Reducing the exponent in an upper bound means finding a more efficient algorithm or a tighter theoretical limit on an algorithm's worst-case performance. For example, if an algorithm was previously thought to take $N^3$ time, and new research shows it can be done in $N^{2.3}$ time, the exponent has been reduced. This pursuit is described as an "**adversarial enterprise**". It represents continuous progress in making computations more efficient.
+*   **Improving Upper Bounds as an "Adversarial Enterprise"**: Reducing the exponent in an upper bound means finding a more efficient algorithm or a tighter theoretical limit on an algorithm's worst-case performance. For example, if an algorithm was previously thought to take \(N^3\) time, and new research shows it can be done in \(N^{2.3}\) time, the exponent has been reduced. This pursuit is described as an "**adversarial enterprise**". It represents continuous progress in making computations more efficient.
 
-*   **Difficulty of Matching Lower Bounds**: The reason reducing upper bounds is considered "fine" is implicitly contrasted with the much more **challenging and "cruel requirement" of matching these improved upper bounds with lower bounds**. A lower bound establishes a theoretical minimum amount of computation required for *any* algorithm to solve a problem. While we have known algorithms (upper bounds) with exponents like 2.3 for matrix multiplication, the fundamental lower bound is still $D^2$ (because you have to write down the result). Proving that an algorithm *cannot* perform better than a certain exponent is significantly harder and depends on "so many things".
+*   **Difficulty of Matching Lower Bounds**: The reason reducing upper bounds is considered "fine" is implicitly contrasted with the much more **challenging and "cruel requirement" of matching these improved upper bounds with lower bounds**. A lower bound establishes a theoretical minimum amount of computation required for *any* algorithm to solve a problem. While we have known algorithms (upper bounds) with exponents like 2.3 for matrix multiplication, the fundamental lower bound is still \(D^2\) (because you have to write down the result). Proving that an algorithm *cannot* perform better than a certain exponent is significantly harder and depends on "so many things".
 
 *   **Practical vs. Theoretical Optimality**: For practical purposes, identifying and reducing upper bounds directly translates to designing potentially faster algorithms. Even without a matching lower bound, an improved upper bound indicates a better algorithmic approach. It helps in understanding what *is* achievable, even if the absolute theoretical limit (the tightest lower bound) is still unknown. The speaker suggests that working out problems like how long matrix multiplication takes is a prerequisite to fully answering more complex questions about MDP complexity, as these problems involve similar challenges in proving tight bounds.
 
@@ -1035,13 +1035,13 @@ Here's an overview of the argument for the lower bound:
 
 1.  **Algorithm-Independent Requirement**: The argument for the lower bound is **algorithm-independent**. It's not specific to Policy Iteration but rather applies to *any* algorithm that aims to solve an MDP.
 2.  **Necessity of Reading Input**: Fundamentally, any algorithm must **read all the numbers** that define the MDP. This implies that an algorithm "cannot avoid of reading all these numbers".
-3.  **Touching State-Action Pairs**: This translates to the requirement that an algorithm "has to touch basically **every state action pair** S times before you get an answer". This means the computational effort will at least scale with the number of states ($S$) and actions ($A$).
-4.  **No Dependence on Accuracy ($\delta$) for Optimal Policy**: A crucial aspect highlighted is that for Policy Iteration, which is guaranteed to discover an **exactly optimal policy**, the lower bound for computation **does not need to include a dependence on the precision parameter ($\delta$)**.
-    *   This is in contrast to Value Iteration, which aims to find a $\delta$-optimal approximation to the optimal value function, and thus its iteration complexity includes a `log(1/delta)` term that "becomes unbounded" as the required precision approaches exact optimality.
-    *   For Policy Iteration, "at one point as that [$\delta$] is really small you are demanding the optimal policy and this guy is going to find optimal policy". Policy Iteration "kind of like bump into that, it's like a magnet", meaning it converges directly to the optimal solution.
+3.  **Touching State-Action Pairs**: This translates to the requirement that an algorithm "has to touch basically **every state action pair** S times before you get an answer". This means the computational effort will at least scale with the number of states (\(S\)) and actions (\(A\)).
+4.  **No Dependence on Accuracy (\(\delta\)) for Optimal Policy**: A crucial aspect highlighted is that for Policy Iteration, which is guaranteed to discover an **exactly optimal policy**, the lower bound for computation **does not need to include a dependence on the precision parameter (\(\delta\))**.
+    *   This is in contrast to Value Iteration, which aims to find a \(\delta\)-optimal approximation to the optimal value function, and thus its iteration complexity includes a `log(1/delta)` term that "becomes unbounded" as the required precision approaches exact optimality.
+    *   For Policy Iteration, "at one point as that [\(\delta\)] is really small you are demanding the optimal policy and this guy is going to find optimal policy". Policy Iteration "kind of like bump into that, it's like a magnet", meaning it converges directly to the optimal solution.
 5.  **Model of Computation**: This lower bound is typically expressed in terms of **elementary arithmetic and logic operations**. This includes operations like maximizing two numbers, adding two numbers, or multiplying two numbers, each counting as a single operation.
 
-While the sources discuss these aspects of the lower bound, they also emphasize that proving tight lower bounds that match the known upper bounds (like the $S^4 A^2 H$ complexity for Policy Iteration) is a "cruel requirement" and an ongoing challenge in complexity theory. It's noted that the exact exponent for matrix multiplication, a related problem, is still unknown, which gives context to the difficulty of establishing precise lower bounds for MDP algorithms. The existing lower bound of "touching every state action pair" is a fundamental, and perhaps trivial, minimum requirement.
+While the sources discuss these aspects of the lower bound, they also emphasize that proving tight lower bounds that match the known upper bounds (like the \(S^4 A^2 H\) complexity for Policy Iteration) is a "cruel requirement" and an ongoing challenge in complexity theory. It's noted that the exact exponent for matrix multiplication, a related problem, is still unknown, which gives context to the difficulty of establishing precise lower bounds for MDP algorithms. The existing lower bound of "touching every state action pair" is a fundamental, and perhaps trivial, minimum requirement.
 
 
 The argument for proving the lower bound of Policy Iteration, as discussed in the sources, hinges on fundamental computational necessities and the specific characteristic of Policy Iteration in finding an **exactly optimal policy**.
@@ -1053,51 +1053,51 @@ Here are the details for understanding the lower bound:
 The most basic lower bound applies to **any algorithm** aiming to solve an MDP, not just Policy Iteration.
 
 *   **Necessity of Reading Input**: Any algorithm "cannot avoid of reading all these numbers" that define the Markov Decision Process (MDP). This means the algorithm must process all input data. This is also known as an "algorithm independent" argument.
-*   **Touching State-Action Pairs**: This translates into the practical requirement that an algorithm "has to touch basically every state action pair S times before you get an answer". This implies a fundamental computational cost proportional to the number of states ($S$) and actions ($A$).
+*   **Touching State-Action Pairs**: This translates into the practical requirement that an algorithm "has to touch basically every state action pair S times before you get an answer". This implies a fundamental computational cost proportional to the number of states (\(S\)) and actions (\(A\)).
 *   **Model of Computation**: This lower bound is typically expressed in terms of **counting elementary arithmetic and logic operations**. For instance, maximizing two numbers, adding two numbers, or multiplying two numbers each count as a single operation in this model. This is described as the "computation model that you learn about in school".
 
 ### 2. Specifics for Finding an Optimal Policy (Policy Iteration)
 
 A critical aspect for Policy Iteration's lower bound is its ability to find an **exactly optimal policy**, which distinguishes it from algorithms like Value Iteration that aim for an approximation.
 
-*   **No Dependence on Accuracy ($\delta$)**: For algorithms that are guaranteed to discover an **exactly optimal policy**, such as Policy Iteration, the lower bound for computation **does not need to include a dependence on the precision parameter ($\delta$)**. This is a key insight because Policy Iteration "kind of like bump into that, it's like a magnet" to the optimal policy, meaning it converges directly to the optimal solution without needing an $\epsilon$ (precision) parameter to define its stopping condition for optimality.
-*   **Contrast with Value Iteration**: This is a significant difference from Value Iteration. Value Iteration's iteration complexity includes a `log(1/epsilon)` term because it seeks an $\epsilon$-optimal approximation to the optimal value function. As the required precision approaches exact optimality (i.e., $\epsilon$ goes to zero), this `log(1/epsilon)` term "becomes unbounded". Policy Iteration, therefore, "definitely wins" for scenarios demanding "really really high accuracy" because its computational effort doesn't "blow up" as precision increases.
+*   **No Dependence on Accuracy (\(\delta\))**: For algorithms that are guaranteed to discover an **exactly optimal policy**, such as Policy Iteration, the lower bound for computation **does not need to include a dependence on the precision parameter (\(\delta\))**. This is a key insight because Policy Iteration "kind of like bump into that, it's like a magnet" to the optimal policy, meaning it converges directly to the optimal solution without needing an \(\epsilon\) (precision) parameter to define its stopping condition for optimality.
+*   **Contrast with Value Iteration**: This is a significant difference from Value Iteration. Value Iteration's iteration complexity includes a `log(1/epsilon)` term because it seeks an \(\epsilon\)-optimal approximation to the optimal value function. As the required precision approaches exact optimality (i.e., \(\epsilon\) goes to zero), this `log(1/epsilon)` term "becomes unbounded". Policy Iteration, therefore, "definitely wins" for scenarios demanding "really really high accuracy" because its computational effort doesn't "blow up" as precision increases.
 *   **Systematic Tie Resolution**: For Policy Iteration to guarantee convergence to an optimal policy and avoid "jittering," it's crucial that "ties have to be resolved in a systematic manner" during the greedy policy improvement step. If multiple actions yield the same maximum value, the algorithm must consistently choose one, especially if it was chosen previously.
 
 ### 3. Challenges in Proving Tight Lower Bounds
 
-While the fundamental requirement of reading the input provides a basic lower bound (proportional to $S \times A$), proving a **tight lower bound** that matches the known upper bounds for Policy Iteration (e.g., $S^4 A^2 H$, where $H = 1/(1-\gamma)$ is the effective horizon) is a complex challenge.
+While the fundamental requirement of reading the input provides a basic lower bound (proportional to \(S \times A\)), proving a **tight lower bound** that matches the known upper bounds for Policy Iteration (e.g., \(S^4 A^2 H\), where \(H = 1/(1-\gamma)\) is the effective horizon) is a complex challenge.
 
 *   **"Cruel Requirement"**: The task of trying to match improved upper bounds with corresponding lower bounds is described as a "cruel requirement". It's a difficult problem that "depends on so many things".
-*   **Analogy to Matrix Multiplication**: This difficulty is exemplified by the problem of matrix multiplication. While algorithms exist that reduce the upper bound (e.g., to $D^{2.3}$ for $D \times D$ matrices), the precise lower bound beyond the trivial $D^2$ (which is simply the cost of writing down the result) is still unknown. The sources imply that establishing tight lower bounds for MDP algorithms faces similar complexities.
-*   **Role of $1/(1-\gamma)$**: The term $1/(1-\gamma)$, referred to as the "effective horizon", is a characteristic time of how long it takes to get an answer in the absence of extra structure. It is suggested that this factor is "real in a worst case fashion" for the upper bounds, and there is "some indication that this is real" in the average reward literature (which is related to the $\gamma \to 1$ case). However, a "very clean presentation of this result for the discounted setting at all" regarding a precise lower bound involving $1/(1-\gamma)$ is noted as "unfortunate" and an area that is "not a fully finished business". This indicates that while the basic input-reading lower bound is clear, a precisely matching, tight lower bound that incorporates factors like the discount rate is still an open research area.
+*   **Analogy to Matrix Multiplication**: This difficulty is exemplified by the problem of matrix multiplication. While algorithms exist that reduce the upper bound (e.g., to \(D^{2.3}\) for \(D \times D\) matrices), the precise lower bound beyond the trivial \(D^2\) (which is simply the cost of writing down the result) is still unknown. The sources imply that establishing tight lower bounds for MDP algorithms faces similar complexities.
+*   **Role of \(1/(1-\gamma)\)**: The term \(1/(1-\gamma)\), referred to as the "effective horizon", is a characteristic time of how long it takes to get an answer in the absence of extra structure. It is suggested that this factor is "real in a worst case fashion" for the upper bounds, and there is "some indication that this is real" in the average reward literature (which is related to the \(\gamma \to 1\) case). However, a "very clean presentation of this result for the discounted setting at all" regarding a precise lower bound involving \(1/(1-\gamma)\) is noted as "unfortunate" and an area that is "not a fully finished business". This indicates that while the basic input-reading lower bound is clear, a precisely matching, tight lower bound that incorporates factors like the discount rate is still an open research area.
 
 
 
-You're asking for clarification on the relationships between the different `H` bounds in the "discounting section". Your confusion stems from how the conclusion $H \ge H_{\gamma, \epsilon}$ is reached, given that you understood $H \ge H^*_{\gamma, \epsilon}$ and $H_{\gamma, \epsilon} \ge H^*_{\gamma, \epsilon}$.
+You're asking for clarification on the relationships between the different `H` bounds in the "discounting section". Your confusion stems from how the conclusion \(H \ge H_{\gamma, \epsilon}\) is reached, given that you understood \(H \ge H^*_{\gamma, \epsilon}\) and \(H_{\gamma, \epsilon} \ge H^*_{\gamma, \epsilon}\).
 
-The key insight from the sources is that the relationship $H \ge H_{\gamma, \epsilon}$ is **not derived** from the other two inequalities, but rather it is a **stronger requirement that is intentionally imposed**.
+The key insight from the sources is that the relationship \(H \ge H_{\gamma, \epsilon}\) is **not derived** from the other two inequalities, but rather it is a **stronger requirement that is intentionally imposed**.
 
 Here's a breakdown of the argument:
 
 *   **Understanding the Bounds**:
-    *   $H^*_{\gamma, \epsilon}$ is the **minimum number of iterations** actually needed to achieve an $\epsilon$-optimal approximation to the optimal value function.
-    *   $H_{\gamma, \epsilon}$ is an **upper bound** on $H^*_{\gamma, \epsilon}$, meaning $H_{\gamma, \epsilon} \ge H^*_{\gamma, \epsilon}$.
+    *   \(H^*_{\gamma, \epsilon}\) is the **minimum number of iterations** actually needed to achieve an \(\epsilon\)-optimal approximation to the optimal value function.
+    *   \(H_{\gamma, \epsilon}\) is an **upper bound** on \(H^*_{\gamma, \epsilon}\), meaning \(H_{\gamma, \epsilon} \ge H^*_{\gamma, \epsilon}\).
 
 *   **The "Stronger Requirement"**:
-    *   Instead of simply requiring $H \ge H^*_{\gamma, \epsilon}$ (which would be sufficient for correctness), the discussion **demands a stronger requirement**: **$H \ge H_{\gamma, \epsilon}$**.
-    *   The rationale is that if you satisfy this stronger requirement ($H \ge H_{\gamma, \epsilon}$), then because $H_{\gamma, \epsilon}$ is already greater than or equal to $H^*_{\gamma, \epsilon}$, it logically follows that $H$ will also be greater than or equal to $H^*_{\gamma, \epsilon}$ ($H \ge H_{\gamma, \epsilon} \ge H^*_{\gamma, \epsilon}$). This ensures that "nice things happen" in terms of guaranteeing sufficient iterations.
+    *   Instead of simply requiring \(H \ge H^*_{\gamma, \epsilon}\) (which would be sufficient for correctness), the discussion **demands a stronger requirement**: **\(H \ge H_{\gamma, \epsilon}\)**.
+    *   The rationale is that if you satisfy this stronger requirement (\(H \ge H_{\gamma, \epsilon}\)), then because \(H_{\gamma, \epsilon}\) is already greater than or equal to \(H^*_{\gamma, \epsilon}\), it logically follows that \(H\) will also be greater than or equal to \(H^*_{\gamma, \epsilon}\) (\(H \ge H_{\gamma, \epsilon} \ge H^*_{\gamma, \epsilon}\)). This ensures that "nice things happen" in terms of guaranteeing sufficient iterations.
 
 *   **Why This Stronger Requirement is Used**:
-    *   **Simplicity and Ease**: The primary reason for using $H_{\gamma, \epsilon}$ as the required number of iterations is to **simplify the calculations and make the bounds easier to state and remember**. As mentioned, it means "every time you would not need to write this log one over gamma you just write one minus gamma".
-    *   **Negligible Price**: The "price that we pay for it is negligible". This means that the difference between $H_{\gamma, \epsilon}$ and $H^*_{\gamma, \epsilon}$ is very small, especially as the discount factor $\gamma$ approaches one.
-        *   Both $H_{\gamma, \epsilon}$ and $H^*_{\gamma, \epsilon}$ are roughly of the size of $1/(1-\gamma)$.
-        *   While $H_{\gamma, \epsilon}$ is a "slightly bigger guy" than $H^*_{\gamma, \epsilon}$, the difference between the two, when renormalized by multiplying with $(1-\gamma)$, goes to zero as $\gamma$ approaches one. In essence, "relative to the size of the interval, the difference between the two is vanishing".
+    *   **Simplicity and Ease**: The primary reason for using \(H_{\gamma, \epsilon}\) as the required number of iterations is to **simplify the calculations and make the bounds easier to state and remember**. As mentioned, it means "every time you would not need to write this log one over gamma you just write one minus gamma".
+    *   **Negligible Price**: The "price that we pay for it is negligible". This means that the difference between \(H_{\gamma, \epsilon}\) and \(H^*_{\gamma, \epsilon}\) is very small, especially as the discount factor \(\gamma\) approaches one.
+        *   Both \(H_{\gamma, \epsilon}\) and \(H^*_{\gamma, \epsilon}\) are roughly of the size of \(1/(1-\gamma)\).
+        *   While \(H_{\gamma, \epsilon}\) is a "slightly bigger guy" than \(H^*_{\gamma, \epsilon}\), the difference between the two, when renormalized by multiplying with \((1-\gamma)\), goes to zero as \(\gamma\) approaches one. In essence, "relative to the size of the interval, the difference between the two is vanishing".
 
-In summary, the statement $H \ge H_{\gamma, \epsilon}$ is a **design choice for simplicity and convenience**, not a deduction. It's a stronger condition that, by its nature, inherently satisfies the minimal requirement $H \ge H^*_{\gamma, \epsilon}$ without significant practical cost due to the asymptotic closeness of $H_{\gamma, \epsilon}$ and $H^*_{\gamma, \epsilon}$.
+In summary, the statement \(H \ge H_{\gamma, \epsilon}\) is a **design choice for simplicity and convenience**, not a deduction. It's a stronger condition that, by its nature, inherently satisfies the minimal requirement \(H \ge H^*_{\gamma, \epsilon}\) without significant practical cost due to the asymptotic closeness of \(H_{\gamma, \epsilon}\) and \(H^*_{\gamma, \epsilon}\).
 
 
-The identity $v^{\pi'} - v^{\pi} = (I - \gamma P_{\pi'})^{-1} [r_{\pi'} - (I - \gamma P_{\pi'})v^{\pi}] = (I - \gamma P_{\pi'})^{-1} [T_{\pi'} v^{\pi} - v^{\pi}]$ is described as a **fundamental and highly important concept** in the context of planning in Markov Decision Processes (MDPs).
+The identity \(v^{\pi'} - v^{\pi} = (I - \gamma P_{\pi'})^{-1} [r_{\pi'} - (I - \gamma P_{\pi'})v^{\pi}] = (I - \gamma P_{\pi'})^{-1} [T_{\pi'} v^{\pi} - v^{\pi}]\) is described as a **fundamental and highly important concept** in the context of planning in Markov Decision Processes (MDPs).
 
 Here's a breakdown of its importance:
 
@@ -1105,11 +1105,11 @@ Here's a breakdown of its importance:
 
 *   **Widespread Utility**: The sources emphasize that this identity is "very useful and and it's the basis for many different things". It's expected to be used "everywhere in the course a lot of cases". This suggests its broad applicability across various theoretical analyses and algorithms for MDPs.
 
-*   **Understanding Policy Improvement**: While the sources do not explicitly detail a proof using this identity within the provided text, its form directly quantifies the difference between the value functions of two policies, $v^{\pi'}$ and $v^{\pi}$. In Policy Iteration, the core idea is to iteratively improve a policy by evaluating its value function and then performing a greedy step to find a new, potentially better, policy. This identity provides the mathematical tool to:
-    *   **Quantify Improvement**: The term $[T_{\pi'} v^{\pi} - v^{\pi}]$ measures how much the value of policy $\pi'$ would improve over the current value function $v^{\pi}$ if $\pi'$ were applied, specifically indicating the difference between the Bellman backup for $\pi'$ applied to $v^{\pi}$ and $v^{\pi}$ itself. A positive difference here implies potential for improvement.
-    *   **Relate to Greedification**: The first result discussed in the sources states that if you take a greedy policy with respect to some value function $v$, the value function of that new policy ($v^{\pi'}$) will be "almost optimal to the degree that the function that you picked differs from the optimal value function". This identity formalizes how such a greedy step (which defines $\pi'$) leads to an actual improvement in value, leading closer to $v^*$.
+*   **Understanding Policy Improvement**: While the sources do not explicitly detail a proof using this identity within the provided text, its form directly quantifies the difference between the value functions of two policies, \(v^{\pi'}\) and \(v^{\pi}\). In Policy Iteration, the core idea is to iteratively improve a policy by evaluating its value function and then performing a greedy step to find a new, potentially better, policy. This identity provides the mathematical tool to:
+    *   **Quantify Improvement**: The term \([T_{\pi'} v^{\pi} - v^{\pi}]\) measures how much the value of policy \(\pi'\) would improve over the current value function \(v^{\pi}\) if \(\pi'\) were applied, specifically indicating the difference between the Bellman backup for \(\pi'\) applied to \(v^{\pi}\) and \(v^{\pi}\) itself. A positive difference here implies potential for improvement.
+    *   **Relate to Greedification**: The first result discussed in the sources states that if you take a greedy policy with respect to some value function \(v\), the value function of that new policy (\(v^{\pi'}\)) will be "almost optimal to the degree that the function that you picked differs from the optimal value function". This identity formalizes how such a greedy step (which defines \(\pi'\)) leads to an actual improvement in value, leading closer to \(v^*\).
 
-*   **Adaptability to Action Value Functions**: The identity is versatile, as the sources note that "a lot of cases we're going to replace the the state value functions with action value functions then you can buy the same thing". This indicates its usefulness not just for state-value functions ($V$), but also for action-value functions ($Q$), which are often central to reinforcement learning algorithms.
+*   **Adaptability to Action Value Functions**: The identity is versatile, as the sources note that "a lot of cases we're going to replace the the state value functions with action value functions then you can buy the same thing". This indicates its usefulness not just for state-value functions (\(V\)), but also for action-value functions (\(Q\)), which are often central to reinforcement learning algorithms.
 
 In essence, this identity is **critical for rigorously analyzing and proving the convergence and performance guarantees of planning algorithms like Policy Iteration**. It provides a precise way to measure and understand the progress made from one policy to another, which is at the heart of finding an optimal policy in MDPs.
 

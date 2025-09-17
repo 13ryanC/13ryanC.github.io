@@ -208,7 +208,7 @@ Here's a detailed breakdown of this structure:
 
 *   **The Components**:
     *   **The Controller/Agent with a Policy (π)**: This is the part that determines how actions are chosen. A policy can be randomized, meaning it chooses actions probabilistically, and it can base its decisions on the entire history of the process (past states and actions) up to the current time.
-    *   **The MDP Transition Dynamics**: This represents the environment itself, dictating the **stochastic transitions** between states based on the current state and the action taken. If you are in state $s$ and take action $a$, there's a distribution over possible next states.
+    *   **The MDP Transition Dynamics**: This represents the environment itself, dictating the **stochastic transitions** between states based on the current state and the action taken. If you are in state \(s\) and take action \(a\), there's a distribution over possible next states.
 
 *   **The Closed Loop**:
     *   The agent, guided by its policy, **sends actions** to the MDP.
@@ -216,11 +216,11 @@ Here's a detailed breakdown of this structure:
     *   This continuous cycle of action, transition, and observation creates a **feedback loop**, which is why it's called a closed-loop system.
 
 *   **How the Distribution Over Trajectories is Formed**:
-    *   When you **fix a policy** (how the agent acts) and **fix an MDP's transition structure** (how the environment responds), along with an **initial state distribution** (where the process starts), this collectively **"puts a distribution over the space of trajectories"**. A trajectory is an infinite sequence of states and actions, like $(s_0, a_0, s_1, a_1, \ldots)$.
+    *   When you **fix a policy** (how the agent acts) and **fix an MDP's transition structure** (how the environment responds), along with an **initial state distribution** (where the process starts), this collectively **"puts a distribution over the space of trajectories"**. A trajectory is an infinite sequence of states and actions, like \((s_0, a_0, s_1, a_1, \ldots)\).
     *   The probability of a particular sequence (trajectory) is defined as an **infinite product** of probabilities:
-        1.  The probability of the initial state, given by the initial state distribution ($\mu(s_0)$).
-        2.  The probability of the action chosen by the policy at each step, given the history up to that point ($\pi_t(a_t | h_t)$).
-        3.  The probability of transitioning to the next state according to the MDP's dynamics ($P(s_{t+1} | s_t, a_t)$).
+        1.  The probability of the initial state, given by the initial state distribution (\(\mu(s_0)\)).
+        2.  The probability of the action chosen by the policy at each step, given the history up to that point (\(\pi_t(a_t | h_t)\)).
+        3.  The probability of transitioning to the next state according to the MDP's dynamics (\(P(s_{t+1} | s_t, a_t)\)).
     *   This means the probabilities "just get multiplied," indicating that everything happens independently given the past, which aligns with the Markov property.
 
 *   **The Role of Policy Measurability and Probability Kernels**:
@@ -258,40 +258,40 @@ Here's an expansion of this discussion:
     *   While essential for building foundations, the course acknowledges that the "Observed State" assumption is a **"non-trivial assumption"**.
     *   In real-world scenarios and later parts of the course, there will be discussions about situations where it's **"not practically feasible"** to fully utilize observed state information, even if it were available. This might be due to an overwhelmingly large number of states, necessitating the compression or abstraction of state information. The challenge then becomes how to still "guarantee that you're going to do well" with less information.
 
-In the context of discounting within Markov Decision Processes (MDPs), **epsilon ($\epsilon$) is used to quantify the desired accuracy when approximating the infinite sum of discounted rewards by a finite sum**.
+In the context of discounting within Markov Decision Processes (MDPs), **epsilon (\(\epsilon\)) is used to quantify the desired accuracy when approximating the infinite sum of discounted rewards by a finite sum**.
 
 Here's an expansion on its role:
 
-*   **Effective Horizon and Truncation:** The concept of an "effective horizon" is introduced, which is roughly defined as $1/(1-\gamma)$. This horizon indicates that after a certain number of steps, the future rewards become negligibly small due to the exponential decay caused by the discount factor $\gamma$.
-*   **Accuracy Quantification:** Epsilon is specifically mentioned in relation to this effective horizon to provide a **bound on the error of truncating the infinite sum**. If you are interested in maximizing the infinite discounted sum of rewards up to an $\epsilon$ accuracy, you can effectively truncate the sum after approximately $1/(1-\gamma)$ terms.
-*   **Guarantee of Small Remainder:** If rewards are bounded (e.g., in $$ or $[-1, 1]$), then after a sufficient number of steps (approximately $1/(1-\gamma)$ steps), the *remainder* of the infinite sum (the part that is truncated away) will be small, in the range of $\epsilon$. This means that if you maximize the truncated sum to an $\epsilon$ accuracy, you are also effectively maximizing the original infinite sum to a similar accuracy.
+*   **Effective Horizon and Truncation:** The concept of an "effective horizon" is introduced, which is roughly defined as \(1/(1-\gamma)\). This horizon indicates that after a certain number of steps, the future rewards become negligibly small due to the exponential decay caused by the discount factor \(\gamma\).
+*   **Accuracy Quantification:** Epsilon is specifically mentioned in relation to this effective horizon to provide a **bound on the error of truncating the infinite sum**. If you are interested in maximizing the infinite discounted sum of rewards up to an \(\epsilon\) accuracy, you can effectively truncate the sum after approximately \(1/(1-\gamma)\) terms.
+*   **Guarantee of Small Remainder:** If rewards are bounded (e.g., in $$ or \([-1, 1]\)), then after a sufficient number of steps (approximately \(1/(1-\gamma)\) steps), the *remainder* of the infinite sum (the part that is truncated away) will be small, in the range of \(\epsilon\). This means that if you maximize the truncated sum to an \(\epsilon\) accuracy, you are also effectively maximizing the original infinite sum to a similar accuracy.
 *   **Conceptual Understanding:** At the initial stage of the course, this explanation of epsilon's role is meant to provide a "high level, conceptual understanding" rather than a formal proof. The main takeaway is that **discounting introduces an exponential decay, making the contribution of future rewards negligible after a certain time, allowing for a practical "effective horizon" defined by this accuracy level**.
 
 
-Epsilon ($\epsilon$) plays a specific role in the context of discounting in Markov Decision Processes (MDPs) by **quantifying the accuracy** of approximating an infinite sum of rewards.
+Epsilon (\(\epsilon\)) plays a specific role in the context of discounting in Markov Decision Processes (MDPs) by **quantifying the accuracy** of approximating an infinite sum of rewards.
 
 Here's an expansion of the insights involved:
 
 *   **The Problem of Infinite Returns**: When an agent interacts with an MDP, it generates an infinite sequence of states and actions, each yielding a reward. Summing these rewards over an infinite trajectory often leads to an ill-defined or infinite sum, making it impossible to maximize the return.
-*   **Discounting as a Solution**: To address this, a **discount factor, $\gamma$**, which is a number between zero and one ($\gamma \in [0, 1)$), is introduced. This factor exponentially reduces the value of future rewards, ensuring that the infinite sum of rewards converges to a finite value, assuming individual rewards are bounded (e.g., in $$ or $[-1, 1]$). The return is calculated as $R = r_0 + \gamma r_1 + \gamma^2 r_2 + \dots$.
-*   **Epsilon and the "Effective Horizon"**: The concept of an "effective horizon" is introduced, which is approximately **$1/(1-\gamma)$**. This horizon represents a conceptual time limit beyond which rewards contribute very little to the total sum due to the exponential decay of $\gamma^t$ as $t$ increases.
-*   **Quantifying Accuracy with Epsilon**: Epsilon ($\epsilon$) is used to make this "effective horizon" more precise in terms of desired accuracy. If you aim to maximize the infinite discounted sum of rewards up to an **$\epsilon$ accuracy**, you can conceptually (and later formally) consider truncating the sum after a certain number of terms, roughly related to $1/(1-\gamma)$ and $\epsilon$.
-*   **Guarantee of Small Remainder**: The core insight is that **discounting causes an exponential decay** of the value of future rewards. This means that after a sufficient number of steps (related to the effective horizon and $\epsilon$), the *remainder* of the infinite sum (the part you would be ignoring or truncating) will be very small, within the range of $\epsilon$. Therefore, if you maximize the truncated sum to an $\epsilon$ accuracy, you are also effectively maximizing the original infinite sum to a similar accuracy.
+*   **Discounting as a Solution**: To address this, a **discount factor, \(\gamma\)**, which is a number between zero and one (\(\gamma \in [0, 1)\)), is introduced. This factor exponentially reduces the value of future rewards, ensuring that the infinite sum of rewards converges to a finite value, assuming individual rewards are bounded (e.g., in $$ or \([-1, 1]\)). The return is calculated as \(R = r_0 + \gamma r_1 + \gamma^2 r_2 + \dots\).
+*   **Epsilon and the "Effective Horizon"**: The concept of an "effective horizon" is introduced, which is approximately **\(1/(1-\gamma)\)**. This horizon represents a conceptual time limit beyond which rewards contribute very little to the total sum due to the exponential decay of \(\gamma^t\) as \(t\) increases.
+*   **Quantifying Accuracy with Epsilon**: Epsilon (\(\epsilon\)) is used to make this "effective horizon" more precise in terms of desired accuracy. If you aim to maximize the infinite discounted sum of rewards up to an **\(\epsilon\) accuracy**, you can conceptually (and later formally) consider truncating the sum after a certain number of terms, roughly related to \(1/(1-\gamma)\) and \(\epsilon\).
+*   **Guarantee of Small Remainder**: The core insight is that **discounting causes an exponential decay** of the value of future rewards. This means that after a sufficient number of steps (related to the effective horizon and \(\epsilon\)), the *remainder* of the infinite sum (the part you would be ignoring or truncating) will be very small, within the range of \(\epsilon\). Therefore, if you maximize the truncated sum to an \(\epsilon\) accuracy, you are also effectively maximizing the original infinite sum to a similar accuracy.
 *   **Conceptual Understanding**: At this foundational stage of learning MDPs, the mention of epsilon in this context is intended to provide a **high-level, conceptual understanding** of how discounting practically limits the influence of the distant future. It's an intuition-building step, with more precise formalizations to come later. The main takeaway is that discounting ensures that rewards become "negligible" beyond a certain point, and epsilon helps to define what "negligible" means for a given problem.
 
 The **trajectory space** in the context of Markov Decision Processes (MDPs) is central to defining and evaluating an agent's performance, particularly because it addresses how rewards are accumulated over time and how uncertainty is managed.
 
 Here are the key insights and aspects special about trajectory space:
 
-*   **Definition of a Trajectory**: A trajectory is an **infinite sequence of states and actions** that an agent generates by interacting with the environment. It starts from an initial state ($s_0$), proceeds with an action ($a_0$), transitions to a new state ($s_1$), takes another action ($a_1$), and so on, continuing indefinitely ($s_0, a_0, s_1, a_1, \dots$). The **trajectory space** itself is the set of all possible such infinite sequences of state-action pairs.
+*   **Definition of a Trajectory**: A trajectory is an **infinite sequence of states and actions** that an agent generates by interacting with the environment. It starts from an initial state (\(s_0\)), proceeds with an action (\(a_0\)), transitions to a new state (\(s_1\)), takes another action (\(a_1\)), and so on, continuing indefinitely (\(s_0, a_0, s_1, a_1, \dots\)). The **trajectory space** itself is the set of all possible such infinite sequences of state-action pairs.
 
 *   **Foundation for the Objective (The Return)**: For every consecutive pair of states and actions within a trajectory, there's an underlying reward. The agent's objective is to **sum up these rewards** over the entire trajectory to form what is called the "return".
 
-*   **Challenges of Infinite Sums**: A significant problem arises because this is an **infinite sum of rewards**, which may not be well-defined. For instance, a sum like `+1, -1, +1, -1...` might not converge, or if all rewards are positive (e.g., `+1, +1, +1...`), the sum would go to infinity. To handle this, **discounting** is introduced, using a discount factor $\gamma \in [0, 1)$ to ensure the infinite sum converges to a finite value by making future rewards matter less.
+*   **Challenges of Infinite Sums**: A significant problem arises because this is an **infinite sum of rewards**, which may not be well-defined. For instance, a sum like `+1, -1, +1, -1...` might not converge, or if all rewards are positive (e.g., `+1, +1, +1...`), the sum would go to infinity. To handle this, **discounting** is introduced, using a discount factor \(\gamma \in [0, 1)\) to ensure the infinite sum converges to a finite value by making future rewards matter less.
 
 *   **Stochastic Nature and Distribution over Trajectories**: Since transitions within an MDP are **stochastic**, and policies can also choose actions randomly, the specific trajectory generated is not deterministic. Instead, there's a **probability distribution over trajectories**.
-    *   This distribution is "induced jointly" by the initial state distribution ($\mu$), the agent's policy ($\pi$), and the MDP's stochastic transition dynamics ($P$).
-    *   The probability of a specific trajectory $(s_0, a_0, s_1, a_1, \dots)$ is defined as an infinite product: $\mu(s_0) \times \pi_0(a_0 | s_0) \times P(s_1 | s_0, a_0) \times \pi_1(a_1 | s_0, a_0, s_1) \times P(s_2 | s_1, a_1) \times \dots$. This implies the Markov property holds, where probabilities "just get multiplied" based on the current state and action.
+    *   This distribution is "induced jointly" by the initial state distribution (\(\mu\)), the agent's policy (\(\pi\)), and the MDP's stochastic transition dynamics (\(P\)).
+    *   The probability of a specific trajectory \((s_0, a_0, s_1, a_1, \dots)\) is defined as an infinite product: \(\mu(s_0) \times \pi_0(a_0 | s_0) \times P(s_1 | s_0, a_0) \times \pi_1(a_1 | s_0, a_0, s_1) \times P(s_2 | s_1, a_1) \times \dots\). This implies the Markov property holds, where probabilities "just get multiplied" based on the current state and action.
 
 *   **Well-Definedness and Measurability**: A critical mathematical challenge related to trajectory space is proving that this infinite product indeed leads to a **well-defined probability measure** over the infinitely lengthy trajectories. This requires policies to possess specific "regularity assumptions" and be defined as **probability kernels** (functions mapping histories to probability distributions over actions). The **Ionescu Tulcea Theorem** is the theoretical cornerstone that allows for the construction of this probability measure on the trajectory space.
 
@@ -304,11 +304,11 @@ The "big finite" assumption in the context of Markov Decision Processes (MDPs) i
 
 Here's a breakdown of why this is the case:
 
-*   **Simplification with "Big Finite" Sets**: The course assumes finite state ($S$) and action ($A$) sets to simplify the mathematical treatment. With finite sets, probability distributions become "super simple and very very intuitive" as they can be treated as "probability vectors". This helps avoid the complexities of defining measures on arbitrary (potentially continuous) sets, which would require formalizing concepts like sigma-algebras and measurable functions from the outset.
-*   **Definition of a Trajectory**: A trajectory is an **infinite sequence** of states and actions ($s_0, a_0, s_1, a_1, \dots$) [1 Trajectory Definition from previous turn, 13, 19]. The probability of a specific trajectory is defined as an **infinite product** of the initial state probability ($\mu(s_0)$), the policy's action probabilities ($\pi_t(a_t | \text{history}_t)$), and the environment's transition probabilities ($P(s_{t+1} | s_t, a_t)$). This product looks like: $\mu(s_0) \times \pi_0(a_0 | s_0) \times P(s_1 | s_0, a_0) \times \pi_1(a_1 | s_0, a_0, s_1) \times P(s_2 | s_1, a_1) \times \dots$.
+*   **Simplification with "Big Finite" Sets**: The course assumes finite state (\(S\)) and action (\(A\)) sets to simplify the mathematical treatment. With finite sets, probability distributions become "super simple and very very intuitive" as they can be treated as "probability vectors". This helps avoid the complexities of defining measures on arbitrary (potentially continuous) sets, which would require formalizing concepts like sigma-algebras and measurable functions from the outset.
+*   **Definition of a Trajectory**: A trajectory is an **infinite sequence** of states and actions (\(s_0, a_0, s_1, a_1, \dots\)) [1 Trajectory Definition from previous turn, 13, 19]. The probability of a specific trajectory is defined as an **infinite product** of the initial state probability (\(\mu(s_0)\)), the policy's action probabilities (\(\pi_t(a_t | \text{history}_t)\)), and the environment's transition probabilities (\(P(s_{t+1} | s_t, a_t)\)). This product looks like: \(\mu(s_0) \times \pi_0(a_0 | s_0) \times P(s_1 | s_0, a_0) \times \pi_1(a_1 | s_0, a_0, s_1) \times P(s_2 | s_1, a_1) \times \dots\).
 *   **The Problem of Infinite Products and Well-Definedness**: Even with finite state and action sets, the instructor highlights a crucial question regarding this infinite product: "I know you might be wondering about okay is this even valid this is an infinite product this is always zero maybe what not like it's like a lot of numbers are multiplied here". The challenge lies in proving that this infinite product indeed leads to a **well-defined probability measure** over the space of infinitely lengthy trajectories. Simply having finite discrete values for each step does not automatically guarantee the validity of the measure over the infinite sequence.
 *   **Measure Theory's Role in Infinite Trajectories**: To formally prove that this infinite product constitutes a well-defined probability measure, mathematical rigor from measure theory is required. This involves:
-    *   **Regularity Assumptions**: Policies must possess specific "regularity assumptions" and be defined as **probability kernels**. A probability kernel implies that the map from histories ($h_t$) to probability distributions over actions ($M_1(A)$) must itself be "measurable as a function of the history".
+    *   **Regularity Assumptions**: Policies must possess specific "regularity assumptions" and be defined as **probability kernels**. A probability kernel implies that the map from histories (\(h_t\)) to probability distributions over actions (\(M_1(A)\)) must itself be "measurable as a function of the history".
     *   **Composition of Measures**: Without these properties, it's not possible to "properly define the induced measure" or "compose these probability measures" to get the joint measure over an infinite sequence. The definitions simply "wouldn't work".
     *   **Ionescu Tulcea Theorem**: This theorem is the theoretical cornerstone that explicitly "allows you to construct this probability measure on the trajectory space" when policies are defined as these probability kernels. This theorem is essential for ensuring the mathematical validity of the infinite product definition for trajectory probabilities.
 
@@ -321,32 +321,32 @@ Here's a taxonomy of how these constructs build on the MDP:
 *   **1. The Markov Decision Process (MDP) itself**:
     *   An MDP is a **mathematical model used to represent an environment** where stochastic transitions between states occur, controlled by an agent. It is "at the heart" of planning, batch learning, and online learning.
     *   **Primitives/Components of an MDP**:
-        *   **States ($S$)**: A set of states, which are primitive and represent different configurations of the environment. For simplicity, this set is often assumed to be **finite**.
-        *   **Actions ($A$)**: A set of actions that the agent can take, also primitive. This set is also often assumed to be **finite** for simplicity.
-        *   **Stochastic Transitions ($P$)**: Defines the probability distribution over the next state ($s'$) given the current state ($s$) and an action ($a$), denoted as $P(s' | s, a)$. This means that taking an action from a given state does not deterministically lead to a single next state, but rather to a distribution of possible next states.
-        *   **Rewards ($R$)**: For every state-action pair $(s, a)$, there is an associated deterministic reward (a real number). Rewards can be positive or negative.
-        *   **Objective Function**: The overall goal is to maximize the **sum of future rewards**. To make this infinite sum well-defined, a **discount factor ($\gamma$)** (a number between 0 and 1) is introduced, which means future rewards matter less than immediate ones. This discounted sum is called the **Return**.
+        *   **States (\(S\))**: A set of states, which are primitive and represent different configurations of the environment. For simplicity, this set is often assumed to be **finite**.
+        *   **Actions (\(A\))**: A set of actions that the agent can take, also primitive. This set is also often assumed to be **finite** for simplicity.
+        *   **Stochastic Transitions (\(P\))**: Defines the probability distribution over the next state (\(s'\)) given the current state (\(s\)) and an action (\(a\)), denoted as \(P(s' | s, a)\). This means that taking an action from a given state does not deterministically lead to a single next state, but rather to a distribution of possible next states.
+        *   **Rewards (\(R\))**: For every state-action pair \((s, a)\), there is an associated deterministic reward (a real number). Rewards can be positive or negative.
+        *   **Objective Function**: The overall goal is to maximize the **sum of future rewards**. To make this infinite sum well-defined, a **discount factor (\(\gamma\))** (a number between 0 and 1) is introduced, which means future rewards matter less than immediate ones. This discounted sum is called the **Return**.
 
-*   **2. The Policy ($\pi$)**:
+*   **2. The Policy (\(\pi\))**:
     *   A policy is the **control policy** of the agent, defining how it chooses actions.
     *   In its most general form, a policy can:
         *   Take the **entire history of the process** (sequence of states and actions up to the current state) as input.
-        *   Choose actions **randomly** (assign a probability distribution over actions for a given history). This is denoted as $\pi_t(a_t | \text{history}_t)$ or $\pi_t(a_t | s_0, a_0, s_1, \dots, s_t)$.
+        *   Choose actions **randomly** (assign a probability distribution over actions for a given history). This is denoted as \(\pi_t(a_t | \text{history}_t)\) or \(\pi_t(a_t | s_0, a_0, s_1, \dots, s_t)\).
     *   The assumption of **finite state and action sets** simplifies the representation of these probability distributions as "probability vectors," avoiding the immediate need for complex measure theory at each step. However, defining probabilities over *infinite sequences* still requires measure theory for mathematical well-definedness.
 
 *   **3. The Trajectory**:
-    *   A trajectory is an **infinite sequence of states and actions** generated by the agent interacting with the environment. It takes the form $(s_0, a_0, s_1, a_1, s_2, a_2, \dots)$.
+    *   A trajectory is an **infinite sequence of states and actions** generated by the agent interacting with the environment. It takes the form \((s_0, a_0, s_1, a_1, s_2, a_2, \dots)\).
     *   The **trajectory space** is the set of all such possible infinite sequences of state-action pairs.
 
 *   **4. The Distribution Over Trajectories**:
-    *   This is a **probability distribution over the entire trajectory space**. It is **induced jointly** by the **initial state distribution ($\mu$)**, the **agent's policy ($\pi$)**, and the **MDP's stochastic transition dynamics ($P$)**.
-    *   The probability of a specific trajectory $(s_0, a_0, s_1, a_1, \dots)$ is defined as an **infinite product**: $\mu(s_0) \times \pi_0(a_0 | s_0) \times P(s_1 | s_0, a_0) \times \pi_1(a_1 | s_0, a_0, s_1) \times P(s_2 | s_1, a_1) \times \dots$.
+    *   This is a **probability distribution over the entire trajectory space**. It is **induced jointly** by the **initial state distribution (\(\mu\))**, the **agent's policy (\(\pi\))**, and the **MDP's stochastic transition dynamics (\(P\))**.
+    *   The probability of a specific trajectory \((s_0, a_0, s_1, a_1, \dots)\) is defined as an **infinite product**: \(\mu(s_0) \times \pi_0(a_0 | s_0) \times P(s_1 | s_0, a_0) \times \pi_1(a_1 | s_0, a_0, s_1) \times P(s_2 | s_1, a_1) \times \dots\).
     *   This infinite product is "well defined" and leads to a probability distribution over infinitely long trajectories. This relies on policies being defined as **probability kernels** and requires concepts from **measure theory** (specifically, the Ionescu Tulcea Theorem) to prove its validity. This ensures that probabilities can be properly composed across an infinite sequence.
 
 *   **5. Value of a Policy**:
-    *   Once the distribution over trajectories is established, the **value of a policy ($\text{V}_{\pi}(\mu)$)** for a given initial state distribution ($\mu$) is defined as the **expected return** over this induced distribution of trajectories.
-    *   Essentially, $V_{\pi}(\mu) = \mathbb{E}_{\text{trajectory} \sim \text{Distribution over Trajectories}}[\text{Return}(\text{trajectory})]$.
-    *   For practical purposes, it's often sufficient to consider the value of a policy starting from a single state, denoted as $\text{V}_{\pi}(s)$, which is the expected return if the agent starts in state $s$.
+    *   Once the distribution over trajectories is established, the **value of a policy (\(\text{V}_{\pi}(\mu)\))** for a given initial state distribution (\(\mu\)) is defined as the **expected return** over this induced distribution of trajectories.
+    *   Essentially, \(V_{\pi}(\mu) = \mathbb{E}_{\text{trajectory} \sim \text{Distribution over Trajectories}}[\text{Return}(\text{trajectory})]\).
+    *   For practical purposes, it's often sufficient to consider the value of a policy starting from a single state, denoted as \(\text{V}_{\pi}(s)\), which is the expected return if the agent starts in state \(s\).
 
 *   **6. Optimal Value and Optimal Policy**:
     *   With the value of a policy defined as a real number, it becomes possible to identify the **optimal value** as the "supremum over all policies" for a given starting state distribution.
@@ -364,20 +364,20 @@ Here's a detailed breakdown of how each construct builds upon and depends on the
 The MDP is the **"heart"** of planning, batch learning, and online learning in RL. It is a **mathematical model** designed to represent an environment where stochastic transitions between states are controlled by an agent.
 
 *   **Core Components of an MDP**:
-    *   **States ($S$)**: A set of environmental configurations. These are considered **primitive** (undefined beyond being a set). For simplicity in the course, the state set is often assumed to be **finite**.
-    *   **Actions ($A$)**: A set of actions the agent can take, also primitive. Like states, the action set is often assumed to be **finite** to simplify the mathematics.
-    *   **Stochastic Transitions ($P$)**: Defines a **probability distribution** over the next state ($s'$) given the current state ($s$) and an action ($a$), denoted as $P(s' | s, a)$. This means that an action from a given state leads to a *distribution* of possible next states, not a single deterministic one.
-    *   **Rewards ($R$)**: For every state-action pair $(s, a)$, there is an associated **deterministic reward** (a real number). The goal is to maximize the **sum of future rewards**.
-    *   **Objective Function (Return) and Discount Factor ($\gamma$)**: To handle the issue of infinite sums of rewards potentially not being well-defined, a **discount factor ($\gamma$)**, a number between 0 and 1, is introduced. This factor ensures that future rewards are weighted less than immediate ones, making the sum (called the **Return**) well-defined. The use of discounting simplifies the problem compared to, for example, average rewards, which introduce "nasty issues".
+    *   **States (\(S\))**: A set of environmental configurations. These are considered **primitive** (undefined beyond being a set). For simplicity in the course, the state set is often assumed to be **finite**.
+    *   **Actions (\(A\))**: A set of actions the agent can take, also primitive. Like states, the action set is often assumed to be **finite** to simplify the mathematics.
+    *   **Stochastic Transitions (\(P\))**: Defines a **probability distribution** over the next state (\(s'\)) given the current state (\(s\)) and an action (\(a\)), denoted as \(P(s' | s, a)\). This means that an action from a given state leads to a *distribution* of possible next states, not a single deterministic one.
+    *   **Rewards (\(R\))**: For every state-action pair \((s, a)\), there is an associated **deterministic reward** (a real number). The goal is to maximize the **sum of future rewards**.
+    *   **Objective Function (Return) and Discount Factor (\(\gamma\))**: To handle the issue of infinite sums of rewards potentially not being well-defined, a **discount factor (\(\gamma\))**, a number between 0 and 1, is introduced. This factor ensures that future rewards are weighted less than immediate ones, making the sum (called the **Return**) well-defined. The use of discounting simplifies the problem compared to, for example, average rewards, which introduce "nasty issues".
 
-### 2. The Policy ($\pi$)
+### 2. The Policy (\(\pi\))
 
 A policy is the **control policy of the agent**. It dictates **how the agent chooses actions** within the MDP.
 
 *   **Dependency on MDP**: A policy operates *within* the state and action spaces defined by the MDP.
 *   **General Definition**: A general policy can:
-    *   Utilize the **entire history** of the process up to the current state ($s_0, a_0, s_1, \dots, s_t$) to make a decision.
-    *   Choose actions **randomly**, assigning a probability distribution over actions for a given history. This is represented as a map from histories ($H_t$) to probability distributions over actions ($M_1(A)$) for each time index $t$.
+    *   Utilize the **entire history** of the process up to the current state (\(s_0, a_0, s_1, \dots, s_t\)) to make a decision.
+    *   Choose actions **randomly**, assigning a probability distribution over actions for a given history. This is represented as a map from histories (\(H_t\)) to probability distributions over actions (\(M_1(A)\)) for each time index \(t\).
 *   **"Big Finite" Simplification**: The assumption of **finite state and action sets** is made to **avoid the complexities of measure theory** at the local step level. With finite sets, probability distributions are "super simple and very very intuitive," treated as "probability vectors". This simplifies understanding by "freeing our mind from a lot of the measuratic weirdness" that would otherwise occur.
 
 ### 3. The Trajectory
@@ -385,28 +385,28 @@ A policy is the **control policy of the agent**. It dictates **how the agent cho
 A trajectory is an **infinite sequence of states and actions** that results from an agent's interaction with an MDP.
 
 *   **Dependency on MDP and Policy**: A trajectory is generated by the **interconnection** of the agent's policy and the MDP's transition dynamics. It starts from an initial state, the policy chooses an action, the MDP transitions to a new state, and this process continues indefinitely.
-*   **Structure**: A trajectory is represented as $(s_0, a_0, s_1, a_1, s_2, a_2, \dots)$. The **trajectory space** is the set of all such possible infinite sequences.
+*   **Structure**: A trajectory is represented as \((s_0, a_0, s_1, a_1, s_2, a_2, \dots)\). The **trajectory space** is the set of all such possible infinite sequences.
 
 ### 4. The Distribution Over Trajectories
 
 This is a **probability distribution defined over the entire trajectory space**. It quantifies the likelihood of any given infinite sequence of states and actions occurring.
 
 *   **Dependency on MDP, Policy, and Initial State Distribution**: This distribution is **induced jointly** by:
-    *   An **initial state distribution ($\mu$)** over $S$.
-    *   The **agent's policy ($\pi$)**.
-    *   The **MDP's stochastic transition dynamics ($P$)**.
-*   **Definition as an Infinite Product**: The probability of a specific trajectory $(s_0, a_0, s_1, a_1, \dots)$ is expressed as an **infinite product**:
-    $\mu(s_0) \times \pi_0(a_0 | s_0) \times P(s_1 | s_0, a_0) \times \pi_1(a_1 | s_0, a_0, s_1) \times P(s_2 | s_1, a_1) \times \dots$.
+    *   An **initial state distribution (\(\mu\))** over \(S\).
+    *   The **agent's policy (\(\pi\))**.
+    *   The **MDP's stochastic transition dynamics (\(P\))**.
+*   **Definition as an Infinite Product**: The probability of a specific trajectory \((s_0, a_0, s_1, a_1, \dots)\) is expressed as an **infinite product**:
+    \(\mu(s_0) \times \pi_0(a_0 | s_0) \times P(s_1 | s_0, a_0) \times \pi_1(a_1 | s_0, a_0, s_1) \times P(s_2 | s_1, a_1) \times \dots\).
 *   **Measure Theory's Necessity**: Even with finite state and action sets, the instructor acknowledges that one "might be wondering about okay is this even valid this is an infinite product this is always zero maybe what not". To prove that this infinite product is **well-defined** and constitutes a proper probability measure over the infinite trajectory space, **measure theory is required**. Specifically, policies must be defined as **probability kernels**, meaning the map from histories to probability distributions over actions must be **"measurable as a function of the history"**. The **Ionescu Tulcea Theorem** is the theoretical cornerstone that "allows you to construct this probability measure on the trajectory space" under these conditions. Without these "regularity assumptions" on policies, the definitions "wouldn't work" to "properly define the induced measure" or "compose these probability measures".
 
 ### 5. Value of a Policy
 
 The value of a policy quantifies its performance within the MDP framework.
 
-*   **Dependency on Trajectory Distribution and MDP's Return**: The **value of a policy ($\text{V}_{\pi}(\mu)$)**, for a given initial state distribution ($\mu$), is defined as the **expected return** over the distribution of trajectories induced by that policy and the MDP.
+*   **Dependency on Trajectory Distribution and MDP's Return**: The **value of a policy (\(\text{V}_{\pi}(\mu)\))**, for a given initial state distribution (\(\mu\)), is defined as the **expected return** over the distribution of trajectories induced by that policy and the MDP.
     *   The **Return** itself is derived directly from the MDP's rewards and discount factor over a trajectory.
     *   The **expectation** is taken with respect to the **distribution over trajectories**.
-*   **Single State Value**: It is often sufficient to study the value starting from a single state, denoted as $\text{V}_{\pi}(s)$, which is the expected return if the agent starts in state $s$.
+*   **Single State Value**: It is often sufficient to study the value starting from a single state, denoted as \(\text{V}_{\pi}(s)\), which is the expected return if the agent starts in state \(s\).
 
 ### 6. Optimal Value and Optimal Policy
 
@@ -424,10 +424,10 @@ Here are some nuanced insights:
 
 *   **Simplifications in the MDP Definition**:
     *   **Deterministic Rewards (for Simplicity)**: While rewards are generally part of the MDP definition, the instructor makes a deliberate choice to assume that "for every state-action pair there is a **deterministic reward**". This is explicitly stated as a simplification "to reduce clutter", implying that in a more complex or general setting, rewards could also be stochastic.
-    *   **Discounting as a Practical Choice**: The use of a **discount factor ($\gamma$)** is not just an arbitrary choice for the objective function. It's introduced primarily "to deal with the fact that the sum may not be defined" for infinite sums of rewards. The alternative of taking averages "would be to take averages if you take averages then there are all kinds of **nasty issues** whether the averages are defined maybe there is some cyclic behavior again and averages are not defined then you have to take chisel over ages". The discounted problem is studied because it's "somehow interesting but relatively simple" and "captures a little bit about that maybe the future is not that important a very long future". It also implies an **"effective horizon"** of roughly $1/(1-\gamma)$ terms, meaning that beyond this point, rewards contribute negligibly to the total discounted sum.
+    *   **Discounting as a Practical Choice**: The use of a **discount factor (\(\gamma\))** is not just an arbitrary choice for the objective function. It's introduced primarily "to deal with the fact that the sum may not be defined" for infinite sums of rewards. The alternative of taking averages "would be to take averages if you take averages then there are all kinds of **nasty issues** whether the averages are defined maybe there is some cyclic behavior again and averages are not defined then you have to take chisel over ages". The discounted problem is studied because it's "somehow interesting but relatively simple" and "captures a little bit about that maybe the future is not that important a very long future". It also implies an **"effective horizon"** of roughly \(1/(1-\gamma)\) terms, meaning that beyond this point, rewards contribute negligibly to the total discounted sum.
 
 *   **The Depth of Policy Definition and the "Big Finite" Compromise**:
-    *   **Generality of Policies**: A general policy is defined very broadly: it can use the **entire history** of the process up to the current state (e.g., $s_0, a_0, s_1, \dots, s_t$) to make decisions and can choose actions **randomly**. The instructor notes that this broad definition is chosen to "not lose generality" from the outset, even if the practical reasons for full history dependence or randomization aren't immediately obvious.
+    *   **Generality of Policies**: A general policy is defined very broadly: it can use the **entire history** of the process up to the current state (e.g., \(s_0, a_0, s_1, \dots, s_t\)) to make decisions and can choose actions **randomly**. The instructor notes that this broad definition is chosen to "not lose generality" from the outset, even if the practical reasons for full history dependence or randomization aren't immediately obvious.
     *   **The Necessity of Measure Theory**: Even with seemingly simple components like finite states and actions, rigorously defining the **distribution over trajectories** (the infinite sequence of states and actions) requires sophisticated mathematical tools. The instructor highlights that to prove that the "infinite product" representing the probability of a trajectory is "well defined" and constitutes a proper probability measure, **measure theory is required**. Policies must be formally defined as **probability kernels** (measurable maps from histories to probability distributions over actions). Without these "regularity assumptions," the definitions "wouldn't work" to "properly define the induced measure" or "compose these probability measures". The **Ionescu Tulcea Theorem** is the theoretical cornerstone that "allows you to construct this probability measure on the trajectory space".
     *   **The "Big Finite" Solution**: To circumvent the complexities and "measuratic weirdness" of measure theory for most of the course, the instructor adopts a crucial simplification: assuming **finite state and action sets**. This makes probability distributions "super simple and very very intuitive," reducing them to "probability vectors". While acknowledging this is a limitation for continuous problems (e.g., robotics), the instructor suggests that "big finite" often captures the essence of challenges (e.g., computational barriers) and the hope is that results extend to continuous cases with sufficient assumptions.
     *   **Implicit Assumption of State Observability**: For foundational MDP theory, it's assumed that the controller **can observe the state**. This is a "very high bar" and implicitly defines the "limits of what you can do with the system," providing an **upper bound on collectible reward**. However, the instructor immediately contextualizes this, stating that much of the course will focus on cases where the state space is too large for practical direct observation and action, necessitating state abstraction.
@@ -449,7 +449,7 @@ The instructor introduces several mathematical simplifications or "obstructions"
 Here are the key mathematical obstructions and their justifications:
 
 *   **Assumption of Finite State and Action Sets**:
-    *   **The Obstruction**: To simplify the rigorous definition of probability measures on the "trajectory space" (infinite sequence of states and actions), the instructor assumes that the set of states ($S$) and the set of actions ($A$) are **finite**.
+    *   **The Obstruction**: To simplify the rigorous definition of probability measures on the "trajectory space" (infinite sequence of states and actions), the instructor assumes that the set of states (\(S\)) and the set of actions (\(A\)) are **finite**.
     *   **Why it's necessary**: Without this assumption, one would need to delve into **measure theory** to properly define distributions and composite probability measures, a topic that is "very hairy" and involves concepts like sigma algebras and probability kernels. The lecturer specifically mentions the **Ionescu Tulcea Theorem** as the theoretical tool needed to construct the probability measure on the trajectory space for general (non-finite) sets.
     *   **The Simplification**: With finite sets, probability distributions become "super simple and very very intuitive," reducing to **probability vectors**. This avoids "measuratic weirdness" and allows focusing on core concepts.
     *   **"Big Finite" Compromise**: While acknowledging that this is a limitation for continuous problems (e.g., in robotics), the instructor argues that "big finite" (where state/action spaces are very large but still finite) often captures the essence of challenges, especially computational barriers, and that many results extend to continuous cases under sufficient "regularity assumptions".
@@ -458,10 +458,10 @@ Here are the key mathematical obstructions and their justifications:
     *   **The Obstruction**: For simplicity and "to reduce clutter," the instructor initially assumes that for every state-action pair, there is a **deterministic reward**.
     *   **Why it's necessary (simplification)**: This choice avoids the immediate complexity of dealing with stochastic rewards and their distributions, allowing a clearer introduction of the MDP structure and objective function. The general definition of an MDP allows for stochastic rewards, but this is a temporary simplification.
 
-*   **Use of a Discount Factor ($\gamma$) for Objective Function**:
+*   **Use of a Discount Factor (\(\gamma\)) for Objective Function**:
     *   **The Obstruction**: When defining the objective function as the sum of rewards over an infinite horizon, an **infinite sum of rewards** is naturally encountered. However, such a sum "may not even be defined" (e.g., oscillating sums like +1, -1, +1, -1, or an infinite sum of positive rewards).
-    *   **The Simplification**: To manage this, a **discount factor ($\gamma$)** (a number between 0 and 1) is introduced. This factor exponentially decreases the value of future rewards, ensuring that the infinite sum of discounted rewards converges and is "well defined".
-    *   **Avoiding "Nasty Issues"**: The alternative to discounting, such as taking averages of rewards, introduces "all kinds of nasty issues," including whether averages are defined, especially with cyclic behaviors. Discounting provides a "relatively simple" starting point that "captures a little bit about that maybe the future is not that important a very long future". It also implies an **"effective horizon"** of roughly $1/(1-\gamma)$ terms, beyond which rewards contribute negligibly to the total sum.
+    *   **The Simplification**: To manage this, a **discount factor (\(\gamma\))** (a number between 0 and 1) is introduced. This factor exponentially decreases the value of future rewards, ensuring that the infinite sum of discounted rewards converges and is "well defined".
+    *   **Avoiding "Nasty Issues"**: The alternative to discounting, such as taking averages of rewards, introduces "all kinds of nasty issues," including whether averages are defined, especially with cyclic behaviors. Discounting provides a "relatively simple" starting point that "captures a little bit about that maybe the future is not that important a very long future". It also implies an **"effective horizon"** of roughly \(1/(1-\gamma)\) terms, beyond which rewards contribute negligibly to the total sum.
 
 *   **Implicit Assumption of State Observability**:
     *   **The Obstruction**: For building the foundational theory of MDPs and defining policies, it is initially assumed that the controller **can observe the state** of the system.

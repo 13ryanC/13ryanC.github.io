@@ -30,8 +30,8 @@ $$
 \mathcal M=\langle\mathcal S,\mathcal A,P,R,\Xi\rangle ,
 $$
 
-where $\Xi$ collects *horizon / return* hyper‑parameters (γ, time limit $T$, goal set $G$, etc.).
-A *policy* $\pi$ induces a controlled Markov chain and return $G^{\pi}$ whose exact definition depends on axis 2 below.
+where \(\Xi\) collects *horizon / return* hyper‑parameters (γ, time limit \(T\), goal set \(G\), etc.).
+A *policy* \(\pi\) induces a controlled Markov chain and return \(G^{\pi}\) whose exact definition depends on axis 2 below.
 
 ---
 
@@ -39,28 +39,28 @@ A *policy* $\pi$ induces a controlled Markov chain and return $G^{\pi}$ whose ex
 
 | Sub‑class                               | Clock                           | Governing equation                                     | Key algorithm(s)                            |
 | --------------------------------------- | ------------------------------- | ------------------------------------------------------ | ------------------------------------------- |
-| **Discrete‑time MDP**                   | $t\in\mathbb N$                 | Bellman optimality: $T [V] (s)=\max_a \lbrace R+\mathbb E[V] \rbrace$ | Value Iteration (VI), Policy Iteration (PI) |
-| **Semi‑Markov decision process (SMDP)** | Random holding time $\tau(s,a)$ | Generalised Bellman with duration                      | Options framework, LAO\*                    |
-| **Continuous‑time MDP (CTMDP)**         | $t\in\mathbb R_{\ge0}$          | Hamilton–Jacobi–Bellman (HJB) PDE or generator $Q$     | Uniformisation, policy gradient in CT       |
+| **Discrete‑time MDP**                   | \(t\in\mathbb N\)                 | Bellman optimality: \(T [V] (s)=\max_a \lbrace R+\mathbb E[V] \rbrace\) | Value Iteration (VI), Policy Iteration (PI) |
+| **Semi‑Markov decision process (SMDP)** | Random holding time \(\tau(s,a)\) | Generalised Bellman with duration                      | Options framework, LAO\*                    |
+| **Continuous‑time MDP (CTMDP)**         | \(t\in\mathbb R_{\ge0}\)          | Hamilton–Jacobi–Bellman (HJB) PDE or generator \(Q\)     | Uniformisation, policy gradient in CT       |
 
 ---
 
 ## Axis 2 Horizon & return criterion (discounted vs. undiscounted lives here)
 
-| Sub‑class                                 | Return $G^{\pi}$                                                      | Structural assumption ensuring finiteness                | Comments                                          |
+| Sub‑class                                 | Return \(G^{\pi}\)                                                      | Structural assumption ensuring finiteness                | Comments                                          |
 | ----------------------------------------- | --------------------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------- |
-| **Finite horizon**                        | $\sum_{t=0}^{T-1} R_t$                                                | $T<\infty$                                               | Dynamic programming backwards in time             |
-| **Infinite horizon, γ‑discounted**        | $\sum_{t=0}^{\infty}\gamma^{t} R_t \; \gamma \in [0,1)$             | $\gamma < 1$ ⇒ Bellman operator is a contraction                  | Most RL textbooks default                         |
-| **Average‑reward (ergodic)**              | $\displaystyle\rho^{\pi}=\lim_{T\to\infty}\frac1T\sum_{t=0}^{T-1}R_t$ | Every stationary policy induces positive‑recurrent chain | Requires *relative* value iteration or R‑learning |
-| **Stochastic shortest path (total cost)** | $\mathbb E \left[\sum_{t=0}^{\tau_G-1}c_t\right]$                    | $\exists$ *proper* policy with $P(\tau_G<\infty)=1$              | Used for goal‑directed planning                   |
+| **Finite horizon**                        | \(\sum_{t=0}^{T-1} R_t\)                                                | \(T<\infty\)                                               | Dynamic programming backwards in time             |
+| **Infinite horizon, γ‑discounted**        | \(\sum_{t=0}^{\infty}\gamma^{t} R_t \; \gamma \in [0,1)\)             | \(\gamma < 1\) ⇒ Bellman operator is a contraction                  | Most RL textbooks default                         |
+| **Average‑reward (ergodic)**              | \(\displaystyle\rho^{\pi}=\lim_{T\to\infty}\frac1T\sum_{t=0}^{T-1}R_t\) | Every stationary policy induces positive‑recurrent chain | Requires *relative* value iteration or R‑learning |
+| **Stochastic shortest path (total cost)** | \(\mathbb E \left[\sum_{t=0}^{\tau_G-1}c_t\right]\)                    | \(\exists\) *proper* policy with \(P(\tau_G<\infty)=1\)              | Used for goal‑directed planning                   |
 | **Risk‑adjusted returns**                 | CVaR, exponential utility, mean–variance, etc.                        | See axis 7 for risk models                               | Turns Bellman into nonlinear operator             |
 
 ---
 
 ## Axis 3 Observability
 
-1. **Fully observable MDP** – decision maker sees $s_t$.
-2. **Partially observable MDP (POMDP)** – agent gets $o_t\sim O(o\mid s_t)$; belief $b_t$ is sufficient statistic.
+1. **Fully observable MDP** – decision maker sees \(s_t\).
+2. **Partially observable MDP (POMDP)** – agent gets \(o_t\sim O(o\mid s_t)\); belief \(b_t\) is sufficient statistic.
 3. **Mixed observability (MOMDP)** – state splits into visible and hidden factors, speeding up belief updates.
 
 ---
@@ -68,7 +68,7 @@ A *policy* $\pi$ induces a controlled Markov chain and return $G^{\pi}$ whose ex
 ## Axis 4 State & action cardinality / structure
 
 * **Finite / tabular** – exact DP and tabular RL possible.
-* **Continuous ($\mathbb{R}^n$)** – needs function approximation; special case *LQR* (linear dynamics, quadratic cost) is analytically solvable via Riccati.
+* **Continuous (\(\mathbb{R}^n\))** – needs function approximation; special case *LQR* (linear dynamics, quadratic cost) is analytically solvable via Riccati.
 * **Factored MDP** – state is a tuple with sparse dynamic Bayesian‑network factorisation; enables structured VI.
 * **Hybrid discrete–continuous** – common in robotics; solved with hybrid MPC or mixed‑integer RL.
 
@@ -76,7 +76,7 @@ A *policy* $\pi$ induces a controlled Markov chain and return $G^{\pi}$ whose ex
 
 ## Axis 5 Transition determinism
 
-* **Deterministic MDP** – $P(s'|s,a)$ is Dirac; planning ≈ graph search (A\*, Dijkstra).
+* **Deterministic MDP** – \(P(s'|s,a)\) is Dirac; planning ≈ graph search (A\*, Dijkstra).
 * **Stochastic MDP** – genuine uncertainty; need expectations in Bellman equation.
 
 ---
@@ -85,8 +85,8 @@ A *policy* $\pi$ induces a controlled Markov chain and return $G^{\pi}$ whose ex
 
 | Class                               | Definition                                              | Typical solver                                       |
 | ----------------------------------- | ------------------------------------------------------- | ---------------------------------------------------- |
-| **Stationary**                      | $P,R$ independent of $t$.                               | Standard DP / RL.                                    |
-| **Time‑inhomogeneous**              | $P_t, R_t$ depend on $t$.                               | Augment state with clock or use non‑stationary DP.   |
+| **Stationary**                      | \(P,R\) independent of \(t\).                               | Standard DP / RL.                                    |
+| **Time‑inhomogeneous**              | \(P_t, R_t\) depend on \(t\).                               | Augment state with clock or use non‑stationary DP.   |
 | **Adversarial / non‑stationary RL** | Environment may change arbitrarily; no Markov guarantee | Regret‑minimising online algorithms (UCRL2, SW‑DQN). |
 
 ---
@@ -97,8 +97,8 @@ A *policy* $\pi$ induces a controlled Markov chain and return $G^{\pi}$ whose ex
 | ---------------------------------------- | -------------------------------------------------- | ------------------------------------- |
 | **Risk‑neutral**                         | Max expected return (default).                     | DP, Q‑learning                        |
 | **Risk‑sensitive**                       | Minimise CVaR, entropic risk, etc.                 | CVaR‑VI, variance‑aware PG            |
-| **Constrained MDP (CMDP)**               | Max return s.t. $\mathbb E[C_i]\le \beta_i$.       | Lagrangian relaxation, Primal‑dual RL |
-| **Robust / distributionally‑robust MDP** | Max worst‑case return over $\mathcal P$.           | Min‑max DP, ambiguity‑set LP          |
+| **Constrained MDP (CMDP)**               | Max return s.t. \(\mathbb E[C_i]\le \beta_i\).       | Lagrangian relaxation, Primal‑dual RL |
+| **Robust / distributionally‑robust MDP** | Max worst‑case return over \(\mathcal P\).           | Min‑max DP, ambiguity‑set LP          |
 | **Safe MDP**                             | Hard safety predicates on states or probabilities. | Shielded RL, reach‑avoid VI           |
 
 ---
@@ -125,7 +125,7 @@ A *policy* $\pi$ induces a controlled Markov chain and return $G^{\pi}$ whose ex
 | Name                                | Defining property                                    | Pay‑off                                      |                                              |
 | ----------------------------------- | ---------------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
 | **Linearly solvable MDP (LMDP)**    | Passive dynamics + KL‑control cost ⇒ linear Bellman. | Exact inference via eigenvector.             |                                              |
-| **Entropy‑regularised / soft MDP**  | Adds $(\alpha\mathcal H(\pi(\cdot s)))$ to reward.                              | Smooths optimisation; underlies soft‑Q, SAC. |
+| **Entropy‑regularised / soft MDP**  | Adds \((\alpha\mathcal H(\pi(\cdot s)))\) to reward.                              | Smooths optimisation; underlies soft‑Q, SAC. |
 | **Restless‑bandit / Whittle index** | Independent evolving arms, one active.               | Near‑optimal index policies.                 |                                              |
 | **Queueing / inventory MDPs**       | Special monotone structure.                          | Policy monotonicity ⇒ threshold rules.       |                                              |
 | **Impulsive / hybrid jump MDPs**    | Combine continuous flows with discrete jumps.        | Impulse control, mixed‑integer optimisation. |                                              |

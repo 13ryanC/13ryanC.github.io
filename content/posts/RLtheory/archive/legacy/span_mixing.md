@@ -130,11 +130,11 @@ Below is a self‑contained technical survey of **mixing rates (a.k.a. mixing ti
 ## 1  Mixing for a Markov chain
 
 **Setup.**
-Let $P\in\mathbb R^{|S|\times|S|}$ be the transition matrix of a *finite*, *irreducible*, *aperiodic* Markov chain with unique stationary distribution $\pi$.
+Let \(P\in\mathbb R^{|S|\times|S|}\) be the transition matrix of a *finite*, *irreducible*, *aperiodic* Markov chain with unique stationary distribution \(\pi\).
 
 ### 1.1  Total‑variation definition
 
-For $x\in S$ write
+For \(x\in S\) write
 
 $$
 d_x(t)\;=\;\left\lVert P^{t}(x,\cdot)-\pi\right\rVert_{\mathrm{TV}}
@@ -160,12 +160,12 @@ If a chain is *uniformly ergodic* there exist constants \(C<\infty\) and \(0<\be
 \tag{2}
 $$
 
-Here **β** (or $\rho=\beta$) is called the *mixing rate*; $t_{\text{mix}}(\varepsilon)=
+Here **β** (or \(\rho=\beta\)) is called the *mixing rate*; $t_{\text{mix}}(\varepsilon)=
 \lceil\log_{\!\beta}(\varepsilon/C)\rceil$.
 
 ### 1.3  Spectral‑gap connection (reversible case)
 
-If $P$ is reversible, let
+If \(P\) is reversible, let
 
 $$
 \lambda_1=1>\lambda_2\ge\cdots\ge\lambda_{|S|}
@@ -226,7 +226,7 @@ Uniform ergodicity is the strongest mixing assumption used in modern RL analysis
 
 **Weaker notions.**
 
-| Name                   | Typical control‑theoretic use   | Formal condition on $P_{π}$                                                  |
+| Name                   | Typical control‑theoretic use   | Formal condition on \(P_{π}\)                                                  |
 | ---------------------- | ------------------------------- | ---------------------------------------------------------------------------- |
 | *Geometric ergodicity* | Discounted MDPs                 | (2) holds for each π, but C,β may depend on π                                |
 | *Weak communicating*   | Classic Puterman average‑reward | Only *optimal* policies need to be ergodic; sub‑optimal ones may fail to mix |
@@ -237,9 +237,9 @@ Uniform ergodicity is the strongest mixing assumption used in modern RL analysis
 
 | Technique                              | Core idea                                    | Bound produced                                               |
 | -------------------------------------- | -------------------------------------------- | ------------------------------------------------------------ |
-| **Spectral gap**                       | (3) above                                    | $t_{\text{mix}}\le trel\log\!\frac1{ε\pi_{\min}}$.           |
-| **Conductance Φ**                      | Cheeger inequality                           | $t_{\text{mix}}\le \tfrac{1}{Φ^2}\log\!\frac1{ε\pi_{\min}}$. |
-| **Path/canonical paths**               | Flow congestion                              | $t_{\text{mix}}\le ρ_{\text{edge}} \log\!\frac1{επ_{\min}}$. |
+| **Spectral gap**                       | (3) above                                    | \(t_{\text{mix}}\le trel\log\!\frac1{ε\pi_{\min}}\).           |
+| **Conductance Φ**                      | Cheeger inequality                           | \(t_{\text{mix}}\le \tfrac{1}{Φ^2}\log\!\frac1{ε\pi_{\min}}\). |
+| **Path/canonical paths**               | Flow congestion                              | \(t_{\text{mix}}\le ρ_{\text{edge}} \log\!\frac1{επ_{\min}}\). |
 | **Coupling / strong‑stationary times** | Construct joint copies that coalesce         | Often sharp, sometimes exact.                                |
 | **Doeblin condition**                  | For continuous spaces, gives a β‑mixing rate | β = 1−δ where δ is the Doeblin mass.                         |
 
@@ -251,13 +251,13 @@ See the survey notes ([statslab.cam.ac.uk][2], [statslab.cam.ac.uk][2]) for deri
 
 ### 4.1  Sample‑complexity factors
 
-For a generative simulator, learning an ε‑optimal *average‑reward* policy over a uniformly ergodic MDP with $S$ states and $A$ actions requires
+For a generative simulator, learning an ε‑optimal *average‑reward* policy over a uniformly ergodic MDP with \(S\) states and \(A\) actions requires
 
 $$
 \Theta\!\bigl(SA\,T_*/\varepsilon^{2}\bigr)
 $$
 
-samples — and this **lower bound is tight** ([arxiv.org][1]).  Faster mixing (smaller $T_*$) directly lowers the oracle complexity.
+samples — and this **lower bound is tight** ([arxiv.org][1]).  Faster mixing (smaller \(T_*\)) directly lowers the oracle complexity.
 
 ### 4.2  Finite‑trajectory regret
 
@@ -267,11 +267,11 @@ $$
 O\!\bigl(\sqrt{T_*\;S A\,T}\bigr)
 $$
 
-for horizon $T$; i.e. weak mixing slows down exploration.
+for horizon \(T\); i.e. weak mixing slows down exploration.
 
 ### 4.3  Discounted‑reward evaluation
 
-Temporal‑difference or Monte‑Carlo estimates have variance terms proportional to $t_{\text{mix}}^{π}/(1-\gamma)$.  If $(1-\gamma)^{-1}\gg t_{\text{mix}}^{π}$, then discounted evaluation “forgets” the initial state *before* discounting truncates the reward tail, leading to cleaner asymptotics.
+Temporal‑difference or Monte‑Carlo estimates have variance terms proportional to \(t_{\text{mix}}^{π}/(1-\gamma)\).  If \((1-\gamma)^{-1}\gg t_{\text{mix}}^{π}\), then discounted evaluation “forgets” the initial state *before* discounting truncates the reward tail, leading to cleaner asymptotics.
 
 ---
 
@@ -280,31 +280,31 @@ Temporal‑difference or Monte‑Carlo estimates have variance terms proportiona
 | Task                              | Recommended practice                                                                                                         | Pitfalls                                                                                |
 | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | **Diagnose mixing**               | Autocorrelation plots, Gelman–Rubin, empirical TV distance via long roll‑outs.                                               | Diagnostics require *state* observations; latent‑state RL needs proxies.                |
-| **Estimate $t_{\text{mix}}^{π}$** | Spectral estimator of relaxation time or bootstrap TV‑distance curves from a single trajectory ([proceedings.mlr.press][3]). | High variance when $π_{\min}$ is tiny; non‑reversible chains complicate eigen analysis. |
+| **Estimate \(t_{\text{mix}}^{π}\)** | Spectral estimator of relaxation time or bootstrap TV‑distance curves from a single trajectory ([proceedings.mlr.press][3]). | High variance when \(π_{\min}\) is tiny; non‑reversible chains complicate eigen analysis. |
 | **Improve mixing**                | • Add exploration bonus / entropy regularisation.<br>• Insert stochastic “trembling‑hand” noise (Doeblin mass).              | Artificial noise can degrade optimality; tune noise level carefully.                    |
-| **Algorithm design**              | Use episode lengths ≥ $T_*$.  In posterior sampling or optimistic algorithms, set confidence widths ∝ $1/\sqrt{T_*}$.        | If $T_*$ unknown, adaptive doubling or empirical‑mixing tests are required.             |
-| **Theoretical checks**            | Verify that every policy induces an *irreducible aperiodic* chain; otherwise $T_*=\infty$.                                   | Common MDP benchmarks (e.g. SparseRiverSwim) *violate* this silently.                   |
+| **Algorithm design**              | Use episode lengths ≥ \(T_*\).  In posterior sampling or optimistic algorithms, set confidence widths ∝ \(1/\sqrt{T_*}\).        | If \(T_*\) unknown, adaptive doubling or empirical‑mixing tests are required.             |
+| **Theoretical checks**            | Verify that every policy induces an *irreducible aperiodic* chain; otherwise \(T_*=\infty\).                                   | Common MDP benchmarks (e.g. SparseRiverSwim) *violate* this silently.                   |
 
 ---
 
 ### Worked example (ring random walk)
 
-For an uncontrolled lazy random walk on an $n$-cycle:
+For an uncontrolled lazy random walk on an \(n\)-cycle:
 
-* $\gamma = 1 - \cos\!\frac{2\pi}{n}\approx \tfrac{2\pi^2}{n^{2}}$.
-* Hence $t_{\text{mix}}(¼)=\Theta\!\bigl(n^{2}\log n\bigr)$.
+* \(\gamma = 1 - \cos\!\frac{2\pi}{n}\approx \tfrac{2\pi^2}{n^{2}}\).
+* Hence \(t_{\text{mix}}(¼)=\Theta\!\bigl(n^{2}\log n\bigr)\).
 
-If an agent may choose to *stay* with probability 1, the *worst‑policy* mixing time blows up to ∞; the class is **not** uniformly ergodic.  Adding a small compulsory jitter δ restores $\beta\le 1-δ$.
+If an agent may choose to *stay* with probability 1, the *worst‑policy* mixing time blows up to ∞; the class is **not** uniformly ergodic.  Adding a small compulsory jitter δ restores \(\beta\le 1-δ\).
 
 ---
 
 ## Key take‑aways
 
 1. **Definition.**  Mixing time quantifies worst‑case convergence to stationarity; mixing *rate* is the associated exponential decay factor β.
-2. **MDP nuance.**  One speaks of $t_{\text{mix}}^{π}$ for a fixed policy and $T_*$ for the policy class; *uniform ergodicity* means $T_*<\infty$.
+2. **MDP nuance.**  One speaks of \(t_{\text{mix}}^{π}\) for a fixed policy and \(T_*\) for the policy class; *uniform ergodicity* means \(T_*<\infty\).
 3. **Computation.**  In finite spaces, spectral gap bounds are sharp up to logarithms; in practice, combine eigen analysis with coupling arguments.
-4. **RL impact.**  $T_*$ controls statistical hardness: sample‑complexity, regret, and variance all degrade linearly or sub‑linearly with $T_*$.
-5. **Design lever.**  Careful exploration, entropy bonuses, or engineered randomness can shrink $T_*$ and accelerate learning.
+4. **RL impact.**  \(T_*\) controls statistical hardness: sample‑complexity, regret, and variance all degrade linearly or sub‑linearly with \(T_*\).
+5. **Design lever.**  Careful exploration, entropy bonuses, or engineered randomness can shrink \(T_*\) and accelerate learning.
 
 ---
 
@@ -333,10 +333,10 @@ Below is a structured technical compendium on the **span of the value function**
 
 | Symbol                | Definition                                                                 |
 | --------------------- | -------------------------------------------------------------------------- |
-| $v:S\!\to\!\mathbb R$ | Any real vector indexed by states                                          |
-| **Span seminorm**     | $\displaystyle\text{sp}(v)\;=\;\max_{s\in S} v(s)\;-\;\min_{s\in S} v(s)$. |
+| \(v:S\!\to\!\mathbb R\) | Any real vector indexed by states                                          |
+| **Span seminorm**     | \(\displaystyle\text{sp}(v)\;=\;\max_{s\in S} v(s)\;-\;\min_{s\in S} v(s)\). |
 
-*Seminorm vs. norm.*  $\text{sp}(v+c\mathbf 1)=\text{sp}(v)$ for every constant $c$; the kernel is the one‑dimensional subspace $\{\mathbf 1\}$, so “span” is a **seminorm** (no point separation).  Equivalently
+*Seminorm vs. norm.*  \(\text{sp}(v+c\mathbf 1)=\text{sp}(v)\) for every constant \(c\); the kernel is the one‑dimensional subspace \(\{\mathbf 1\}\), so “span” is a **seminorm** (no point separation).  Equivalently
 
 $$
 \text{sp}(v)\;=\;2\min_{c\in\mathbb R}\|v-c\mathbf 1\|_\infty ,
@@ -344,8 +344,8 @@ $$
 
 a fact used extensively in error analyses.&#x20;
 
-*Weighted variant.*  With positive weights $w$,
-$\text{sp}_w(v)=\max_{s}v(s)/w(s)-\min_{s}v(s)/w(s)$.  Nothing below changes materially if the weights are bounded.
+*Weighted variant.*  With positive weights \(w\),
+\(\text{sp}_w(v)=\max_{s}v(s)/w(s)-\min_{s}v(s)/w(s)\).  Nothing below changes materially if the weights are bounded.
 
 ---
 
@@ -353,14 +353,14 @@ $\text{sp}_w(v)=\max_{s}v(s)/w(s)-\min_{s}v(s)/w(s)$.  Nothing below changes mat
 
 #### 2.1  Differential (average‑reward) value functions
 
-For an ergodic MDP let $ρ^{π}$ be the steady‑state average reward of policy $π$.
-The **bias** (relative value) function $h^{π}$ solves
+For an ergodic MDP let \(ρ^{π}\) be the steady‑state average reward of policy \(π\).
+The **bias** (relative value) function \(h^{π}\) solves
 
 $$
 h^{π}(s)=\bigl(r(s,π(s))-\rho^{π}\bigr)+\sum_{s'}P(s'|s,π(s))\,h^{π}(s').
 $$
 
-Only $h^{π}$ **up to an additive constant** is identified, so the natural size measure is $H_{π}:=\text{sp}(h^{π})$.
+Only \(h^{π}\) **up to an additive constant** is identified, so the natural size measure is \(H_{π}:=\text{sp}(h^{π})\).
 
 #### 2.2  Discounted value functions
 
@@ -380,7 +380,7 @@ $$
 H_* \;:=\;\text{sp}(h^{*})\;\;\le\;D\;\;\le\;τ_{\!*},
 $$
 
-where $D$ is the *diameter* (shortest expected hitting time between states) and $τ_{\!*}$ any upper bound on the mixing time of an optimal policy.&#x20;
+where \(D\) is the *diameter* (shortest expected hitting time between states) and \(τ_{\!*}\) any upper bound on the mixing time of an optimal policy.&#x20;
 
 ---
 
@@ -388,23 +388,23 @@ where $D$ is the *diameter* (shortest expected hitting time between states) and 
 
 | Property                                                       | Implication                                                                                                                                                                      |
 | -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Shift‑invariance**: $ \text{sp}(v+c\mathbf 1)=\text{sp}(v)$. | Bias functions can be normalised arbitrarily (e.g. min = 0) without affecting analysis.                                                                                          |
-| **Triangle inequality & absolute homogeneity**                 | Standard seminorm relations hold; proofs mirror the $L_\infty$ norm.                                                                                                             |
-| **Dual viewpoint**                                             | $\tfrac12\text{sp}(v)=\max_{μ,ν}\langle v, μ-ν\rangle$ where the max ranges over probability measures; this connects span to the Dobrushin ergodic coefficient. ([arxiv.org][1]) |
-| **Projective metric**                                          | Hilbert’s projective distance between vectors equals $\log\bigl(\tfrac{\max v}{\min v}\bigr)$; its linearisation is precisely the span seminorm.                                 |
+| **Shift‑invariance**: \( \text{sp}(v+c\mathbf 1)=\text{sp}(v)\). | Bias functions can be normalised arbitrarily (e.g. min = 0) without affecting analysis.                                                                                          |
+| **Triangle inequality & absolute homogeneity**                 | Standard seminorm relations hold; proofs mirror the \(L_\infty\) norm.                                                                                                             |
+| **Dual viewpoint**                                             | \(\tfrac12\text{sp}(v)=\max_{μ,ν}\langle v, μ-ν\rangle\) where the max ranges over probability measures; this connects span to the Dobrushin ergodic coefficient. ([arxiv.org][1]) |
+| **Projective metric**                                          | Hilbert’s projective distance between vectors equals \(\log\bigl(\tfrac{\max v}{\min v}\bigr)\); its linearisation is precisely the span seminorm.                                 |
 
 ---
 
 ### 4 Contraction and convergence facts
 
-| Setting                          | Bellman / transition operator $F$              | Contraction factor w\.r.t. span                                                                                                                                     |                                                                                                                    |
+| Setting                          | Bellman / transition operator \(F\)              | Contraction factor w\.r.t. span                                                                                                                                     |                                                                                                                    |
 | -------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| Discounted MDP, operator $T$     | (T v (s)=\max\_{a}(r(s,a)+\gamma\sum\_{s'}P(s' | s,a)v(s')))                                                                                                                                                         | ≤ γ in the ordinary ∞‑norm; the same bound holds for span because $\text{sp}(T v - T u)\le\gamma\,\text{sp}(v-u)$. |
-| Average‑reward policy evaluation | $R^{π} - ρ^{π}\mathbf 1 + P_{π}h$              | Contraction modulus $\alpha=1-δ_{π}$ where $δ_{π}$ is the Doeblin mass; equivalently $\alpha$ is the Dobrushin coefficient of $P_{π}$. ([cmap.polytechnique.fr][2]) |                                                                                                                    |
+| Discounted MDP, operator \(T\)     | (T v (s)=\max\_{a}(r(s,a)+\gamma\sum\_{s'}P(s' | s,a)v(s')))                                                                                                                                                         | ≤ γ in the ordinary ∞‑norm; the same bound holds for span because \(\text{sp}(T v - T u)\le\gamma\,\text{sp}(v-u)\). |
+| Average‑reward policy evaluation | \(R^{π} - ρ^{π}\mathbf 1 + P_{π}h\)              | Contraction modulus \(\alpha=1-δ_{π}\) where \(δ_{π}\) is the Doeblin mass; equivalently \(\alpha\) is the Dobrushin coefficient of \(P_{π}\). ([cmap.polytechnique.fr][2]) |                                                                                                                    |
 | Robust or risk‑averse MDPs       | Robust Bellman operator                        | Under ergodicity such operators remain span‑contractive, enabling TD/Q‑learning proofs.                                                                             |                                                                                                                    |
 
 **Practical consequence.**  Value‑Iteration or Relative‑Value‑Iteration errors decay geometrically in span; stopping after
-$\lceil \log(\varepsilon/H_0)/\log(1/\alpha)\rceil$ iterations guarantees span ≤ ε.&#x20;
+\(\lceil \log(\varepsilon/H_0)/\log(1/\alpha)\rceil\) iterations guarantees span ≤ ε.&#x20;
 
 ---
 
@@ -412,17 +412,17 @@ $\lceil \log(\varepsilon/H_0)/\log(1/\alpha)\rceil$ iterations guarantees span �
 
 | Problem                                      | Best‑known bounds                                                      | Span’s role                                                  |
 | -------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------ |
-| **Policy identification with a simulator**   | $\Theta\!\bigl(SA\,H_*/\varepsilon^{2}\bigr)$ samples (tight).         | $H_*$ replaces larger $D$ or $τ_{\!*}$ in older bounds.      |
-| **Online regret (weakly communicating MDP)** | $\tilde O\!\bigl(H_*\sqrt{SA\,T}\bigr)$ with algorithms such as SCAL.  | Exploration bonuses are scaled by an input bound $c\ge H_*$. |
-| **Finite‑sample TD / Q‑learning**            | $O(1/\varepsilon^{2})$ trajectories for span‑error ≤ ε.                | Proofs exploit span‑contraction absent in any norm.          |
+| **Policy identification with a simulator**   | \(\Theta\!\bigl(SA\,H_*/\varepsilon^{2}\bigr)\) samples (tight).         | \(H_*\) replaces larger \(D\) or \(τ_{\!*}\) in older bounds.      |
+| **Online regret (weakly communicating MDP)** | \(\tilde O\!\bigl(H_*\sqrt{SA\,T}\bigr)\) with algorithms such as SCAL.  | Exploration bonuses are scaled by an input bound \(c\ge H_*\). |
+| **Finite‑sample TD / Q‑learning**            | \(O(1/\varepsilon^{2})\) trajectories for span‑error ≤ ε.                | Proofs exploit span‑contraction absent in any norm.          |
 
 ---
 
 ### 6 Computation and estimation
 
-1. **Exact evaluation.**  In a small MDP one can compute $h^{π}$ (or $V^{*}$) by solving linear equations, then take max–min.
+1. **Exact evaluation.**  In a small MDP one can compute \(h^{π}\) (or \(V^{*}\)) by solving linear equations, then take max–min.
 2. **Online estimates.**  Track running maxima and minima of a bootstrapped value iterate; stopping rules based on confidence bands give high‑probability upper bounds.&#x20;
-3. **Upper‑bounding surrogates.**  If $H_*$ is unknown, use the diameter $D$ or an empirical mixing‑time bound; guarantees simply degrade gracefully because $H_*\le D\le τ_{\!*}$.
+3. **Upper‑bounding surrogates.**  If \(H_*\) is unknown, use the diameter \(D\) or an empirical mixing‑time bound; guarantees simply degrade gracefully because \(H_*\le D\le τ_{\!*}\).
 
 ---
 
@@ -443,7 +443,7 @@ tightest   ←      H_* (optimal bias span)
 | Pitfall                                                                                      | Mitigation                                                                            |
 | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
 | Forgetting shift‑invariance: comparing two values that differ by a constant gives zero span. | Always normalise one vector (e.g. set min = 0) before comparison.                     |
-| Using span as a Lyapunov function when $δ_{π}=0$.                                            | Verify *irreducibility*; otherwise no contraction exists.                             |
+| Using span as a Lyapunov function when \(δ_{π}=0\).                                            | Verify *irreducibility*; otherwise no contraction exists.                             |
 | Confusing span with total variation of a *distribution*.                                     | Span lives in **value space**, not probability space, although duality links the two. |
 
 ---
@@ -458,10 +458,10 @@ tightest   ←      H_* (optimal bias span)
 
 ## Key take‑aways
 
-1. **Definition:** $\text{sp}(v)=\max v-\min v$; a seminorm invariant to shifts.
+1. **Definition:** \(\text{sp}(v)=\max v-\min v\); a seminorm invariant to shifts.
 2. **Why it matters:** In average‑reward control the Bellman operator is *only* a contraction under span, making span central to convergence proofs and statistical rates.
-3. **Complexity:** The optimal bias span $H_*$ is the sharpest known problem‑length parameter, tightening sample‑complexity and regret bounds compared with diameter or mixing time.
-4. **Practice:** When analysing algorithms, bound $H_*$ (or supply an upper proxy); when implementing RL code, monitor span decay for robust stopping criteria.
+3. **Complexity:** The optimal bias span \(H_*\) is the sharpest known problem‑length parameter, tightening sample‑complexity and regret bounds compared with diameter or mixing time.
+4. **Practice:** When analysing algorithms, bound \(H_*\) (or supply an upper proxy); when implementing RL code, monitor span decay for robust stopping criteria.
 
 These concepts equip you to recognise, analyse and exploit span in both theoretical work and applied reinforcement‑learning pipelines.
 

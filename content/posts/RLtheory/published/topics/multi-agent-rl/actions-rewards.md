@@ -19,35 +19,35 @@ What kinds of action are there, and which of those genuinely change the world as
 ### Mathematical Framework and Key Definitions
 
 Let's formalize this distinction mathematically. Consider an agent operating in an environment with:
-- **World state:** $W \in \mathcal{W}$ (the "ground truth" of reality)
-- **Agent's belief state:** $B \in \mathcal{B}$ (what the agent knows/believes about $W$)
-- **Action space:** $A = A_{\text{ontic}} \cup A_{\text{epistemic}}$
+- **World state:** \(W \in \mathcal{W}\) (the "ground truth" of reality)
+- **Agent's belief state:** \(B \in \mathcal{B}\) (what the agent knows/believes about \(W\))
+- **Action space:** \(A = A_{\text{ontic}} \cup A_{\text{epistemic}}\)
 
 **Core Definitions:**
 
-* **Action:** An action $a$ induces a state transition and yields an observation. We can model this as a function that maps the current world state to a probability distribution over new world states and observations, where $a: \mathcal{W} \times \mathcal{B} \rightarrow \mathcal{W} \times \mathcal{B}$ that takes the current world state and agent's beliefs as input.
+* **Action:** An action \(a\) induces a state transition and yields an observation. We can model this as a function that maps the current world state to a probability distribution over new world states and observations, where \(a: \mathcal{W} \times \mathcal{B} \rightarrow \mathcal{W} \times \mathcal{B}\) that takes the current world state and agent's beliefs as input.
 
-* **Ontic Action:** An action $a_o \in A_{\text{ontic}}$ where:
-  * $a_o(W, B) = (W', B)$
-  * The world state changes $(W \neq W')$ but the belief state remains unchanged. The action directly modifies reality.
-  * $a_o: \mathcal{W} \rightarrow \mathcal{W}$
-  * For an initial state $W$, the action results in a new state $W' = a_o(W)$ where it is possible that $W' \neq W$. The primary intent is to alter the world state. While an ontic action may also produce an observation that updates beliefs, its defining characteristic is the direct modification of reality.
+* **Ontic Action:** An action \(a_o \in A_{\text{ontic}}\) where:
+  * \(a_o(W, B) = (W', B)\)
+  * The world state changes \((W \neq W')\) but the belief state remains unchanged. The action directly modifies reality.
+  * \(a_o: \mathcal{W} \rightarrow \mathcal{W}\)
+  * For an initial state \(W\), the action results in a new state \(W' = a_o(W)\) where it is possible that \(W' \neq W\). The primary intent is to alter the world state. While an ontic action may also produce an observation that updates beliefs, its defining characteristic is the direct modification of reality.
    
   * Examples: `move_robot(x,y)`, `transfer_money(account_A, account_B, $100)`
 
-* **Epistemic Action:** An action $a_e \in A_{\text{epistemic}}$ where:
-  * $a_e(W, B) = (W, B')$
-  * The world state remains unchanged but the belief state updates $(B \neq B')$. The action gathers or processes information.
-  * $a_e: \mathcal W \rightarrow \mathcal O$
-  * The action takes the current world state $W$ and produces an observation $o \in \mathcal{O}$ that updates the agent's belief state from $B$ to $B' = \text{Update}(B, o)$. 
-  * Crucially, a purely epistemic action does not change the world state, i.e., $P(W' \mid W, a_e) = 1$ if $W'=W$ and $0$ otherwise.
+* **Epistemic Action:** An action \(a_e \in A_{\text{epistemic}}\) where:
+  * \(a_e(W, B) = (W, B')\)
+  * The world state remains unchanged but the belief state updates \((B \neq B')\). The action gathers or processes information.
+  * \(a_e: \mathcal W \rightarrow \mathcal O\)
+  * The action takes the current world state \(W\) and produces an observation \(o \in \mathcal{O}\) that updates the agent's belief state from \(B\) to \(B' = \text{Update}(B, o)\). 
+  * Crucially, a purely epistemic action does not change the world state, i.e., \(P(W' \mid W, a_e) = 1\) if \(W'=W\) and \(0\) otherwise.
   * Examples: `sensor_reading()`, `database_query()`, `web_search("weather")`
 
 * **Mixed Action:** An action that affects both states:
-  * $a_m(W, B) = (W', B')$
+  * \(a_m(W, B) = (W', B')\)
   * Both world and beliefs change simultaneously.
-  * $a_m: \mathcal W \rightarrow \mathcal W \times \mathcal O$
-  * The action produces both a state change $(W \rightarrow W')$ and an observation $o$, leading to a belief update $(B \rightarrow B')$. Most real-world actions fall into this category.
+  * \(a_m: \mathcal W \rightarrow \mathcal W \times \mathcal O\)
+  * The action produces both a state change \((W \rightarrow W')\) and an observation \(o\), leading to a belief update \((B \rightarrow B')\). Most real-world actions fall into this category.
  
 In other words, we are asking how to systematically carve up the space of things agents do—and whether each resulting slice primarily pushes matter and reconfigures reality, or merely pushes information and reconfigures minds.
 
@@ -65,36 +65,36 @@ This is not merely an academic exercise. We build contracts, laws, computer prog
 **1. Planning and Decision Theory**
 
 In classical AI planning, we model this as a state transition system:
-- **Ontic actions** modify the state transition function: $T(s, a_o) = s'$ where $s \neq s'$
-- **Epistemic actions** update the agent's observation: $O(s, a_e) = o$ where the agent's belief $B$ updates via Bayes' rule
+- **Ontic actions** modify the state transition function: \(T(s, a_o) = s'\) where \(s \neq s'\)
+- **Epistemic actions** update the agent's observation: \(O(s, a_e) = o\) where the agent's belief \(B\) updates via Bayes' rule
 
-In Partially Observable Markov Decision Processes (POMDPs), an agent maintains a belief $b(s)$ (a probability distribution over states).
-- An **ontic action** $a_o$ changes the state according to the transition function $P(s'|s, a_o)$.
-- A purely **epistemic action** $a_e$ does not change the state (i.e., $P(s'|s, a_e) = 1$ if $s'=s$, 0 otherwise) but yields an observation $o$ according to a distribution $P(o|s, a_e)$. The agent's belief $b$ is updated to $b'$ using the Bayes filter:
+In Partially Observable Markov Decision Processes (POMDPs), an agent maintains a belief \(b(s)\) (a probability distribution over states).
+- An **ontic action** \(a_o\) changes the state according to the transition function \(P(s'|s, a_o)\).
+- A purely **epistemic action** \(a_e\) does not change the state (i.e., \(P(s'|s, a_e) = 1\) if \(s'=s\), 0 otherwise) but yields an observation \(o\) according to a distribution \(P(o|s, a_e)\). The agent's belief \(b\) is updated to \(b'\) using the Bayes filter:
   $$ b'(s') = \eta P(o|s', a_e) \sum_{s \in \mathcal{W}} P(s'|s, a_e)b(s) = \eta P(o|s', a_e)b(s') $$
-  where $\eta$ is a normalizing constant ensuring $\sum_{s'} b'(s')=1$.
+  where \(\eta\) is a normalizing constant ensuring \(\sum_{s'} b'(s')=1\).
 
 **2. Multi-Agent Systems (Formal Model)**
 
-Consider $n$ agents with action spaces $A_i = X_i \times M_i$ where:
-- $X_i$: ontic actions (affect environment state $S$)
-- $M_i$: epistemic/communication actions (affect other agents' beliefs)
+Consider \(n\) agents with action spaces \(A_i = X_i \times M_i\) where:
+- \(X_i\): ontic actions (affect environment state \(S\))
+- \(M_i\): epistemic/communication actions (affect other agents' beliefs)
 
 The system dynamics become:
-$S_{t+1} = f(S_t, \mathbf{X}_t)$
-$B_i^{t+1} = g_i(B_i^t, O_i^{t+1}, \mathbf M_t)$
+\(S_{t+1} = f(S_t, \mathbf{X}_t)\)
+\(B_i^{t+1} = g_i(B_i^t, O_i^{t+1}, \mathbf M_t)\)
 
-Where $\mathbf X_t = (X_1^t, ..., X_n^t)$ are all ontic actions, $\mathbf{M}_t$ are all messages, $f$ is the environment's state transition function, and $g_i$ is the belief update function for agent $i$, which processes its latest observation $O_i^{t+1}$ and incoming messages.
+Where \(\mathbf X_t = (X_1^t, ..., X_n^t)\) are all ontic actions, \(\mathbf{M}_t\) are all messages, \(f\) is the environment's state transition function, and \(g_i\) is the belief update function for agent \(i\), which processes its latest observation \(O_i^{t+1}\) and incoming messages.
 
 **3. Information-Theoretic Perspective**
 
-An epistemic action $a_e$ can be evaluated by its **information gain**:
-$IG(a_e) = H(W) - H(W|O_{a_e})$
-where $H(W)$ is the entropy of the agent's current world model, and $H(W|O_{a_e})$ is the entropy after observing the outcome of action $a_e$.
+An epistemic action \(a_e\) can be evaluated by its **information gain**:
+\(IG(a_e) = H(W) - H(W|O_{a_e})\)
+where \(H(W)\) is the entropy of the agent's current world model, and \(H(W|O_{a_e})\) is the entropy after observing the outcome of action \(a_e\).
 
-An ontic action $a_o$ can be evaluated by its **utility change**:
-$U(a_o) = u(W') - u(W)$
-where $u(\cdot)$ is the agent's utility function over world states.
+An ontic action \(a_o\) can be evaluated by its **utility change**:
+\(U(a_o) = u(W') - u(W)\)
+where \(u(\cdot)\) is the agent's utility function over world states.
 
 The central tension arises from actions that appear to be purely informational but have definite world-altering force. Physically flipping a light switch is unambiguously ontic; silently counting sheep in one's head is purely epistemic. But uttering the words, "I now pronounce you married," under the right conditions, fundamentally transforms the social and legal reality of two individuals—highlighting the complexity of the boundary.
 
@@ -104,10 +104,10 @@ Rather than diving deep into philosophical jargon, let's present the key framewo
 
 | Framework | Mathematical Model | Simple Explanation | AI Application |
 |-----------|-------------------|-------------------|----------------|
-| **Speech-Act Theory** | Actions have three components:<br>• Content: $c$ (what is said)<br>• Force: $f$ (what kind of act)<br>• Effect: $e$ (what happens) | Some utterances just inform ($f$ = assertive), others change the world ($f$ = declarative) | NLU systems must classify user intent:<br>`"What's the weather?"` → epistemic<br>`"Set alarm for 8am"` → ontic |
-| **Direction-of-Fit** | • Word→World Fit: Update belief $B$ to minimize divergence from world $W$, e.g., $\min_B D_{KL}(P_W \| P_B)$.<br>• World→Word Fit: Choose action $a$ to change world $W$ to $W'$ to minimize distance to goal $G$, e.g., $\min_a \mathbb{E}[d(W', G)]$. | Either make your beliefs match reality, or make reality match your goals. | Sensor fusion (beliefs ← reality) vs. motor control (reality ← goals). |
-| **Information Theory** | Epistemic value: $IG(a_e) = H(W) - H(W \mid O_{a_e})$<br>Pragmatic value: $\Delta U(a_o) = u(W') - u(W)$ | Information actions reduce uncertainty; pragmatic actions increase utility. | Active learning (explore for info) vs. exploitation (act for reward). |
-| **State Transition Model** | Ontic: $P(s' \mid s, a) > 0$ for $s' \neq s$<br>Epistemic: $P(s' \mid s,a) = \delta(s'-s)$ (state is invariant) but observation model $P(o \mid s,a)$ is informative. | Some actions change the world state; others only reveal information about it. | POMDP planning: deciding when to sense vs. when to act. |
+| **Speech-Act Theory** | Actions have three components:<br>• Content: \(c\) (what is said)<br>• Force: \(f\) (what kind of act)<br>• Effect: \(e\) (what happens) | Some utterances just inform (\(f\) = assertive), others change the world (\(f\) = declarative) | NLU systems must classify user intent:<br>`"What's the weather?"` → epistemic<br>`"Set alarm for 8am"` → ontic |
+| **Direction-of-Fit** | • Word→World Fit: Update belief \(B\) to minimize divergence from world \(W\), e.g., \(\min_B D_{KL}(P_W \| P_B)\).<br>• World→Word Fit: Choose action \(a\) to change world \(W\) to \(W'\) to minimize distance to goal \(G\), e.g., \(\min_a \mathbb{E}[d(W', G)]\). | Either make your beliefs match reality, or make reality match your goals. | Sensor fusion (beliefs ← reality) vs. motor control (reality ← goals). |
+| **Information Theory** | Epistemic value: \(IG(a_e) = H(W) - H(W \mid O_{a_e})\)<br>Pragmatic value: \(\Delta U(a_o) = u(W') - u(W)\) | Information actions reduce uncertainty; pragmatic actions increase utility. | Active learning (explore for info) vs. exploitation (act for reward). |
+| **State Transition Model** | Ontic: \(P(s' \mid s, a) > 0\) for \(s' \neq s\)<br>Epistemic: \(P(s' \mid s,a) = \delta(s'-s)\) (state is invariant) but observation model \(P(o \mid s,a)\) is informative. | Some actions change the world state; others only reveal information about it. | POMDP planning: deciding when to sense vs. when to act. |
 
 
 These frameworks broadly agree that at least two fundamental families of action exist, but they differ in how they handle grey areas, particularly performatives, mixed actions, and indirect effects.
@@ -121,10 +121,10 @@ The mathematical framework above assumes clean separation, but reality is messie
 **Problem:** An epistemic action can trigger ontic consequences through other agents.
 
 **Mathematical Model:** 
-- Agent 1 performs epistemic action $a_1^e$, updating its belief $B_1 \rightarrow B_1'$ and perhaps sending a message $m$.
-- Agent 2 receives $m$, updates its belief $B_2 \rightarrow B_2'$, and chooses an ontic action $a_2^o$ based on this new belief.
-- Agent 2's action causes the world state to change: $W \xrightarrow{a_2^o} W'$.
-- Net effect: $a_1$ indirectly caused $W \rightarrow W'$
+- Agent 1 performs epistemic action \(a_1^e\), updating its belief \(B_1 \rightarrow B_1'\) and perhaps sending a message \(m\).
+- Agent 2 receives \(m\), updates its belief \(B_2 \rightarrow B_2'\), and chooses an ontic action \(a_2^o\) based on this new belief.
+- Agent 2's action causes the world state to change: \(W \xrightarrow{a_2^o} W'\).
+- Net effect: \(a_1\) indirectly caused \(W \rightarrow W'\)
 
 **Example:** A news article (epistemic) causes stock prices to crash (ontic effect via market participants).
 
@@ -144,11 +144,11 @@ $\text{effect}(a, \text{context}) = \begin{cases}
 
 **Problem:** High-level tasks require rapid switching between action types.
 
-**Mathematical Model:** A compound action $A_{\text{compound}} = \langle a_1, a_2, ..., a_n \rangle$ where each $a_i$ can be ontic or epistemic, and later actions depend on earlier results:
+**Mathematical Model:** A compound action \(A_{\text{compound}} = \langle a_1, a_2, ..., a_n \rangle\) where each \(a_i\) can be ontic or epistemic, and later actions depend on earlier results:
 
-$\pi: \mathcal{B} \rightarrow A$, where $\mathcal B$ is the agent's belief state and $\pi$ is the policy.
+\(\pi: \mathcal{B} \rightarrow A\), where \(\mathcal B\) is the agent's belief state and \(\pi\) is the policy.
 
-$a_{i} = \pi(B_i)$, where $B_{i} = \text{Update}(B_{i-1}, \text{outcome}(a_{i-1}))$
+\(a_{i} = \pi(B_i)\), where \(B_{i} = \text{Update}(B_{i-1}, \text{outcome}(a_{i-1}))\)
 
 **Example:** "Find the author of Dune and add them to contacts" requires:
 1. `search("Dune author")` → epistemic
@@ -166,9 +166,9 @@ $$
 \text{ontic}(a) \iff \exists s, s': s \neq s' \land P(s'|s,a) > 0 \land d(s,a,s') = 1
 $$
 
-where $d(s,a,s')$ is the causal path length in the system's state transition graph. A distance of 1 implies a direct effect defined by the system's transition function $T(s,a)$. We can see that when d = 1, then it is direct; if it is not equal to 1 then it is indirect.
+where \(d(s,a,s')\) is the causal path length in the system's state transition graph. A distance of 1 implies a direct effect defined by the system's transition function \(T(s,a)\). We can see that when d = 1, then it is direct; if it is not equal to 1 then it is indirect.
 
-In other words, it states that an action $a$ is **ontic** if and only if there is at least one scenario where:
+In other words, it states that an action \(a\) is **ontic** if and only if there is at least one scenario where:
 
 1. The action causes a change (the new state is different from the old one).
 2. This change is a possible outcome of the action.
@@ -186,15 +186,15 @@ $$
 \end{cases}
 $$
 
-This function, $\text{allow}(a, \text{agent})$, determines whether a specific **agent** (a user, system, or process) is permitted to perform a given action, a. The outcome depends entirely on the classification of the action.
+This function, \(\text{allow}(a, \text{agent})\), determines whether a specific **agent** (a user, system, or process) is permitted to perform a given action, a. The outcome depends entirely on the classification of the action.
 
-Case 1: $\text{if ontic} (a)$:
+Case 1: \(\text{if ontic} (a)\):
 
-This condition applies if the action $a$ is ontic. An ontic action is one that changes the state of the system (e.g., writing data, deleting a file, modifying a setting).
+This condition applies if the action \(a\) is ontic. An ontic action is one that changes the state of the system (e.g., writing data, deleting a file, modifying a setting).
 
-If the action is ontic, permission is **not** automatically granted. Instead, the $\text{allow}$ function delegates the decision to another function or process, $\text{requires_auth}(a)$. This secondary check is responsible for verifying if the specific agent has the explicit credentials, rights, or permissions necessary for that particular state-changing action. The final decision (True/False) comes from this deeper authorization check.
+If the action is ontic, permission is **not** automatically granted. Instead, the \(\text{allow}\) function delegates the decision to another function or process, \(\text{requires_auth}(a)\). This secondary check is responsible for verifying if the specific agent has the explicit credentials, rights, or permissions necessary for that particular state-changing action. The final decision (True/False) comes from this deeper authorization check.
 
-Case 2: $\text{if epistemic} (a)$:
+Case 2: \(\text{if epistemic} (a)\):
 
 This condition applies if the action a is epistemic. An epistemic action is one that only observes the state of the system without changing it (e.g., reading data, checking a status, viewing a log). It's about gaining knowledge.
 
@@ -211,31 +211,31 @@ If the action is purely informational, permission is granted by default. The val
 
 **Formal Model:**
 
-Let's define the state of the system at any time $t$ as $S_t$, such that the two types of actions are as follows:
+Let's define the state of the system at any time \(t\) as \(S_t\), such that the two types of actions are as follows:
 
-- **Epistemic Actions ($A_E$)**: This is an observational function. It takes the current state $S_t$ as input and produces some data as output, but it does not change the state.
+- **Epistemic Actions (\(A_E\))**: This is an observational function. It takes the current state \(S_t\) as input and produces some data as output, but it does not change the state.
 $$
 A_E (S_t) \rightarrow \text{data}
 $$
-where $S_{t+1} = S_t$.
+where \(S_{t+1} = S_t\).
 
-- **Ontic Actions ($A_O$)**: This is a transformational function. It takes the current state $S_t$ and maps it to a new state $S_{t+1}$.
+- **Ontic Actions (\(A_O\))**: This is a transformational function. It takes the current state \(S_t\) and maps it to a new state \(S_{t+1}\).
 $$
 A_O (S_t) \rightarrow S_{t+1}, \quad  \text{where } S_{t+1} \neq S_t
 $$
 
 The primary goal of the logging rule is to enable potential **rollback**, which is equivalent to **inverting a function**.
 
-To reverse the ontic action $A_O$ that caused the transition from $S_t$ to $S_{t+1}$, one must be able to apply an inverse action, let's call it $A_O^{-1}$, such that:
+To reverse the ontic action \(A_O\) that caused the transition from \(S_t\) to \(S_{t+1}\), one must be able to apply an inverse action, let's call it \(A_O^{-1}\), such that:
 $$A_O^{-1}(S_{t+1}) = S_t$$
 
-The critical insight here is that you often **cannot construct the inverse function $A_O^{-1}$ from the output state $S_{t+1}$ alone**. You need more information. The formal model's logging policy is designed to capture exactly this necessary information.
+The critical insight here is that you often **cannot construct the inverse function \(A_O^{-1}\) from the output state \(S_{t+1}\) alone**. You need more information. The formal model's logging policy is designed to capture exactly this necessary information.
 
-* **Logging Ontic Actions**: The policy states you must store the "full before/after state diff." This difference, let's call it $\Delta S$, represents the change between the states.
+* **Logging Ontic Actions**: The policy states you must store the "full before/after state diff." This difference, let's call it \(\Delta S\), represents the change between the states.
     $$\Delta S = \text{diff}(S_t, S_{t+1})$$
-    By logging the "before" state ($S_t$) and "after" state ($S_{t+1}$), you are explicitly storing all the information needed for reversal. The rollback operation is no longer a complex calculation but a simple **state replacement**: replace the current state $S_{t+1}$ with the logged "before" state $S_t$. This is the most robust, though expensive, way to guarantee reversibility.
+    By logging the "before" state (\(S_t\)) and "after" state (\(S_{t+1}\)), you are explicitly storing all the information needed for reversal. The rollback operation is no longer a complex calculation but a simple **state replacement**: replace the current state \(S_{t+1}\) with the logged "before" state \(S_t\). This is the most robust, though expensive, way to guarantee reversibility.
 
-* **Logging Epistemic Actions**: Since epistemic actions don't change the state ($S_{t+1} = S_t$), there is no state transition to reverse. The concept of an inverse action is not applicable. Therefore, the log only needs to record the query itself and a timestamp for the purpose of **auditing**—answering "What was asked, and when?"
+* **Logging Epistemic Actions**: Since epistemic actions don't change the state (\(S_{t+1} = S_t\)), there is no state transition to reverse. The concept of an inverse action is not applicable. Therefore, the log only needs to record the query itself and a timestamp for the purpose of **auditing**—answering "What was asked, and when?"
 
 **Implementation:**
 ```python
@@ -269,27 +269,27 @@ $$
 
 Let's break this down:
 
-* **$\max_{a_{\text{ontic}}} u(a_{\text{ontic}} \mid B)$**: This is your **baseline**. It's the maximum utility ($u$) you can get by choosing the best state-changing (**ontic**) action, given only your current knowledge or belief state ($B$). This is the value of your best choice if you **act now**.
+* **\(\max_{a_{\text{ontic}}} u(a_{\text{ontic}} \mid B)\)**: This is your **baseline**. It's the maximum utility (\(u\)) you can get by choosing the best state-changing (**ontic**) action, given only your current knowledge or belief state (\(B\)). This is the value of your best choice if you **act now**.
 
-* **$\mathbb E [\max_{a_{\text{ontic}}} u(a_{\text{ontic}} \mid B')]$**: This is your **potential**. It’s the *expected* maximum utility you could get after performing an information-gathering (**epistemic**) action. This action updates your belief state to a new, better-informed state, $B'$. Since the outcome of gathering information is uncertain, the formula takes the **expected value** ($\mathbb E$) over all possibilities.
+* **\(\mathbb E [\max_{a_{\text{ontic}}} u(a_{\text{ontic}} \mid B')]\)**: This is your **potential**. It’s the *expected* maximum utility you could get after performing an information-gathering (**epistemic**) action. This action updates your belief state to a new, better-informed state, \(B'\). Since the outcome of gathering information is uncertain, the formula takes the **expected value** (\(\mathbb E\)) over all possibilities.
 
 **Computational Breakdown**
 
-To calculate the expected value precisely, the VoI formula is expanded into a weighted sum over all possible outcomes of the information-gathering action ($a_e$).
+To calculate the expected value precisely, the VoI formula is expanded into a weighted sum over all possible outcomes of the information-gathering action (\(a_e\)).
 
 $$
 \text{VoI}(a_e) = \left( \sum_{o \in \mathcal O} P(o \mid B, a_e) \max_{a_o'} \mathbb E [u(s') \mid B_o', a_o'] \right) - \max_{a_o} \mathbb E [u(s') \mid B, a_o]
 $$
 
-Here, we are summing over every possible **observation** ($o$) we could make. Each term in the sum consists of:
+Here, we are summing over every possible **observation** (\(o\)) we could make. Each term in the sum consists of:
 
-1.  **$P(o \mid B, a_e)$**: The **probability** of seeing a specific observation '$o$', which acts as a weight.
-2.  **$\max_{a_o'} \mathbb E [u(s') \mid B_o', a_o']$**: The maximum utility of the **new best action** ($a_o'$) you would choose, given your newly updated posterior belief ($B_o'$).
+1.  **\(P(o \mid B, a_e)\)**: The **probability** of seeing a specific observation '\(o\)', which acts as a weight.
+2.  **\(\max_{a_o'} \mathbb E [u(s') \mid B_o', a_o']\)**: The maximum utility of the **new best action** (\(a_o'\)) you would choose, given your newly updated posterior belief (\(B_o'\)).
 
 
 **The Unified Decision Rule**
 
-The VoI is used to create a unified rule for choosing the single best action, $a^\ast$, from all available options (both epistemic and ontic). The agent picks the action that maximizes its **total net value**.
+The VoI is used to create a unified rule for choosing the single best action, \(a^\ast\), from all available options (both epistemic and ontic). The agent picks the action that maximizes its **total net value**.
 
 $$
 a^\ast = \arg\max_{a \in A} \left( \text{TotalNetValue}(a) \right)
@@ -318,33 +318,33 @@ Ultimately, the agent calculates the total net value for every available action 
 
 **Problem:** How should an agent strategically balance taking actions that yield immediate rewards (ontic) versus actions that gather information for better future decisions (epistemic), especially over a long period?
 
-**Formal Method:** This long-term "explore vs. exploit" problem is formalized by finding an optimal **policy** ($\pi$) that maximizes a cumulative, time-discounted objective function, $J(\pi)$. This approach is central to fields like Bayesian Reinforcement Learning and Active Inference.
+**Formal Method:** This long-term "explore vs. exploit" problem is formalized by finding an optimal **policy** (\(\pi\)) that maximizes a cumulative, time-discounted objective function, \(J(\pi)\). This approach is central to fields like Bayesian Reinforcement Learning and Active Inference.
 
 **The Objective: Maximizing Long-Term Value**
 
-The goal is to find a policy $\pi$ that maximizes the total expected value, $J(\pi)$, accumulated over a time horizon $T$.
+The goal is to find a policy \(\pi\) that maximizes the total expected value, \(J(\pi)\), accumulated over a time horizon \(T\).
 
 $$J(\pi) = \mathbb E \left[\sum_{t=0}^T \gamma^t \left(\alpha \cdot U_{\text{ontic}}(a_t) + (1-\alpha) \cdot IG_{\text{epistemic}}(a_t)\right)\right]$$
 
-A **policy** $\pi: (B_t, W_t) \rightarrow A$ is simply a strategy that maps the agent's current situation (its belief state $B_t$ and world state $W_t$) to an action $a_t$. The formula finds the best possible strategy.
+A **policy** \(\pi: (B_t, W_t) \rightarrow A\) is simply a strategy that maps the agent's current situation (its belief state \(B_t\) and world state \(W_t\)) to an action \(a_t\). The formula finds the best possible strategy.
 
 **The Core Components**
 
-* **$\mathbb E [\dots]$**: The **Expected Value**, which handles uncertainty. The policy must maximize the value it gets *on average* across all possible random futures.
-* **$\sum_{t=0}^T$**: The **Sum Over Time**, which directs the agent to maximize its *cumulative* reward over the long term, not just the next immediate gain.
-* **$\gamma^t$**: The **Discount Factor** (where $0 \le \gamma \le 1$). This makes rewards received sooner more valuable than those received later, modeling a preference for near-term gains and ensuring the total sum is well-behaved.
+* **\(\mathbb E [\dots]\)**: The **Expected Value**, which handles uncertainty. The policy must maximize the value it gets *on average* across all possible random futures.
+* **\(\sum_{t=0}^T\)**: The **Sum Over Time**, which directs the agent to maximize its *cumulative* reward over the long term, not just the next immediate gain.
+* **\(\gamma^t\)**: The **Discount Factor** (where \(0 \le \gamma \le 1\)). This makes rewards received sooner more valuable than those received later, modeling a preference for near-term gains and ensuring the total sum is well-behaved.
 
 **The Instantaneous Reward: The Explore-Exploit Trade-off**
 
-The heart of the formula is the reward received at each time step $t$, which explicitly balances two competing drives:
+The heart of the formula is the reward received at each time step \(t\), which explicitly balances two competing drives:
 
 $$\alpha \cdot U_{\text{ontic}}(a_t) + (1-\alpha) \cdot IG_{\text{epistemic}}(a_t)$$
 
-* **$\alpha$**: The **Trade-off Parameter**. This is a weight (from 0 to 1) that sets the agent's priorities. A high $\alpha$ creates a pure "exploiter" that only seeks immediate utility, while a low $\alpha$ creates a pure "explorer" that only seeks information.
-* **$U_{\text{ontic}}(a_t)$**: The **Ontic Utility**. This is the direct, tangible reward from an "exploit" action that changes the world. If the action is epistemic, this value is zero.
-* **$IG_{\text{epistemic}}(a_t)$**: The **Information Gain**. This is the value derived from an "explore" action that reduces the agent's uncertainty about the world. If the action is ontic, this value is zero.
+* **\(\alpha\)**: The **Trade-off Parameter**. This is a weight (from 0 to 1) that sets the agent's priorities. A high \(\alpha\) creates a pure "exploiter" that only seeks immediate utility, while a low \(\alpha\) creates a pure "explorer" that only seeks information.
+* **\(U_{\text{ontic}}(a_t)\)**: The **Ontic Utility**. This is the direct, tangible reward from an "exploit" action that changes the world. If the action is epistemic, this value is zero.
+* **\(IG_{\text{epistemic}}(a_t)\)**: The **Information Gain**. This is the value derived from an "explore" action that reduces the agent's uncertainty about the world. If the action is ontic, this value is zero.
 
-This defines an optimal strategy as one that intelligently chooses actions to balance immediate rewards with long-term learning. At each step, the agent decides whether to cash in on its current knowledge for a guaranteed utility ($U_{\text{ontic}}$) or to invest in gathering information ($IG_{\text{emic}}$) that will enable better, more valuable decisions later. This dynamic balancing act is fundamental to creating agents that can learn and thrive in complex, uncertain environments.
+This defines an optimal strategy as one that intelligently chooses actions to balance immediate rewards with long-term learning. At each step, the agent decides whether to cash in on its current knowledge for a guaranteed utility (\(U_{\text{ontic}}\)) or to invest in gathering information (\(IG_{\text{emic}}\)) that will enable better, more valuable decisions later. This dynamic balancing act is fundamental to creating agents that can learn and thrive in complex, uncertain environments.
 
 ---
 
@@ -358,9 +358,9 @@ This defines an optimal strategy as one that intelligently chooses actions to ba
 
 The "meaning" of a signal is defined by the actions it inspires. The framework involves a sender and a receiver.
 
-* **The Sender ($i$):** Transmits a message $m$. The sender's *intended meaning* is represented by a probability distribution over the receiver's possible actions: $P_i^{intended}(a_{ontic} | m)$. This is what the sender *wants* the receiver to do upon getting the message.
+* **The Sender (\(i\)):** Transmits a message \(m\). The sender's *intended meaning* is represented by a probability distribution over the receiver's possible actions: \(P_i^{intended}(a_{ontic} | m)\). This is what the sender *wants* the receiver to do upon getting the message.
 
-* **The Receiver ($j$):** Interprets message $m$ by forming its own probability distribution over its actions: $P_j(a_{ontic} | m)$. This represents what the receiver *thinks* the message means.
+* **The Receiver (\(j\)):** Interprets message \(m\) by forming its own probability distribution over its actions: \(P_j(a_{ontic} | m)\). This represents what the receiver *thinks* the message means.
 
 * **Successful Communication:** Communication succeeds when the receiver's interpretation matches the sender's intention. The goal is for their probability distributions to converge.
     $$
@@ -400,8 +400,8 @@ This term quantifies the agent's actual, factual impact on the outcome. It answe
 $$\text{CausalEffect}(A, \text{harm}) = P(\text{harm} | do(a_A)) - P(\text{harm} | do(\neg a_A))$$
 
 This formula uses the **`do`-calculus** from causal inference to distinguish causation from mere correlation. It compares two parallel worlds:
-1.  **$P(\text{harm} | do(a_A))$**: The probability of harm if we **intervene** and force Agent A to perform its action.
-2.  **$P(\text{harm} | do(\neg a_A))$**: The probability of harm if we **intervene** and prevent Agent A from acting (the counterfactual).
+1.  **\(P(\text{harm} | do(a_A))\)**: The probability of harm if we **intervene** and force Agent A to perform its action.
+2.  **\(P(\text{harm} | do(\neg a_A))\)**: The probability of harm if we **intervene** and prevent Agent A from acting (the counterfactual).
 
 The difference between these two is the net increase in risk that is causally attributable to Agent A's action.
 
@@ -411,7 +411,7 @@ This term captures the agent's state of mind, addressing the question: "From Age
 
 $$\text{Foreseeability}(A, \text{harm}) = P_A(\text{harm} | a_A)$$
 
-The critical element is the subscript in **$P_A$**, which signifies that we are using Agent A's **subjective belief model**. This is not the objective truth, but what the agent believed to be true based on its own internal data and knowledge. This captures the legal and ethical concept of *mens rea*—whether the agent was aware of the potential for harm.
+The critical element is the subscript in **\(P_A\)**, which signifies that we are using Agent A's **subjective belief model**. This is not the objective truth, but what the agent believed to be true based on its own internal data and knowledge. This captures the legal and ethical concept of *mens rea*—whether the agent was aware of the potential for harm.
 
 **Synthesis and Example**
 
@@ -444,7 +444,7 @@ As AI systems become more sophisticated, this distinction becomes essential for 
 
 ## 2 How are the agent's rewards coupled?
 
-Coupling refers to the degree to which an agent's reward is dependent on the joint state or actions or multiple agents. Formally in a Markov (stochastic) game, the reward function for agent $i$, $r_i (s, a)$, is coupled if it cannot be expressed cleanly in terms agent $i$'s own local state / action. Many multi-agent problems, like traffic control, games, markets, exhibit such inter-dependence, meaning that agents learn in a strategic rather than a single agent setting.
+Coupling refers to the degree to which an agent's reward is dependent on the joint state or actions or multiple agents. Formally in a Markov (stochastic) game, the reward function for agent \(i\), \(r_i (s, a)\), is coupled if it cannot be expressed cleanly in terms agent \(i\)'s own local state / action. Many multi-agent problems, like traffic control, games, markets, exhibit such inter-dependence, meaning that agents learn in a strategic rather than a single agent setting.
 
 Understanding reward coupling is crucial in designing learning algorithms that achieve cooperation, competition and to braoder debates in AI alignment and mechanism design (aka any engineering scaffolding).
 
@@ -500,45 +500,45 @@ $$
 u_i(a_i,\;a_{-i},\;s)\quad i\in\{1,\dots ,n\}
 $$
 
-be the (possibly stochastic) utility of agent $i$, where $a_i$ is its own action, $a_{-i}$ the joint actions of the rest of the system, and $s$ an environment state.  A minimal quantitative notion of **sensitivity** is the partial derivative (or discrete difference)
+be the (possibly stochastic) utility of agent \(i\), where \(a_i\) is its own action, \(a_{-i}\) the joint actions of the rest of the system, and \(s\) an environment state.  A minimal quantitative notion of **sensitivity** is the partial derivative (or discrete difference)
 
 $$
 \frac{\partial u_i}{\partial a_j}\neq 0\qquad(j\neq i),
 $$
 
-or, for policy parameters $\theta_j$, the influence term
+or, for policy parameters \(\theta_j\), the influence term
 
 $$
 \frac{\partial u_i}{\partial\theta_j}=\sum_{a_j}\frac{\partial u_i}{\partial a_j}\frac{\partial a_j}{\partial\theta_j}.
 $$
 
-* **Zero sensitivity** ($\partial u_i/\partial a_j=0$): fully independent tasks; multi‑agent learning reduces to $n$ single‑agent problems.
-* **Weak/linear sensitivity**: additive externalities as in *potential games*, where one scalar potential $Φ(a)$ satisfies $u_i(a)-u_i(a_i',a_{-i})=Φ(a)-Φ(a_i',a_{-i})$. This guarantees convergence of a wide class of best‑response or gradient dynamics. ([arXiv][1])
+* **Zero sensitivity** (\(\partial u_i/\partial a_j=0\)): fully independent tasks; multi‑agent learning reduces to \(n\) single‑agent problems.
+* **Weak/linear sensitivity**: additive externalities as in *potential games*, where one scalar potential \(Φ(a)\) satisfies \(u_i(a)-u_i(a_i',a_{-i})=Φ(a)-Φ(a_i',a_{-i})\). This guarantees convergence of a wide class of best‑response or gradient dynamics. ([arXiv][1])
 * **Sign‑structured sensitivity**:
-  *Strategic complements* ($\partial^2 u_i/\partial a_i\partial a_j>0$) versus *substitutes* ($<0$). Complements create positive feedback and multiple equilibria; substitutes push toward unique equilibria and competition. ([Wikipedia][2])
+  *Strategic complements* (\(\partial^2 u_i/\partial a_i\partial a_j>0\)) versus *substitutes* (\(<0\)). Complements create positive feedback and multiple equilibria; substitutes push toward unique equilibria and competition. ([Wikipedia][2])
 
-Sensitivity therefore spans a spectrum that you, as the system designer, can tune by editing $u_i$ or by introducing intermediate “proxy” rewards.
+Sensitivity therefore spans a spectrum that you, as the system designer, can tune by editing \(u_i\) or by introducing intermediate “proxy” rewards.
 
 ---
 
 ### 2  Which **formal modelling choices** control this sensitivity?
 
-| Formal lever                                                        | Effect on $\partial u_i/\partial a_{-i}$                                                                                                                              | Example                                                                                                |
+| Formal lever                                                        | Effect on \(\partial u_i/\partial a_{-i}\)                                                                                                                              | Example                                                                                                |
 | ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| **Reward aggregation** (team‑reward, individual, difference‑reward) | Team reward sets $\partial u_i/\partial a_j > 0\;\forall j$; difference reward $D_i=G−G(a_i←0)$ removes most cross terms, lowering sensitivity. ([NeurIPS Papers][3]) | Counterfactual Multi‑Agent Policy Gradients (COMA)                                                     |
+| **Reward aggregation** (team‑reward, individual, difference‑reward) | Team reward sets \(\partial u_i/\partial a_j > 0\;\forall j\); difference reward \(D_i=G−G(a_i←0)\) removes most cross terms, lowering sensitivity. ([NeurIPS Papers][3]) | Counterfactual Multi‑Agent Policy Gradients (COMA)                                                     |
 | **Game class** (zero‑sum vs common‑interest vs general‑sum)         | Zero‑sum maximises negative sensitivity, common‑interest maximises positive sensitivity.                                                                              | StarCraft micromanagement tasks in COMA ([arXiv][4])                                                   |
-| **Network topology** (who interacts with whom)                      | Local neighbour list restricts which $a_j$ appear in $u_i$.                                                                                                           | Network games with complements ([Stanford University][5])                                              |
-| **Information structure** (observability, signalling)               | Hidden actions amplify perceived stochasticity of $\partial u_i/\partial a_j$.                                                                                        | Global reward with partial observability ➜ credit‑assignment burden                                    |
-| **Update schedule** (simultaneous vs sequential vs multi‑timescale) | Sequential updates temporarily set $\dot a_{-i}=0$, reducing non‑stationarity.                                                                                        | Multi‑timescale learning converges faster than fully sequential while avoiding divergence ([arXiv][6]) |
+| **Network topology** (who interacts with whom)                      | Local neighbour list restricts which \(a_j\) appear in \(u_i\).                                                                                                           | Network games with complements ([Stanford University][5])                                              |
+| **Information structure** (observability, signalling)               | Hidden actions amplify perceived stochasticity of \(\partial u_i/\partial a_j\).                                                                                        | Global reward with partial observability ➜ credit‑assignment burden                                    |
+| **Update schedule** (simultaneous vs sequential vs multi‑timescale) | Sequential updates temporarily set \(\dot a_{-i}=0\), reducing non‑stationarity.                                                                                        | Multi‑timescale learning converges faster than fully sequential while avoiding divergence ([arXiv][6]) |
 
 ---
 
 ### 3  Which **practical engineering choices** amplify or damp sensitivity?
 
-1. **Centralised critic, decentralised actors (CCDA)** – COMA uses a critic that knows all actions and computes a *counterfactual baseline* $\hat u_i(a_i,a_{-i}) - \hat u_i(a_i',a_{-i})$, subtracting most cross‑agent variance and making gradients for each agent depend only on its *marginal* impact. ([cs.ox.ac.uk][7])
-2. **Opponent‑aware gradients (LOLA / COLA)** – explicitly differentiate an agent’s expected future payoff through *the other agents’ learning step* $\tfrac{\partial u_i}{\partial\theta_j}\tfrac{d\theta_j}{dt}$. This actively shapes sensitivity to steer joint learning toward cooperative equilibria. ([arXiv][8], [arXiv][9])
-3. **Difference or shaped rewards** – replace global reward $G$ by $D_i$ or exponentially‑weighted advantage estimators to lower gradient variance without biasing fixed points. ([Proceedings of Machine Learning Research][10])
-4. **Multi‑timescale or asynchronous learning** – give each agent a distinct step‑size $\alpha_i$. Fast learners see the rest of the system as quasi‑stationary, restoring single‑agent‑like stability. ([arXiv][6])
+1. **Centralised critic, decentralised actors (CCDA)** – COMA uses a critic that knows all actions and computes a *counterfactual baseline* \(\hat u_i(a_i,a_{-i}) - \hat u_i(a_i',a_{-i})\), subtracting most cross‑agent variance and making gradients for each agent depend only on its *marginal* impact. ([cs.ox.ac.uk][7])
+2. **Opponent‑aware gradients (LOLA / COLA)** – explicitly differentiate an agent’s expected future payoff through *the other agents’ learning step* \(\tfrac{\partial u_i}{\partial\theta_j}\tfrac{d\theta_j}{dt}\). This actively shapes sensitivity to steer joint learning toward cooperative equilibria. ([arXiv][8], [arXiv][9])
+3. **Difference or shaped rewards** – replace global reward \(G\) by \(D_i\) or exponentially‑weighted advantage estimators to lower gradient variance without biasing fixed points. ([Proceedings of Machine Learning Research][10])
+4. **Multi‑timescale or asynchronous learning** – give each agent a distinct step‑size \(\alpha_i\). Fast learners see the rest of the system as quasi‑stationary, restoring single‑agent‑like stability. ([arXiv][6])
 
 ---
 
@@ -546,9 +546,9 @@ Sensitivity therefore spans a spectrum that you, as the system designer, can tun
 
 | Symptom                                                                              | Root cause                                               | Mitigation                                                            |
 | ------------------------------------------------------------------------------------ | -------------------------------------------------------- | --------------------------------------------------------------------- |
-| **Non‑stationarity** – the transition kernel changes as others learn. ([Reddit][11]) | Large $\partial u_i/\partial\theta_{-i}$                 | Centralised critics; multi‑timescale; opponent modelling              |
-| **High‑variance gradients**                                                          | Unobserved actions enter $u_i$                           | Counterfactual baselines; difference rewards                          |
-| **Lazy‑agent or free‑rider problem**                                                 | Positive complements but global reward only              | Individually scaled $D_i$; explicit communication channel             |
+| **Non‑stationarity** – the transition kernel changes as others learn. ([Reddit][11]) | Large \(\partial u_i/\partial\theta_{-i}\)                 | Centralised critics; multi‑timescale; opponent modelling              |
+| **High‑variance gradients**                                                          | Unobserved actions enter \(u_i\)                           | Counterfactual baselines; difference rewards                          |
+| **Lazy‑agent or free‑rider problem**                                                 | Positive complements but global reward only              | Individually scaled \(D_i\); explicit communication channel             |
 | **Failure to converge (cycling)**                                                    | Strong strategic substitutes with simultaneous Q‑updates | Sequential or potential‑game projection; establish imitation dynamics |
 
 When formal payoffs satisfy the potential‑game property, best‑response or gradient descent is a *Lyapunov* process and convergence is guaranteed even with myopic learners. ([arXiv][1]) Otherwise, learning must compensate through the techniques above.
@@ -564,10 +564,10 @@ When formal payoffs satisfy the potential‑game property, best‑response or gr
      *Design lever:* add a small common reward component or hierarchical controller to push toward Pareto‑efficient equilibria.
 
 2. **Need for communication and common knowledge**
-   The more sensitive each payoff is to the joint action, the larger the set of joint policies that must be predicted. Cheap‑talk channels or learned message protocols directly reduce effective sensitivity by revealing $a_{-i}$ before acting.
+   The more sensitive each payoff is to the joint action, the larger the set of joint policies that must be predicted. Cheap‑talk channels or learned message protocols directly reduce effective sensitivity by revealing \(a_{-i}\) before acting.
 
 3. **Mechanism design / external incentives**
-   Taxing negative externalities or subsidising positive ones **reshapes $u_i$**, often converting a general‑sum game into a potential game and restoring stable learning dynamics.
+   Taxing negative externalities or subsidising positive ones **reshapes \(u_i\)**, often converting a general‑sum game into a potential game and restoring stable learning dynamics.
 
 ---
 
@@ -584,10 +584,10 @@ When formal payoffs satisfy the potential‑game property, best‑response or gr
 
 ### Suggested empirical test
 
-Compute a **sensitivity matrix** $S_{ij}=|\partial \hat u_i/\partial a_j|$ from the learned critic.
+Compute a **sensitivity matrix** \(S_{ij}=|\partial \hat u_i/\partial a_j|\) from the learned critic.
 
-* If $‖S‖_\infty$ is large and gradients are unstable, apply reward shaping or slow down updates where $S_{ij}$ is largest.
-* Re‑measure $S$ after changes; convergence of $S$ toward a sparse or diagonal form indicates successful reduction in inter‑agent dependency.
+* If \(‖S‖_\infty\) is large and gradients are unstable, apply reward shaping or slow down updates where \(S_{ij}\) is largest.
+* Re‑measure \(S\) after changes; convergence of \(S\) toward a sparse or diagonal form indicates successful reduction in inter‑agent dependency.
 
 ---
 

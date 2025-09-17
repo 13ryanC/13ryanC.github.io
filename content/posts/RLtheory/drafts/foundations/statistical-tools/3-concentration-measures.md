@@ -13,7 +13,7 @@ image: /assets/images/card3.png
 
 * **1.1. Formalism: MDPs, Policies, Value Functions, and Trajectories**
     * 1.1.1. Mathematical Foundations: Measure-theoretic set-up
-    * 1.1.2. Formal Definition of an MDP: $(S, A, P, r, \gamma)$
+    * 1.1.2. Formal Definition of an MDP: \((S, A, P, r, \gamma)\)
     * 1.1.3. Policies and the Agent–Environment Loop
     * 1.1.4. Trajectories, Returns, and Value Functions
-    * 1.1.5. The Discount Factor $\gamma$ & Effective Horizon
+    * 1.1.5. The Discount Factor \(\gamma\) & Effective Horizon

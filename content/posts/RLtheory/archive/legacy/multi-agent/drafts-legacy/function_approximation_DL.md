@@ -15,15 +15,15 @@ This document provides a self-contained exposition on the introduction to deep l
 
 ## 1. Why Deep Learning? — Function Approximation for RL
 
-The chapter begins by motivating the need for **function approximation**. In reinforcement learning, tabular value-functions, which store a value for every state, scale linearly with the number of states. This approach becomes computationally intractable for real-world problems with vast state spaces, such as Go (approximately $10^{170}$ states) or complex video games.
+The chapter begins by motivating the need for **function approximation**. In reinforcement learning, tabular value-functions, which store a value for every state, scale linearly with the number of states. This approach becomes computationally intractable for real-world problems with vast state spaces, such as Go (approximately \(10^{170}\) states) or complex video games.
 
-A key weakness of tabular methods is their inability to **generalise**; they update each state's value in isolation. Consequently, an agent must visit a specific state to learn its value. The chapter uses a maze example (Figure 7.1) to illustrate how a function approximator can overcome this by inferring the value of unseen states, such as $s_2$ and $s_4$, from similar, previously visited states like $s_1$ and $s_3$.
+A key weakness of tabular methods is their inability to **generalise**; they update each state's value in isolation. Consequently, an agent must visit a specific state to learn its value. The chapter uses a maze example (Figure 7.1) to illustrate how a function approximator can overcome this by inferring the value of unseen states, such as \(s_2\) and \(s_4\), from similar, previously visited states like \(s_1\) and \(s_3\).
 
 ---
 
 ## 2. From Linear to Deep Function Approximators
 
-* **Linear Approximation**: This method, defined by the equation $V(s) = \omega^T \mathbf{x}(s)$, represents the value function $V(s)$ as an inner product of a parameter vector $\omega$ and a hand-crafted feature vector $\mathbf{x}(s)$. While it learns quickly, its performance is entirely dependent on the quality of the engineered features.
+* **Linear Approximation**: This method, defined by the equation \(V(s) = \omega^T \mathbf{x}(s)\), represents the value function \(V(s)\) as an inner product of a parameter vector \(\omega\) and a hand-crafted feature vector \(\mathbf{x}(s)\). While it learns quickly, its performance is entirely dependent on the quality of the engineered features.
 
 * **Deep Learning**: This approach replaces manual feature engineering with *learned* features. Neural networks are capable of approximating highly non-linear functions by stacking multiple learnable layers. This enables end-to-end representation learning directly from raw inputs, such as images or state vectors.
 
@@ -31,11 +31,11 @@ A key weakness of tabular methods is their inability to **generalise**; they upd
 
 ## 3. Anatomy of a Feed-Forward Network
 
-1.  **Neural Unit (Neuron)**: Each unit computes a linear transformation ($w^T x + b$) followed by a non-linear **activation function**, $g$. Without this non-linearity, a network of stacked units would only be capable of representing a simple linear map.
+1.  **Neural Unit (Neuron)**: Each unit computes a linear transformation (\(w^T x + b\)) followed by a non-linear **activation function**, \(g\). Without this non-linearity, a network of stacked units would only be capable of representing a simple linear map.
 
 2.  **Activation Functions**: The chapter reviews several common activation functions, including ReLU, Leaky ReLU, ELU, tanh, and the sigmoid function (Figure 7.4). **ReLU** is often preferred because it remains close to linear, promotes sparse representations by outputting exact zeros, and mitigates the vanishing gradient problem more effectively than saturating functions like sigmoid.
 
-3.  **Layers and Depth**: A layer consists of multiple neural units. Its computation can be expressed compactly as $g_k(W_k \mathbf{x}_{k-1} + \mathbf{b}_k)$. Deeper networks, even with an equivalent number of parameters, often generalise better than shallower ones because they can reuse features hierarchically, building complex representations from simpler ones.
+3.  **Layers and Depth**: A layer consists of multiple neural units. Its computation can be expressed compactly as \(g_k(W_k \mathbf{x}_{k-1} + \mathbf{b}_k)\). Deeper networks, even with an equivalent number of parameters, often generalise better than shallower ones because they can reuse features hierarchically, building complex representations from simpler ones.
 
 ---
 
@@ -43,11 +43,11 @@ A key weakness of tabular methods is their inability to **generalise**; they upd
 
 The process of gradient-based learning is presented as a five-step loop (visualised in Figure 7.6):
 
-1.  **Sample** a mini-batch of data from the dataset $\mathcal{D}$.
-2.  Perform a **forward pass** to compute the network's predictions, $f(\mathbf{x}; \omega)$.
-3.  **Compute the loss**, $\mathcal{L}(f(\mathbf{x}), y)$, which measures the discrepancy between predictions and actual targets.
-4.  Use **back-propagation** to calculate the gradient of the loss with respect to the parameters, $\nabla_{\omega} \mathcal{L}$.
-5.  Perform a **gradient descent update** to adjust the parameters $\omega$.
+1.  **Sample** a mini-batch of data from the dataset \(\mathcal{D}\).
+2.  Perform a **forward pass** to compute the network's predictions, \(f(\mathbf{x}; \omega)\).
+3.  **Compute the loss**, \(\mathcal{L}(f(\mathbf{x}), y)\), which measures the discrepancy between predictions and actual targets.
+4.  Use **back-propagation** to calculate the gradient of the loss with respect to the parameters, \(\nabla_{\omega} \mathcal{L}\).
+5.  Perform a **gradient descent update** to adjust the parameters \(\omega\).
 
 Since every component in the network is differentiable, the chain rule allows for the efficient propagation of gradients from the loss function back through all layers.
 
@@ -67,7 +67,7 @@ The chapter compares several optimisation algorithms, highlighting the trade-off
 | :--- | :--- | :--- |
 | **Vanilla (Batch) GD** | Computes the gradient on the full dataset for each step. | Very stable but slow; a single update requires an expensive full pass. |
 | **Stochastic GD (SGD)** | Uses a single sample for each update step. | Fast per-update but exhibits high variance, leading to noisy trajectories. |
-| **Mini-batch GD** | Calculates the gradient on a small batch ($B$) of samples. | Balances efficiency and stability; batch sizes of 32-1024 are typical. |
+| **Mini-batch GD** | Calculates the gradient on a small batch (\(B\)) of samples. | Balances efficiency and stability; batch sizes of 32-1024 are typical. |
 | **Momentum / Nesterov**| Uses an exponential moving average of past gradients. | Accelerates convergence but can overshoot minima; Nesterov adds stability. |
 
 Contour plots in Figure 7.7 provide a visual comparison of these methods, reinforcing the trade-offs.

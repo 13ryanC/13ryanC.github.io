@@ -26,10 +26,10 @@ lec22, 23, 24
 | \$\mathcal{D}\_k\$                  | data collected up to episode \$k\$                                                     | learner’s memory    |
 | \$\pi\_k\$                          | policy executed in episode \$k\$                                                       | algorithm‑dependent |
 | \$R\_k=!\sum\_{h=0}^{H-1}r\_{h}^k\$ | reward accrued in episode \$k\$                                                        | performance         |
-| $\text{Regret}(K)$ | $\displaystyle\sum_{k=1}^K\bigl[V^\*_{0}(S_0^{k})-V^{\pi_k}_{0}(S_0^{k})\bigr]$ | objective |
+| \(\text{Regret}(K)\) | \(\displaystyle\sum_{k=1}^K\bigl[V^\*_{0}(S_0^{k})-V^{\pi_k}_{0}(S_0^{k})\bigr]\) | objective |
 
 > **Finite‑horizon vs. Discounted**    
-> In these notes we follow the *episodic*, undiscounted convention of Lec 22–24: every episode is a length‑$H$ trajectory starting from an initial state sampled from $\mu$.  Setting $H=(1-\gamma)^{-1}$ recovers the discounted formulation used in our planning post.
+> In these notes we follow the *episodic*, undiscounted convention of Lec 22–24: every episode is a length‑\(H\) trajectory starting from an initial state sampled from \(\mu\).  Setting \(H=(1-\gamma)^{-1}\) recovers the discounted formulation used in our planning post.
 
 The *exploration–exploitation dilemma* enters because actions affect both immediate reward and the next data sample .
 
@@ -54,8 +54,8 @@ $$
 * **Canonical algorithms**  :contentReference[oaicite:1]{index=1}  
   | name | idea | worst‑case regret | notes |
   |------|------|------------------|-------|
-  | $\varepsilon$‑greedy | mix *explore* $(\varepsilon)$ with *exploit* $(1-\varepsilon)$ | $\tilde O\bigl(HSA\sqrt{K}\bigr)$ | may loop exponentially long in stochastic traps |
-  | OFU / confidence sets | keep $\mathcal M_k=\{M:\| \hat P-P\|\le\beta\}$, plan on the most *optimistic* $M\in\mathcal M_k$ | minimax‑optimal up to logs | unifies UCRL, UCBVI, LinUCB |
+  | \(\varepsilon\)‑greedy | mix *explore* \((\varepsilon)\) with *exploit* \((1-\varepsilon)\) | \(\tilde O\bigl(HSA\sqrt{K}\bigr)\) | may loop exponentially long in stochastic traps |
+  | OFU / confidence sets | keep \(\mathcal M_k=\{M:\| \hat P-P\|\le\beta\}\), plan on the most *optimistic* \(M\in\mathcal M_k\) | minimax‑optimal up to logs | unifies UCRL, UCBVI, LinUCB |
 @@
 
 These ideas set the conceptual stage for the concrete algorithms below.
@@ -66,7 +66,7 @@ These ideas set the conceptual stage for the concrete algorithms below.
 
 ### 3.1  UCRL: Upper‑Confidence Reinforcement Learning
 
-> **Why optimism works** — if the true MDP $M^{\*}$ lies in every $\mathcal C_{k,\delta}$ with
+> **Why optimism works** — if the true MDP \(M^{\*}\) lies in every \(\mathcal C_{k,\delta}\) with
 > high probability, then “planning on the best plausible model’’ always upper‑bounds the
 > optimal value and never *under‑explores*.
 
@@ -83,14 +83,14 @@ Algorithm UCRL(k, δ)
     Execute π_k for one episode, update counts
 ```
 
-Algorithmic cost $O(S^2AH)$ per episode can be cut to $O(SAH)$ by **UCBVI**:
+Algorithmic cost \(O(S^2AH)\) per episode can be cut to \(O(SAH)\) by **UCBVI**:
 
 ```pseudo
 Q_{h}(s,a) ← r(s,a) + P̂_k[s,a]·V_{h+1} + H·β(N_k[s,a])       # bonus
 V_h(s)     ← min( H , max_a Q_h(s,a) )
 ```
 
-with identical $\tilde{O}(H^{3/2}\sqrt{SAK})$ regret.
+with identical \(\tilde{O}(H^{3/2}\sqrt{SAK})\) regret.
 
 > **Regret bound**
 > \$\displaystyle\text{Regret}(K);\le;\tilde{O}!\bigl(H^{3/2}S\sqrt{AK}\bigr)\$ with probability \$1-3\delta\$ .
@@ -98,7 +98,7 @@ with identical $\tilde{O}(H^{3/2}\sqrt{SAK})$ regret.
 ### 3.2  UCBVI: Value‑Iteration with bonuses
 
 Replacing the expensive inner \`\`max‑over‑models’’ step by a per‑state bonus
-$b_k(s,a)=H\beta_\delta\bigl(N_k(s,a)\bigr)$
+\(b_k(s,a)=H\beta_\delta\bigl(N_k(s,a)\bigr)\)
 yields an algorithm that:
 
 * runs **one** backward pass per episode—no nested optimisation over \$S\$;
@@ -108,22 +108,22 @@ yields an algorithm that:
 
 ## 4  Beyond tables: Linear approximation regimes (Lec 24)
 
-Tabular complexity $\Theta(S)$ is untenable when $|S|\gg10^{6}$.  
+Tabular complexity \(\Theta(S)\) is untenable when \(|S|\gg10^{6}\).  
 Two *linearly‑parameterised* families rescue sample‑efficiency by replacing “one
-parameter per state’’ with “one parameter per **feature**’’  $d\llS$.
+parameter per state’’ with “one parameter per **feature**’’  \(d\llS\).
 
 ### 4.1  Linear *mixture* MDPs
 
 * **Features** \$\phi(s,a,s')\in\mathbb{R}^d\$, \$|\phi|\le 1\$.
 * **Dynamics** \$P\_h(s'|s,a)=\langle\phi(s,a,s'),\theta^\*\_h\rangle\$,  \$|\theta^\*\_h|\le 1\$.
 * **Value‑Targeted Regression (VTR)** 
-  1. *Target construction* $y_{h,j}=V^{(j)}_{h+1}(S'_{h,j})$  
+  1. *Target construction* \(y_{h,j}=V^{(j)}_{h+1}(S'_{h,j})\)  
   2. *Ridge regression*    $\displaystyle\hat\theta_{h,k}
        =\arg\min_\theta\sum_{j<k}(⟨\phi_{h,j},\theta⟩-y_{h,j})^{2}+\lambda\|\theta\|^{2}$  
-  3. *Bonus* $\displaystyle\beta_{h,k}=H\sqrt{d\log\bigl(1+\tfrac{k}{\lambda d}\bigr)+2\log\tfrac{1}{\delta}}. $
+  3. *Bonus* \(\displaystyle\beta_{h,k}=H\sqrt{d\log\bigl(1+\tfrac{k}{\lambda d}\bigr)+2\log\tfrac{1}{\delta}}. \)
 @@
 * **UCRL‑VTR regret**
-  $\text{Regret}(K)=\tilde{O}\bigl(dH^{2}\sqrt{K}\bigr)$
+  \(\text{Regret}(K)=\tilde{O}\bigl(dH^{2}\sqrt{K}\bigr)\)
   independent of \$S\$ and \$A\$ .
 
 ### 4.2  Linear MDPs
@@ -138,7 +138,7 @@ parameter per state’’ with “one parameter per **feature**’’  $d\llS$.
       V_h(s)   ← min(H, max_a Q_h(s,a))
   ```
   One pass backward, one Sherman–Morrison update ⇒  
-  **runtime** $O(Hd^{2}+HAd)$ per episode (no $S$), **regret** $\tilde O(d^{3/2}H^{2}\sqrt{K})$.
+  **runtime** \(O(Hd^{2}+HAd)\) per episode (no \(S\)), **regret** \(\tilde O(d^{3/2}H^{2}\sqrt{K})\).
 @@
 * **Regret** \$\tilde{O}!\bigl(d^{3/2}H^{2}\sqrt{K}\bigr)\$—again, no \$S\$‑dependence .
 
@@ -158,14 +158,14 @@ Whether we **choose actions to probe a simulator** (planning) or **probe the rea
 
 
 <details>
-<summary><strong>Derivation tip</strong> – Why does bonus $\propto\|v\|_{\Sigma^{-1}}$ appear everywhere?</summary>
+<summary><strong>Derivation tip</strong> – Why does bonus \(\propto\|v\|_{\Sigma^{-1}}\) appear everywhere?</summary>
 For sub‑Gaussian noise and linear features,
 $\displaystyle
 \Pr\bigl(\|\hat\theta-\theta^{\*}\|_{\Sigma}\le
 H\sqrt{\log\det\Sigma-\log\det\lambda I + 2\log(1/\delta)}\bigr)\ge1-\delta$.
 Applying Cauchy–Schwarz inside the Bellman backup yields
-$|\langle\phi,v\rangle|\le \|v\|_{\infty}\|\phi\|_{\Sigma^{-1}}\|\hat\theta-\theta^\*\|_{\Sigma}$,
-hence the ubiquitous $\sqrt{\det}$‑style bonuses. :contentReference[oaicite:6]{index=6}
+\(|\langle\phi,v\rangle|\le \|v\|_{\infty}\|\phi\|_{\Sigma^{-1}}\|\hat\theta-\theta^\*\|_{\Sigma}\),
+hence the ubiquitous \(\sqrt{\det}\)‑style bonuses. :contentReference[oaicite:6]{index=6}
 </details>
 
 ---
@@ -193,10 +193,10 @@ hence the ubiquitous $\sqrt{\det}$‑style bonuses. :contentReference[oaicite:6]
 
 | setting | algorithm | regret (high‑prob.) | complexity/ep. |
 |---------|-----------|---------------------|----------------|
-| bandit ($H=1$) | UCB | $\tilde O(\sqrt{KA})$ | $O(A)$ |
-| tabular MDP | **UCRL** | $\tilde O(H^{3/2}S\sqrt{AK})$ | $O(S^2AH)$ |
-| tabular MDP | **UCBVI** | $\tilde O(H^{3/2}\sqrt{SAK})$ | $O(SAH)$ |
-| linear mixture | **VTR** | $\tilde O(dH^{2}\sqrt{K})$ | $O(d^{2}H)$ |
-| linear MDP | **LSVI‑UCB** | $\tilde O(d^{3/2}H^{2}\sqrt{K})$ | $O((d^{2}+Ad)H)$ |
+| bandit (\(H=1\)) | UCB | \(\tilde O(\sqrt{KA})\) | \(O(A)\) |
+| tabular MDP | **UCRL** | \(\tilde O(H^{3/2}S\sqrt{AK})\) | \(O(S^2AH)\) |
+| tabular MDP | **UCBVI** | \(\tilde O(H^{3/2}\sqrt{SAK})\) | \(O(SAH)\) |
+| linear mixture | **VTR** | \(\tilde O(dH^{2}\sqrt{K})\) | \(O(d^{2}H)\) |
+| linear MDP | **LSVI‑UCB** | \(\tilde O(d^{3/2}H^{2}\sqrt{K})\) | \(O((d^{2}+Ad)H)\) |
 
-Lower bounds: $\Omega(H^{3/2}\sqrt{SAK})$ (tabular) and $\Omega(dH^{3/2}\sqrt{K})$ (linear). 
+Lower bounds: \(\Omega(H^{3/2}\sqrt{SAK})\) (tabular) and \(\Omega(dH^{3/2}\sqrt{K})\) (linear). 

@@ -22,13 +22,13 @@ Here’s the core idea, stripped down and then built back up:
 
 ## What that means, a bit more formally
 
-Reinforcement learning (RL) frames decision‑making as an **agent** interacting with an **environment** over time. At each step $t$, the agent observes something, takes an action $A_t$, and receives a scalar **reward** $R_t$. The agent’s objective is to pick actions that maximize some cumulative measure of reward, e.g.:
+Reinforcement learning (RL) frames decision‑making as an **agent** interacting with an **environment** over time. At each step \(t\), the agent observes something, takes an action \(A_t\), and receives a scalar **reward** \(R_t\). The agent’s objective is to pick actions that maximize some cumulative measure of reward, e.g.:
 
 $$
 \max_\pi  \mathbb E \left[\sum_{t=0}^{\infty} \gamma^t R_t \middle \mid \pi\right]
 $$
 
-where $\pi$ is the policy (how the agent acts) and $\gamma \in [0,1)$ is a discount factor. Other cumulative objectives (finite sums, average reward per time step) fit the same mold. The crucial bit is *the goal lives entirely inside the reward signal*.&#x20;
+where \(\pi\) is the policy (how the agent acts) and \(\gamma \in [0,1)\) is a discount factor. Other cumulative objectives (finite sums, average reward per time step) fit the same mold. The crucial bit is *the goal lives entirely inside the reward signal*.&#x20;
 
 ---
 
@@ -100,17 +100,17 @@ The paper you shared, *Settling the Reward Hypothesis*, doesn’t just say “tr
 * **Subjective goals:** the reward is computable from the agent’s own stream of observations.
 * **Objective goals:** a *designer* has preferences over their (possibly richer) observation stream and supplies the agent a learning signal that reflects those preferences.&#x20;
 
-Formally, the agent interacts in steps, generating histories $h = (o_1,a_1,o_2,a_2,\dots)$. A **goal** is a preference ordering $\succeq$ over (distributions of) such histories. A policy $\pi_1$ is preferred to $\pi_2$ when, beyond some finite horizon, $\pi_1$ induces “better” history distributions than $\pi_2$. This “eventual dominance” lets the framework cover episodic tasks, ongoing tasks, discounted and average‑reward cases in one stroke.&#x20;
+Formally, the agent interacts in steps, generating histories \(h = (o_1,a_1,o_2,a_2,\dots)\). A **goal** is a preference ordering \(\succeq\) over (distributions of) such histories. A policy \(\pi_1\) is preferred to \(\pi_2\) when, beyond some finite horizon, \(\pi_1\) induces “better” history distributions than \(\pi_2\). This “eventual dominance” lets the framework cover episodic tasks, ongoing tasks, discounted and average‑reward cases in one stroke.&#x20;
 
 ### Unifying “cumulative sums”
 
-They show a single return that covers episodic totals, discounted sums, and average reward by allowing a **transition‑dependent discount** $\gamma(o,a)\in[0,1]$:
+They show a single return that covers episodic totals, discounted sums, and average reward by allowing a **transition‑dependent discount** \(\gamma(o,a)\in[0,1]\):
 
 $$
 V_n^\pi = \mathbb{E}\Big[\sum_{i=1}^n \Big(\prod_{j=1}^{i-1}\gamma(O_j,A_j)\Big) r(O_i,A_i)\Big].
 $$
 
-Choosing $\gamma(\cdot)=\gamma<1$ recovers discounted RL; $\gamma(\cdot)=1$ aligns with average/total reward; $\gamma(\cdot)=0$ at terminal steps matches episodic returns.&#x20;
+Choosing \(\gamma(\cdot)=\gamma<1\) recovers discounted RL; \(\gamma(\cdot)=1\) aligns with average/total reward; \(\gamma(\cdot)=0\) at terminal steps matches episodic returns.&#x20;
 
 ---
 
@@ -124,28 +124,28 @@ Assume your preference relation satisfies the standard von Neumann–Morgenstern
 
 ### Step 2 — A new axiom: **Temporal γ‑Indifference**
 
-This is the paper’s key addition. Intuitively: prepending the same transition $t$ to two possible futures should change your preference between those futures by a **multiplicative factor $\gamma(t)$**—no more, no less.
+This is the paper’s key addition. Intuitively: prepending the same transition \(t\) to two possible futures should change your preference between those futures by a **multiplicative factor \(\gamma(t)\)**—no more, no less.
 
-* If $\gamma(t)=1$, you’re indifferent to which of two equally likely futures gets delayed by $t$.
-* Different $t$ can have different $\gamma(t)$, which is how the framework accommodates episodic, discounted, and average‑reward objectives under one roof.&#x20;
+* If \(\gamma(t)=1\), you’re indifferent to which of two equally likely futures gets delayed by \(t\).
+* Different \(t\) can have different \(\gamma(t)\), which is how the framework accommodates episodic, discounted, and average‑reward objectives under one roof.&#x20;
 
 ### The **Markov Reward Theorem**
 
 With (i) vNM rationality and (ii) Temporal γ‑Indifference, the authors prove the **Markov Reward Theorem**:
 
-> **There exists a Markov reward $r(t)$ and transition‑dependent discount $\gamma(t)$ such that your preference over policies equals the preference induced by maximizing expected cumulative discounted reward.** Formally, there’s a utility $u$ satisfying
-> $u(t\cdot h) = r(t) + \gamma(t)u(h)$,
-> and $A \succeq B \iff u(A)\ge u(B)$.
+> **There exists a Markov reward \(r(t)\) and transition‑dependent discount \(\gamma(t)\) such that your preference over policies equals the preference induced by maximizing expected cumulative discounted reward.** Formally, there’s a utility \(u\) satisfying
+> \(u(t\cdot h) = r(t) + \gamma(t)u(h)\),
+> and \(A \succeq B \iff u(A)\ge u(B)\).
 
 The representation is unique up to positive scaling of the reward. This is an “if and only if” result: the axiom set is exactly what you need—and no more—to reduce “goals and purposes” to maximizing (generalized) cumulative reward. That’s the core theoretical support.&#x20;
 
 ### Designer’s (objective) goals are covered, too
 
-They extend the result when a *designer* has preferences over their own observation stream (which may include the agent’s hidden state, actions, or other context) and provides either reward-plus-discount or a single “already‑discounted” reward signal $r_i = (\prod_{j<i}\gamma(\bar o_j))r(\bar o_i)$. The same theorem structure goes through.&#x20;
+They extend the result when a *designer* has preferences over their own observation stream (which may include the agent’s hidden state, actions, or other context) and provides either reward-plus-discount or a single “already‑discounted” reward signal \(r_i = (\prod_{j<i}\gamma(\bar o_j))r(\bar o_i)\). The same theorem structure goes through.&#x20;
 
 ### Constructive support: you can *build* the reward
 
-It’s not just existential. Given a preference oracle that satisfies the axioms, they give an algorithm to **construct** $r$ and $\gamma$. Runtime is $O(|O\times A|\log|O\times A|)$ using a preference‑based sorting and scaling routine. That’s practical support for the hypothesis-as-representation theorem.&#x20;
+It’s not just existential. Given a preference oracle that satisfies the axioms, they give an algorithm to **construct** \(r\) and \(\gamma\). Runtime is \(O(|O\times A|\log|O\times A|)\) using a preference‑based sorting and scaling routine. That’s practical support for the hypothesis-as-representation theorem.&#x20;
 
 ---
 
@@ -157,7 +157,7 @@ It’s not just existential. Given a preference oracle that satisfies the axioms
 * It also clarifies results about the **limits** of Markov rewards (Abel et al., 2021): two classic counterexamples (“steady‑state” and “entailment”) violate, respectively, the paper’s policy‑preference assumption and the new γ‑indifference axiom. In other words: the failures are expected once you see which conditions the theorem needs.&#x20;
 
 **Average‑reward and bias‑optimality fit the frame.**
-By comparing finite‑horizon cumulative sums “eventually,” the authors show average‑reward orderings and even bias‑optimal refinements appear as special cases (with $\gamma\equiv 1$). That shores up the hypothesis across continuing tasks.&#x20;
+By comparing finite‑horizon cumulative sums “eventually,” the authors show average‑reward orderings and even bias‑optimal refinements appear as special cases (with \(\gamma\equiv 1\)). That shores up the hypothesis across continuing tasks.&#x20;
 
 **What about humans being “irrational”?**
 If your preferences violate vNM axioms (Kahneman/Tversky‑style effects), the representation may fail. The paper notes that this is a statement about **preference expression**, not behavior per se; when the axioms don’t hold, you shouldn’t expect a clean Markov reward encoding. That’s a limit, clearly acknowledged.&#x20;
@@ -168,7 +168,7 @@ If your preferences violate vNM axioms (Kahneman/Tversky‑style effects), the r
 * **Risk‑sensitive** objectives can make the optimal policy inherently **non‑Markovian**, which contradicts the possibility of a Markov reward that reproduces the same policy under risk‑neutral maximization. Diagnosis: a failure of the γ‑indifference axiom; a remedy is to augment state (objective‑goals framing).&#x20;
 
 **Discounting details.**
-A **constant** discount $\gamma\in(0,1)$ is a special case of the theory, but it’s too restrictive to capture all rational preferences; **transition‑dependent** discounting is often required. The paper also flags that **hyperbolic** discounting isn’t covered by their theorem as stated.&#x20;
+A **constant** discount \(\gamma\in(0,1)\) is a special case of the theory, but it’s too restrictive to capture all rational preferences; **transition‑dependent** discounting is often required. The paper also flags that **hyperbolic** discounting isn’t covered by their theorem as stated.&#x20;
 
 **“Reward is enough” vs. the reward hypothesis.**
 They distinguish Sutton’s hypothesis (“goals can be *represented* as reward maximization”) from the stronger “reward‑is‑enough” claim (“intelligence itself is subservient to reward”). This paper is about the representational claim and pins down its exact scope.&#x20;
@@ -178,10 +178,10 @@ They distinguish Sutton’s hypothesis (“goals can be *represented* as reward 
 ## Bottom line (what’s actually supported)
 
 * **Support = a crisp theorem:** Under vNM rationality **+** Temporal γ‑Indifference, **every** coherent goal (as preferences over histories) is **equivalent** to maximizing an expected cumulative **Markov** reward with an appropriate (possibly transition‑dependent) discount. That’s both necessary and sufficient.&#x20;
-* **Practical backing:** There’s a constructive procedure to recover $r,\gamma$ from preferences.&#x20;
+* **Practical backing:** There’s a constructive procedure to recover \(r,\gamma\) from preferences.&#x20;
 * **Scope and limits are explicit:** If you bring in constraints that violate independence/continuity, or risk measures that force non‑Markov optimality, or human‑style dynamic inconsistencies, you’ve stepped outside the axiom set—so don’t expect a clean scalar Markov reward to exist without changing the state/observations.&#x20;
 
-If you want, we can zoom into one angle next—e.g., unpack γ‑indifference with concrete toy examples, or walk through how the construction algorithm infers $r$ and $\gamma$ from pairwise preferences.&#x20;
+If you want, we can zoom into one angle next—e.g., unpack γ‑indifference with concrete toy examples, or walk through how the construction algorithm infers \(r\) and \(\gamma\) from pairwise preferences.&#x20;
 
 ---
 
@@ -322,9 +322,9 @@ Below are the common pressure points, what they claim, and which assumption/axio
 
 **Claim.** Real agents discount hyperbolically or change their minds over time; standard discounted sums can’t match that.
 
-**Diagnosis.** The theorem covers a **transition‑dependent exponential‑style discount** $\gamma(t)$, letting it capture episodic/average/discounted cases in one return. But **hyperbolic discounting** and other dynamically inconsistent forms fall outside the provided axioms/representation. The paper notes constant $\gamma$ is often *too restrictive*, and hyperbolic isn’t addressed by their theorem. If your preferences show **dynamic inconsistency**, they’ll conflict with axiom structure (and even a stricter “sequential consistency” idea).&#x20;
+**Diagnosis.** The theorem covers a **transition‑dependent exponential‑style discount** \(\gamma(t)\), letting it capture episodic/average/discounted cases in one return. But **hyperbolic discounting** and other dynamically inconsistent forms fall outside the provided axioms/representation. The paper notes constant \(\gamma\) is often *too restrictive*, and hyperbolic isn’t addressed by their theorem. If your preferences show **dynamic inconsistency**, they’ll conflict with axiom structure (and even a stricter “sequential consistency” idea).&#x20;
 
-**What helps.** Use transition‑dependent $\gamma$ where possible; otherwise, accept non‑Markov utilities or explicitly time‑inconsistent planning models.&#x20;
+**What helps.** Use transition‑dependent \(\gamma\) where possible; otherwise, accept non‑Markov utilities or explicitly time‑inconsistent planning models.&#x20;
 
 ---
 
@@ -332,7 +332,7 @@ Below are the common pressure points, what they claim, and which assumption/axio
 
 **Claim.** If you start from vNM utility over histories, the implied “reward” can depend on the *entire past*—not something the agent can read from its immediate observation.
 
-**Diagnosis.** With only vNM axioms, you get a utility representation—but the induced “reward” $r(t;h)=u(h\!\cdot\!t)-u(h)$ is **history‑dependent** and may be **incomputable** for bounded agents. You need the extra **Temporal γ‑Indifference** axiom to collapse this into a **Markov** reward (depends only on the current transition). Without it, the scalar‑Markov reduction isn’t justified.&#x20;
+**Diagnosis.** With only vNM axioms, you get a utility representation—but the induced “reward” \(r(t;h)=u(h\!\cdot\!t)-u(h)\) is **history‑dependent** and may be **incomputable** for bounded agents. You need the extra **Temporal γ‑Indifference** axiom to collapse this into a **Markov** reward (depends only on the current transition). Without it, the scalar‑Markov reduction isn’t justified.&#x20;
 
 **What helps.** Either (i) accept non‑Markov reward/utility, or (ii) enlarge observations so the needed history features are now “Markov.”&#x20;
 

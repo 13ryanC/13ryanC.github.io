@@ -15,7 +15,7 @@ sources:
 ---
 
 Below each cluster **𝒞ₖ** appears in the hermeneutic order
-$𝒞_{1}\leᴴ𝒞_{2}\leᴴ\dots\leᴴ𝒞_{7}$.
+\(𝒞_{1}\leᴴ𝒞_{2}\leᴴ\dots\leᴴ𝒞_{7}\).
 Every section supplies (i) formal definitions, (ii) explanatory prose, and (iii) proofs or rigorous arguments where they are called for.
 
 ---
@@ -24,15 +24,15 @@ Every section supplies (i) formal definitions, (ii) explanatory prose, and (
 
 ### 1.1 Probability space of trajectories
 
-Let $(\Omega ,\mathscr F ,\mathbf P)$ be a probability space.
+Let \((\Omega ,\mathscr F ,\mathbf P)\) be a probability space.
 A **trajectory** (sample path) is an element
 
 $$
 \omega=(s_{0},a_{0},r_{1},s_{1},a_{1},r_{2},\dots)\in\Omega .
 $$
 
-Cylinder sets generate the σ‑algebra $\mathscr F$; this ensures every finite prefix event is measurable.
-The random variables $S_{t},A_{t},R_{t+1}$ (state, action, reward) are coordinate projections on Ω.
+Cylinder sets generate the σ‑algebra \(\mathscr F\); this ensures every finite prefix event is measurable.
+The random variables \(S_{t},A_{t},R_{t+1}\) (state, action, reward) are coordinate projections on Ω.
 
 ### 1.2 MDP tuple
 
@@ -44,23 +44,23 @@ $$
 
 | symbol   | meaning               | assumptions                                                                          |
 | -------- | --------------------- | ------------------------------------------------------------------------------------ |
-| $S$      | **state space**       | finite, or a Borel space for measure‑theoretic formalisms.                           |
-| $A$      | **action space**      | finite / Borel, independent of s (for simplicity).                                   |
-| $T$      | **transition kernel** | $T(s,a,\cdot)$ is a probability measure on $S$.                                      |
-| $R$      | **reward function**   | Either deterministic $R:S\times A\to\mathbb R$ or bounded measurable $r\sim R(s,a)$. |
-| $\gamma$ | **discount factor**   | guarantees finiteness of infinite sums.                                              |
+| \(S\)      | **state space**       | finite, or a Borel space for measure‑theoretic formalisms.                           |
+| \(A\)      | **action space**      | finite / Borel, independent of s (for simplicity).                                   |
+| \(T\)      | **transition kernel** | \(T(s,a,\cdot)\) is a probability measure on \(S\).                                      |
+| \(R\)      | **reward function**   | Either deterministic \(R:S\times A\to\mathbb R\) or bounded measurable \(r\sim R(s,a)\). |
+| \(\gamma\) | **discount factor**   | guarantees finiteness of infinite sums.                                              |
 
 ### 1.3 Histories and policies
 
-*Full history* at time t: $H_{t}=(S_{0},A_{0},R_{1},\dots,S_{t})$.
+*Full history* at time t: \(H_{t}=(S_{0},A_{0},R_{1},\dots,S_{t})\).
 A **policy** is a family of stochastic kernels
 
 $$
 \pi_t(\,\cdot\mid H_t): A\longrightarrow[0,1],\qquad t=0,1,\dots
 $$
 
-with measurability in $H_t$.
-A policy is **memoryless / stationary** if $\pi_t(\cdot\mid H_t)=\pi(\cdot\mid S_t)$ for all t.
+with measurability in \(H_t\).
+A policy is **memoryless / stationary** if \(\pi_t(\cdot\mid H_t)=\pi(\cdot\mid S_t)\) for all t.
 
 > *Why keep full‑history policies?* They form the largest decision class compatible with perfect recall. Only later (𝒞₃) do we prove that we may restrict to stationary policies **without loss of optimality** under the Markov property.
 
@@ -72,7 +72,7 @@ $$
 G_t=\sum_{k=0}^{\infty}\gamma^{k}R_{t+k+1},\qquad |G_t|\le\frac{R_{\max}}{1-\gamma}.
 $$
 
-Its measurability follows from dominated convergence and the finiteness supplied by $\gamma<1$.
+Its measurability follows from dominated convergence and the finiteness supplied by \(\gamma<1\).
 
 ---
 
@@ -92,11 +92,11 @@ V^{\star}(s)=\sup_{\pi}V^{\pi}(s),\qquad
 Q^{\star}(s,a)=\sup_{\pi}Q^{\pi}(s,a).
 $$
 
-*Sup* is used because, on infinite policy spaces, a maximum may fail to exist; completeness of $\mathbb R$ ensures the supremum always does.
+*Sup* is used because, on infinite policy spaces, a maximum may fail to exist; completeness of \(\mathbb R\) ensures the supremum always does.
 
 ### 2.3 ε‑optimality
 
-A policy $\pi$ is **ε‑optimal** if
+A policy \(\pi\) is **ε‑optimal** if
 
 $$
 V^{\pi}(s)\ge V^{\star}(s)-\varepsilon,\quad\forall s\in S.
@@ -110,7 +110,7 @@ Practical algorithms usually terminate once this criterion is met because the co
 
 ### 3.1 Discounted occupancy measure
 
-For a policy $\pi$ define
+For a policy \(\pi\) define
 
 
 $$
@@ -119,7 +119,7 @@ $$
 
 Properties:
 
-* $d^{\pi}_{\gamma}$ is a **probability sub‑measure** (total mass $1/(1-\gamma)$).
+* \(d^{\pi}_{\gamma}\) is a **probability sub‑measure** (total mass \(1/(1-\gamma)\)).
 * **Linear value identity**
 
   $$
@@ -144,7 +144,7 @@ Hence any optimiser is achieved at an extreme point → **stationary determinist
 ### 3.3 Fundamental Theorem of discounted MDPs
 
 > **Theorem (Puterman, 1994).**
-> For a discounted MDP with finite S, A and bounded rewards, there exists a deterministic stationary policy π★ such that $V^{π★}=V^\star$.
+> For a discounted MDP with finite S, A and bounded rewards, there exists a deterministic stationary policy π★ such that \(V^{π★}=V^\star\).
 
 *Proof sketch.*
 
@@ -152,7 +152,7 @@ Hence any optimiser is achieved at an extreme point → **stationary determinist
 2. Objective is linear; maximum is attained at an extreme point.
 3. Extreme points induce deterministic stationary policies as argued above. ∎
 
-Corollary: to find an ε‑optimal policy it suffices to search the much smaller space $A^{|S|}$ instead of the huge history‑dependent space.
+Corollary: to find an ε‑optimal policy it suffices to search the much smaller space \(A^{|S|}\) instead of the huge history‑dependent space.
 
 ---
 
@@ -166,7 +166,7 @@ $$
 
 ### 4.2 Bellman optimality equation
 
-$V^{\star}=T^{\star}V^{\star}$.
+\(V^{\star}=T^{\star}V^{\star}\).
 
 *Proof.*
 For any V set
@@ -175,8 +175,8 @@ $$
 T^{\pi}V(s)=R(s,\pi(s))+\gamma\sum_{s'}T(s,\pi(s),s')V(s').
 $$
 
-$T^{\star}V=\sup_{\pi}T^{\pi}V$.
-Applying $T^{\star}$ to $V^{\star}$ yields the same value because $V^{\star}$ already dominates every $T^{\pi}V^{\star}$; conversely $V^{\star}$ must satisfy it by definition of sup. ∎
+\(T^{\star}V=\sup_{\pi}T^{\pi}V\).
+Applying \(T^{\star}\) to \(V^{\star}\) yields the same value because \(V^{\star}\) already dominates every \(T^{\pi}V^{\star}\); conversely \(V^{\star}\) must satisfy it by definition of sup. ∎
 
 ### 4.3 Contraction property
 
@@ -184,7 +184,7 @@ $$
 \|T^{\star}V_1-T^{\star}V_2\|_\infty\le\gamma\|V_1-V_2\|_\infty.
 $$
 
-Hence $T^{\star}$ is a γ‑contraction on $(\mathbb R^{|S|},\|\cdot\|_\infty)$.
+Hence \(T^{\star}\) is a γ‑contraction on \((\mathbb R^{|S|},\|\cdot\|_\infty)\).
 
 ### 4.4 Value Iteration
 
@@ -196,7 +196,7 @@ until ‖V_{k+1}−V_k‖∞ < ε(1−γ)/2γ
 return greedy policy π_k(s)=argmax_a {…}
 ```
 
-*Convergence.* By Banach’s fixed‑point theorem, $V_k\to V^{\star}$ at **geometric rate** γ.
+*Convergence.* By Banach’s fixed‑point theorem, \(V_k\to V^{\star}\) at **geometric rate** γ.
 Stopping rule above guarantees ε‑optimality of the returned greedy policy.
 
 ---
@@ -206,8 +206,8 @@ Stopping rule above guarantees ε‑optimality of the returned greedy policy.
 Why can’t we “sweep measure theory under the rug”?
 
 * We need σ‑algebras so that **events about infinitely many time steps** remain measurable; e.g. “the process visits state 0 infinitely often.”
-* Conditional expectations $\mathbf E[G_t\mid S_t=s]$ are Radon–Nikodym derivatives that require measurable sets.
-* Without dominated convergence, proofs of the interchange of limit and expectation in $G_t$ would be invalid; paradoxes such as the Saint‑Petersburg game (infinite mean) arise.
+* Conditional expectations \(\mathbf E[G_t\mid S_t=s]\) are Radon–Nikodym derivatives that require measurable sets.
+* Without dominated convergence, proofs of the interchange of limit and expectation in \(G_t\) would be invalid; paradoxes such as the Saint‑Petersburg game (infinite mean) arise.
 
 Takeaway: **probabilistic soundness** of MDP analysis hinges on these foundations, even though algorithms can usually be presented without them.
 
@@ -217,18 +217,18 @@ Takeaway: **probabilistic soundness** of MDP analysis hinges on these foundation
 
 | Setting                   | Objective                                         | Notable differences & pitfalls                                                                                            |
 | ------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| **Finite horizon T**      | $G_0=\sum_{t=0}^{T-1} R_{t+1}$                    | Optimal policies are *time‑dependent* but still memoryless in S.                                                          |
-| **Undiscounted infinite** | $\sum_{t=0}^{\infty}R_{t+1}$                      | May diverge; extra assumptions (positive recurrent Markov chain, bounded rewards) or artificial “goal states” are needed. |
-| **Average reward**        | $\lim_{N\to\infty}\frac1N\sum_{t=0}^{N-1}R_{t+1}$ | Stationary optimal policies still exist but Bellman equation uses bias functions; value iteration must be modified.       |
-| **St Petersburg paradox** | Payoff $2^{N}$ at stopping time N                 | Shows *expectation* can be infinite → discounting restores finiteness.                                                    |
+| **Finite horizon T**      | \(G_0=\sum_{t=0}^{T-1} R_{t+1}\)                    | Optimal policies are *time‑dependent* but still memoryless in S.                                                          |
+| **Undiscounted infinite** | \(\sum_{t=0}^{\infty}R_{t+1}\)                      | May diverge; extra assumptions (positive recurrent Markov chain, bounded rewards) or artificial “goal states” are needed. |
+| **Average reward**        | \(\lim_{N\to\infty}\frac1N\sum_{t=0}^{N-1}R_{t+1}\) | Stationary optimal policies still exist but Bellman equation uses bias functions; value iteration must be modified.       |
+| **St Petersburg paradox** | Payoff \(2^{N}\) at stopping time N                 | Shows *expectation* can be infinite → discounting restores finiteness.                                                    |
 
 ---
 
 ## 𝒞₇ — Meta‑model reflections
 
-* **Brittleness of optimality.** A policy can be optimal w\.r.t. an assumed $T,R$ yet fragile under slight model misspecification; robust MDP frameworks (e.g. ambiguity sets over T) enlarge the decision space to mitigate this.
+* **Brittleness of optimality.** A policy can be optimal w\.r.t. an assumed \(T,R\) yet fragile under slight model misspecification; robust MDP frameworks (e.g. ambiguity sets over T) enlarge the decision space to mitigate this.
 * **Leaky abstraction.** Real systems may violate the Markov property (hidden variables, delayed effects). Practitioners add state features or switch to POMDPs rather than abandon the framework.
-* **Deadlines & time‑outs.** Hard horizons break stationarity; one designs augmented states $(s,t)$ with a ticking clock to restore the Markov property.
+* **Deadlines & time‑outs.** Hard horizons break stationarity; one designs augmented states \((s,t)\) with a ticking clock to restore the Markov property.
 * **Policy stationarity in practice.** Even when theory guarantees a stationary optimal π★, non‑stationary heuristics (e.g. exploration schedules) are vital during learning phases. Understanding where the abstraction departs from reality guides algorithmic choices.
 
 ---

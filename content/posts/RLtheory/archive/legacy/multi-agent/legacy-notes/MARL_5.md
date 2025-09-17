@@ -305,7 +305,7 @@ Below is a structured map of the **main approaches that researchers and practiti
 
 | Sub‑approach                                             | Core mechanics                                                                 | Iconic successes / tools                                        | When to prefer                                                             |
 | -------------------------------------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| **Value‑based, model‑free** (Q‑learning, DQN, Rainbow)   | Learn $Q(s,a)$ by bootstrapping from TD targets; exploit ε‑greedy exploration. | Atari 2600 benchmark, Ms Pac‑Man.                               | Discrete, moderate state/action spaces; reward signal dense enough for TD. |
+| **Value‑based, model‑free** (Q‑learning, DQN, Rainbow)   | Learn \(Q(s,a)\) by bootstrapping from TD targets; exploit ε‑greedy exploration. | Atari 2600 benchmark, Ms Pac‑Man.                               | Discrete, moderate state/action spaces; reward signal dense enough for TD. |
 | **Policy‑gradient / Actor–Critic** (REINFORCE, PPO, A3C) | Optimise parametrised policy πθ directly; baseline or critic reduces variance. | High‑dimensional continuous‑control games, VR locomotion tasks. | Continuous actions or where stochastic policies aid exploration.           |
 | **Model‑based with Search** (Dyna‑Q, MuZero)             | Learn an internal dynamics model and plan with MCTS or rollouts.               | MuZero mastering Atari, Go, Chess.                              | Long horizons, sparse reward; compute budget allows look‑ahead.            |
 | **Self‑play against fixed rule‑based opponents**         | Agent trains as single learner, environment includes scripted bots.            | Early FPS bots; curriculum design.                              | When you must beat legacy AI or pre‑defined NPCs.                          |
@@ -322,7 +322,7 @@ Below is a structured map of the **main approaches that researchers and practiti
 
 | Reduction                                               | What the learner sees                                                | Strengths                                                                                                        | Limitations                                                                                      |                        |                                                                                  |
 | ------------------------------------------------------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ---------------------- | -------------------------------------------------------------------------------- |
-| **Central Learning / Central Q‑Learning (CQL)**         | One “super‑agent” controls the **joint** action $a = (a¹,\dots,aⁿ)$. | Sidesteps non‑stationarity & credit assignment; guaranteed Pareto‑optimal correlated‑eq in common‑reward games . | Joint action space grows exponentially; must scalarise rewards; breaks decentralised execution . |                        |                                                                                  |
+| **Central Learning / Central Q‑Learning (CQL)**         | One “super‑agent” controls the **joint** action \(a = (a¹,\dots,aⁿ)\). | Sidesteps non‑stationarity & credit assignment; guaranteed Pareto‑optimal correlated‑eq in common‑reward games . | Joint action space grows exponentially; must scalarise rewards; breaks decentralised execution . |                        |                                                                                  |
 | **Independent Learning / Independent Q‑Learning (IQL)** | Each agent runs its own RL; others are part of the environment.      | Linear scaling in individual                                                                                     | Aᵢ                                                                                               | ; easy to parallelise. | Severe non‑stationarity; possible chaotic dynamics (e.g., Prisoner’s Dilemma)  . |
 
 ### 2 B Centralised Training, Decentralised Execution (CTDE)
@@ -403,17 +403,17 @@ Use this taxonomy to match your game’s structure, scale and solution requireme
 
 Below is a consolidated **“vocabulary of convergence”** that appears most often in multi‑agent reinforcement‑learning (MARL) papers, benchmarks and proofs.  I start with the hierarchy presented in §5.2 of the uploaded chapter and then place it in a broader context so you can recognise how each notion is used in modern research.
 
-| Level                                                           | Formal statement (for joint policy sequence $ \{\omega_z\}_{z\ge 0}$)                                                               | What it guarantees                                                                                                                                        | Typical algorithms / proofs                                                 | Where it appears                                          |
+| Level                                                           | Formal statement (for joint policy sequence \( \{\omega_z\}_{z\ge 0}\))                                                               | What it guarantees                                                                                                                                        | Typical algorithms / proofs                                                 | Where it appears                                          |
 | --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------- |
-| **1. Point‑wise policy convergence (strongest)**                | $\displaystyle\lim_{z\to\infty}\,\omega_z = \omega^\star$ (Eq. 5.3)                                                                 | Every agent’s actual policy stabilises at *a single* solution (e.g., a Nash equilibrium).                                                                 | WoLF‑PHC in 2 × 2 games; minimax‑Q in zero‑sum tabular SGs.                 |                                                           |
-| **2. Expected‑return convergence**                              | $\displaystyle\lim_{z\to\infty} U_i(\omega_z)=U_i(\omega^\star)\;\forall i$ (Eq. 5.4)                                               | The *outcome* (payoff) matches some equilibrium even if policies keep oscillating.                                                                        | Infinitesimal Gradient Ascent (IGA); TD variants in weakly acyclic games.   |                                                           |
-| **3. Empirical‑distribution convergence (policy averaging)**    | $\displaystyle\lim_{z\to\infty} \bar{\omega}_z = \omega^\star$ (Eq. 5.5)                                                            | Time‑averaged play converges; individual snapshots may not.                                                                                               | Fictitious Play in potential & zero‑sum games; external‑regret learners.    |                                                           |
-| **4. Empirical‑distribution convergence *to the solution set*** |  For every $ \epsilon>0\exists z_0:\,\forall z>z_0\,\exists\,\omega^\star$ with $d(\bar{\omega}_z,\omega^\star)<\epsilon$ (Eq. 5.7) | The average policy stays arbitrarily close to *some* equilibrium but may wander inside the set.                                                           | Regret‑matching → (coarse) correlated equilibrium; Online Mirror Descent.   |                                                           |
-| **5. Average‑return convergence**                               | $\displaystyle\lim_{z\to\infty}\,\bar{U}^z_i = U_i(\omega^\star)\;\forall i$ (Eq. 5.8)                                              | Running mean of returns stabilises at equilibrium value; no guarantee on policies.                                                                        | Many actor‑critic schemes; Independent Q‑learning under certain scheduling. |                                                           |
-| **6. Regret convergence (learning‑theoretic view)**             | $\displaystyle\frac{1}{T}\sum_{t=1}^{T}\bigl(u_i(a^\star_i,a_{-i}^t)-u_i(a_i^t,a_{-i}^t)\bigr)\xrightarrow[T\to\infty]{}0$          | **Zero external regret** ⇒ empirical play approaches the **coarse correlated‑equilibrium** set; **zero internal / swap regret** ⇒ correlated equilibrium. | Hedge/EXP3, Online Mirror Descent, CFR in extensive‑form games.             | (Discussed after Eq. 5.7)                                 |
-| **7. Exploitability / Best‑response gap**                       | $\displaystyle\text{exploit}(\omega_z)=\max_{\omega’} U(\omega’,\omega_z)\!-\!U(\omega_z,\omega_z)\xrightarrow[z\to\infty]{}0$      | Value‑based metric widely used in poker solvers & AlphaStar; can be monitored in finite time.                                                             | CFR(+), PSRO, Neural fictitious self‑play.                                  | (Notated elsewhere in the book; standard in MARL papers.) |
+| **1. Point‑wise policy convergence (strongest)**                | \(\displaystyle\lim_{z\to\infty}\,\omega_z = \omega^\star\) (Eq. 5.3)                                                                 | Every agent’s actual policy stabilises at *a single* solution (e.g., a Nash equilibrium).                                                                 | WoLF‑PHC in 2 × 2 games; minimax‑Q in zero‑sum tabular SGs.                 |                                                           |
+| **2. Expected‑return convergence**                              | \(\displaystyle\lim_{z\to\infty} U_i(\omega_z)=U_i(\omega^\star)\;\forall i\) (Eq. 5.4)                                               | The *outcome* (payoff) matches some equilibrium even if policies keep oscillating.                                                                        | Infinitesimal Gradient Ascent (IGA); TD variants in weakly acyclic games.   |                                                           |
+| **3. Empirical‑distribution convergence (policy averaging)**    | \(\displaystyle\lim_{z\to\infty} \bar{\omega}_z = \omega^\star\) (Eq. 5.5)                                                            | Time‑averaged play converges; individual snapshots may not.                                                                                               | Fictitious Play in potential & zero‑sum games; external‑regret learners.    |                                                           |
+| **4. Empirical‑distribution convergence *to the solution set*** |  For every \( \epsilon>0\exists z_0:\,\forall z>z_0\,\exists\,\omega^\star\) with \(d(\bar{\omega}_z,\omega^\star)<\epsilon\) (Eq. 5.7) | The average policy stays arbitrarily close to *some* equilibrium but may wander inside the set.                                                           | Regret‑matching → (coarse) correlated equilibrium; Online Mirror Descent.   |                                                           |
+| **5. Average‑return convergence**                               | \(\displaystyle\lim_{z\to\infty}\,\bar{U}^z_i = U_i(\omega^\star)\;\forall i\) (Eq. 5.8)                                              | Running mean of returns stabilises at equilibrium value; no guarantee on policies.                                                                        | Many actor‑critic schemes; Independent Q‑learning under certain scheduling. |                                                           |
+| **6. Regret convergence (learning‑theoretic view)**             | \(\displaystyle\frac{1}{T}\sum_{t=1}^{T}\bigl(u_i(a^\star_i,a_{-i}^t)-u_i(a_i^t,a_{-i}^t)\bigr)\xrightarrow[T\to\infty]{}0\)          | **Zero external regret** ⇒ empirical play approaches the **coarse correlated‑equilibrium** set; **zero internal / swap regret** ⇒ correlated equilibrium. | Hedge/EXP3, Online Mirror Descent, CFR in extensive‑form games.             | (Discussed after Eq. 5.7)                                 |
+| **7. Exploitability / Best‑response gap**                       | \(\displaystyle\text{exploit}(\omega_z)=\max_{\omega’} U(\omega’,\omega_z)\!-\!U(\omega_z,\omega_z)\xrightarrow[z\to\infty]{}0\)      | Value‑based metric widely used in poker solvers & AlphaStar; can be monitored in finite time.                                                             | CFR(+), PSRO, Neural fictitious self‑play.                                  | (Notated elsewhere in the book; standard in MARL papers.) |
 | **8. Almost‑sure vs. in‑probability qualifiers**                | Add “w\.p. 1” to any limit above                                                                                                    | Makes the statement probabilistic because updates are stochastic.                                                                                         | Stochastic‑approximation proofs (Borkar & Meyn).                            | Footnote near Eq. 5.5                                     |
-| **9. Finite‑time PAC‑style bounds**                             | $P\!\left(\|\omega_T-\omega^\star\|>\epsilon\right)<\delta$ after $T(\epsilon,\delta)$ samples                                      | Gives *rates* rather than asymptotic assurance; still rare in MARL.                                                                                       | Recent PAC‑MARL & OL‑MARL theory (e.g., Daskalakis et al. 2020).            | Outside Chapter 5; included for completeness.             |
+| **9. Finite‑time PAC‑style bounds**                             | \(P\!\left(\|\omega_T-\omega^\star\|>\epsilon\right)<\delta\) after \(T(\epsilon,\delta)\) samples                                      | Gives *rates* rather than asymptotic assurance; still rare in MARL.                                                                                       | Recent PAC‑MARL & OL‑MARL theory (e.g., Daskalakis et al. 2020).            | Outside Chapter 5; included for completeness.             |
 
 ---
 
@@ -440,7 +440,7 @@ Below is a consolidated **“vocabulary of convergence”** that appears most of
 | **Explicitly targets a Nash / minimax solution** (e.g., Nash‑Q, Minimax‑Q) | Value of exploitability or best‑response gap                        | Directly measures distance to the desired equilibrium.  |
 | **Runs regret‑minimisation** (Hedge, CFR)                                  | External / internal regret, plus empirical distribution convergence | Aligns with theoretical guarantees.                     |
 | **Uses deep RL in large stochastic games**                                 | Expected return curves **and** average‑return convergence checks    | Full policy comparison is infeasible; value is a proxy. |
-| **Has provable point‑wise convergence only in tiny games**                 | Track policy distance $\|\omega_z-\omega_{z-1}\|$ and plateaus      | Confirm that the strong guarantee manifests.            |
+| **Has provable point‑wise convergence only in tiny games**                 | Track policy distance \(\|\omega_z-\omega_{z-1}\|\) and plateaus      | Confirm that the strong guarantee manifests.            |
 
 Monitoring the *right* convergence metric saves you from false positives (e.g., pretty score curves that hide cycling policies) and from over‑engineering when weaker, easier‑to‑measure criteria suffice.
 
@@ -464,15 +464,15 @@ Below I still give a **self‑contained, equation‑level explanation of the “
 
 | Symbol                             | Meaning                                                             |
 | ---------------------------------- | ------------------------------------------------------------------- |
-| $N=\{1,\dots,n\}$                  | Finite set of agents.                                               |
-| $S$                                | Finite or measurable **state** space.                               |
-| $A_i$                              | Finite or continuous **action** set of agent $i$.                   |
-| $A=\prod_i A_i$                    | **Joint action** space.                                             |
-| $P(s' \mid s,a)$                   | State‑transition kernel (Markov or POMDP belief).                   |
-| $r_i(s,a)$                         | Instantaneous reward to agent $i$.                                  |
-| $\gamma\in[0,1)$                   | Discount factor.                                                    |
-| $\pi_i(a_i\mid s;\,\theta_i)$      | Parameterised policy of agent $i$ with parameters $\theta_i$.       |
-| $\omega=(\theta_1,\dots,\theta_n)$ | **Joint policy parameters** (the chapter denotes this by $\omega$). |
+| \(N=\{1,\dots,n\}\)                  | Finite set of agents.                                               |
+| \(S\)                                | Finite or measurable **state** space.                               |
+| \(A_i\)                              | Finite or continuous **action** set of agent \(i\).                   |
+| \(A=\prod_i A_i\)                    | **Joint action** space.                                             |
+| \(P(s' \mid s,a)\)                   | State‑transition kernel (Markov or POMDP belief).                   |
+| \(r_i(s,a)\)                         | Instantaneous reward to agent \(i\).                                  |
+| \(\gamma\in[0,1)\)                   | Discount factor.                                                    |
+| \(\pi_i(a_i\mid s;\,\theta_i)\)      | Parameterised policy of agent \(i\) with parameters \(\theta_i\).       |
+| \(\omega=(\theta_1,\dots,\theta_n)\) | **Joint policy parameters** (the chapter denotes this by \(\omega\)). |
 
 The tuple
 
@@ -480,16 +480,16 @@ $$
 \mathcal{G}=\bigl(N,S,\{A_i\}_{i=1}^n,P,\{r_i\}_{i=1}^n,\gamma \bigr)
 $$
 
-is a **Markov (stochastic) game**.  Single‑agent RL is recovered when $n=1$.
+is a **Markov (stochastic) game**.  Single‑agent RL is recovered when \(n=1\).
 
 ---
 
 ## 2 The generic MARL learning loop
 
-At an **outer iteration index** $z=0,1,2,\dots$:
+At an **outer iteration index** \(z=0,1,2,\dots\):
 
 1. **Roll‑out / data collection**
-   Use the current joint policy $\omega_z$ to generate a trajectory (or mini‑batch)
+   Use the current joint policy \(\omega_z\) to generate a trajectory (or mini‑batch)
 
    $$
    h_z=\bigl\{(s_t,a_t,r_t,s_{t+1})\bigr\}_{t=0}^{T_z-1}.
@@ -511,29 +511,29 @@ At an **outer iteration index** $z=0,1,2,\dots$:
 
    where
 
-   * $\alpha_z>0$ is the step‑size, satisfying
-     $\sum_z \alpha_z=\infty,\;\sum_z \alpha_z^2<\infty$ for almost‑sure convergence in stochastic‑approximation theory.
-   * $\Gamma$ is a **projection operator** onto a compact set (e.g., probability simplex) to keep parameters legal.
+   * \(\alpha_z>0\) is the step‑size, satisfying
+     \(\sum_z \alpha_z=\infty,\;\sum_z \alpha_z^2<\infty\) for almost‑sure convergence in stochastic‑approximation theory.
+   * \(\Gamma\) is a **projection operator** onto a compact set (e.g., probability simplex) to keep parameters legal.
 
 3. **Stopping or convergence check** (see Section 4).
 
-> **Interpretation.**  Equation (1) is the canonical Robbins–Monro recursion with noise; every concrete algorithm—Q‑learning, policy gradient, regret matching, WoLF‑PHC—instantiates a specific $\mathcal{L}$.
+> **Interpretation.**  Equation (1) is the canonical Robbins–Monro recursion with noise; every concrete algorithm—Q‑learning, policy gradient, regret matching, WoLF‑PHC—instantiates a specific \(\mathcal{L}\).
 
 ---
 
-## 3 Typical instantiations of $\mathcal{L}$
+## 3 Typical instantiations of \(\mathcal{L}\)
 
 ### 3.1 Centralised value‑based update (Central Q‑Learning)
 
-One “super‑agent” controls the joint action $a\in A$.
+One “super‑agent” controls the joint action \(a\in A\).
 
 $$
 Q_{z+1}(s,a)=Q_z(s,a)+\alpha_z\Bigl[r_{\text{team}}+\gamma\max_{a'}Q_z(s',a')-Q_z(s,a)\Bigr].
 \tag{2}
 $$
 
-The policy is usually $\epsilon$-greedy or softmax over $Q$.
-Because the action space size is $\prod_i|A_i|$, the state–action table grows exponentially with $n$.
+The policy is usually \(\epsilon\)-greedy or softmax over \(Q\).
+Because the action space size is \(\prod_i|A_i|\), the state–action table grows exponentially with \(n\).
 
 ### 3.2 Independent Q‑Learning (IQL)
 
@@ -544,7 +544,7 @@ Q^{(i)}_{z+1}(s,a_i)=Q^{(i)}_z(s,a_i)+\alpha^{(i)}_z\Bigl[r_i+\gamma\max_{a_i'}Q
 \tag{3}
 $$
 
-Non‑stationarity arises because the transition $P$ and reward $r_i$ now evolve with the co‑learners’ changing policies.
+Non‑stationarity arises because the transition \(P\) and reward \(r_i\) now evolve with the co‑learners’ changing policies.
 
 ### 3.3 Actor–Critic with centralised critic (CTDE)
 
@@ -561,22 +561,22 @@ Non‑stationarity arises because the transition $P$ and reward $r_i$ now evolve
   \tag{4}
   $$
 
-  Advantage $\widehat{A}$ may depend on the global joint action thanks to the central critic.
+  Advantage \(\widehat{A}\) may depend on the global joint action thanks to the central critic.
 
 ### 3.4 Gradient dynamics toward Nash (WoLF‑PHC prototype)
 
-For a two‑player game with mixed strategies $x,y$ in the simplex:
+For a two‑player game with mixed strategies \(x,y\) in the simplex:
 
 $$
 x_{z+1}=x_z+\alpha_z\,\mathrm{diag}(x_z)\!\bigl( A y_z - \langle x_z, A y_z\rangle\mathbf{1}\bigr),
 \tag{5}
 $$
 
-and symmetrically for $y$.  Equation (5) is the **replicator gradient**; WoLF modifies $\alpha_z$ (“Win or Learn Fast”) to stabilise at the mixed‑strategy Nash.
+and symmetrically for \(y\).  Equation (5) is the **replicator gradient**; WoLF modifies \(\alpha_z\) (“Win or Learn Fast”) to stabilise at the mixed‑strategy Nash.
 
 ### 3.5 No‑regret (external) learners
 
-Each agent maintains weights $w_i^t$ over actions and updates via Hedge/Exp3:
+Each agent maintains weights \(w_i^t\) over actions and updates via Hedge/Exp3:
 
 $$
 w_{i,a}^{t+1}=w_{i,a}^t \exp\!\bigl(-\eta_t\,\ell_{i,a}^t\bigr),\quad
@@ -584,32 +584,32 @@ w_{i,a}^{t+1}=w_{i,a}^t \exp\!\bigl(-\eta_t\,\ell_{i,a}^t\bigr),\quad
 \tag{6}
 $$
 
-Here $\ell_{i,a}^t$ is the estimated regret for **not** having played $a$.
-With $\eta_t\propto1/\sqrt{t}$, external regret satisfies
-$\text{Regret}_i(T)=\mathcal{O}(\sqrt{T})$,
+Here \(\ell_{i,a}^t\) is the estimated regret for **not** having played \(a\).
+With \(\eta_t\propto1/\sqrt{t}\), external regret satisfies
+\(\text{Regret}_i(T)=\mathcal{O}(\sqrt{T})\),
 and the empirical joint distribution converges to the **coarse correlated‑equilibrium** set.
 
 ---
 
 ## 4 Formal convergence criteria (recap)
 
-Let $U_i(\omega)$ be the expected $\gamma$-discounted return for agent $i$.
+Let \(U_i(\omega)\) be the expected \(\gamma\)-discounted return for agent \(i\).
 Common definitions—listed from strongest to weakest—are:
 
 1. **Policy fixation**
-   $\displaystyle \lim_{z\to\infty}\omega_z=\omega^\star.$
+   \(\displaystyle \lim_{z\to\infty}\omega_z=\omega^\star.\)
 
 2. **Value convergence**
-   $\displaystyle \lim_{z\to\infty} U_i(\omega_z) = U_i(\omega^\star)\ \forall i.$
+   \(\displaystyle \lim_{z\to\infty} U_i(\omega_z) = U_i(\omega^\star)\ \forall i.\)
 
 3. **Empirical‑distribution convergence**
-   $\bar{\omega}_Z=\frac1Z\sum_{z=0}^{Z-1}\omega_z \xrightarrow[Z\to\infty]{} \omega^\star.$
+   \(\bar{\omega}_Z=\frac1Z\sum_{z=0}^{Z-1}\omega_z \xrightarrow[Z\to\infty]{} \omega^\star.\)
 
 4. **Zero external regret**
-   $\displaystyle\max_{a_i} \frac1T\sum_{t=1}^{T}\bigl(u_i(a_i,a_{-i}^t)-u_i(a_i^t,a_{-i}^t)\bigr)\xrightarrow[T\to\infty]{}0.$
+   \(\displaystyle\max_{a_i} \frac1T\sum_{t=1}^{T}\bigl(u_i(a_i,a_{-i}^t)-u_i(a_i^t,a_{-i}^t)\bigr)\xrightarrow[T\to\infty]{}0.\)
 
 5. **Exploitability gap** (two‑player zero‑sum)
-   $\displaystyle\max_{\omega_i'} U_1(\omega_1',\omega_2)-U_1(\omega_1,\omega_2)\xrightarrow[z\to\infty]{}0.$
+   \(\displaystyle\max_{\omega_i'} U_1(\omega_1',\omega_2)-U_1(\omega_1,\omega_2)\xrightarrow[z\to\infty]{}0.\)
 
 Choice of metric dictates which algorithmic template (Sec. 3) is appropriate and what step‑size schedules are valid.
 
@@ -624,8 +624,8 @@ $$
 \tag{7}
 $$
 
-where $d_{\omega}$ is the (possibly stationary) state distribution induced by $\omega$.
-If the ODE has a **globally asymptotically stable** set $ \mathcal{E}$ (e.g., the set of Nash equilibria in a two‑player zero‑sum game), then standard results (Borkar & Meyn 2000) guarantee
+where \(d_{\omega}\) is the (possibly stationary) state distribution induced by \(\omega\).
+If the ODE has a **globally asymptotically stable** set \( \mathcal{E}\) (e.g., the set of Nash equilibria in a two‑player zero‑sum game), then standard results (Borkar & Meyn 2000) guarantee
 
 $$
 \operatorname{dist}(\omega_z,\mathcal{E})\xrightarrow[z\to\infty]{}0\quad\text{with probability 1}.
@@ -640,17 +640,17 @@ This perspective is what underlies the chapter’s Figure 5.5 spiral: the disc
 * **Pick the weakest convergence notion that suffices for your application.**
   For safety‑critical multi‑robot teams, you might require policy fixation; for video‑game AI, average‑return stability may be enough.
 * **Ensure step‑sizes satisfy Robbins–Monro conditions** or adopt Adam‑style decays that approximate them.
-* **Project back to the legal set** (probability simplex, bounded weights) each update—this is the $\Gamma$ in Eq. (1).
+* **Project back to the legal set** (probability simplex, bounded weights) each update—this is the \(\Gamma\) in Eq. (1).
 * **Monitor multiple metrics** (regret, exploitability, return variance) to detect cycling even when rewards seem stable.
 
 ---
 
 ### Summary
 
-The chapter’s “general learning process” is mathematically nothing more than a **stochastic‐approximation fixed‑point search** over the space of joint policies.  Equation (1) is the umbrella; Equations (2)–(6) are concrete incarnations obtained by plugging in a particular learning operator $ \mathcal{L}$.  Convergence then hinges on:
+The chapter’s “general learning process” is mathematically nothing more than a **stochastic‐approximation fixed‑point search** over the space of joint policies.  Equation (1) is the umbrella; Equations (2)–(6) are concrete incarnations obtained by plugging in a particular learning operator \( \mathcal{L}\).  Convergence then hinges on:
 
 1. **Game structure** (zero‑sum, potential, general‑sum).
-2. **Update map $F$** (gradient, TD error, regret, etc.).
+2. **Update map \(F\)** (gradient, TD error, regret, etc.).
 3. **Step‑size schedule** and projection.
 4. **Chosen convergence metric** (policy, value, regret, exploitability).
 
@@ -667,12 +667,12 @@ Below is an equation‑level walkthrough of the **general learning process in mu
 
 | Element                            | Mathematical object                                                                                                                                                                 | Where it is defined                   |
 | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
-| **Game model**                     | $\mathcal G=(N,S,\{A_i\},P,\{r_i\},\gamma)$<br>with $N$ agents, state space $S$, individual action sets $A_i$, transition kernel $P$, reward functions $r_i$ and discount $\gamma$. | Figure 5.1 and text introducing § 5.1 |
-| **Joint policy at episode $e$**    | $\omega_e=\bigl(\pi_{1,e},\dots,\pi_{n,e}\bigr)$.  Each $\pi_{i,e}$ may map **histories** to probability distributions over $A_i$.                                                  |                                       |
-| **Histories within an episode**    | $h_t^e=(s_0,a_0,\dots,s_t)$   (variants depend on the game model).                                                                                                                  |                                       |
-| **Data buffer after $z$ episodes** | $\displaystyle D^{z}=\{\,h_{t}^{e}\mid e=1,\dots ,z\}\qquad (5.1)$                                                                                                                  |                                       |
-| **Learning operator**              | $L:\bigl(D^{z},\omega_{z}\bigr)\mapsto\omega_{z+1}\qquad (5.2)$                                                                                                                     |                                       |
-| **Learning goal**                  | Find $\omega_\infty$ that satisfies a chosen solution concept (e.g., Nash, correlated, minimax).                                                                                    |                                       |
+| **Game model**                     | \(\mathcal G=(N,S,\{A_i\},P,\{r_i\},\gamma)\)<br>with \(N\) agents, state space \(S\), individual action sets \(A_i\), transition kernel \(P\), reward functions \(r_i\) and discount \(\gamma\). | Figure 5.1 and text introducing § 5.1 |
+| **Joint policy at episode \(e\)**    | \(\omega_e=\bigl(\pi_{1,e},\dots,\pi_{n,e}\bigr)\).  Each \(\pi_{i,e}\) may map **histories** to probability distributions over \(A_i\).                                                  |                                       |
+| **Histories within an episode**    | \(h_t^e=(s_0,a_0,\dots,s_t)\)   (variants depend on the game model).                                                                                                                  |                                       |
+| **Data buffer after \(z\) episodes** | \(\displaystyle D^{z}=\{\,h_{t}^{e}\mid e=1,\dots ,z\}\qquad (5.1)\)                                                                                                                  |                                       |
+| **Learning operator**              | \(L:\bigl(D^{z},\omega_{z}\bigr)\mapsto\omega_{z+1}\qquad (5.2)\)                                                                                                                     |                                       |
+| **Learning goal**                  | Find \(\omega_\infty\) that satisfies a chosen solution concept (e.g., Nash, correlated, minimax).                                                                                    |                                       |
 
 <div align="center">*(Figure 5.1 in the chapter puts these elements into the familiar “collect → learn → deploy” loop.)*</div>
 
@@ -680,10 +680,10 @@ Below is an equation‑level walkthrough of the **general learning process in mu
 
 ## 2 Formal recursion
 
-For episode counter $z=0,1,2,\dots$:
+For episode counter \(z=0,1,2,\dots\):
 
 1. **Data collection**
-   Roll out $\omega_z$ in $\mathcal G$ to generate $h_t^z$ for $t=0,\dots ,T_z-1$.
+   Roll out \(\omega_z\) in \(\mathcal G\) to generate \(h_t^z\) for \(t=0,\dots ,T_z-1\).
 
 2. **Update**
 
@@ -691,7 +691,7 @@ For episode counter $z=0,1,2,\dots$:
    \boxed{\;\omega_{z+1}=L\bigl(D^{\,z},\omega_{z}\bigr)\;}\qquad \text{(Eq. 5.2)}
    $$
 
-   *$L$ is a black‑box placeholder: Q‑learning, policy gradient, regret matching, etc.*
+   *\(L\) is a black‑box placeholder: Q‑learning, policy gradient, regret matching, etc.*
 
 3. **Repeat** until a stop criterion or a convergence definition (next section) is met.
 
@@ -699,25 +699,25 @@ For episode counter $z=0,1,2,\dots$:
 
 ## 3 Policy‑conditioning subtleties
 
-* **Non‑repeated normal‑form game:** $\pi_i$ ignores history → simply a distribution over $A_i$.
-* **Repeated normal‑form:** $\pi_i\bigl(a_i\mid a_{0:t-1}\bigr)$.
-* **Stochastic game:** $\pi_i\bigl(a_i\mid s_{0:t},a_{0:t-1}\bigr)$.
-* **POSG:** $\pi_i\bigl(a_i\mid o_{0:t}^i\bigr)$.
+* **Non‑repeated normal‑form game:** \(\pi_i\) ignores history → simply a distribution over \(A_i\).
+* **Repeated normal‑form:** \(\pi_i\bigl(a_i\mid a_{0:t-1}\bigr)\).
+* **Stochastic game:** \(\pi_i\bigl(a_i\mid s_{0:t},a_{0:t-1}\bigr)\).
+* **POSG:** \(\pi_i\bigl(a_i\mid o_{0:t}^i\bigr)\).
 
-Only *training* may see full histories; the deployed policy can be restricted—e.g., CTDE regimes where $L$ sees everyone’s observations, but each $\pi_i$ ultimately receives only its local view.
+Only *training* may see full histories; the deployed policy can be restricted—e.g., CTDE regimes where \(L\) sees everyone’s observations, but each \(\pi_i\) ultimately receives only its local view.
 
 ---
 
-## 4 Canonical instantiations of $L$
+## 4 Canonical instantiations of \(L\)
 
-| Instantiation $L$           | Update rule (schematic)                                                                                     | Typical assumptions                             |
+| Instantiation \(L\)           | Update rule (schematic)                                                                                     | Typical assumptions                             |
 | --------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| **Central Q‑learning**      | $Q(s,a)\gets Q+\alpha\,[r+\gamma\max_{a'}Q(s',a')-Q(s,a)]$; derive $\omega$ from $Q$.                       | Common reward; small joint $A$.                 |
-| **Independent Q‑learning**  | Each agent $i$:  $Q_i(s,a_i)\!\gets\!Q_i+\alpha\,[r_i+\gamma\max_{a_i'}Q_i(s',a_i')-Q_i(s,a_i)]$.           | Scalability; suffers non‑stationarity.          |
-| **Actor–Critic (CTDE)**     | Central critic $v_\phi$, per‑agent gradient step on $\theta_i$ using advantage $\hat A$.                    | Partial observability; decentralised execution. |
-| **Regret‑matching / Hedge** | Weight update $w_{i,a}\propto e^{-\eta\,\widehat{\text{regret}}_{i,a}}$; derive $\pi_i$ by normalising $w$. | Seeks correlated equilibria.                    |
+| **Central Q‑learning**      | \(Q(s,a)\gets Q+\alpha\,[r+\gamma\max_{a'}Q(s',a')-Q(s,a)]\); derive \(\omega\) from \(Q\).                       | Common reward; small joint \(A\).                 |
+| **Independent Q‑learning**  | Each agent \(i\):  \(Q_i(s,a_i)\!\gets\!Q_i+\alpha\,[r_i+\gamma\max_{a_i'}Q_i(s',a_i')-Q_i(s,a_i)]\).           | Scalability; suffers non‑stationarity.          |
+| **Actor–Critic (CTDE)**     | Central critic \(v_\phi\), per‑agent gradient step on \(\theta_i\) using advantage \(\hat A\).                    | Partial observability; decentralised execution. |
+| **Regret‑matching / Hedge** | Weight update \(w_{i,a}\propto e^{-\eta\,\widehat{\text{regret}}_{i,a}}\); derive \(\pi_i\) by normalising \(w\). | Seeks correlated equilibria.                    |
 
-All fit under Eq. (5.2) once their internal replay buffers and parameter vectors are folded into $D^{z}$ and $\omega_z$.
+All fit under Eq. (5.2) once their internal replay buffers and parameter vectors are folded into \(D^{z}\) and \(\omega_z\).
 
 ---
 
@@ -741,7 +741,7 @@ Full derivations and the empirical‑distribution formula (5.6) are on pp. 92�
 
 ## 6 Link to stochastic‑approximation theory (informal)
 
-With a step‑size $\alpha_z$ that satisfies $\sum_z\alpha_z=\infty,\;\sum_z\alpha_z^2<\infty$, many concrete $L$ operators make the discrete recursion track the ODE
+With a step‑size \(\alpha_z\) that satisfies \(\sum_z\alpha_z=\infty,\;\sum_z\alpha_z^2<\infty\), many concrete \(L\) operators make the discrete recursion track the ODE
 
 $$
 \dot\omega(t)=F\bigl(\omega(t)\bigr)=\mathbb E_{(s,a)\sim d_{\omega}}\![\Delta\omega],
@@ -774,12 +774,12 @@ Replace the single call to **L** with any of the update rules in Section 4 to 
 
 ### Key take‑aways
 
-1. **Eq. (5.1) and (5.2) are the entire learning loop in two lines**; all MARL algorithms specialise the set $D^{z}$ they store and the operator $L$ they apply.
+1. **Eq. (5.1) and (5.2) are the entire learning loop in two lines**; all MARL algorithms specialise the set \(D^{z}\) they store and the operator \(L\) they apply.
 2. **Policy conditioning and data access need not match**—centralised critics or opponent models can leverage richer information than the final policies will receive.
 3. **Choose the weakest convergence metric that suffices for your application** (policy fixation for safety‑critical control, empirical distribution for large‑scale games, etc.).
 4. **Step‑size schedules and projections are implicit but crucial** for the stochastic‑approximation machinery that justifies many theoretical guarantees.
 
-With these mathematical bones in place, the rest of the chapter (and the book) shows how different algorithm families flesh out $L$ to tackle non‑stationarity, credit assignment, equilibrium selection and scalability.
+With these mathematical bones in place, the rest of the chapter (and the book) shows how different algorithm families flesh out \(L\) to tackle non‑stationarity, credit assignment, equilibrium selection and scalability.
 
 ---
 
@@ -792,10 +792,10 @@ Below is a **conceptual “wiring diagram”** that shows how the *chosen game m
 
 | Tag                           | What it changes mathematically                                                                                                  | Typical motivation                                                       |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| **ε‑approximation**           | Accept any policy $\hat\omega$ such that the best‑response gap ≤ ε (or distance ≤ ε, Eq. 5.7)                                   | Makes PPAD‑hard equilibrium problems computable; absorbs sampling noise. |
+| **ε‑approximation**           | Accept any policy \(\hat\omega\) such that the best‑response gap ≤ ε (or distance ≤ ε, Eq. 5.7)                                   | Makes PPAD‑hard equilibrium problems computable; absorbs sampling noise. |
 | **Pareto filter**             | Keep only solutions that are Pareto‑optimal in the component‑wise reward order (used in CQL proof)                              | Removes “weak” equilibria in cooperative or no‑conflict games.           |
 | **Welfare / fairness filter** | Retain solutions that maximise a social‑welfare or fairness objective (Chapter 4.9, invoked again for equilibrium selection)    | Enforces societal or regulatory desiderata—e.g., equal pay‑offs.         |
-| **Learning‑time metric**      | Bind convergence guarantees to a budget $T$ (“learn within 10⁶ steps”) instead of $T\to\infty$.                                 | Needed when episodes are expensive (real robots, markets).               |
+| **Learning‑time metric**      | Bind convergence guarantees to a budget \(T\) (“learn within 10⁶ steps”) instead of \(T\to\infty\).                                 | Needed when episodes are expensive (real robots, markets).               |
 | **Computational caveat**      | Declare constraints such as: “policy class is linear”, “critics fit in GPU memory”, “joint action table must be ≤ 10⁷ entries”. | Keeps the loop feasible; guides algorithm choice (CQL vs IQL trade‑off). |
 
 ---
@@ -855,7 +855,7 @@ Conversely, if your infrastructure forbids reward shaping (e.g., each agent is a
 
 ### 3.5 Computation ↔ tags ↔ algorithm
 
-The chapter quantifies how the joint‑action space grows as $|A|=\prod_i|A_i|$; CQL’s table becomes intractable beyond a handful of agents .  To respect the caveat “GPU memory < 16 GB” you may:
+The chapter quantifies how the joint‑action space grows as \(|A|=\prod_i|A_i|\); CQL’s table becomes intractable beyond a handful of agents .  To respect the caveat “GPU memory < 16 GB” you may:
 
 1. Switch to IQL or factorised critics (changes **algorithm**).
 2. Inflate ε (allow looser approximation).
@@ -892,10 +892,10 @@ Following this loop ensures that **each choice you make (model ↔ solution ↔ 
 
 | Element          | Formal description                                                                                                                               | Intuitive role                                                               |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
-| **Nodes V**      | A finite set  $V=\{X_1,\dots ,X_n\}$ of *random variables* (or constructs)                                                                       | The things we can observe or theorise about (e.g., **Money**, **Happiness**) |
-| **Edges E**      | An ordered set of arrows  $E\subseteq V\times V$.  An arrow  $X_i\!\to\! X_j$ encodes the assumption “$X_i$ is a *direct* cause of $X_j$”        | Visual statement of the cause‑→‑effect assumption                            |
+| **Nodes V**      | A finite set  \(V=\{X_1,\dots ,X_n\}\) of *random variables* (or constructs)                                                                       | The things we can observe or theorise about (e.g., **Money**, **Happiness**) |
+| **Edges E**      | An ordered set of arrows  \(E\subseteq V\times V\).  An arrow  \(X_i\!\to\! X_j\) encodes the assumption “\(X_i\) is a *direct* cause of \(X_j\)”        | Visual statement of the cause‑→‑effect assumption                            |
 | **Acyclicity**   | The graph contains **no directed cycles** (there is no path that starts and ends at the same node following arrow directions)                    | Prevents logical contradictions such as “A causes itself”                    |
-| **Causal model** | Together, $(V,E)$ state *all* direct causal claims in a domain; statistical associations *not* justified by these arrows are treated as spurious | Lets us distinguish genuine effects from mere correlations                   |
+| **Causal model** | Together, \((V,E)\) state *all* direct causal claims in a domain; statistical associations *not* justified by these arrows are treated as spurious | Lets us distinguish genuine effects from mere correlations                   |
 
 > In the chapter’s *Figure 1.1* (page 18) the authors draw a single arrow **Money → Happiness** to capture the hypothesis that giving people more money *causes* them to become happier.﻿
 
