@@ -59,6 +59,12 @@ baseURL = "https://13ryanC.github.io/"
 
 Update `baseURL` for your own GitHub Pages URL and tweak theme parameters as needed.
 
+### Math authoring guidelines
+
+- **Display math:** use `$$ … $$` or `\[ … \]`. These delimiters are passed straight through Goldmark, so no `{{< raw >}}` shortcode is required.
+- **Inline math:** prefer `\( … \)` so underscores and braces survive Markdown parsing. Avoid bare `$…$`, which still risks accidental emphasis.
+- **Escaping:** when you really need a literal dollar sign, write `\$`. Within math blocks you can use standard LaTeX commands without doubling backslashes.
+
 ## Project Roadmap & Status
 
 ![status](https://img.shields.io/badge/status-beta-blue.svg?style=flat-square)
@@ -87,4 +93,3 @@ all rights reserved.
 ## Acknowledgements / Sponsors
 
 Built with the [PaperMod](https://github.com/adityatelange/hugo-PaperMod) theme and inspired by the wider open-source community.
-
