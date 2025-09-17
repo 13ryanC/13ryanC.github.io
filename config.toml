@@ -131,4 +131,10 @@ enableGitInfo = true          # ask Hugo to query Git history
 
   [markup.goldmark.extensions]
     footnote = true            # optional, useful for citations/notes
-    # passthrough = true
+
+    [markup.goldmark.extensions.passthrough]
+      enable = true
+
+      [markup.goldmark.extensions.passthrough.delimiters]
+        block = [['\[', '\]'], ['$$', '$$']]
+        inline = [['\(', '\)']]
