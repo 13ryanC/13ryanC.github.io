@@ -19,7 +19,7 @@ sources:
 
 ### 1.1  The sample‑complexity bottleneck
 
-*In large Markov Decision Processes (MDPs) the number of distinct state–action pairs that must be visited to obtain high‑confidence estimates of transition and reward parameters grows at least linearly with the cardinality of the raw state space.* When $|S|$ is huge (e.g., grids, robotic sensors, or combinatorial feature sets) any method whose error bounds contain a factor $|S|$ becomes impractical.&#x20;
+*In large Markov Decision Processes (MDPs) the number of distinct state–action pairs that must be visited to obtain high‑confidence estimates of transition and reward parameters grows at least linearly with the cardinality of the raw state space.* When \(|S|\) is huge (e.g., grids, robotic sensors, or combinatorial feature sets) any method whose error bounds contain a factor \(|S|\) becomes impractical.&#x20;
 
 ### 1.2  Definition and basic mechanism
 
@@ -29,18 +29,18 @@ $$
 \phi : S \;\longrightarrow\;S_\phi,\qquad |S_\phi|\ll |S|,
 $$
 
-with associated equivalence relation $s_1 \sim_\phi s_2 \;\Leftrightarrow\; \phi(s_1)=\phi(s_2)$.
-Given a trajectory dataset $D=\{(s,a,r,s')\}$, we replace each tuple by $(\phi(s),a,r,\phi(s'))$ and run any tabular RL or planning algorithm on the compressed state space $S_\phi$. &#x20;
+with associated equivalence relation \(s_1 \sim_\phi s_2 \;\Leftrightarrow\; \phi(s_1)=\phi(s_2)\).
+Given a trajectory dataset \(D=\{(s,a,r,s')\}\), we replace each tuple by \((\phi(s),a,r,\phi(s'))\) and run any tabular RL or planning algorithm on the compressed state space \(S_\phi\). &#x20;
 
 ### 1.3  Effective sample‑size amplification
 
-If $n_{s,a}$ denotes the number of primitive samples for $(s,a)$ and $k$ ground states collapse into one abstract state $x=\phi(s)$, the post‑abstraction count becomes
+If \(n_{s,a}\) denotes the number of primitive samples for \((s,a)\) and \(k\) ground states collapse into one abstract state \(x=\phi(s)\), the post‑abstraction count becomes
 
 $$
 n_{x,a} \;=\; \sum_{s:\phi(s)=x} n_{s,a}.
 $$
 
-Because estimation error in concentration bounds (e.g., Hoeffding, Bernstein) scales like $O(1/\sqrt{n_{x,a}})$, merging statistically similar states *reduces variance* without collecting extra data.&#x20;
+Because estimation error in concentration bounds (e.g., Hoeffding, Bernstein) scales like \(O(1/\sqrt{n_{x,a}})\), merging statistically similar states *reduces variance* without collecting extra data.&#x20;
 
 ### 1.4  Generalisation and transfer
 
@@ -48,7 +48,7 @@ Abstraction enables **generalisation**: knowledge gleaned in one member of an eq
 
 ### 1.5  Computational savings in planning
 
-In dynamic‑programming methods (value‑iteration, policy‑iteration, linear programming) the dominant cost per sweep is $O(|S||A|)$. Replacing $|S|$ by $|S_\phi|$ yields linear speed‑ups and reduced memory footprint, making exact planning feasible even when the ground model is known but large. The authors of the *coffee* and *taxi* case studies show reductions from 500 to 6 abstract states under the most permissive scheme (π\*-irrelevance), enabling real‑time optimal control.&#x20;
+In dynamic‑programming methods (value‑iteration, policy‑iteration, linear programming) the dominant cost per sweep is \(O(|S||A|)\). Replacing \(|S|\) by \(|S_\phi|\) yields linear speed‑ups and reduced memory footprint, making exact planning feasible even when the ground model is known but large. The authors of the *coffee* and *taxi* case studies show reductions from 500 to 6 abstract states under the most permissive scheme (π\*-irrelevance), enabling real‑time optimal control.&#x20;
 
 ### 1.6  Robustness to irrelevant factors
 
@@ -63,7 +63,7 @@ Mapping every state to a single abstract state maximises sample reuse but destro
 ### Progress
 
 * Completed **Section 1** with full formal definitions, statistical rationale, computational arguments, and literature links.
-* Next task: expand **Section 2 – Trade‑off between effective sample size and approximation error**, providing formal definitions of $n_\phi(D)$, $\varepsilon_{\text{approx}}(\phi)$, and illustrative bounds.
+* Next task: expand **Section 2 – Trade‑off between effective sample size and approximation error**, providing formal definitions of \(n_\phi(D)\), \(\varepsilon_{\text{approx}}(\phi)\), and illustrative bounds.
 
 Open issues: none for Section 1; awaiting user feedback before proceeding to Section 2.
 
@@ -74,33 +74,33 @@ Open issues: none for Section 1; awaiting user feedback before proceeding to S
 
 ### 2.1  Formal setting and notation
 
-* **Ground MDP.** $M=(S,A,P,R,\gamma)$ with $|S|\gg1$.
-* **State abstraction.** A surjection $\phi:S\!\to\!S_{\phi}$.
-* **Dataset.** $D=\{(s_i,a_i,r_i,s_i')\}_{i=1}^N$ of transitions sampled from $M$.
+* **Ground MDP.** \(M=(S,A,P,R,\gamma)\) with \(|S|\gg1\).
+* **State abstraction.** A surjection \(\phi:S\!\to\!S_{\phi}\).
+* **Dataset.** \(D=\{(s_i,a_i,r_i,s_i')\}_{i=1}^N\) of transitions sampled from \(M\).
 * **Counts.**
 
-  * Primitive count: $n_{s,a}=|\{i:s_i=s,\,a_i=a\}|$.
-  * Abstract count: $n_{x,a}=|\{i:\phi(s_i)=x,\,a_i=a\}|=\sum_{s:\phi(s)=x}n_{s,a}$.
-  * **Minimum abstract count** (effective sample size)  $  n_\phi(D)\;:=\;\min_{x\in S_\phi,\;a\in A}\;n_{x,a}.$&#x20;
+  * Primitive count: \(n_{s,a}=|\{i:s_i=s,\,a_i=a\}|\).
+  * Abstract count: \(n_{x,a}=|\{i:\phi(s_i)=x,\,a_i=a\}|=\sum_{s:\phi(s)=x}n_{s,a}\).
+  * **Minimum abstract count** (effective sample size)  \(  n_\phi(D)\;:=\;\min_{x\in S_\phi,\;a\in A}\;n_{x,a}.\)&#x20;
 
 ### 2.2  Two sources of error
 
-1. **Estimation (statistical) error** arises from finite data when we estimate $R$ and $P$.  Under Hoeffding‑type concentration,
+1. **Estimation (statistical) error** arises from finite data when we estimate \(R\) and \(P\).  Under Hoeffding‑type concentration,
 
    $$
      \text{EstimationErr}(\phi,D)\;=\;\tilde O\!\Bigl(\;n_\phi(D)^{-1/2}\Bigr).
    $$
 
-   Doubling $n_{x,a}$ halves the confidence radius of $\widehat P(x,a)$ and $\widehat R(x,a)$.&#x20;
+   Doubling \(n_{x,a}\) halves the confidence radius of \(\widehat P(x,a)\) and \(\widehat R(x,a)\).&#x20;
 
-2. **Approximation (bias) error** is intrinsic to $\phi$.  After planning in the *abstract* MDP $M_\phi$ (built by averaging within each block; see Lemma 3 of Jiang), lift its optimal policy $\pi_{M_\phi}^\*$ back to $S$.  The worst‑case value loss is
+2. **Approximation (bias) error** is intrinsic to \(\phi\).  After planning in the *abstract* MDP \(M_\phi\) (built by averaging within each block; see Lemma 3 of Jiang), lift its optimal policy \(\pi_{M_\phi}^\*\) back to \(S\).  The worst‑case value loss is
 
    $$
      \varepsilon_{\text{approx}}(\phi)\;:=\;
        \bigl\|V_M^{\*}-V_M^{[\pi_{M_\phi}^{\*}]}\bigr\|_\infty.
    $$
 
-   For an $(\varepsilon_R,\varepsilon_P)$-approximate bisimulation abstraction, Jiang proves the bound
+   For an \((\varepsilon_R,\varepsilon_P)\)-approximate bisimulation abstraction, Jiang proves the bound
 
    $$
      \varepsilon_{\text{approx}}(\phi)
@@ -112,7 +112,7 @@ Open issues: none for Section 1; awaiting user feedback before proceeding to S
 ### 2.3  Decomposition theorem
 
 > **Theorem 2.1 (Bias–Variance Decomposition for Abstractions).**
-> Let $\phi$ be any abstraction and let $\widehat M_\phi$ be the certainty‑equivalence model estimated from $D$.  Then with probability at least $1-\delta$,
+> Let \(\phi\) be any abstraction and let \(\widehat M_\phi\) be the certainty‑equivalence model estimated from \(D\).  Then with probability at least \(1-\delta\),
 >
 > $$
 >   \Bigl\|V_M^{\*}-V_M^{[\pi_{\widehat M_\phi}^{\*}]}\Bigr\|_\infty
@@ -122,12 +122,12 @@ Open issues: none for Section 1; awaiting user feedback before proceeding to S
 >   \frac{R_{\max}}{(1-\gamma)^2}\sqrt{\frac{\ln\!\bigl(2|S_\phi||A|/\delta\bigr)}{2\,n_\phi(D)}}.
 > $$
 >
-> (Proof sketch.)  Triangle‑inequality splits loss into (i) difference between $M$ and its block‑averaged limit $M_\phi$ (bounded by Jiang’s Theorem 4) and (ii) deviation of $\widehat M_\phi$ from $M_\phi$.  Apply Hoeffding’s inequality to the empirical mean of bounded random variables in each abstract pair; use contraction of Bellman operator to scale by $1/(1-\gamma)^2$.&#x20;
+> (Proof sketch.)  Triangle‑inequality splits loss into (i) difference between \(M\) and its block‑averaged limit \(M_\phi\) (bounded by Jiang’s Theorem 4) and (ii) deviation of \(\widehat M_\phi\) from \(M_\phi\).  Apply Hoeffding’s inequality to the empirical mean of bounded random variables in each abstract pair; use contraction of Bellman operator to scale by \(1/(1-\gamma)^2\).&#x20;
 
 ### 2.4  Interplay of n\_φ(D) and ε\_approx(φ)
 
-* **Finer abstractions** (large $|S_\phi|$) → smaller $\varepsilon_{\text{approx}}$ but also smaller $n_\phi(D)$ because data are split more ways.
-* **Coarser abstractions** shrink $|S_\phi|$ and inflate $n_\phi(D)$, tightening statistical error, but risk large bias.
+* **Finer abstractions** (large \(|S_\phi|\)) → smaller \(\varepsilon_{\text{approx}}\) but also smaller \(n_\phi(D)\) because data are split more ways.
+* **Coarser abstractions** shrink \(|S_\phi|\) and inflate \(n_\phi(D)\), tightening statistical error, but risk large bias.
 * **Optimal granularity** solves
 
   $$
@@ -137,11 +137,11 @@ Open issues: none for Section 1; awaiting user feedback before proceeding to S
       C\;n_\phi(D)^{-1/2},
   $$
 
-  where $C=\tfrac{R_{\max}}{(1-\gamma)^2}\sqrt{\tfrac{\ln(2|S_\phi||A|/\delta)}{2}}$.  Jiang et al. show adaptive selection can be done by cross‑validation on held‑out trajectories.&#x20;
+  where \(C=\tfrac{R_{\max}}{(1-\gamma)^2}\sqrt{\tfrac{\ln(2|S_\phi||A|/\delta)}{2}}\).  Jiang et al. show adaptive selection can be done by cross‑validation on held‑out trajectories.&#x20;
 
 ### 2.5  Illustrative example
 
-In the *Taxi* benchmark (500 raw states), mapping every location‑passenger configuration to a single “abstract” cell yields $n_\phi(D)=N/6$ but destroys optimality; conversely, the bisimulation‑minimal abstraction preserves the exact model yet leaves $n_\phi(D)=\min_{s,a}n_{s,a}$.  Practical schemes merge only those grid cells sharing both local walls and passenger status, striking a balance where empirical value loss matches the theorem above (see Table 2, Li et al. p. 8: |$S_\phi$| drops from 500 to 381 under $a^\*$-irrelevance).&#x20;
+In the *Taxi* benchmark (500 raw states), mapping every location‑passenger configuration to a single “abstract” cell yields \(n_\phi(D)=N/6\) but destroys optimality; conversely, the bisimulation‑minimal abstraction preserves the exact model yet leaves \(n_\phi(D)=\min_{s,a}n_{s,a}\).  Practical schemes merge only those grid cells sharing both local walls and passenger status, striking a balance where empirical value loss matches the theorem above (see Table 2, Li et al. p. 8: |\(S_\phi\)| drops from 500 to 381 under \(a^\*\)-irrelevance).&#x20;
 
 ---
 
@@ -158,13 +158,13 @@ In the *Taxi* benchmark (500 raw states), mapping every location‑passenger con
 
 \### 3.1  Formal Definitions
 
-Let $M=(S,A,P,R,\gamma)$ be a discounted MDP and let $\phi:S\!\to\!S_\phi$ be a surjective abstraction.  We say two ground states $s_1,s_2\in S$ are *$\phi$-equivalent* when $\phi(s_1)=\phi(s_2)$.  The hierarchy of *exact* abstractions is defined as follows :
+Let \(M=(S,A,P,R,\gamma)\) be a discounted MDP and let \(\phi:S\!\to\!S_\phi\) be a surjective abstraction.  We say two ground states \(s_1,s_2\in S\) are *\(\phi\)-equivalent* when \(\phi(s_1)=\phi(s_2)\).  The hierarchy of *exact* abstractions is defined as follows :
 
-| Level                                        | Criterion when $\phi(s_1)=\phi(s_2)$                         |                                  |
+| Level                                        | Criterion when \(\phi(s_1)=\phi(s_2)\)                         |                                  |
 | -------------------------------------------- | ------------------------------------------------------------ | -------------------------------- |
-| **π\*-irrelevance**                          | ∃ an optimal policy $\pi^\*$ s.t. $\pi^\*(s_1)=\pi^\*(s_2)$. |                                  |
-| **Q\*-irrelevance**                          | $ Q^{\*}_M(s_1,a)=Q^{\*}_M(s_2,a)\;\forall a\in A$.          |                                  |
-| **Model‑irrelevance (bisimulation)**         | $ R(s_1,a)=R(s_2,a)$ and                                     |                                  |
+| **π\*-irrelevance**                          | ∃ an optimal policy \(\pi^\*\) s.t. \(\pi^\*(s_1)=\pi^\*(s_2)\). |                                  |
+| **Q\*-irrelevance**                          | \( Q^{\*}_M(s_1,a)=Q^{\*}_M(s_2,a)\;\forall a\in A\).          |                                  |
+| **Model‑irrelevance (bisimulation)**         | \( R(s_1,a)=R(s_2,a)\) and                                     |                                  |
 | ( \displaystyle\sum\_{s'\in\phi^{-1}(x)}P(s' | s\_1,a)=\sum\_{s'\in\phi^{-1}(x)}P(s'                        | s\_2,a);\forall a,x\in S\_\phi.) |
 
 Thus model‑irrelevance imposes equality of *both* one‑step rewards and the aggregated transition distributions.  Q\*-irrelevance drops the model requirement but insists on identical optimal action‑values; π\*-irrelevance keeps only agreement on *one* optimal action.
@@ -173,10 +173,10 @@ Thus model‑irrelevance imposes equality of *both* one‑step rewards and the a
 
 \### 3.2  Block‑Indicator Matrix Φ
 
-Define the *block indicator* $ \Phi\in\{0,1\}^{|S_\phi|\times|S|}$ by $ \Phi(x,s)=\mathbf 1[\phi(s)=x]$.
+Define the *block indicator* \( \Phi\in\{0,1\}^{|S_\phi|\times|S|}\) by \( \Phi(x,s)=\mathbf 1[\phi(s)=x]\).
 
-* **Reward aggregation:** $R_\phi(x,a)=\sum_{s}\Phi(x,s)R(s,a)\,w(s)$.
-* **Transition aggregation:** $P_\phi(x'|x,a)=\sum_{s}\Phi(x,s) \sum_{s'}\Phi(x',s')P(s'|s,a)\,w(s)$.
+* **Reward aggregation:** \(R_\phi(x,a)=\sum_{s}\Phi(x,s)R(s,a)\,w(s)\).
+* **Transition aggregation:** \(P_\phi(x'|x,a)=\sum_{s}\Phi(x,s) \sum_{s'}\Phi(x',s')P(s'|s,a)\,w(s)\).
 
 In matrix notation, the model‑irrelevance condition is simply
 
@@ -191,7 +191,7 @@ This compression operator underlies most proofs below.&#x20;
 \### 3.3  Hierarchy Theorem and Proof
 
 > **Theorem 3.1 (Li‑Walsh‑Littman 2006, Thm 2).**
-> For any abstraction $\phi$:
+> For any abstraction \(\phi\):
 >
 > $$
 > \text{model‑irrelevance}\;\Longrightarrow\;Q^{\*}\text{‑irrelevance}\;\Longrightarrow\;\pi^{\*}\text{‑irrelevance}.
@@ -199,9 +199,9 @@ This compression operator underlies most proofs below.&#x20;
 
 *Proof.*
 
-1. **Model ⇒ Q\*.** Under model‑irrelevance the aggregated MDP $M_\phi$ is *exactly* the same as $M$ when viewed through $\Phi$.  Bellman optimality yields $Q^{\*}_{M_\phi}(x,a)=Q^{\*}_M(s,a)$ for every $s$ with $\phi(s)=x$; hence $Q^{\*}_M$ is constant on each block.
+1. **Model ⇒ Q\*.** Under model‑irrelevance the aggregated MDP \(M_\phi\) is *exactly* the same as \(M\) when viewed through \(\Phi\).  Bellman optimality yields \(Q^{\*}_{M_\phi}(x,a)=Q^{\*}_M(s,a)\) for every \(s\) with \(\phi(s)=x\); hence \(Q^{\*}_M\) is constant on each block.
 
-2. **Q\* ⇒ π\*.** Let $s_1,s_2$ lie in the same block and let $a^\*=\arg\max_a Q^{\*}_M(s_1,a)$.  By assumption $Q^{\*}_M(s_2,a^\*)=Q^{\*}_M(s_1,a^\*)=V^{\*}_M(s_1)$.  Therefore $a^\*$ is optimal at $s_2$ as well, so some optimal policy can choose the same action on both states.
+2. **Q\* ⇒ π\*.** Let \(s_1,s_2\) lie in the same block and let \(a^\*=\arg\max_a Q^{\*}_M(s_1,a)\).  By assumption \(Q^{\*}_M(s_2,a^\*)=Q^{\*}_M(s_1,a^\*)=V^{\*}_M(s_1)\).  Therefore \(a^\*\) is optimal at \(s_2\) as well, so some optimal policy can choose the same action on both states.
 
 Both implications are strict: Li et al. give counter‑examples where Q\*-irrelevance holds without equal models, and where π\*-irrelevance holds despite different Q\* vectors.&#x20;
 
@@ -209,15 +209,15 @@ Both implications are strict: Li et al. give counter‑examples where Q\*-ir
 
 \### 3.4  Interpreting Model‑Irrelevance (Bisimulation)
 
-The *naïve* test of requiring identical raw transition kernels $P(\cdot|s,a)$ per action (Eq. 2 in Jiang’s notes) is too restrictive whenever the ground state has *irrelevant factors*.  Jiang’s coffee‑room example (page 3) appends an independent Markov chain $Z$ to the “relevant” dynamics $X$; dropping $Z$ breaks Eq. 2 but *does* satisfy the aggregated equality (3).  Thus bisimulation is exactly the notion that **for every action the abstracted next‑state distribution over blocks—and rewards—remains unchanged**, even if latent coordinates differ.&#x20;
+The *naïve* test of requiring identical raw transition kernels \(P(\cdot|s,a)\) per action (Eq. 2 in Jiang’s notes) is too restrictive whenever the ground state has *irrelevant factors*.  Jiang’s coffee‑room example (page 3) appends an independent Markov chain \(Z\) to the “relevant” dynamics \(X\); dropping \(Z\) breaks Eq. 2 but *does* satisfy the aggregated equality (3).  Thus bisimulation is exactly the notion that **for every action the abstracted next‑state distribution over blocks—and rewards—remains unchanged**, even if latent coordinates differ.&#x20;
 
-*Factorisation view.*  For any bisimulation there exists a decomposition $s=(s_{\text{rel}},s_{\text{irr}})$ where $s_{\text{rel}}=\phi(s)$ and the irrelevant component evolves independently of $s_{\text{rel}}$.  Conversely, any such factorisation induces a bisimulation.  This equivalence clarifies why bisimulation preserves *all* planning‑relevant information.&#x20;
+*Factorisation view.*  For any bisimulation there exists a decomposition \(s=(s_{\text{rel}},s_{\text{irr}})\) where \(s_{\text{rel}}=\phi(s)\) and the irrelevant component evolves independently of \(s_{\text{rel}}\).  Conversely, any such factorisation induces a bisimulation.  This equivalence clarifies why bisimulation preserves *all* planning‑relevant information.&#x20;
 
 ---
 
 \### 3.5  Uniqueness & Computational Cost of the Minimal Bisimulation
 
-* **Existence & uniqueness.**  The set of all bisimulations on $M$ is closed under *common coarsening*: the union of two bisimulation partitions is itself a bisimulation (proof on page 4).  Consequently a *coarsest* (minimal) bisimulation always exists and is unique.&#x20;
+* **Existence & uniqueness.**  The set of all bisimulations on \(M\) is closed under *common coarsening*: the union of two bisimulation partitions is itself a bisimulation (proof on page 4).  Consequently a *coarsest* (minimal) bisimulation always exists and is unique.&#x20;
 
 * **Complexity.**  Finding that minimal bisimulation is NP‑hard in general (Givan et al. 2003).  Practical algorithms therefore rely on heuristics or approximate bisimulation metrics.
 
@@ -225,8 +225,8 @@ The *naïve* test of requiring identical raw transition kernels $P(\cdot|s,a)$ p
 
 \### 3.6  Algorithmic Consequences (Preview)
 
-* **Model‑irrelevance** safely supports *any* tabular RL or dynamic‑programming algorithm because operating on $S_\phi$ is equivalent to operating on $S$.
-* **Q\*-irrelevance** supports value‑based methods that reference $Q^{\*}$ (e.g., Delayed Q‑learning) but may invalidate model‑based planning.
+* **Model‑irrelevance** safely supports *any* tabular RL or dynamic‑programming algorithm because operating on \(S_\phi\) is equivalent to operating on \(S\).
+* **Q\*-irrelevance** supports value‑based methods that reference \(Q^{\*}\) (e.g., Delayed Q‑learning) but may invalidate model‑based planning.
 * **π\*-irrelevance** retains only the *existence* of an optimal policy constant on each block; many algorithms break without bespoke analysis.
 
 These distinctions motivate the approximate hierarchy and finite‑sample results developed in Sections 6–8.
@@ -252,14 +252,14 @@ State‑aggregation research has explored ways to **relax, extend or operational
 
 \### 4.2  Action‑Homomorphisms (Ravindran & Barto 2004)
 
-**Definition.** A *state‑action homomorphism* is a pair of surjections $(\phi_S,\phi_A)$ mapping $S$ and $A$ into abstract spaces such that aggregated transitions and rewards are preserved *up to an action permutation*:
+**Definition.** A *state‑action homomorphism* is a pair of surjections \((\phi_S,\phi_A)\) mapping \(S\) and \(A\) into abstract spaces such that aggregated transitions and rewards are preserved *up to an action permutation*:
 
 $$
 R(s_1,a_1)=R(s_2,a_2),\qquad
 \Phi_S P(s_1,a_1)=\Phi_S P(s_2,a_2)
 $$
 
-whenever $\phi_S(s_1)=\phi_S(s_2)$ and $\phi_A(a_1)=\phi_A(a_2).$&#x20;
+whenever \(\phi_S(s_1)=\phi_S(s_2)\) and \(\phi_A(a_1)=\phi_A(a_2).\)&#x20;
 
 **Strengths.**
 
@@ -271,23 +271,23 @@ whenever $\phi_S(s_1)=\phi_S(s_2)$ and $\phi_A(a_1)=\phi_A(a_2).$&#x20;
 * Discovery requires solving a graph‑isomorphism‑like search over joint state–action pairs; exponential in worst case.
 * Fails if only a subset of actions exhibit symmetry.
 
-\### 4.3  Utile Distinctions (McCallum 1995) — “$a^{\*}$-Irrelevance”
+\### 4.3  Utile Distinctions (McCallum 1995) — “\(a^{\*}\)-Irrelevance”
 
-**Criterion.** States $s_1,s_2$ are merged if they share both
-(i) the same *optimal action* $a^{\*}$ **and**
-(ii) similar optimal Q‑values within a tolerance $\delta$:
+**Criterion.** States \(s_1,s_2\) are merged if they share both
+(i) the same *optimal action* \(a^{\*}\) **and**
+(ii) similar optimal Q‑values within a tolerance \(\delta\):
 
 $$
 |Q^{\*}(s_1,a^{\*})-Q^{\*}(s_2,a^{\*})|\le\delta.
 $$
 
-This corresponds to the *$a^{\*}$-irrelevance* node of Li’s chain.&#x20;
+This corresponds to the *\(a^{\*}\)-irrelevance* node of Li’s chain.&#x20;
 
-**Pros.** Very aggressive compression (≤$|A|$ abstract states) and easy on‑line statistical tests (pairwise t‑tests or Hoeffding).
+**Pros.** Very aggressive compression (≤\(|A|\) abstract states) and easy on‑line statistical tests (pairwise t‑tests or Hoeffding).
 
 **Cons.** Only guarantees that the greedy policy in the abstract space is *one-step* optimal; value‑function estimates for sub‑optimal actions become biased, so Q‑learning may diverge unless the behaviour policy is fixed (chattering example on Jiang p. 6).&#x20;
 
-\### 4.4  Policy‑Irrelevance (Jong & Stone 2005) — “$\pi^{\*}$-Irrelevance”
+\### 4.4  Policy‑Irrelevance (Jong & Stone 2005) — “\(\pi^{\*}\)-Irrelevance”
 
 **Definition.** Merge states that admit *any* common optimal action:
 
@@ -295,7 +295,7 @@ $$
 \exists a\in A\;:\;a\in\arg\max_{a'}Q^{\*}(s_1,a')\cap\arg\max_{a'}Q^{\*}(s_2,a').
 $$
 
-**Benefits.** Maximum theoretical compression: each block can be labelled by one optimal action, giving at most $|A|$ blocks irrespective of $|S|$.
+**Benefits.** Maximum theoretical compression: each block can be labelled by one optimal action, giving at most \(|A|\) blocks irrespective of \(|S|\).
 
 **Pitfalls.**
 
@@ -304,29 +304,29 @@ $$
 
 \### 4.5  Approximate Bisimulation & Metrics
 
-\#### (a) $(\varepsilon_R,\varepsilon_P)$-Approximate Bisimulation (Dean et al. 1997)
-Replace equality in reward and aggregated transition with $\ell_\infty$ (or $\ell_1$) tolerances:
+\#### (a) \((\varepsilon_R,\varepsilon_P)\)-Approximate Bisimulation (Dean et al. 1997)
+Replace equality in reward and aggregated transition with \(\ell_\infty\) (or \(\ell_1\)) tolerances:
 
 $$
 |R(s_1,a)-R(s_2,a)|\le\varepsilon_R,\quad
 \|\Phi P(s_1,a)-\Phi P(s_2,a)\|_1\le\varepsilon_P.
 $$
 
-Theorem 4 (Section 7) then bounds value loss linearly in $\varepsilon_R,\varepsilon_P$.&#x20;
+Theorem 4 (Section 7) then bounds value loss linearly in \(\varepsilon_R,\varepsilon_P\).&#x20;
 
 \#### (b) Bisimulation Metrics (Ferns et al. 2004)
-Define a pseudometric $d_\lambda$ satisfying
+Define a pseudometric \(d_\lambda\) satisfying
 
 $$
 d_\lambda((s_1,a),(s_2,a))=\varepsilon_R+
 \gamma\,W_1\!\bigl(\Phi P(s_1,a),\Phi P(s_2,a)\bigr),
 $$
 
-where $W_1$ is a Wasserstein distance.  States within an $\varepsilon$-ball are clustered.
+where \(W_1\) is a Wasserstein distance.  States within an \(\varepsilon\)-ball are clustered.
 
-**Advantages.** Metric yields *continuous* trade‑off knob; optimal value error ≤ $\varepsilon/(1-\gamma)$.
+**Advantages.** Metric yields *continuous* trade‑off knob; optimal value error ≤ \(\varepsilon/(1-\gamma)\).
 
-**Drawbacks.** Computing Wasserstein between high‑dimensional empirical distributions is $O(|S|^3)$.
+**Drawbacks.** Computing Wasserstein between high‑dimensional empirical distributions is \(O(|S|^3)\).
 
 \### 4.6  Adaptive & Hierarchical Aggregation
 
@@ -337,7 +337,7 @@ where $W_1$ is a Wasserstein distance.  States within an $\varepsilon$-ball are 
 
 \### 4.7  Kernel and RKHS View
 
-Jiang observes that Eq. (1) can be restated: two states are bisimilar *iff* their conditional next‑state distributions have identical embeddings in the RKHS of piece‑wise constant functions on $\phi$’s blocks.  This connects abstraction to *kernel two‑sample tests* and suggests estimating bisimulation via maximum mean discrepancy. (See RKHS bullet, Jiang p. 4.)&#x20;
+Jiang observes that Eq. (1) can be restated: two states are bisimilar *iff* their conditional next‑state distributions have identical embeddings in the RKHS of piece‑wise constant functions on \(\phi\)’s blocks.  This connects abstraction to *kernel two‑sample tests* and suggests estimating bisimulation via maximum mean discrepancy. (See RKHS bullet, Jiang p. 4.)&#x20;
 
 ---
 
@@ -358,19 +358,19 @@ Exact equivalence is rarely attainable from finite data or in highly stochastic 
 
 \### 5.1  Formal Definitions
 
-Fix an MDP $M=(S,A,P,R,\gamma)$ and an abstraction $\phi:S\to S_\phi$.
-Let a *lift* operator return a ground‑space function from an abstract one: for $f:S_\phi\!\to\!\mathbb R$,
+Fix an MDP \(M=(S,A,P,R,\gamma)\) and an abstraction \(\phi:S\to S_\phi\).
+Let a *lift* operator return a ground‑space function from an abstract one: for \(f:S_\phi\!\to\!\mathbb R\),
 
 $$
 [f]_M(s):=f(\phi(s)),\qquad 
 \text{vector form }[f]_M=\Phi^\top f.
 $$
 
-| Name                               | Parameter(s)                      | Condition when $\phi(s_1)=\phi(s_2)$                                                                  |                          |                                                                                        |
+| Name                               | Parameter(s)                      | Condition when \(\phi(s_1)=\phi(s_2)\)                                                                  |                          |                                                                                        |
 | ---------------------------------- | --------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------ | -------------------------------------------------------------------------------------- |
-| **ε‑π\***‑irrelevance              | $\varepsilon_{\pi^\*}\ge0$        | ∃ abstract policy $\pi$ such that  $\|V_M^{\*}-V_M^{[\pi]}\|_\infty\le\varepsilon_{\pi^\*}$.          |                          |                                                                                        |
-| **ε‑Q\***‑irrelevance              | $\varepsilon_{Q^\*}\ge0$          | ∃ abstract $f:S_\phi\times A\!\to\!\mathbb R$ with  $\|[f]_M-Q_M^{\*}\|_\infty\le\varepsilon_{Q^\*}$. |                          |                                                                                        |
-| **(ε\_R, ε\_P) model‑irrelevance** | $\varepsilon_R,\varepsilon_P\ge0$ | (\bigl                                                                                                | R(s\_1,a)-R(s\_2,a)\bigr | \le\varepsilon\_R) and $\|\Phi P(s_1,a)-\Phi P(s_2,a)\|_1\le\varepsilon_P\;\forall a$. |
+| **ε‑π\***‑irrelevance              | \(\varepsilon_{\pi^\*}\ge0\)        | ∃ abstract policy \(\pi\) such that  \(\|V_M^{\*}-V_M^{[\pi]}\|_\infty\le\varepsilon_{\pi^\*}\).          |                          |                                                                                        |
+| **ε‑Q\***‑irrelevance              | \(\varepsilon_{Q^\*}\ge0\)          | ∃ abstract \(f:S_\phi\times A\!\to\!\mathbb R\) with  \(\|[f]_M-Q_M^{\*}\|_\infty\le\varepsilon_{Q^\*}\). |                          |                                                                                        |
+| **(ε\_R, ε\_P) model‑irrelevance** | \(\varepsilon_R,\varepsilon_P\ge0\) | (\bigl                                                                                                | R(s\_1,a)-R(s\_2,a)\bigr | \le\varepsilon\_R) and \(\|\Phi P(s_1,a)-\Phi P(s_2,a)\|_1\le\varepsilon_P\;\forall a\). |
 
 Setting all ε’s to zero recovers the exact hierarchy of Section 3.  
 
@@ -387,20 +387,20 @@ Setting all ε’s to zero recovers the exact hierarchy of Section 3.  
 > \]  :contentReference[oaicite:1]{index=1}  
 > $$
 
-*Sketch.*  Build an abstract MDP $M_\phi$ by block‑averaging as in Lemma 3 below; show its optimal $Q$-function is an $\varepsilon_{Q^\*}$-approximation to $Q_M^{\*}$ via a one‑step Bellman residual bound; a second Bellman inequality translates $Q$-error into value‑loss for an induced policy, producing the $\varepsilon_{\pi^\*}$ term.
+*Sketch.*  Build an abstract MDP \(M_\phi\) by block‑averaging as in Lemma 3 below; show its optimal \(Q\)-function is an \(\varepsilon_{Q^\*}\)-approximation to \(Q_M^{\*}\) via a one‑step Bellman residual bound; a second Bellman inequality translates \(Q\)-error into value‑loss for an induced policy, producing the \(\varepsilon_{\pi^\*}\) term.
 
 \### 5.3  Lifting Lemma (Coupling Ground and Abstract Models)
 
 > **Lemma 5.2 (Lemma 3 in notes).**
-> Fix arbitrary distributions $\{p_x\}_{x\in S_\phi}$ supported on each block.
-> Define $M_\phi=(S_\phi,A,P_\phi,R_\phi,\gamma)$ by
-> $R_\phi(x,a)=\mathbb E_{s\sim p_x}[R(s,a)]$,
-> $P_\phi(x'|x,a)=\mathbb E_{s\sim p_x}[P(x'|s,a)]$.
-> Then for any $s\in S$ and $a\in A$:
+> Fix arbitrary distributions \(\{p_x\}_{x\in S_\phi}\) supported on each block.
+> Define \(M_\phi=(S_\phi,A,P_\phi,R_\phi,\gamma)\) by
+> \(R_\phi(x,a)=\mathbb E_{s\sim p_x}[R(s,a)]\),
+> \(P_\phi(x'|x,a)=\mathbb E_{s\sim p_x}[P(x'|s,a)]\).
+> Then for any \(s\in S\) and \(a\in A\):
 > $\bigl|R_\phi(\phi(s),a)-R(s,a)\bigr|\le\varepsilon_R,\;\;
 > \|P_\phi(\phi(s),a)-\Phi P(s,a)\|_1\le\varepsilon_P.$  
 
-This lemma justifies analysing approximate bisimulation by comparing $M$ to $M_\phi$ rather than to a loose empirical model.
+This lemma justifies analysing approximate bisimulation by comparing \(M\) to \(M_\phi\) rather than to a loose empirical model.
 
 \### 5.4  Practical Interpretation
 
@@ -410,7 +410,7 @@ This lemma justifies analysing approximate bisimulation by comparing $M$ to $M_\
 
 \### 5.5  Worked Example: ε‑Bisimulating the Coffee–Room “Clock”
 
-Page 3 of the notes embeds an irrelevant clock variable $Z$ whose transition kernel differs across $z$ even though rewards and the “relevant” coordinates $X$ are equal.  Exact bisimulation merges on $X$ alone.  If $Z$ weakly influences reward (say by at most 0.1) and changes next‑state block probabilities by ≤ 0.05 in total variation, then choosing $\varepsilon_R=0.1,\;\varepsilon_P=0.05$ certifies the abstraction.  Plugging into Theorem 5.1 with $\gamma=0.9,R_{\max}=1$ yields
+Page 3 of the notes embeds an irrelevant clock variable \(Z\) whose transition kernel differs across \(z\) even though rewards and the “relevant” coordinates \(X\) are equal.  Exact bisimulation merges on \(X\) alone.  If \(Z\) weakly influences reward (say by at most 0.1) and changes next‑state block probabilities by ≤ 0.05 in total variation, then choosing \(\varepsilon_R=0.1,\;\varepsilon_P=0.05\) certifies the abstraction.  Plugging into Theorem 5.1 with \(\gamma=0.9,R_{\max}=1\) yields
 
 $$
 \varepsilon_{Q^\*}= \frac{0.1}{0.1}+ \frac{0.9\cdot0.05}{2\cdot0.1^2}=1 + 2.25=3.25,
@@ -418,11 +418,11 @@ $$
 \varepsilon_{\pi^\*}= \frac{2\cdot3.25}{0.1}=65.
 $$
 
-Although conservative, the bound is independent of $|S|$ and thus meaningful when $Z$ takes thousands of values.  
+Although conservative, the bound is independent of \(|S|\) and thus meaningful when \(Z\) takes thousands of values.  
 
 \### 5.6  Connections to Bisimulation Metrics
 
-Ferns et al. define a fixed‑point pseudometric $d_\lambda$ over state‑action pairs; clustering all pairs within radius ε yields an abstraction whose $(\varepsilon_R,\varepsilon_P)$ values can be bounded by $(1-\gamma)d_\lambda, 2d_\lambda/R_{\max})$.  Hence metric‑based algorithms are practical search heuristics for approximate bisimulation with provable guarantees.  
+Ferns et al. define a fixed‑point pseudometric \(d_\lambda\) over state‑action pairs; clustering all pairs within radius ε yields an abstraction whose \((\varepsilon_R,\varepsilon_P)\) values can be bounded by \((1-\gamma)d_\lambda, 2d_\lambda/R_{\max})\).  Hence metric‑based algorithms are practical search heuristics for approximate bisimulation with provable guarantees.  
 
 ---
 
@@ -438,29 +438,29 @@ Ferns et al. define a fixed‑point pseudometric $d_\lambda$ over state‑ac
 
 \## 6  Bounding the Loss of Abstract Models — All Details
 
-When an abstraction is only **approximately** valid (Sec. 5) we need explicit, quantitative guarantees that *planning* in the abstract MDP $M_\phi$ still yields a near‑optimal policy for the ground MDP $M$.  Nan Jiang’s notes present two central results:
+When an abstraction is only **approximately** valid (Sec. 5) we need explicit, quantitative guarantees that *planning* in the abstract MDP \(M_\phi\) still yields a near‑optimal policy for the ground MDP \(M\).  Nan Jiang’s notes present two central results:
 
-* **Theorem 4** – value‑loss bound when $\phi$ satisfies $(\varepsilon_R,\varepsilon_P)$-**approximate model‑irrelevance** (bisimulation).
-* **Theorem 5** – value‑loss bound when $\phi$ satisfies **ε‑Q\***‑irrelevance only.
+* **Theorem 4** – value‑loss bound when \(\phi\) satisfies \((\varepsilon_R,\varepsilon_P)\)-**approximate model‑irrelevance** (bisimulation).
+* **Theorem 5** – value‑loss bound when \(\phi\) satisfies **ε‑Q\***‑irrelevance only.
 
 We reproduce the full statements, proofs and interpretations below.
 
 \### 6.1  Setting and Notation
 
-* $M=(S,A,P,R,\gamma)$ – ground MDP, $\gamma\in(0,1)$.
-* $\phi:S\to S_\phi$ – abstraction; $x:=\phi(s)$.
-* **Block‑averaged model** $M_\phi=(S_\phi,A,P_\phi,R_\phi,\gamma)$ constructed with an arbitrary family of per‑block weights $\{p_x\}_{x\in S_\phi}$ (Lemma 5.2).
+* \(M=(S,A,P,R,\gamma)\) – ground MDP, \(\gamma\in(0,1)\).
+* \(\phi:S\to S_\phi\) – abstraction; \(x:=\phi(s)\).
+* **Block‑averaged model** \(M_\phi=(S_\phi,A,P_\phi,R_\phi,\gamma)\) constructed with an arbitrary family of per‑block weights \(\{p_x\}_{x\in S_\phi}\) (Lemma 5.2).
 
   $$
   R_\phi(x,a)=\mathbb E_{s\sim p_x}[R(s,a)],\quad
   P_\phi(x'|x,a)=\mathbb E_{s\sim p_x}[P(x'|s,a)].
   $$
-* We denote by $[\cdot]_M$ the *lift* of an abstract function back to $S$ (Def. 5.1).
+* We denote by \([\cdot]_M\) the *lift* of an abstract function back to \(S\) (Def. 5.1).
 
 \### 6.2  Theorem 4 – Approximate Bisimulation
 
 > **Theorem 4 (Notes p. 6).**
-> If $\phi$ is an $(\varepsilon_R,\varepsilon_P)$-approximate model‑irrelevant abstraction and $M_\phi$ is defined as above, then the policy $\pi_{M_\phi}^{\*}$ that is optimal in $M_\phi$ satisfies
+> If \(\phi\) is an \((\varepsilon_R,\varepsilon_P)\)-approximate model‑irrelevant abstraction and \(M_\phi\) is defined as above, then the policy \(\pi_{M_\phi}^{\*}\) that is optimal in \(M_\phi\) satisfies
 >
 > $$
 >   \bigl\|V_M^{\*}-V_M^{[\pi_{M_\phi}^{\*}]}\bigr\|_\infty
@@ -472,7 +472,7 @@ We reproduce the full statements, proofs and interpretations below.
 \#### Proof (fully detailed)
 
 1. **Evaluation error for a *fixed* abstract policy.**
-   For any abstract policy $\pi$, Jiang proves (Eq. 4 on p. 6)
+   For any abstract policy \(\pi\), Jiang proves (Eq. 4 on p. 6)
 
    $$
    \bigl\|[V_{M_\phi}^{\pi}]_M - V_M^{[\pi]}\bigr\|_\infty
@@ -481,11 +481,11 @@ We reproduce the full statements, proofs and interpretations below.
    \tag{6.1}
    $$
 
-   *Derivation.*  Write the one‑step Bellman operator $T^{[\pi]}$ on $S$ and $T^{\pi}_{M_\phi}$ on $S_\phi$.  Expand
-   $\|[T^{\pi}_{M_\phi}V]_{M}-T^{[\pi]}[V]_{M}\|_\infty$ and apply the reward and TV‑distance tolerances; contract by $1-\gamma$.&#x20;
+   *Derivation.*  Write the one‑step Bellman operator \(T^{[\pi]}\) on \(S\) and \(T^{\pi}_{M_\phi}\) on \(S_\phi\).  Expand
+   \(\|[T^{\pi}_{M_\phi}V]_{M}-T^{[\pi]}[V]_{M}\|_\infty\) and apply the reward and TV‑distance tolerances; contract by \(1-\gamma\).&#x20;
 
-2. **Bounding decision error of $\pi_{M_\phi}^{\*}$.**
-   For any ground state $s$ let $x=\phi(s)$.  Triangle inequality gives
+2. **Bounding decision error of \(\pi_{M_\phi}^{\*}\).**
+   For any ground state \(s\) let \(x=\phi(s)\).  Triangle inequality gives
 
    $$
    V_M^{\*}(s)-V_M^{[\pi_{M_\phi}^{\*}]}(s)
@@ -494,21 +494,21 @@ We reproduce the full statements, proofs and interpretations below.
    + \underbrace{[V_{M_\phi}^{\pi_{M_\phi}^{\*}}]_M(s) - V_M^{[\pi_{M_\phi}^{\*}]}(s)}_{\text{eval. error}},
    $$
 
-   where $a^{\*}=\pi_{M_\phi}^{\*}(x)$.
+   where \(a^{\*}=\pi_{M_\phi}^{\*}(x)\).
 
-   *Optimality gap.*  By (6.1) with $V=Q_{M_\phi}^{\*}$ we upper‑bound it by the same RHS, since $Q_{M_\phi}^{\*}$ is the maximiser in $M_\phi$.
+   *Optimality gap.*  By (6.1) with \(V=Q_{M_\phi}^{\*}\) we upper‑bound it by the same RHS, since \(Q_{M_\phi}^{\*}\) is the maximiser in \(M_\phi\).
 
-   *Evaluation error.*  Plugging $\pi=\pi_{M_\phi}^{\*}$ into (6.1) gives the identical bound.  Adding the two yields the stated constant $2\varepsilon_R/(1-\gamma)+\gamma\varepsilon_P R_{\max}/(1-\gamma)^2$. ∎
+   *Evaluation error.*  Plugging \(\pi=\pi_{M_\phi}^{\*}\) into (6.1) gives the identical bound.  Adding the two yields the stated constant \(2\varepsilon_R/(1-\gamma)+\gamma\varepsilon_P R_{\max}/(1-\gamma)^2\). ∎
 
 \#### Interpretation
 
-* **Linear in $\varepsilon_R$**, quadratic in $1/(1-\gamma)$ for $\varepsilon_P$.  Transition mismatch matters more in highly‑discounted tasks.
-* The bound is strictly *tighter* than naïvely chaining Theorem 5.1 twice (through ε‑Q\* and ε‑π\*), shaving a factor $\approx 2/(1-\gamma)$.&#x20;
+* **Linear in \(\varepsilon_R\)**, quadratic in \(1/(1-\gamma)\) for \(\varepsilon_P\).  Transition mismatch matters more in highly‑discounted tasks.
+* The bound is strictly *tighter* than naïvely chaining Theorem 5.1 twice (through ε‑Q\* and ε‑π\*), shaving a factor \(\approx 2/(1-\gamma)\).&#x20;
 
 \### 6.3  Theorem 5 – Approximate Q\*-Irrelevance
 
 > **Theorem 5 (Notes p. 7).**
-> If $\phi$ is ε‑Q\*-irrelevant, then for the same $M_\phi$
+> If \(\phi\) is ε‑Q\*-irrelevant, then for the same \(M_\phi\)
 >
 > $$
 >   \bigl\|[Q_{M_\phi}^{\*}]_M - Q_M^{\*}\bigr\|_\infty
@@ -519,21 +519,21 @@ We reproduce the full statements, proofs and interpretations below.
 
 \#### Proof Sketch (full derivation on pp. 7–8)
 
-1. **Construct auxiliary model $M_\phi'$ on $S$.**
+1. **Construct auxiliary model \(M_\phi'\) on \(S\).**
    Replace each ground state’s reward/transition by *block averages* over its class (see Eq. on p. 7).  Then
-   $[Q_{M_\phi}^{\*}]_M = Q_{M_\phi'}^{\*}$.
+   \([Q_{M_\phi}^{\*}]_M = Q_{M_\phi'}^{\*}\).
 
 2. **Apply simulation lemma.**
-   For any $(s,a)$,
-   $\bigl|T_{M_\phi'}Q_M^{\*}(s,a)-Q_M^{\*}(s,a)\bigr|\le 2\varepsilon_{Q^{\*}}$ by definition of ε‑Q\*.
+   For any \((s,a)\),
+   \(\bigl|T_{M_\phi'}Q_M^{\*}(s,a)-Q_M^{\*}(s,a)\bigr|\le 2\varepsilon_{Q^{\*}}\) by definition of ε‑Q\*.
 
 3. **Use Bellman contraction.**
-   $\|Q_{M_\phi'}^{\*}-Q_M^{\*}\|_\infty \le \frac{1}{1-\gamma}\|T_{M_\phi'}Q_M^{\*}-Q_M^{\*}\|_\infty$, yielding the bound. ∎
+   \(\|Q_{M_\phi'}^{\*}-Q_M^{\*}\|_\infty \le \frac{1}{1-\gamma}\|T_{M_\phi'}Q_M^{\*}-Q_M^{\*}\|_\infty\), yielding the bound. ∎
 
 \#### Consequences
 
 * **No model conditions required.**  Even wildly different rewards/transitions may be aggregated if their *optimal* Q‑vectors are close.
-* Planning in $M_\phi$ guarantees a policy whose action‑value error is $O(\varepsilon_{Q^{\*}}/(1-\gamma))$.  Converting to a value‑loss bound costs another $1/(1-\gamma)$ factor (via Theorem 5.1).
+* Planning in \(M_\phi\) guarantees a policy whose action‑value error is \(O(\varepsilon_{Q^{\*}}/(1-\gamma))\).  Converting to a value‑loss bound costs another \(1/(1-\gamma)\) factor (via Theorem 5.1).
 
 \### 6.4  Comparing Theorems 4 and 5
 
@@ -541,16 +541,16 @@ We reproduce the full statements, proofs and interpretations below.
 | --------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------- |
 | **Assumptions**             | Bounds on reward *and* TV‑distance of aggregated transitions                       | Only closeness of optimal Q‑values                   |
 | **Guarantee**               | Value‑loss of *lifted optimal policy*                                              | Uniform error on Q‑function                          |
-| **Dependence on γ**         | $O\bigl(\frac{\varepsilon_R}{1-\gamma} + \frac{\varepsilon_P}{(1-\gamma)^2}\bigr)$ | $O\bigl(\frac{\varepsilon_{Q^{\*}}}{1-\gamma}\bigr)$ |
+| **Dependence on γ**         | \(O\bigl(\frac{\varepsilon_R}{1-\gamma} + \frac{\varepsilon_P}{(1-\gamma)^2}\bigr)\) | \(O\bigl(\frac{\varepsilon_{Q^{\*}}}{1-\gamma}\bigr)\) |
 | **Algorithm compatibility** | Any model‑based or model‑free method                                               | Primarily value‑based methods                        |
 | **Discovery difficulty**    | Requires model estimates                                                           | Can be tested by comparing learned Q\* estimates     |
 
 \### 6.5  Practical Guidelines
 
-1. **High‑accuracy planning needed?** Use bisimulation‑like abstractions; pay attention to transition mismatch if $\gamma$ is close to 1.
+1. **High‑accuracy planning needed?** Use bisimulation‑like abstractions; pay attention to transition mismatch if \(\gamma\) is close to 1.
 2. **Model unavailable / large function class.** ε‑Q\* abstractions are easier to *learn* (evaluate with off‑policy estimates) and still yield rigorous performance guarantees.
 3. **Tuning ε parameters.** Combine the loss bounds here with the bias–variance trade‑off analysis of Section 2: choose the largest tolerances such that the RHS of Theorem 4 or 5 stays below a desired threshold.
-4. **Empirical diagnostics.** Plot $\varepsilon_R,\varepsilon_P$ (or $\varepsilon_{Q^{\*}}$) versus validation performance to visualise the frontier predicted by the formulas; Jiang reports tight correspondence in Taxi and Coffee domains (Table 2, Li et al. p. 8).&#x20;
+4. **Empirical diagnostics.** Plot \(\varepsilon_R,\varepsilon_P\) (or \(\varepsilon_{Q^{\*}}\)) versus validation performance to visualise the frontier predicted by the formulas; Jiang reports tight correspondence in Taxi and Coffee domains (Table 2, Li et al. p. 8).&#x20;
 
 ---
 
@@ -567,12 +567,12 @@ Open issues: none for Section 6; ready to proceed further or refine as needed.
 
 \## 7  Finite‑Sample Analysis — All Details
 
-The preceding sections treated **approximation error**—the bias introduced when the abstraction $\phi$ is not exact. In practice we must also account for **estimation error** arising from the fact that the abstract model $M_\phi$ is estimated from a finite dataset $D$. Nan Jiang (pp. 9–11) combines the two in a unified high‑probability bound, which we unpack below.&#x20;
+The preceding sections treated **approximation error**—the bias introduced when the abstraction \(\phi\) is not exact. In practice we must also account for **estimation error** arising from the fact that the abstract model \(M_\phi\) is estimated from a finite dataset \(D\). Nan Jiang (pp. 9–11) combines the two in a unified high‑probability bound, which we unpack below.&#x20;
 
 \### 7.1  Data model and effective sample size
 
-* **Dataset.** $D=\{D_{s,a}\}_{(s,a)\in S\times A}$ where each $D_{s,a}$ is an i.i.d. sample set of $(r,s')$ pairs drawn from the ground MDP $M$.  Counts $|D_{s,a}|$ may differ and many can be zero when $|S|$ is huge.
-* **Abstract counts.** After mapping with $\phi$, counts are aggregated: $|D_{x,a}|=\sum_{s:\phi(s)=x}|D_{s,a}|$.
+* **Dataset.** \(D=\{D_{s,a}\}_{(s,a)\in S\times A}\) where each \(D_{s,a}\) is an i.i.d. sample set of \((r,s')\) pairs drawn from the ground MDP \(M\).  Counts \(|D_{s,a}|\) may differ and many can be zero when \(|S|\) is huge.
+* **Abstract counts.** After mapping with \(\phi\), counts are aggregated: \(|D_{x,a}|=\sum_{s:\phi(s)=x}|D_{s,a}|\).
 * **Minimum abstract count** (effective sample size)
 
   $$
@@ -598,7 +598,7 @@ $$
 
 \### 7.3  Bias–variance decomposition revisited
 
-For **any** abstraction $\phi$ (exact or approximate) Jiang splits the total loss at the optimal abstract policy into
+For **any** abstraction \(\phi\) (exact or approximate) Jiang splits the total loss at the optimal abstract policy into
 
 $$
 \underbrace{\bigl\|Q_M^{\*}-[Q_{M_\phi}^{\*}]_M\bigr\|_\infty}_{\text{approximation error}}
@@ -613,7 +613,7 @@ $$
 \### 7.4  Uniform bound on estimation error
 
 > **Theorem 7.1 (Jiang 2018, Sec. 4).**
-> For any abstraction $\phi$ and any $\delta\in(0,1)$, with probability at least $1-\delta$ over the random dataset $D$,
+> For any abstraction \(\phi\) and any \(\delta\in(0,1)\), with probability at least \(1-\delta\) over the random dataset \(D\),
 >
 > $$
 >   \bigl\|[Q_{M_\phi}^{\*}]_M - [Q_{\widehat M_\phi}^{\*}]_M\bigr\|_\infty
@@ -624,9 +624,9 @@ $$
 > $$
 
 *Proof sketch.*
-(i) Express the Bellman residual at each abstract pair $(x,a)$ as the empirical mean of bounded random variables $r+\gamma\,V_{M_\phi}^{\*}(\phi(s'))$.
-(ii) Apply Hoeffding’s inequality individually and union‑bound over $|S_\phi||A|$ pairs.
-(iii) Use the simulation lemma plus the$(1-\gamma)^{-1}$ Bellman contraction to transfer the one‑step error to the fixed‑point difference, yielding the factor $R_{\max}/(1-\gamma)^2$.&#x20;
+(i) Express the Bellman residual at each abstract pair \((x,a)\) as the empirical mean of bounded random variables \(r+\gamma\,V_{M_\phi}^{\*}(\phi(s'))\).
+(ii) Apply Hoeffding’s inequality individually and union‑bound over \(|S_\phi||A|\) pairs.
+(iii) Use the simulation lemma plus the\((1-\gamma)^{-1}\) Bellman contraction to transfer the one‑step error to the fixed‑point difference, yielding the factor \(R_{\max}/(1-\gamma)^2\).&#x20;
 
 \### 7.5  Complete finite‑sample guarantee
 
@@ -643,17 +643,17 @@ $$
 \tag{7.3}
 $$
 
-An analogous formula holds when $\phi$ is ε‑Q\*-irrelevant by substituting the bias term $\tfrac{2\varepsilon_{Q^\*}}{1-\gamma}$ from Theorem 5.&#x20;
+An analogous formula holds when \(\phi\) is ε‑Q\*-irrelevant by substituting the bias term \(\tfrac{2\varepsilon_{Q^\*}}{1-\gamma}\) from Theorem 5.&#x20;
 
 \### 7.6  Sample‑complexity implications
 
-Setting the RHS of (7.3) to a target accuracy $\eta$ and solving for $n_\phi(D)$ shows that
+Setting the RHS of (7.3) to a target accuracy \(\eta\) and solving for \(n_\phi(D)\) shows that
 
 $$
 n_\phi(D)=\Omega\!\Bigl(\frac{R_{\max}^2}{(1-\gamma)^4\,\eta^2}\,\ln\!\frac{2|S_\phi||A|}{\delta}\Bigr)
 $$
 
-samples per abstract pair suffice once the bias term is driven below $\eta/2$.  Because $n_\phi(D)$ **does not depend on $|S|$**, aggressive abstraction can yield PAC‑style guarantees in domains with astronomically many raw states.&#x20;
+samples per abstract pair suffice once the bias term is driven below \(\eta/2\).  Because \(n_\phi(D)\) **does not depend on \(|S|\)**, aggressive abstraction can yield PAC‑style guarantees in domains with astronomically many raw states.&#x20;
 
 \### 7.7  Choosing the abstraction in practice
 
@@ -663,10 +663,10 @@ Jiang et al. (2015) propose **abstraction selection** by cross‑validation:
 
 | Insight                            | Explanation                                                                                                              |         |            |   |                                        |   |                |
 | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------- | ---------- | - | -------------------------------------- | - | -------------- |
-| **Single scalar governs variance** | All statistical uncertainty is captured by $n_\phi(D)$; increasing it via coarser partitions quickly shrinks error bars. |         |            |   |                                        |   |                |
-| **Bias–variance decoupling**       | Approximation error depends only on $\phi$; estimation error depends only on data.  Designers can tune them separately.  |         |            |   |                                        |   |                |
+| **Single scalar governs variance** | All statistical uncertainty is captured by \(n_\phi(D)\); increasing it via coarser partitions quickly shrinks error bars. |         |            |   |                                        |   |                |
+| **Bias–variance decoupling**       | Approximation error depends only on \(\phi\); estimation error depends only on data.  Designers can tune them separately.  |         |            |   |                                        |   |                |
 | **State‑space independence**       | Finite‑sample guarantees reference (                                                                                     | S\_\phi | ), never ( | S | ); abstraction is indispensable when ( | S | ) is enormous. |
-| **γ‑sensitivity**                  | Both bias and variance blow up as $\gamma\to1$; low‑discount tasks tolerate rougher abstractions and fewer samples.      |         |            |   |                                        |   |                |
+| **γ‑sensitivity**                  | Both bias and variance blow up as \(\gamma\to1\); low‑discount tasks tolerate rougher abstractions and fewer samples.      |         |            |   |                                        |   |                |
 
 ---
 

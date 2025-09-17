@@ -127,14 +127,14 @@ If you’d like a **deeper, citation‑level walkthrough** anchored directly in 
 
 A **solution concept** specifies the *properties a joint policy must satisfy* in order to be regarded as an acceptable outcome of a game.
 
-* It always refers to the vector of **expected returns** $U_i(\boldsymbol\omega)$ each agent $i$ would obtain if every agent followed the joint policy $\boldsymbol\omega=(\omega_1,\dots,\omega_n)$. The book defines those returns in a way that works for *all* game models, from normal‑form to partially‑observable stochastic games, via (i) a history‑based sum and (ii) a Bellman‑style recursion.
+* It always refers to the vector of **expected returns** \(U_i(\boldsymbol\omega)\) each agent \(i\) would obtain if every agent followed the joint policy \(\boldsymbol\omega=(\omega_1,\dots,\omega_n)\). The book defines those returns in a way that works for *all* game models, from normal‑form to partially‑observable stochastic games, via (i) a history‑based sum and (ii) a Bellman‑style recursion.
 * Most solution concepts can be written compactly with the **best‑response** operator
 
   $$
   BR_i(\omega_{-i})=\arg\max_{\omega_i} U_i(\omega_i,\omega_{-i}),
   $$
 
-  i.e., the set of policies that maximise $i$’s return against the others’ fixed policies.
+  i.e., the set of policies that maximise \(i\)’s return against the others’ fixed policies.
 
 Thus, a solution concept is a *normative benchmark* (what counts as “rational” or “desirable”) **and** an *algorithmic target* (the condition a learning algorithm must meet).
 
@@ -144,12 +144,12 @@ Thus, a solution concept is a *normative benchmark* (what counts as “rational�
 
 | Concept                             | Informal criterion                                                                                                             | Formal definition (book)                                                                                    | Typical scope                           |
 | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------- | --------------------------------------- |
-| **Minimax**                         | “Guarantee at least my worst‑case value in a two‑agent zero‑sum game.”                                                         | $\max_{\omega_i}\min_{\omega_j}U_i(\omega_i,\omega_j)=\min_{\omega_j}\max_{\omega_i}U_i(\omega_i,\omega_j)$ | Zero‑sum (e.g., chess, Go self‑play)    |
-| **Nash equilibrium (NE)**           | No agent can gain by unilaterally deviating.                                                                                   | $\forall i,\forall\omega'_i:U_i(\omega'_i,\omega_{-i})\le U_i(\boldsymbol\omega)$                         | General‑sum, any $n$                    |
-| **$\varepsilon$-Nash**              | Same as NE but deviations gain ≤ $\varepsilon$.                                                                                | Definition 7                                                                                                | Large, imperfect‑precision settings     |
+| **Minimax**                         | “Guarantee at least my worst‑case value in a two‑agent zero‑sum game.”                                                         | \(\max_{\omega_i}\min_{\omega_j}U_i(\omega_i,\omega_j)=\min_{\omega_j}\max_{\omega_i}U_i(\omega_i,\omega_j)\) | Zero‑sum (e.g., chess, Go self‑play)    |
+| **Nash equilibrium (NE)**           | No agent can gain by unilaterally deviating.                                                                                   | \(\forall i,\forall\omega'_i:U_i(\omega'_i,\omega_{-i})\le U_i(\boldsymbol\omega)\)                         | General‑sum, any \(n\)                    |
+| **\(\varepsilon\)-Nash**              | Same as NE but deviations gain ≤ \(\varepsilon\).                                                                                | Definition 7                                                                                                | Large, imperfect‑precision settings     |
 | **(Coarse) Correlated equilibrium** | Agents may condition on a shared signal; obeying the recommendation is a best response.                                        | Eq. 4.19 (no unilateral deviation improves payoff)                                                          | Coordination (traffic lights, auctions) |
 | **Pareto optimality**               | No agent can be made better off without hurting someone else.                                                                  | Defined via Pareto frontier (Fig 4.4 in text)                                                               |                                         |
-| **Welfare / Fairness optimality**   | Maximise $\sum_i U_i$ (welfare) or $\prod_i U_i$ (fairness)                                                                    | Policy design, resource allocation                                                                          |                                         |
+| **Welfare / Fairness optimality**   | Maximise \(\sum_i U_i\) (welfare) or \(\prod_i U_i\) (fairness)                                                                    | Policy design, resource allocation                                                                          |                                         |
 | **No‑regret**                       | Long‑run empirical play yields zero average regret; time‑averaged joint actions form a coarse correlated equilibrium (summary) |                                                                                                             |                                         |
 
 The chapter arranges these in an **“equilibrium hierarchy”**—minimax ⊂ Nash ⊂ Correlated ⊂ Coarse‑correlated—because each layer relaxes an independence assumption and therefore contains the previous layer’s solutions (see Fig 4.3 in the book).
@@ -164,7 +164,7 @@ The chapter arranges these in an **“equilibrium hierarchy”**—minimax ⊂
 | ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
 | **Existence proof**           | Show at least one solution exists. Example: Nash proved every finite normal‑form game has at least one mixed NE.             | Theorems cited throughout Ch. 4 |
 | **Exact computation**         | Produce an explicit joint policy meeting the concept. E.g., two LPs compute a minimax pair in a finite zero‑sum matrix game. | §4.3.1                          |
-| **Approximate computation**   | Find an $\varepsilon$-solution when exact numbers are irrational or too costly; $\varepsilon$-NE defined in §4.5.            | §4.5                            |
+| **Approximate computation**   | Find an \(\varepsilon\)-solution when exact numbers are irrational or too costly; \(\varepsilon\)-NE defined in §4.5.            | §4.5                            |
 | **Learning‑time convergence** | Provide an algorithm whose *empirical play* converges to the concept (e.g., no‑regret learners → CCE).                       | Summary §4.12                   |
 
 Crucially, the chapter ends by noting that **computing a Nash equilibrium is PPAD‑complete**, so polynomial‑time algorithms are unlikely without extra structure. Therefore, “solved” often means *approximate* or *structure‑exploiting* solutions in practice.
@@ -176,7 +176,7 @@ Crucially, the chapter ends by noting that **computing a Nash equilibrium is PPA
 1. **Model + Solution concept ⇒ MARL problem.** Figure 4.1 shows that once you choose a game model (normal‑form, stochastic, POSG) *and* a solution concept (Nash, welfare‑optimal, etc.), you have fully specified the learning target for multi‑agent reinforcement learning.
 2. **Best‑response lens.** Many concepts reduce verification to *n* single‑agent optimisations: fix others’ policies, check if each agent already plays a best response; if all pass, the joint policy is an equilibrium.
 3. **Refinements guide design.** Pareto, welfare and fairness filters narrow multiple equilibria to socially preferable ones, as illustrated in Chicken and Battle‑of‑the‑Sexes examples.
-4. **Approximation is often good enough.** Finite‑precision hardware, irrational probabilities and PPAD hardness justify $\varepsilon$-NEs and regret‑based criteria in real systems.
+4. **Approximation is often good enough.** Finite‑precision hardware, irrational probabilities and PPAD hardness justify \(\varepsilon\)-NEs and regret‑based criteria in real systems.
 
 ---
 
@@ -201,14 +201,14 @@ Below is a **“two‑axis map”** of what the book means when it says *“a MA
 
 | Model family                                    | Key ingredients it fixes                                        | What the model is good for                                                      | Where defined                                                            |            |
 | ----------------------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ---------- |
-| **Normal‑form (matrix) game**                   | One simultaneous move; action set $A_i$; payoff table $R_i(a)$. | Fast reasoning about *single‑shot* interactions (auctions, security pat‑downs). | Ch. 3 §3.1 (not shown here)                                              |            |
-| **Stochastic game (a.k.a. Markov game)**        | States $s_t$; joint actions $a_t$; transition (T(s\_{t+1}       | s\_t,a\_t)).                                                                    | Sequential tasks with perfect state information (soccer, predator‑prey). | Ch. 3 §3.3 |
-| **Partially‑Observable Stochastic Game (POSG)** | Adds private observations $o^i_t$ and histories $h^i_t$.        | Decentralised control, imperfect information (poker, StarCraft).                | Ch. 3 §3.4                                                               |            |
-| **Common‑reward game**                          | Rewards identical $\forall i$.                                  | Cooperative MARL & distributed RL.                                              | Ch. 3 §3.2                                                               |            |
-| **Zero‑sum game**                               | $R_1 = -R_2$ (generalises to constant‑sum).                     | Fully adversarial settings.                                                     | Ch. 3 §3.2                                                               |            |
+| **Normal‑form (matrix) game**                   | One simultaneous move; action set \(A_i\); payoff table \(R_i(a)\). | Fast reasoning about *single‑shot* interactions (auctions, security pat‑downs). | Ch. 3 §3.1 (not shown here)                                              |            |
+| **Stochastic game (a.k.a. Markov game)**        | States \(s_t\); joint actions \(a_t\); transition (T(s\_{t+1}       | s\_t,a\_t)).                                                                    | Sequential tasks with perfect state information (soccer, predator‑prey). | Ch. 3 §3.3 |
+| **Partially‑Observable Stochastic Game (POSG)** | Adds private observations \(o^i_t\) and histories \(h^i_t\).        | Decentralised control, imperfect information (poker, StarCraft).                | Ch. 3 §3.4                                                               |            |
+| **Common‑reward game**                          | Rewards identical \(\forall i\).                                  | Cooperative MARL & distributed RL.                                              | Ch. 3 §3.2                                                               |            |
+| **Zero‑sum game**                               | \(R_1 = -R_2\) (generalises to constant‑sum).                     | Fully adversarial settings.                                                     | Ch. 3 §3.2                                                               |            |
 
-All models are built so that, given a **joint policy** $\omega=(\omega_1,\dots,\omega_n)$, we can compute each agent’s *expected return* $U_i(\omega)$ either by enumerating histories (Eq. 4.1–4.4) or by Bellman recursion (Eq. 4.6–4.8).
-That universal $U_i$ lets us plug *any* model into *any* solution concept.
+All models are built so that, given a **joint policy** \(\omega=(\omega_1,\dots,\omega_n)\), we can compute each agent’s *expected return* \(U_i(\omega)\) either by enumerating histories (Eq. 4.1–4.4) or by Bellman recursion (Eq. 4.6–4.8).
+That universal \(U_i\) lets us plug *any* model into *any* solution concept.
 
 ---
 
@@ -217,13 +217,13 @@ That universal $U_i$ lets us plug *any* model into *any* solution concept.
 | Concept                         | Informal stability / optimality test                                 | Works with                                        | Book location              |
 | ------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------- | -------------------------- |
 | **Minimax value**               | “Guarantee my worst‑case payoff.”                                    | 2‑agent zero‑sum normal‑form or stochastic games. | §4.3 & LP in Eq. 4.12–4.15 |
-| **Nash equilibrium (NE)**       | No unilateral deviation can help.                                    | Any finite game, any $n$.                         | §4.4                       |
-| **$\varepsilon$-Nash**          | Deviation gains ≤ $\varepsilon$.                                     | Same as NE, but computable.                       | §4.5, Def. 7               |
+| **Nash equilibrium (NE)**       | No unilateral deviation can help.                                    | Any finite game, any \(n\).                         | §4.4                       |
+| **\(\varepsilon\)-Nash**          | Deviation gains ≤ \(\varepsilon\).                                     | Same as NE, but computable.                       | §4.5, Def. 7               |
 | **Correlated equilibrium (CE)** | No agent benefits if she *ignores* a common signal.                  | Normal‑form & many‑agent; polynomial‑time LP.     | §4.6, Eq. 4.19             |
 | **Coarse CE**                   | Same as CE but deviation cannot *depend* on the signal.              | Repeated games; emerges from no‑regret learning.  | §4.6                       |
 | **Pareto‑optimal**              | No other policy makes at least one agent better without hurting any. | Used as a *filter* on any equilibrium.            | §4.8, Def. 9               |
-| **Welfare / Fairness‑optimal**  | Maximise $\sum_i U_i$ or $\prod_i U_i$.                              | Policy design, resource allocation.               | §4.9, Def. 10–11           |
-| **No‑regret**                   | Long‑run average regret $\to 0$.                                     | Online repeated games; implies coarse CE.         | §4.10                      |
+| **Welfare / Fairness‑optimal**  | Maximise \(\sum_i U_i\) or \(\prod_i U_i\).                              | Policy design, resource allocation.               | §4.9, Def. 10–11           |
+| **No‑regret**                   | Long‑run average regret \(\to 0\).                                     | Online repeated games; implies coarse CE.         | §4.10                      |
 
 > **Hierarchy:** minimax ⊂ Nash ⊂ CE ⊂ coarse CE (Fig. 4.3 in the text) — each step relaxes an independence assumption, enlarging the feasible set of joint policies.
 
@@ -238,7 +238,7 @@ That universal $U_i$ lets us plug *any* model into *any* solution concept.
 | **Stochastic game, zero‑sum**      | Minimax‑Q / Opponent‑shaping RL.              | –                                                                                    | –                                                                   | –                                                                |
 | **Stochastic game, general‑sum**   | –                                             | Nash‑Q, Policy‑Space Response Oracles (PSRO).                                        | CE‑Q variants; mirror‑descent with joint signals.                   | Multi‑objective RL, value‑decomposition, egalitarian bargaining. |
 | **POSG, cooperative**              | –                                             | – (all agents share reward)                                                          | Joint‑policy search, central critic, QMIX.                          | Team‑optimum (max sum of returns).                               |
-| **Repeated matrix game**           | –                                             | Fictitious play (may fail to converge).                                              | No‑regret hedging → coarse CE with provable $O(1/\sqrt{T})$ regret. | Use welfare/fairness to pick among the coarse CE set.            |
+| **Repeated matrix game**           | –                                             | Fictitious play (may fail to converge).                                              | No‑regret hedging → coarse CE with provable \(O(1/\sqrt{T})\) regret. | Use welfare/fairness to pick among the coarse CE set.            |
 
 *Blank* cells mean the pairing is either unnecessary (e.g., minimax in a cooperative POSG) or not standard.
 
@@ -248,7 +248,7 @@ That universal $U_i$ lets us plug *any* model into *any* solution concept.
 
 | Learning problem               | Model                                          | Target solution                                | Typical algorithm                                                          |
 | ------------------------------ | ---------------------------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------- |
-| **Heads‑up no‑limit poker**    | Imperfect‑information extensive‑form (a POSG). | ε‑Nash (zero‑sum).                             | Counterfactual Regret Minimisation (CFR) → exploitability ≤ $\varepsilon$. |
+| **Heads‑up no‑limit poker**    | Imperfect‑information extensive‑form (a POSG). | ε‑Nash (zero‑sum).                             | Counterfactual Regret Minimisation (CFR) → exploitability ≤ \(\varepsilon\). |
 | **Traffic‑light coordination** | Normal‑form day‑by‑day intersection game.      | Correlated equilibrium that maximises welfare. | Central server sends GREEN/RED signals; LP picks welfare‑max CE.           |
 | **Distributed load balancing** | Stochastic game, identical rewards.            | Welfare‑optimal (team).                        | Multi‑agent actor–critic with shared critic.                               |
 | **Cyber‑defence vs. attacker** | Zero‑sum stochastic game.                      | Minimax value.                                 | Adversarial RL (minimax‑Q, robust policy gradients).                       |
@@ -405,22 +405,22 @@ Once you've identified your model + solution concept:
 
 | Step                                                          | What you must write down                                                                                    | Where the book shows it                                         | Why it matters                                                                                   |
 | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| **1  Pick a game model $𝓖$**                                 | Specify $𝓖=(N,S,\{A_i\},T,\{R_i\},\{\Omega_i\},O,\gamma,\mu)$ or the simpler sub‑tuple for matrix games. | Game‑model recap in §4.1                                        | Fixes the **mechanics**: state–transition laws, information structure and instantaneous rewards. |
-| **2  Declare the solution concept $𝒞$**                      | Choose one notion (minimax, Nash, ε‑Nash, CE/CCE, Pareto, welfare, fairness, no‑regret).                    | Concept definitions in §§4.3‑4.10—e.g. Nash Def. 6, CE Eq. 4.19 | Sets the **target property** the learned joint policy must satisfy.                              |
-| **3  Bind them with the universal return $U_i$**              | Adopt either the history‑sum form (Eqs. 4.1‑4.4) or the Bellman recursion (Eqs. 4.6‑4.8).                   | §4.1                                                            | Gives a single yard‑stick for *all* models and concepts.                                         |
-| **4  Translate $𝒞$ into optimisation constraints or losses** | - **Minimax** → two linear programs (Eqs. 4.12‑4.15)                                                        |                                                                 |                                                                                                  |
+| **1  Pick a game model \(𝓖\)**                                 | Specify \(𝓖=(N,S,\{A_i\},T,\{R_i\},\{\Omega_i\},O,\gamma,\mu)\) or the simpler sub‑tuple for matrix games. | Game‑model recap in §4.1                                        | Fixes the **mechanics**: state–transition laws, information structure and instantaneous rewards. |
+| **2  Declare the solution concept \(𝒞\)**                      | Choose one notion (minimax, Nash, ε‑Nash, CE/CCE, Pareto, welfare, fairness, no‑regret).                    | Concept definitions in §§4.3‑4.10—e.g. Nash Def. 6, CE Eq. 4.19 | Sets the **target property** the learned joint policy must satisfy.                              |
+| **3  Bind them with the universal return \(U_i\)**              | Adopt either the history‑sum form (Eqs. 4.1‑4.4) or the Bellman recursion (Eqs. 4.6‑4.8).                   | §4.1                                                            | Gives a single yard‑stick for *all* models and concepts.                                         |
+| **4  Translate \(𝒞\) into optimisation constraints or losses** | - **Minimax** → two linear programs (Eqs. 4.12‑4.15)                                                        |                                                                 |                                                                                                  |
 
 * **Nash/ε‑Nash** → best‑response residuals must be ≤ 0 (Eq. 4.16 & 4.18).
 * **CE/CCE** → linear constraints 4.21–4.24 over joint‑action probabilities
-* **Pareto / welfare / fairness** → scalarise $U$ with Σ or ∏ (Defs. 10–11) | Turns an abstract criterion into something a learner can minimise or satisfy. |
-  \| **5  Choose learning variables Θ** | e.g. independent policy nets $\pi_{\theta_i}$, centralised Q‑network, joint policy table $ω(x_a)$. | CE LP uses $x_a$ variables; minimax LP uses $x_{a_i}$ | These are what gradient descent / LP solver will adjust. |
+* **Pareto / welfare / fairness** → scalarise \(U\) with Σ or ∏ (Defs. 10–11) | Turns an abstract criterion into something a learner can minimise or satisfy. |
+  \| **5  Choose learning variables Θ** | e.g. independent policy nets \(\pi_{\theta_i}\), centralised Q‑network, joint policy table \(ω(x_a)\). | CE LP uses \(x_a\) variables; minimax LP uses \(x_{a_i}\) | These are what gradient descent / LP solver will adjust. |
   \| **6  Define the interaction protocol** | *Explore & update* loop; who observes what; synchrony; replay buffer; episode length. | Learning‑process template starts in Ch. 5 (sign‑posted at end of Ch. 4) | Guarantees the data you collect is compatible with the objective. |
   \| **7  State convergence or stopping criteria** | - Exploitability ≤ ε (for minimax/Nash).
 * Average regret ≤ ε (for CCE).
 * Welfare gap ≤ ε to optimum. | Summary bullet‑list in §4.12 emphasises these diagnostics | Provides measurable success tests. |
   \| **8  Acknowledge complexity limits** | Note PPAD‑completeness of NASH; NP‑hardness of welfare‑filtered equilibria. | Guards expectations; motivates approximation or structure‑exploiting algorithms. |
   \| **9  Add refinement or selection rules** | Include Pareto or welfare filters to pick among multiple equilibria, as advised in §4.8–4.9 | Prevents the learner from converging to an undesired equilibrium. |
-  \| **10 Report the full specification** | $\langle 𝓖,𝒞,Θ,\text{update rule},\text{metrics},\text{stop condition}\rangle$ | Fig. 4.1 visualises the first two elements; the rest are the MARL analogue of an RL “problem definition”. | Makes the experiment or deployment reproducible. |
+  \| **10 Report the full specification** | \(\langle 𝓖,𝒞,Θ,\text{update rule},\text{metrics},\text{stop condition}\rangle\) | Fig. 4.1 visualises the first two elements; the rest are the MARL analogue of an RL “problem definition”. | Makes the experiment or deployment reproducible. |
 
 ---
 
@@ -441,7 +441,7 @@ Once you've identified your model + solution concept:
 
 ### Practical Tips & Pitfalls
 
-* **Always compute $U_i$ the *same* way you define it in Step 3.** Mixing history‑based and recursive returns can invalidate proofs of convergence.
+* **Always compute \(U_i\) the *same* way you define it in Step 3.** Mixing history‑based and recursive returns can invalidate proofs of convergence.
 * **Match algorithm class to concept:**
 
   * Linear programming ↔ minimax / CE in small matrix games.
@@ -560,10 +560,10 @@ together with precise definitions, the formal set‑containment (“composition�
 
 ## 0 Preliminaries (shared notation)
 
-* $I=\{1,\dots ,n\}$: set of agents.
-* $A_i$: finite action set of agent $i$; $A\equiv\prod_{i\in I}A_i$.
-* $\omega=(\omega_1,\dots ,\omega_n)$: **joint policy** (mixed strategy); for one‑shot matrix games it is a joint probability distribution over $A$.
-* $U_i(\omega)$: expected return to agent $i$ under $\omega$. A universal definition valid for **any** game model is given by the history sum (Eq. 4.1–4.4) or the Bellman recursion (Eq. 4.6–4.8).
+* \(I=\{1,\dots ,n\}\): set of agents.
+* \(A_i\): finite action set of agent \(i\); \(A\equiv\prod_{i\in I}A_i\).
+* \(\omega=(\omega_1,\dots ,\omega_n)\): **joint policy** (mixed strategy); for one‑shot matrix games it is a joint probability distribution over \(A\).
+* \(U_i(\omega)\): expected return to agent \(i\) under \(\omega\). A universal definition valid for **any** game model is given by the history sum (Eq. 4.1–4.4) or the Bellman recursion (Eq. 4.6–4.8).
 * **Best‑response operator**
 
   $$
@@ -571,14 +571,14 @@ together with precise definitions, the formal set‑containment (“composition�
   \] :contentReference[oaicite:0]{index=0}  
   $$
 
-All concepts below are stated in terms of $U_i$ and/or $BR_i$.
+All concepts below are stated in terms of \(U_i\) and/or \(BR_i\).
 
 ---
 
 ## 1 Level 1 – **Minimax** (two‑agent zero‑sum)
 
 > **Definition 5** (Eqs. 4.10‑4.11)
-> For agents $i,j$ with $U_i=-U_j$, a joint policy $\omega=(\omega_i,\omega_j)$ is *minimax* iff
+> For agents \(i,j\) with \(U_i=-U_j\), a joint policy \(\omega=(\omega_i,\omega_j)\) is *minimax* iff
 >
 > $$
 > U_i(\omega)=\max_{\omega_i}\min_{\omega_j}U_i(\omega_i,\omega_j)
@@ -586,13 +586,13 @@ All concepts below are stated in terms of $U_i$ and/or $BR_i$.
 > \] :contentReference[oaicite:1]{index=1}  
 > $$
 
-*Equivalent characterisation*: $\omega_i\in BR_i(\omega_j)$ **and** $\omega_j\in BR_j(\omega_i)$.&#x20;
+*Equivalent characterisation*: \(\omega_i\in BR_i(\omega_j)\) **and** \(\omega_j\in BR_j(\omega_i)\).&#x20;
 
 *Computation*: two linear programmes, one per agent (Eqs. 4.12–4.15), solvable in polynomial time.&#x20;
 
 ---
 
-## 2 Level 2 – **Nash Equilibrium** (general‑sum, any $n$)
+## 2 Level 2 – **Nash Equilibrium** (general‑sum, any \(n\))
 
 > **Definition 6** (Eq. 4.16)
 >
@@ -620,14 +620,14 @@ All concepts below are stated in terms of $U_i$ and/or $BR_i$.
 > \] :contentReference[oaicite:7]{index=7}  
 > $$
 
-*Containment*: $0$-Nash ≡ Nash ⊂ ε‑Nash for any $\varepsilon>0$.
+*Containment*: \(0\)-Nash ≡ Nash ⊂ ε‑Nash for any \(\varepsilon>0\).
 *Purpose*: tolerates floating‑point limits and yields FPTAS‑type algorithms in restricted settings.
 
 ---
 
 ## 4 Level 4 – **Correlated Equilibrium** (CE)
 
-Let each agent receive a *private recommendation* $a_i$ sampled from a publicly known **correlation device** $\omega_c\in\Delta(A)$.
+Let each agent receive a *private recommendation* \(a_i\) sampled from a publicly known **correlation device** \(\omega_c\in\Delta(A)\).
 
 > **Definition 8** (Eq. 4.19)
 >
@@ -638,14 +638,14 @@ Let each agent receive a *private recommendation* $a_i$ sampled from a publicly 
 > \] :contentReference[oaicite:8]{index=8}  
 > $$
 
-*Intuition*: after seeing its recommendation $a_i$ an agent cannot gain by deviating via any rule $\varrho_i$.
+*Intuition*: after seeing its recommendation \(a_i\) an agent cannot gain by deviating via any rule \(\varrho_i\).
 
 *Containment*
 
-1. If $\omega$ factors into independent marginals, the CE inequalities reduce to the Nash inequalities ⇒ **Nash ⊂ CE**.&#x20;
+1. If \(\omega\) factors into independent marginals, the CE inequalities reduce to the Nash inequalities ⇒ **Nash ⊂ CE**.&#x20;
 2. CE ⊂ CCE (next level) because every modifier is also an *unconditional* modifier.
 
-*Computation*: one LP with $|A|$ variables and $O(n|A|^2)$ constraints (Eqs. 4.20‑4.23), solvable in polynomial time.&#x20;
+*Computation*: one LP with \(|A|\) variables and \(O(n|A|^2)\) constraints (Eqs. 4.20‑4.23), solvable in polynomial time.&#x20;
 
 ---
 
@@ -670,13 +670,13 @@ Let each agent receive a *private recommendation* $a_i$ sampled from a publicly 
 
 ## 6 How the hierarchy *composes*
 
-Let $\mathcal{M}\subseteq\mathcal{N}\subseteq\mathcal{C}\subseteq\mathcal{K}$ denote the four sets (Minimax, Nash, CE, CCE) of joint policies.
+Let \(\mathcal{M}\subseteq\mathcal{N}\subseteq\mathcal{C}\subseteq\mathcal{K}\) denote the four sets (Minimax, Nash, CE, CCE) of joint policies.
 
 1. **Set‑inclusion proofs**
 
-   * **Minimax → Nash**: in two‑agent zero‑sum games $U_1=-U_2$. The saddle‑point condition implies both are mutual best responses, satisfying Eq. 4.16.
-   * **Nash → CE**: If $\omega$ is Nash, it factorises ($\omega(a)=\prod_i\omega_i(a_i)$); plug this into Eq. 4.19 with $\varrho_i$ “switch to $a_i'$” to recover Eq. 4.16.
-   * **CE → CCE**: Unconditional modifiers are a subset of all modifiers, so any $\omega$ that passes the stronger CE test passes the CCE test.
+   * **Minimax → Nash**: in two‑agent zero‑sum games \(U_1=-U_2\). The saddle‑point condition implies both are mutual best responses, satisfying Eq. 4.16.
+   * **Nash → CE**: If \(\omega\) is Nash, it factorises (\(\omega(a)=\prod_i\omega_i(a_i)\)); plug this into Eq. 4.19 with \(\varrho_i\) “switch to \(a_i'\)” to recover Eq. 4.16.
+   * **CE → CCE**: Unconditional modifiers are a subset of all modifiers, so any \(\omega\) that passes the stronger CE test passes the CCE test.
 
 2. **Constraint‑based view**
 
@@ -698,8 +698,8 @@ Let $\mathcal{M}\subseteq\mathcal{N}\subseteq\mathcal{C}\subseteq\mathcal{K}$ de
 | Dimension                        | Minimax                              | Nash                      | CE                               | CCE                                |      |                                      |   |   |          |   |      |   |   |          |   |    |
 | -------------------------------- | ------------------------------------ | ------------------------- | -------------------------------- | ---------------------------------- | ---- | ------------------------------------ | - | - | -------- | - | ---- | - | - | -------- | - | -- |
 | **Policy independence**          | Independent                          | Independent               | *Correlated* via signal          | Correlated & pre‑commit            |      |                                      |   |   |          |   |      |   |   |          |   |    |
-| **Deviation checks**             | One agent optimises vs. one opponent | $n$ unilateral deviations | $n\cdot\text{(all modifiers)}$ | (n\cdot                            | A\_i | ) unconditional                      |   |   |          |   |      |   |   |          |   |    |
-| **LP size (vars / constraints)** | (                                    | A\_i                      | ) / (                            | A\_j                               | )    | exponential in $n$ (for enumeration) | ( | A | ) / (O(n | A | ^2)) | ( | A | ) / (O(n | A | )) |
+| **Deviation checks**             | One agent optimises vs. one opponent | \(n\) unilateral deviations | \(n\cdot\text{(all modifiers)}\) | (n\cdot                            | A\_i | ) unconditional                      |   |   |          |   |      |   |   |          |   |    |
+| **LP size (vars / constraints)** | (                                    | A\_i                      | ) / (                            | A\_j                               | )    | exponential in \(n\) (for enumeration) | ( | A | ) / (O(n | A | ^2)) | ( | A | ) / (O(n | A | )) |
 | **Worst‑case complexity**        | Poly‑time                            | **PPAD‑complete**         | Poly‑time                        | Poly‑time                          |      |                                      |   |   |          |   |      |   |   |          |   |    |
 | **Infrastructure**               | none                                 | none                      | trusted signal generator         | signal broadcast *plus* pre‑commit |      |                                      |   |   |          |   |      |   |   |          |   |    |
 
@@ -840,7 +840,7 @@ U_i(\boldsymbol\omega)=\mathbb E\left[\sum_{t=0}^{\infty}\gamma^{t}r_i(s_t,a_t)\
 \boldsymbol\omega=(\omega_1,\dots,\omega_n),
 $$
 
-be the **expected return** to agent *i* under the joint policy (or mixed‑strategy) $\boldsymbol\omega$.
+be the **expected return** to agent *i* under the joint policy (or mixed‑strategy) \(\boldsymbol\omega\).
 
 ---
 
@@ -855,9 +855,9 @@ $$
 \tag{1}
 $$
 
-where $\Phi(\boldsymbol\omega)$ encodes the relevant **incentive constraints**
-(e.g. for Nash: $\Phi_i(\boldsymbol\omega)=\max_{\omega_i'}U_i(\omega_i',\omega_{-i})-U_i(\boldsymbol\omega)$).
-Equation (1) is a **zero‑residual fixed‑point problem**: we seek any $\boldsymbol\omega$ that *satisfies the constraints*, not one that *optimises* a scalar objective.
+where \(\Phi(\boldsymbol\omega)\) encodes the relevant **incentive constraints**
+(e.g. for Nash: \(\Phi_i(\boldsymbol\omega)=\max_{\omega_i'}U_i(\omega_i',\omega_{-i})-U_i(\boldsymbol\omega)\)).
+Equation (1) is a **zero‑residual fixed‑point problem**: we seek any \(\boldsymbol\omega\) that *satisfies the constraints*, not one that *optimises* a scalar objective.
 
 ---
 
@@ -894,9 +894,9 @@ An equilibrium may be far from the (2)‑optimal point, and vice‑versa.
 | **C** | (3, 3) | (0, 5) |
 | **D** | (5, 0) | (1, 1) |
 
-* **Unique Nash:** $\boldsymbol\omega^{\text{NE}}=(\text{D},\text{D})$
+* **Unique Nash:** \(\boldsymbol\omega^{\text{NE}}=(\text{D},\text{D})\)
   — because D strictly dominates C.
-* **Welfare‑maximiser:** $(\text{C},\text{C})$ with sum = 6 > 2.
+* **Welfare‑maximiser:** \((\text{C},\text{C})\) with sum = 6 > 2.
 
 Formally,
 
@@ -921,9 +921,9 @@ Hence solving (1) delivers returns that are **66 % below** the optimiser of (2
 | **Boxing** | (0, 0)     | (1, 2)     |
 
 * **Two pure Nash points**: (Ballet,Ballet) and (Boxing,Boxing).
-* **Mixed Nash**: each chooses Ballet with prob $p=\frac23$, Boxing with $1-p$.
+* **Mixed Nash**: each chooses Ballet with prob \(p=\frac23\), Boxing with \(1-p\).
 
-The three equilibria give **different individual utilities** $U_1\in\{2,1,\tfrac43\}$.
+The three equilibria give **different individual utilities** \(U_1\in\{2,1,\tfrac43\}\).
 All satisfy incentive constraints, yet agent 1 strongly prefers Ballet‑pure; agent 2 prefers Boxing‑pure.
 
 Take‑away: **learning “some” NE is not enough—selection matters.**
@@ -941,7 +941,7 @@ $$
 $$
 
 * If PoA = 1, (1) and (2) coincide.
-* In congestion & auction games PoA can be *unbounded*: welfare‑optimal $\sim O(n)$ higher than worst‑case Nash.
+* In congestion & auction games PoA can be *unbounded*: welfare‑optimal \(\sim O(n)\) higher than worst‑case Nash.
 
 Thus equilibrium learning alone offers **no quantitative welfare guarantee** unless the game satisfies extra “smoothness” assumptions (λ, μ‑smooth ⇒ PoA ≤ (1+μ)/λ).
 
@@ -951,10 +951,10 @@ Thus equilibrium learning alone offers **no quantitative welfare guarantee** unl
 
 | Consequence                                     | Mathematical reason                                                                                                                                               | Practical impact                                                                                                     |
 | ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| **Inefficient convergence**                     |   Algorithms that drive $\Phi(\boldsymbol\omega)\to 0$ (best‑response, fictitious play, no‑regret → CCE) optimise *constraints only*; they need not increase $W$. | Systems may stabilise in low‑reward regimes (e.g., traffic gridlock despite equilibrium).                            |
-| **Need for equilibrium selection / refinement** | Multiple solutions satisfy (1) but yield different $U_i$.                                                                                                         | Designers add **Pareto / welfare / fairness filters** or introduce a *correlation device* to pick high‑welfare CE.   |
-| **Reward‑max learners can cycle**               | Pure self‑interest gradient ascent pushes toward (2)‑max but makes $\Phi\neq0$; opponents then change, destroying any local optimum.                              | MARL training unstable (oscillations, “non‑stationarity”); motivates *opponent‑shaping* or *co‑learning* algorithms. |
-| **Strategic reward shaping**                    | Add a *potential* $Φ(\boldsymbol\omega)$ s.t. ∇Φ = ∑ weights ∇U\_i ⇒ maximising Φ **aligns** with reaching NE of the potential game.                              | Common trick in cooperative MARL (value decomposition, team reward).                                                 |
+| **Inefficient convergence**                     |   Algorithms that drive \(\Phi(\boldsymbol\omega)\to 0\) (best‑response, fictitious play, no‑regret → CCE) optimise *constraints only*; they need not increase \(W\). | Systems may stabilise in low‑reward regimes (e.g., traffic gridlock despite equilibrium).                            |
+| **Need for equilibrium selection / refinement** | Multiple solutions satisfy (1) but yield different \(U_i\).                                                                                                         | Designers add **Pareto / welfare / fairness filters** or introduce a *correlation device* to pick high‑welfare CE.   |
+| **Reward‑max learners can cycle**               | Pure self‑interest gradient ascent pushes toward (2)‑max but makes \(\Phi\neq0\); opponents then change, destroying any local optimum.                              | MARL training unstable (oscillations, “non‑stationarity”); motivates *opponent‑shaping* or *co‑learning* algorithms. |
+| **Strategic reward shaping**                    | Add a *potential* \(Φ(\boldsymbol\omega)\) s.t. ∇Φ = ∑ weights ∇U\_i ⇒ maximising Φ **aligns** with reaching NE of the potential game.                              | Common trick in cooperative MARL (value decomposition, team reward).                                                 |
 | **Mechanism/market design**                     | Impose taxes, subsidies, or protocols to shrink PoA bound.                                                                                                        | Toll roads, reserve prices in auctions, AMM fee curves in DeFi.                                                      |
 
 ---
@@ -974,7 +974,7 @@ Thus equilibrium learning alone offers **no quantitative welfare guarantee** unl
 3. **Use coordination devices or central critics** in multi‑agent RL when the task is cooperative; aim directly at (2) rather than at (1).
 
 4. **Audit equilibrium quality.**
-   Always log **both** exploitability (max $\Phi_i$) **and** welfare (or other payoff metric). An equilibrium with high welfare loss is *technically solved* yet **economically pointless**.
+   Always log **both** exploitability (max \(\Phi_i\)) **and** welfare (or other payoff metric). An equilibrium with high welfare loss is *technically solved* yet **economically pointless**.
 
 By recognising—in precise algebraic terms—that *“being an equilibrium”* and *“maximising expected returns”* are orthogonal requirements, practitioners can choose the right optimisation targets, diagnostics, and incentive interventions for their MARL systems.
 
@@ -1012,7 +1012,7 @@ By recognising—in precise algebraic terms—that *“being an equilibrium”* 
 
 | Question                                                                                        | If **Yes**                                                                                                 | If **No**            |
 | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | -------------------- |
-| > Are **independent** mixed strategies acceptable *and* can you tolerate PPAD‑hard computation? | **Choose NASH equilibrium.** Definition 6 gives the condition $U_i(\omega_i',\omega_{-i})\le U_i(\omega)$. | Go to **Block S 3**. |
+| > Are **independent** mixed strategies acceptable *and* can you tolerate PPAD‑hard computation? | **Choose NASH equilibrium.** Definition 6 gives the condition \(U_i(\omega_i',\omega_{-i})\le U_i(\omega)\). | Go to **Block S 3**. |
 
 *Hints*: Small matrix games, few agents, or when exploitability is the evaluation metric.
 
@@ -1084,7 +1084,7 @@ Using the two checklists together ensures you neither *over‑engineer* (by aimi
 
 | Step    | Quick question                                                                                                                                                     | If **Yes** → pick this concept                                                                                                 | Rationale & book anchor                                                               |
 | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- |
-| **S‑0** | **Do all agents share exactly the same reward signal?**                                                                                                            | **Team‑optimal (return‑maximisation).** No strategic conflict ⇒ just optimise the common return with single‑agent RL/planning. | Common‑reward games need no equilibrium notion – simply maximise each $U_i$ together  |
+| **S‑0** | **Do all agents share exactly the same reward signal?**                                                                                                            | **Team‑optimal (return‑maximisation).** No strategic conflict ⇒ just optimise the common return with single‑agent RL/planning. | Common‑reward games need no equilibrium notion – simply maximise each \(U_i\) together  |
 | **S‑1** | Is the game **strictly two‑agent *and* zero‑sum/constant‑sum**?                                                                                                    | **Minimax equilibrium** (a.k.a. saddle‑point).                                                                                 | Guarantees worst‑case value; solvable via 2 LPs                                       |
 | **S‑2** | (Otherwise) **Can you tolerate PPAD‑hard computation *and* want independent mixed strategies?**<br/>*(small action spaces, offline solver, exploitability metric)* | **Nash equilibrium (exact or ε).**                                                                                             | Mutual best‑response definition (4.16)  — but exact Nash is PPAD‑complete             |
 | **S‑3** | Do you have or can you deploy a **trusted public signal / mediator** (e.g., traffic light, auctioneer) so agents can coordinate?                                   | **Correlated equilibrium (CE).**                                                                                               | Removes independence, improves welfare; one LP in poly‑time                           |

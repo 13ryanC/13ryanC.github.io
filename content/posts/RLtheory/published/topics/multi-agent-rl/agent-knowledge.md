@@ -47,67 +47,67 @@ Traditional game theory operates under the foundational assumption of **complete
 
 This idealization allows for precise analytical solutions. The game's structure is formally defined:
 
-* **Normal-Form Game**: A static interaction is described by $G = \langle N, A, R \rangle$.
-    * $N = \lbrace 1, ..., n\rbrace$: The set of agents.
-    * $A = A_1 \times \dots \times A_n$: The joint action space, which is the Cartesian product of the individual action sets $A_i$. An element $a \in A$ is an **action profile** $a = (a_1, \dots, a_n)$, where $a_i$ is the action chosen by agent $i$.
-    * $R = (R_1, \dots, R_n)$: The set of reward functions. For each agent $i$, $R_i(a)$ specifies the numerical reward for that agent given the joint action $a$.
+* **Normal-Form Game**: A static interaction is described by \(G = \langle N, A, R \rangle\).
+    * \(N = \lbrace 1, ..., n\rbrace\): The set of agents.
+    * \(A = A_1 \times \dots \times A_n\): The joint action space, which is the Cartesian product of the individual action sets \(A_i\). An element \(a \in A\) is an **action profile** \(a = (a_1, \dots, a_n)\), where \(a_i\) is the action chosen by agent \(i\).
+    * \(R = (R_1, \dots, R_n)\): The set of reward functions. For each agent \(i\), \(R_i(a)\) specifies the numerical reward for that agent given the joint action \(a\).
 
-* **Stochastic Game** (Markov Game): For dynamic environments, the model is $SG = \langle N, S, A, P, R \rangle$.
-    * $S$: A set of environment states.
-    * $P$: The state transition function, $P(s' | s, a)$, which defines the probability of transitioning from state $s$ to state $s'$ after the agents take the joint action $a$. It must satisfy $\sum_{s' \in S} P(s' | s, a) = 1$.
-    * $R_i(s, a)$: The reward function for agent $i$ now depends on the state $s$ as well as the joint action $a$.
+* **Stochastic Game** (Markov Game): For dynamic environments, the model is \(SG = \langle N, S, A, P, R \rangle\).
+    * \(S\): A set of environment states.
+    * \(P\): The state transition function, \(P(s' | s, a)\), which defines the probability of transitioning from state \(s\) to state \(s'\) after the agents take the joint action \(a\). It must satisfy \(\sum_{s' \in S} P(s' | s, a) = 1\).
+    * \(R_i(s, a)\): The reward function for agent \(i\) now depends on the state \(s\) as well as the joint action \(a\).
 
-With complete knowledge, agents can predict each other's behaviour. This leads to powerful solution concepts like the **Nash Equilibrium**. A joint strategy profile $\pi^\ast = (\pi_1^\ast, \dots, \pi_n^\ast)$ is a Nash Equilibrium if no single agent can improve its own expected reward by unilaterally changing its strategy. Formally, for every agent $i$ and for any alternative strategy $\pi_i$:
+With complete knowledge, agents can predict each other's behaviour. This leads to powerful solution concepts like the **Nash Equilibrium**. A joint strategy profile \(\pi^\ast = (\pi_1^\ast, \dots, \pi_n^\ast)\) is a Nash Equilibrium if no single agent can improve its own expected reward by unilaterally changing its strategy. Formally, for every agent \(i\) and for any alternative strategy \(\pi_i\):
 
 $$
 \mathbb E_{s \sim d, a \sim \pi^\ast}[R_i(s,a)] \ge \mathbb E_{s \sim d, a \sim (\pi_i, \pi_{-i}^\ast)}[R_i(s,a)]
 $$
 
-where $\pi_{-i}^\ast$ denotes the equilibrium strategies of all agents except $i$, and the expectation is over the game's outcomes.
+where \(\pi_{-i}^\ast\) denotes the equilibrium strategies of all agents except \(i\), and the expectation is over the game's outcomes.
 
 ---
 
 #### **Incomplete Information: The MARL Paradigm**
 
-MARL addresses more realistic scenarios of **incomplete information**, where agents have only a partial, local view of the system. The mathematical model that captures this is the **Decentralized Partially Observable Markov Decision Process (Dec-POMDP)**. It is defined by the tuple $\langle N, S, A, P, R, \Omega, O \rangle$.
+MARL addresses more realistic scenarios of **incomplete information**, where agents have only a partial, local view of the system. The mathematical model that captures this is the **Decentralized Partially Observable Markov Decision Process (Dec-POMDP)**. It is defined by the tuple \(\langle N, S, A, P, R, \Omega, O \rangle\).
 
 Compared to a Stochastic Game, a Dec-POMDP introduces:
-* $\Omega = (\Omega_1, \dots, \Omega_n)$: A set of individual observations for each agent.
-* $O$: The observation function. After a transition to state $s'$, the environment issues a joint observation $(o_1, \dots, o_n)$, where agent $i$'s observation $o_i \in \Omega_i$ is drawn from the probability distribution $O(o | s', a)$.
+* \(\Omega = (\Omega_1, \dots, \Omega_n)\): A set of individual observations for each agent.
+* \(O\): The observation function. After a transition to state \(s'\), the environment issues a joint observation \((o_1, \dots, o_n)\), where agent \(i\)'s observation \(o_i \in \Omega_i\) is drawn from the probability distribution \(O(o | s', a)\).
 
-In this setting, an agent $i$ does not know the true state $s$. Instead, it only receives its private observation $o_i$ and its own reward $r_i$. It does not know the other agents' rewards, observations, or the underlying state transition function $P$. To cope with this uncertainty, an agent must maintain a **belief state**, $b(s)$, which is a probability distribution over the possible true states $S$, updated based on its history of actions and observations.
+In this setting, an agent \(i\) does not know the true state \(s\). Instead, it only receives its private observation \(o_i\) and its own reward \(r_i\). It does not know the other agents' rewards, observations, or the underlying state transition function \(P\). To cope with this uncertainty, an agent must maintain a **belief state**, \(b(s)\), which is a probability distribution over the possible true states \(S\), updated based on its history of actions and observations.
 
-The agent's goal is to learn a **policy** $\pi_i$ that maps its history (or its derived belief state) to an action. The search for an optimal policy is fundamentally harder because the agent cannot directly observe the full state required to make a perfectly informed decision.
+The agent's goal is to learn a **policy** \(\pi_i\) that maps its history (or its derived belief state) to an action. The search for an optimal policy is fundamentally harder because the agent cannot directly observe the full state required to make a perfectly informed decision.
 
 ---
 
 #### **The Learning Objective: Maximizing Value**
 
-The objective for each agent is to find a policy $\pi_i$ that maximizes its long-term cumulative reward. This is captured by the **value function**.
+The objective for each agent is to find a policy \(\pi_i\) that maximizes its long-term cumulative reward. This is captured by the **value function**.
 
-* **State-Value Function ($V$-function)**: The expected return starting from state $s$ and following a joint policy $\vec{\pi} = (\pi_1, \dots, \pi_n)$.
+* **State-Value Function (\(V\)-function)**: The expected return starting from state \(s\) and following a joint policy \(\vec{\pi} = (\pi_1, \dots, \pi_n)\).
     $$
     V_i^{\vec{\pi}}(s) = \mathbb{E}\left[\sum_{t=0}^{\infty} \gamma^t r_{i,t+1} \mid S_t=s, \vec{\pi}, P\right]
     $$
-    The expectation is over all possible future trajectories $\tau = (s_0, a_0, s_1, a_1, \dots)$, where the probability of a specific trajectory is determined by both the environment dynamics $P(s_{t+1}|s_t, a_t)$ and the collective actions sampled from the joint policy $\vec{\pi}(a_t|s_t) = \prod_j \pi_j(a_{j,t}|s_t)$. Since the agent knows neither $P$ nor $\pi_j$ for $j \neq i$, this cannot be computed directly.
+    The expectation is over all possible future trajectories \(\tau = (s_0, a_0, s_1, a_1, \dots)\), where the probability of a specific trajectory is determined by both the environment dynamics \(P(s_{t+1}|s_t, a_t)\) and the collective actions sampled from the joint policy \(\vec{\pi}(a_t|s_t) = \prod_j \pi_j(a_{j,t}|s_t)\). Since the agent knows neither \(P\) nor \(\pi_j\) for \(j \neq i\), this cannot be computed directly.
 
-* **Action-Value Function ($Q$-function)**: More commonly used in learning algorithms, this function gives the expected return after taking a specific joint action $a$ in a state $s$.
+* **Action-Value Function (\(Q\)-function)**: More commonly used in learning algorithms, this function gives the expected return after taking a specific joint action \(a\) in a state \(s\).
     $$
     Q_i^{\vec{\pi}}(s, a) = \mathbb{E}\left[\sum_{t=0}^{\infty} \gamma^t r_{i,t+1} \mid S_t=s, A_t=a, \vec{\pi}, P\right]
     $$
-    An agent would ideally choose its action $a_i$ to maximize this Q-value. However, this still requires knowing the concurrent actions of others, $a_{-i}$, which is a central challenge in MARL.
+    An agent would ideally choose its action \(a_i\) to maximize this Q-value. However, this still requires knowing the concurrent actions of others, \(a_{-i}\), which is a central challenge in MARL.
 
 ---
 
 ### Formalizing Knowledge with Epistemic Logic
 
-**Epistemic logic** provides a formal language to reason about states of knowledge. The semantics are given by a **Kripke Model**, $M = \langle W, \lbrace \sim_i\rbrace_{i \in N}, V \rangle$:
+**Epistemic logic** provides a formal language to reason about states of knowledge. The semantics are given by a **Kripke Model**, \(M = \langle W, \lbrace \sim_i\rbrace_{i \in N}, V \rangle\):
 
-* $W$ is a set of possible worlds (e.g., all possible configurations of a game state).
-* $\sim_i \subseteq W \times W$ is an indistinguishability relation for agent $i$. If $w \sim_i w'$, it means agent $i$ cannot tell the difference between world $w$ and world $w'$, given its information.
-* $V$ is a valuation function that assigns truth values to basic propositions in each world.
+* \(W\) is a set of possible worlds (e.g., all possible configurations of a game state).
+* \(\sim_i \subseteq W \times W\) is an indistinguishability relation for agent \(i\). If \(w \sim_i w'\), it means agent \(i\) cannot tell the difference between world \(w\) and world \(w'\), given its information.
+* \(V\) is a valuation function that assigns truth values to basic propositions in each world.
 
-Within this model, the statement "$i$ knows $\phi$" (written $K_i \phi$) is true in world $w$ if and only if $\phi$ is true in *all* worlds $w'$ that $i$ considers possible:
+Within this model, the statement "\(i\) knows \(\phi\)" (written \(K_i \phi\)) is true in world \(w\) if and only if \(\phi\) is true in *all* worlds \(w'\) that \(i\) considers possible:
 $$(M, w) \models K_i \phi \iff \forall w' \in W, (w \sim_i w' \implies (M, w') \models \phi)$$
 This mathematical structure provides the foundation for defining concepts like "common knowledge" (where the indistinguishability relations are shared and iterated) and an agent's private, partial information in a Dec-POMDP.
 
@@ -169,43 +169,43 @@ This distinction between observation and inference is formalized within the math
 
 The simplest interactive model, which assumes away the problem of partial information, is the **stochastic game**, also known as a Markov game. It extends the single-agent Markov Decision Process (MDP) to a multi-agent setting.
 
-A stochastic game is formally defined by a tuple $G = \langle N, S, \mathbf{A}, T, \mathbf{R} \rangle$, where:
-* $N$: A finite set of $n$ agents.
-* $S$: A finite set of environment states. In this model, the state $s \in S$ is **fully and directly observable** to all agents at every timestep.
-* $\mathbf{A} = A_1 \times \dots \times A_n$: A set of joint actions, where $A_i$ is the action set for agent $i$.
-* $T: S \times \mathbf{A} \times S \to [0, 1]$: The state transition function. This function encodes the environment's dynamics. The expression $T(s, \mathbf{a}, s')$ gives the probability that the environment will transition from its current state $s$ to a new state $s'$ if the agents execute the joint action $\mathbf{a} = (a_1, \dots, a_n)$.
-* $\mathbf{R} = R_1, \dots, R_n$: A set of reward functions. The function $R_i: S \times \mathbf{A} \to \mathbb{R}$ determines the immediate numerical reward agent $i$ receives after the joint action $\mathbf{a}$ is taken in state $s$.
+A stochastic game is formally defined by a tuple \(G = \langle N, S, \mathbf{A}, T, \mathbf{R} \rangle\), where:
+* \(N\): A finite set of \(n\) agents.
+* \(S\): A finite set of environment states. In this model, the state \(s \in S\) is **fully and directly observable** to all agents at every timestep.
+* \(\mathbf{A} = A_1 \times \dots \times A_n\): A set of joint actions, where \(A_i\) is the action set for agent \(i\).
+* \(T: S \times \mathbf{A} \times S \to [0, 1]\): The state transition function. This function encodes the environment's dynamics. The expression \(T(s, \mathbf{a}, s')\) gives the probability that the environment will transition from its current state \(s\) to a new state \(s'\) if the agents execute the joint action \(\mathbf{a} = (a_1, \dots, a_n)\).
+* \(\mathbf{R} = R_1, \dots, R_n\): A set of reward functions. The function \(R_i: S \times \mathbf{A} \to \mathbb{R}\) determines the immediate numerical reward agent \(i\) receives after the joint action \(\mathbf{a}\) is taken in state \(s\).
 
 #### **The Agent's Objective**
 An agent's goal is not simply to get a high immediate reward, but to maximize its total expected reward over an entire episode or lifetime. This is formalized as the **expected discounted return**. 
 
-Agent $i$ follows a **policy** $\pi_i$, which is a strategy that maps states to actions (or a distribution over actions), $\pi_i: S \to \Delta(A_i)$. The objective is to find an optimal policy $\pi_i^\ast$ that maximizes the value function $V_i^{\pi}$:
+Agent \(i\) follows a **policy** \(\pi_i\), which is a strategy that maps states to actions (or a distribution over actions), \(\pi_i: S \to \Delta(A_i)\). The objective is to find an optimal policy \(\pi_i^\ast\) that maximizes the value function \(V_i^{\pi}\):
 $$
 V_i^{\pi}(s) = \mathbb E_{\pi} \left[ \sum_{t=0}^{\infty} \gamma^t R_i(S_t, \mathbf A_t) \mid S_0=s \right]
 $$
 where:
-* $\pi = (\pi_1, \dots, \pi_n)$ is the joint policy of all agents.
-* $\gamma \in [0, 1)$ is the **discount factor**, which prioritizes immediate rewards over future ones. A $\gamma$ close to 0 makes the agent "myopic," while a $\gamma$ close to 1 makes it "far-sighted."
-* The expectation $\mathbb{E}_{\pi}$ is taken over the sequence of states and actions induced by all agents following their respective policies.
+* \(\pi = (\pi_1, \dots, \pi_n)\) is the joint policy of all agents.
+* \(\gamma \in [0, 1)\) is the **discount factor**, which prioritizes immediate rewards over future ones. A \(\gamma\) close to 0 makes the agent "myopic," while a \(\gamma\) close to 1 makes it "far-sighted."
+* The expectation \(\mathbb{E}_{\pi}\) is taken over the sequence of states and actions induced by all agents following their respective policies.
 
-Even with full observability, agents typically do not know the functions $T$ and $\mathbf{R}$ and must infer them through exploration.
+Even with full observability, agents typically do not know the functions \(T\) and \(\mathbf{R}\) and must infer them through exploration.
 
 
 ### **Partial Observability: The Realistic Default**
 
-The most realistic and complex scenario is modeled by the **Partially Observable Stochastic Game** (POSG). A POSG is formally a tuple $G = \langle N, S, \mathbf{A}, T, \mathbf{R}, \mathbf{\Omega}, O \rangle$, with two additional components:
+The most realistic and complex scenario is modeled by the **Partially Observable Stochastic Game** (POSG). A POSG is formally a tuple \(G = \langle N, S, \mathbf{A}, T, \mathbf{R}, \mathbf{\Omega}, O \rangle\), with two additional components:
 
-* $\mathbf{\Omega} = \Omega_1 \times \dots \times \Omega_n$: The joint observation space. Each $\Omega_i$ is the set of all possible private observations for agent $i$.
-* $O$: The observation function, $O: S \times \mathbf{A} \to \Delta(\mathbf{\Omega})$. Here, $\Delta(\mathbf{\Omega})$ denotes the set of probability distributions over $\mathbf{\Omega}$. The function gives the probability of receiving a joint observation $\mathbf{o} \in \mathbf{\Omega}$ given the system just transitioned to state $s$ after joint action $\mathbf{a}$ was taken.
+* \(\mathbf{\Omega} = \Omega_1 \times \dots \times \Omega_n\): The joint observation space. Each \(\Omega_i\) is the set of all possible private observations for agent \(i\).
+* \(O\): The observation function, \(O: S \times \mathbf{A} \to \Delta(\mathbf{\Omega})\). Here, \(\Delta(\mathbf{\Omega})\) denotes the set of probability distributions over \(\mathbf{\Omega}\). The function gives the probability of receiving a joint observation \(\mathbf{o} \in \mathbf{\Omega}\) given the system just transitioned to state \(s\) after joint action \(\mathbf{a}\) was taken.
 
-In a POSG, an agent must maintain a **belief state**, $b_i$, which is a probability distribution over the true states $S$. 
+In a POSG, an agent must maintain a **belief state**, \(b_i\), which is a probability distribution over the true states \(S\). 
 
-This belief is a **sufficient statistic** for the agent's past experiences; it summarizes the entire action-observation history $h_i^t = (a_i^0, o_i^1, \dots, a_i^{t-1}, o_i^t)$ into a single probability distribution that is sufficient for optimal decision-making.
+This belief is a **sufficient statistic** for the agent's past experiences; it summarizes the entire action-observation history \(h_i^t = (a_i^0, o_i^1, \dots, a_i^{t-1}, o_i^t)\) into a single probability distribution that is sufficient for optimal decision-making.
 
-The agent's policy now maps beliefs to actions, $\pi_i: \mathcal{B} \to \Delta(A_i)$, where $\mathcal{B}$ is the space of all possible belief states.
+The agent's policy now maps beliefs to actions, \(\pi_i: \mathcal{B} \to \Delta(A_i)\), where \(\mathcal{B}\) is the space of all possible belief states.
 
 #### **Mathematical Detail of the Belief Update**
-The belief is updated recursively using a **Bayesian filter**. The formula for updating belief $b_i$ to $b_i^\prime$ after taking action $a_i$ and receiving observation $o_i$ is:
+The belief is updated recursively using a **Bayesian filter**. The formula for updating belief \(b_i\) to \(b_i^\prime\) after taking action \(a_i\) and receiving observation \(o_i\) is:
 $$
 b_i^\prime (s') = \eta P(o_i \mid s', a_i) \sum_{s \in S} P(s' \mid s, \mathbf a) b_i(s)
 $$
@@ -216,20 +216,20 @@ Let's dissect this update step-by-step:
     $$
     \hat b_i(s') = \sum_{s \in S} T(s, \mathbf a, s') b_i(s)
     $$
-    This is an application of the Law of Total Probability. It calculates the predicted belief $\hat{b}_i(s')$ by summing over every possible previous state $s$, weighting its transition probability $T(s, \mathbf a, s')$ by the agent's prior belief $b_i(s)$ that it was in that state.
-    * **Challenge**: Note that the transition $T$ depends on the joint action $\mathbf{a}$, but agent $i$ only knows its own action $a_i$. To compute this, the agent must model or infer the other agents' actions, $\mathbf{a}_{-i}$.
+    This is an application of the Law of Total Probability. It calculates the predicted belief \(\hat{b}_i(s')\) by summing over every possible previous state \(s\), weighting its transition probability \(T(s, \mathbf a, s')\) by the agent's prior belief \(b_i(s)\) that it was in that state.
+    * **Challenge**: Note that the transition \(T\) depends on the joint action \(\mathbf{a}\), but agent \(i\) only knows its own action \(a_i\). To compute this, the agent must model or infer the other agents' actions, \(\mathbf{a}_{-i}\).
 
-2.  **Correction (Update):** Next, the agent corrects its prediction using the new evidence—its observation $o_i$. This is done by multiplying the predicted belief by the observation probability:
+2.  **Correction (Update):** Next, the agent corrects its prediction using the new evidence—its observation \(o_i\). This is done by multiplying the predicted belief by the observation probability:
     $$
     b'_{i, \text{unnormalized}}(s') = P(o_i \mid s', a_i) \times \hat{b}_i(s')
     $$
-    The term $P(o_i \mid s', a_i)$ comes from the observation function $O$ and represents the likelihood of seeing $o_i$ if the world were truly in state $s'$. This step re-weights the predicted belief, increasing the probability of states that are consistent with the observation and decreasing it for states that are not.
+    The term \(P(o_i \mid s', a_i)\) comes from the observation function \(O\) and represents the likelihood of seeing \(o_i\) if the world were truly in state \(s'\). This step re-weights the predicted belief, increasing the probability of states that are consistent with the observation and decreasing it for states that are not.
 
-3.  **Normalization:** The resulting belief $b_{i, \text{unnormalized}}^\prime$ is not yet a valid probability distribution (it doesn't sum to 1). It is normalized by dividing by the probability of the evidence, $P(o_i \mid h_i^t, a_i)$. This gives the normalization constant $\eta$:
+3.  **Normalization:** The resulting belief \(b_{i, \text{unnormalized}}^\prime\) is not yet a valid probability distribution (it doesn't sum to 1). It is normalized by dividing by the probability of the evidence, \(P(o_i \mid h_i^t, a_i)\). This gives the normalization constant \(\eta\):
     $$
     \eta = \frac{1}{\sum_{s' \in S} P(o_i \mid s', a_i) \hat b_i(s')}
     $$
-    The final, complete update is $b_i^\prime (s') = \eta \times b_{i, \text{unnormalized}}^\prime (s')$, which is the application of Bayes' rule. This recursive update allows an agent to continuously refine its understanding of the hidden state as it interacts with its world.
+    The final, complete update is \(b_i^\prime (s') = \eta \times b_{i, \text{unnormalized}}^\prime (s')\), which is the application of Bayes' rule. This recursive update allows an agent to continuously refine its understanding of the hidden state as it interacts with its world.
 
 ---
 
@@ -261,39 +261,39 @@ These concepts can be defined with mathematical precision using epistemic logic.
 
 #### The Mathematical Semantics of Knowledge (Kripke Models)
 
-To move past jargon, we can formally define knowledge using an **Epistemic Model** (or Kripke structure), denoted as a tuple $M = (W, \lbrace \sim_i\rbrace_{i \in G}, V)$. This structure provides a concrete way to reason about "possible worlds."
+To move past jargon, we can formally define knowledge using an **Epistemic Model** (or Kripke structure), denoted as a tuple \(M = (W, \lbrace \sim_i\rbrace_{i \in G}, V)\). This structure provides a concrete way to reason about "possible worlds."
 
-* $W$ is a non-empty set of **possible worlds** (or states). A world represents a complete description of how things might be.
-* $\lbrace \sim_i\rbrace_{i \in G}$ is a set of **accessibility relations**, one for each agent $i$ in the group $G$. The relation $\sim_i \subseteq W \times W$ captures the uncertainty of agent $i$. We write $w \sim_i w'$ to mean "in world $w$, agent $i$ considers world $w'$ to be possible." If an agent cannot distinguish between $w$ and $w'$, then everything it knows in $w$ must also be true in $w'$. For knowledge, these relations are typically **equivalence relations** (reflexive, symmetric, and transitive).
-* $V$ is a **valuation function** that assigns truth values to primitive propositions in each world. For a proposition $p$, $V(w, p)$ is either true or false.
+* \(W\) is a non-empty set of **possible worlds** (or states). A world represents a complete description of how things might be.
+* \(\lbrace \sim_i\rbrace_{i \in G}\) is a set of **accessibility relations**, one for each agent \(i\) in the group \(G\). The relation \(\sim_i \subseteq W \times W\) captures the uncertainty of agent \(i\). We write \(w \sim_i w'\) to mean "in world \(w\), agent \(i\) considers world \(w'\) to be possible." If an agent cannot distinguish between \(w\) and \(w'\), then everything it knows in \(w\) must also be true in \(w'\). For knowledge, these relations are typically **equivalence relations** (reflexive, symmetric, and transitive).
+* \(V\) is a **valuation function** that assigns truth values to primitive propositions in each world. For a proposition \(p\), \(V(w, p)\) is either true or false.
 
-With this structure, the statement **"agent $i$ knows $\phi$"**, denoted $K_i \phi$, is given a precise meaning:
+With this structure, the statement **"agent \(i\) knows \(\phi\)"**, denoted \(K_i \phi\), is given a precise meaning:
 $$(M, w) \models K_i \phi \iff \forall w' \in W, (w \sim_i w' \implies (M, w') \models \phi)$$
-In plain terms: "Agent $i$ knows $\phi$ in world $w$" is true if and only if "$\phi$ is true in all worlds $w'$ that agent $i$ considers possible from $w$."
+In plain terms: "Agent \(i\) knows \(\phi\) in world \(w\)" is true if and only if "\(\phi\) is true in all worlds \(w'\) that agent \(i\) considers possible from \(w\)."
 
 #### Defining Shared Knowledge Mathematically
 
 Using this formal model, we can now define the levels of shared knowledge with greater clarity:
 
-1.  **Mutual Knowledge ($E_G \phi$):** This is the case where every agent in group $G$ knows $\phi$.
+1.  **Mutual Knowledge (\(E_G \phi\)):** This is the case where every agent in group \(G\) knows \(\phi\).
     $$(M, w) \models E_G \phi \iff \forall i \in G, (M, w) \models K_i \phi$$
-    This simply means the condition for $K_i \phi$ holds for all agents in the group.
+    This simply means the condition for \(K_i \phi\) holds for all agents in the group.
 
-2.  **Common Knowledge ($C_G \phi$):** The "infinite recursion" of common knowledge has a direct and elegant mathematical interpretation. First, let's define the iterative sequence:
-    * $E_G^1 \phi \equiv E_G \phi$ (Everyone knows $\phi$)
-    * $E_G^2 \phi \equiv E_G(E_G \phi)$ (Everyone knows that everyone knows $\phi$)
-    * $E_G^k \phi \equiv E_G(E_G^{k-1} \phi)$
-    * Common knowledge is the infinite conjunction: $C_G \phi \equiv \bigwedge_{k=1}^{\infty} E_G^k \phi$.
+2.  **Common Knowledge (\(C_G \phi\)):** The "infinite recursion" of common knowledge has a direct and elegant mathematical interpretation. First, let's define the iterative sequence:
+    * \(E_G^1 \phi \equiv E_G \phi\) (Everyone knows \(\phi\))
+    * \(E_G^2 \phi \equiv E_G(E_G \phi)\) (Everyone knows that everyone knows \(\phi\))
+    * \(E_G^k \phi \equiv E_G(E_G^{k-1} \phi)\)
+    * Common knowledge is the infinite conjunction: \(C_G \phi \equiv \bigwedge_{k=1}^{\infty} E_G^k \phi\).
 
 Operationally, this is captured by reachability in the Kripke model. 
 
-Let $R_G = \bigcup_{i \in G} \sim_i$ be the union of all individual accessibility relations. Let $R_G^*$ be the **reflexive, transitive closure** of $R_G$. This new relation $w \ R_G^\ast \ w'$ means that world $w'$ is reachable from $w$ by traversing any number of accessibility links belonging to any agent in $G$.
+Let \(R_G = \bigcup_{i \in G} \sim_i\) be the union of all individual accessibility relations. Let \(R_G^*\) be the **reflexive, transitive closure** of \(R_G\). This new relation \(w \ R_G^\ast \ w'\) means that world \(w'\) is reachable from \(w\) by traversing any number of accessibility links belonging to any agent in \(G\).
 
 Common knowledge is then defined as truth across all reachable worlds:
 $$
 (M, w) \models C_G \phi \iff \forall w' \in W, (w \ R_G^\ast \ w' \implies (M, w') \models \phi)
 $$
-This provides a clear, operational definition: **$\phi$ is common knowledge** if it is true not only in the current world, but in every world that is reachable through any chain of reasoning about what any agent considers possible.
+This provides a clear, operational definition: **\(\phi\) is common knowledge** if it is true not only in the current world, but in every world that is reachable through any chain of reasoning about what any agent considers possible.
 
 ### Concluding Remarks
 
@@ -324,27 +324,27 @@ The two primary models, Stochastic Games (SGs) and Partially Observable Stochast
 
 Choosing a **Stochastic Game (SG)**, also known as a Markov Game, as the underlying model implies that every agent has perfect and complete information about the state of the world.
 
-**Formalism:** A multi-agent SG is defined as a tuple $\langle S, \lbrace A_i\rbrace_{i=1..N}, T, \lbrace R_i\rbrace_{i=1..N} \rangle$, where:
-* $S$ is the set of all possible world states.
-* $A_i$ is the set of actions for agent $i$.
-* $T: S \times A \to \Delta(S)$ is the transition function, where $P(s' | s, \vec{a})$ gives the probability of moving to state $s'$ from state $s$ after joint action $\vec{a} = \langle a_1, ..., a_N \rangle$.
-* $R_i: S \times A \to \mathbb{R}$ is the reward function for agent $i$.
+**Formalism:** A multi-agent SG is defined as a tuple \(\langle S, \lbrace A_i\rbrace_{i=1..N}, T, \lbrace R_i\rbrace_{i=1..N} \rangle\), where:
+* \(S\) is the set of all possible world states.
+* \(A_i\) is the set of actions for agent \(i\).
+* \(T: S \times A \to \Delta(S)\) is the transition function, where \(P(s' | s, \vec{a})\) gives the probability of moving to state \(s'\) from state \(s\) after joint action \(\vec{a} = \langle a_1, ..., a_N \rangle\).
+* \(R_i: S \times A \to \mathbb{R}\) is the reward function for agent \(i\).
 
-The crucial assumption is that the true state $s \in S$ is directly provided to each agent. This satisfies the **Markov Property**, $P(s_{t+1} \mid s_t, \vec a_t) = P(s_{t+1} \mid s_t, \vec a_t, ..., s_0, \vec a_0)$, meaning the current state contains all information needed for optimal decision-making. This simplifies an agent's **policy** $\pi_i$, which becomes a direct mapping from states to actions, $\pi_i: S \to A_i$. However, assuming full observability is often physically impossible or prohibitively expensive.
+The crucial assumption is that the true state \(s \in S\) is directly provided to each agent. This satisfies the **Markov Property**, \(P(s_{t+1} \mid s_t, \vec a_t) = P(s_{t+1} \mid s_t, \vec a_t, ..., s_0, \vec a_0)\), meaning the current state contains all information needed for optimal decision-making. This simplifies an agent's **policy** \(\pi_i\), which becomes a direct mapping from states to actions, \(\pi_i: S \to A_i\). However, assuming full observability is often physically impossible or prohibitively expensive.
 
 #### **Partial Observability (POSGs):** 
 
 Choosing a **Partially Observable Stochastic Game (POSG)** is a more realistic approach. Here, an agent receives only a private observation—a piece of probabilistic evidence about the state.
 
-**Formalism:** A POSG extends the SG tuple with observation components: $\langle S, \lbrace A_i\rbrace, T, \lbrace R_i\rbrace, \lbrace \Omega_i\rbrace, O \rangle$.
-* $\Omega_i$ is the set of possible observations for agent $i$.
-* $O$ is the observation function, where $P(\vec{o} | s', \vec{a})$ gives the probability of the agents receiving the joint observation $\vec{o} = \langle o_1, ..., o_N \rangle$ after transitioning to state $s'$.
+**Formalism:** A POSG extends the SG tuple with observation components: \(\langle S, \lbrace A_i\rbrace, T, \lbrace R_i\rbrace, \lbrace \Omega_i\rbrace, O \rangle\).
+* \(\Omega_i\) is the set of possible observations for agent \(i\).
+* \(O\) is the observation function, where \(P(\vec{o} | s', \vec{a})\) gives the probability of the agents receiving the joint observation \(\vec{o} = \langle o_1, ..., o_N \rangle\) after transitioning to state \(s'\).
 
-This uncertainty forces the agent to perform **belief state tracking**. It maintains a **belief state** $b_i$, a probability distribution over all possible world states ($b_i \in \Delta(S)$). After taking action $a_i$ and receiving observation $o_i'$, the agent updates its belief from $b_i$ to $b_i'$ using a Bayesian filter:
+This uncertainty forces the agent to perform **belief state tracking**. It maintains a **belief state** \(b_i\), a probability distribution over all possible world states (\(b_i \in \Delta(S)\)). After taking action \(a_i\) and receiving observation \(o_i'\), the agent updates its belief from \(b_i\) to \(b_i'\) using a Bayesian filter:
 $$
 b_i'(s') = \eta P(o_i' | s') \sum_{s \in S} P(s' | s) b_i(s)
 $$
-where $\eta$ is a normalising constant. This continuous update is computationally expensive. The agent's policy must now map from this high-dimensional belief space to actions, $\pi_i: \Delta(S) \to A_i$, which is a significantly harder problem to solve.
+where \(\eta\) is a normalising constant. This continuous update is computationally expensive. The agent's policy must now map from this high-dimensional belief space to actions, \(\pi_i: \Delta(S) \to A_i\), which is a significantly harder problem to solve.
 
 
 ---
@@ -352,15 +352,15 @@ where $\eta$ is a normalising constant. This continuous update is computationall
 ### Operational Observability: Our View of the Agent
 
 
-The other side of this coin is **operational observability**—often referred to as transparency or, more broadly, **AI Observability**. This concerns our ability to inspect an agent's internal state and decision-making calculus. This includes its **policy** $\pi_i$ (its strategy), its **value function** $V_i^{\pi}$ (its prediction of future rewards), or its **belief state** $b_i$.
+The other side of this coin is **operational observability**—often referred to as transparency or, more broadly, **AI Observability**. This concerns our ability to inspect an agent's internal state and decision-making calculus. This includes its **policy** \(\pi_i\) (its strategy), its **value function** \(V_i^{\pi}\) (its prediction of future rewards), or its **belief state** \(b_i\).
 
-**Formalism:** An agent's goal is to learn a policy $\pi_i$ that maximizes its **value function** $V_i^{\pi}$, which is the expected sum of discounted future rewards:
+**Formalism:** An agent's goal is to learn a policy \(\pi_i\) that maximizes its **value function** \(V_i^{\pi}\), which is the expected sum of discounted future rewards:
 
 $$
 V_i^{\pi}(s_0) = \mathbb E_{\pi} \left[ \sum_{t=0}^{\infty} \gamma^t R_i(s_t, \vec a_t) \mid s_0 \right]
 $$
 
-where $\gamma \in [0, 1)$ is a discount factor that prioritizes sooner rewards. Transparency means having access to the parameters that define $\pi_i$ and $V_i^{\pi}$ to understand *how* the agent arrives at its decisions.
+where \(\gamma \in [0, 1)\) is a discount factor that prioritizes sooner rewards. Transparency means having access to the parameters that define \(\pi_i\) and \(V_i^{\pi}\) to understand *how* the agent arrives at its decisions.
 
 Greater transparency is a prerequisite for robust debugging, safety verification, and legal accountability. In high-stakes environments, the ability to audit an agent's decision logic is essential for trust and compliance, a central goal of **Explainable AI (XAI)**. However, maximizing transparency can expose proprietary logic and create overwhelming data management challenges.
 

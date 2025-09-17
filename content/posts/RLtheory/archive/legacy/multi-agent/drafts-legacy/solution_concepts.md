@@ -30,10 +30,10 @@ Here is the hierarchy at a glance:
 The simplest strategic scenario is the **normal-form game**, which captures a single moment of decision. It's the building block for all other models.
 
 * **Core Idea**: A set of players simultaneously choose an action. Once all actions are revealed, the game ends, and each player receives a payoff based on the combination of choices. There is no past and no future—only the present decision.
-* **Formal Tuple**: $\langle I, \lbrace A_i \rbrace, \lbrace R_i\rbrace \rangle$
-    * $I$: A set of agents (players).
-    * $\lbrace A_i \rbrace$: An action set for each agent $i$.
-    * $\lbrace R_i \rbrace$: A reward function for each agent $i$, mapping the joint action to a payoff.
+* **Formal Tuple**: \(\langle I, \lbrace A_i \rbrace, \lbrace R_i\rbrace \rangle\)
+    * \(I\): A set of agents (players).
+    * \(\lbrace A_i \rbrace\): An action set for each agent \(i\).
+    * \(\lbrace R_i \rbrace\): A reward function for each agent \(i\), mapping the joint action to a payoff.
 * **Example**: Two coffee shops, A and B, simultaneously decide whether to set a `High` or `Low` price for the day. The resulting profit for each depends on both of their choices. This is a classic "matrix game."
 
 ---
@@ -44,7 +44,7 @@ By taking the static world of a normal-form game and adding the dimension of **t
 
 * **Core Idea**: The same normal-form "stage game" is played over multiple rounds. This introduces **memory**; players can now look back at the history of previous actions and adapt their strategies accordingly.
 * **What's New**: This model adds a temporal structure, allowing for the emergence of reputation, threats, and cooperation. The environment itself doesn't change, but the strategic landscape does because of the shared history.
-* **Formal Components**: A stage game $G = \langle I, \lbrace A_i \rbrace, \lbrace R_i\rbrace \rangle$ and a horizon $T$. A player's policy $\pi_i(a_i | h_t)$ can now be conditioned on the history of play $h_t$.
+* **Formal Components**: A stage game \(G = \langle I, \lbrace A_i \rbrace, \lbrace R_i\rbrace \rangle\) and a horizon \(T\). A player's policy \(\pi_i(a_i | h_t)\) can now be conditioned on the history of play \(h_t\).
 * **Example**: Our two coffee shops now set their prices daily. Shop A might adopt a "Tit-for-Tat" strategy: "I'll set a high price today if you did yesterday, but if you set a low price, I'll punish you by setting a low price tomorrow."
 
 ---
@@ -54,8 +54,8 @@ By taking the static world of a normal-form game and adding the dimension of **t
 While repeated games have a history, the world itself is static. **Stochastic games** introduce a **dynamic environment state** that all players can see.
 
 * **Core Idea**: The world now has an external state (e.g., market conditions, weather) that evolves based on the players' joint actions. The rewards and even the rules of the game can change depending on the current state.
-* **What's New**: This model adds a fully observable, Markovian state $S$ and a transition function $T(s' | s, \mathbf{a})$ that governs how the state changes.
-* **Formal Tuple**: $\langle I, S, \lbrace A_i \rbrace, T, \lbrace R_i \rbrace, \mu \rangle$
+* **What's New**: This model adds a fully observable, Markovian state \(S\) and a transition function \(T(s' | s, \mathbf{a})\) that governs how the state changes.
+* **Formal Tuple**: \(\langle I, S, \lbrace A_i \rbrace, T, \lbrace R_i \rbrace, \mu \rangle\)
 * **Example**: The coffee shops' profits are now affected by the state of the local economy (`Boom`, `Normal`, `Recession`). If both shops set low prices during a `Boom`, the economy might transition to `Normal`. The optimal pricing strategy now depends on the current economic state. A single-agent stochastic game is a standard **Markov Decision Process (MDP)**.
 
 ---
@@ -65,8 +65,8 @@ While repeated games have a history, the world itself is static. **Stochastic ga
 The final step in the hierarchy acknowledges that in the real world, players rarely have perfect information. The **POSG** adds a veil of **hidden information**.
 
 * **Core Idea**: Agents can no longer see the true state of the world. Instead, each receives a private, and possibly noisy, observation. This captures sensor limitations, private knowledge, and communication gaps. Players must act based on a *belief* about the world state.
-* **What's New**: The model adds private observation sets $\lbrace\Omega_i\rbrace$ and observation functions $\lbraceO_i\rbrace$. An agent's policy can only depend on its private history of observations, not the true underlying state.
-* **Formal Components**: A stochastic game tuple plus $\lbrace\Omega_i\rbrace$ and $\lbraceO_i\rbrace$.
+* **What's New**: The model adds private observation sets \(\lbrace\Omega_i\rbrace\) and observation functions \(\lbraceO_i\rbrace\). An agent's policy can only depend on its private history of observations, not the true underlying state.
+* **Formal Components**: A stochastic game tuple plus \(\lbrace\Omega_i\rbrace\) and \(\lbraceO_i\rbrace\).
 * **Example**: The coffee shop managers don't know the true state of the economy. They only get private observations: Shop A sees its own daily foot traffic (a noisy signal), while Shop B reads supplier reports. They must infer the economic state from these incomplete signals while simultaneously accounting for the other's actions. A single-agent POSG is a **POMDP**.
 
 ---
@@ -82,7 +82,7 @@ Choosing the correct model is the most critical first step in any multi-agent an
     * If the environment **state evolves and is visible to all**? → Use a **Stochastic Game**.
     * If the environment state is **hidden or perceived imperfectly**? → Use a **POSG**.
 3.  **Specify the Reward Structure**: Is the game **zero-sum** (pure competition), **common-reward** (full cooperation), or **general-sum** (a mix)? This tag applies to any of the four models.
-4.  **Formalize Your Choice**: By writing down the full tuple for your chosen model (e.g., $\langle I, S, \lbraceA_i\rbrace, ... \rangle$), you force clarity, expose hidden assumptions, and create a reproducible foundation for any subsequent algorithm or simulation.
+4.  **Formalize Your Choice**: By writing down the full tuple for your chosen model (e.g., \(\langle I, S, \lbraceA_i\rbrace, ... \rangle\)), you force clarity, expose hidden assumptions, and create a reproducible foundation for any subsequent algorithm or simulation.
 
 
 

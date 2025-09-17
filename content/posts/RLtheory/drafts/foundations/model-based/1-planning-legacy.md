@@ -40,8 +40,8 @@ $$
 \tag{4.1}
 $$
 
-written $\kappa(ds',dr'\mid s,a)$.
-For every $(s,a)$ it returns a probability measure on the outcome space $S\times\mathbb R$.  The first marginal
+written \(\kappa(ds',dr'\mid s,a)\).
+For every \((s,a)\) it returns a probability measure on the outcome space \(S\times\mathbb R\).  The first marginal
 
 $$
 p(ds'\mid s,a)=\int_{\mathbb R}\kappa(ds',dr'\mid s,a)
@@ -55,15 +55,15 @@ r(s,a)=\int_{S\times\mathbb R}r'\kappa(ds',dr'\mid s,a),
 |r(s,a)|\le R_{\max}<\infty.
 $$
 
-*Generative access* means we are supplied with a routine $G$ that, on the query $(s,a)$, produces an i.i.d. sample $(S',R')\sim\kappa(\cdot,\cdot\mid s,a)$.
+*Generative access* means we are supplied with a routine \(G\) that, on the query \((s,a)\), produces an i.i.d. sample \((S',R')\sim\kappa(\cdot,\cdot\mid s,a)\).
 No further structure (densities, continuity) is assumed beyond measurability.
 
 ---
 
 ### 4.2 Online planning as a measurable optimisation
 
-At real time $t$ the agent knows the **current state** $s_t$ (but *not* a full value function).
-It is allowed to call $G$ internally an arbitrary number $N_t$ of times, producing a finite rooted tree of samples that respects (4.1).  An **online planner** is a measurable mapping
+At real time \(t\) the agent knows the **current state** \(s_t\) (but *not* a full value function).
+It is allowed to call \(G\) internally an arbitrary number \(N_t\) of times, producing a finite rooted tree of samples that respects (4.1).  An **online planner** is a measurable mapping
 
 $$
 \phi_t:S\rightrightarrows A,
@@ -72,27 +72,27 @@ $$
 \tag{4.2}
 $$
 
-where $\widehat{Q}_t(s,a)$ is some plug‑in estimator of
+where \(\widehat{Q}_t(s,a)\) is some plug‑in estimator of
 
 $$
 Q^*(s,a)=\mathbb E\left[\sum_{k=0}^{\infty}\gamma^{k}R_{t+k+1}\middle|S_t=s,A_t=a,\kappa\right].
 $$
 
-Because $\kappa$ is fixed and *known*, every simulated trajectory the planner rolls out **inherits the true law** of the environment; i.e. the *inductive bias* is embedded at the level of the kernel rather than in a parametric function class.
+Because \(\kappa\) is fixed and *known*, every simulated trajectory the planner rolls out **inherits the true law** of the environment; i.e. the *inductive bias* is embedded at the level of the kernel rather than in a parametric function class.
 
 ---
 
 ### 4.3 The plug‑in estimator in kernel language
 
-For a depth parameter $H\in\mathbb N$ and fan‑out $n\in\mathbb N$ define recursively
+For a depth parameter \(H\in\mathbb N\) and fan‑out \(n\in\mathbb N\) define recursively
 
 $$
 \widehat Q_{H,n} (s,a) = \frac{1}{n} \sum_{i=1}^{n} \Bigl[ R^{(i)}+\gamma\widehat V_{H-1}(S^{(i)}) \Bigr], \qquad \widehat V_{H-1}(s)=\sup_{a\in A} \widehat Q_{H-1,n}(s,a), \tag{4.3}
 $$
 
-with $\widehat V_0\equiv 0$.
+with \(\widehat V_0\equiv 0\).
 
-Each pair $(S^{(i)},R^{(i)})$ is drawn from the kernel $\kappa(\cdot,\cdot\mid s,a)$ via $G$.
+Each pair \((S^{(i)},R^{(i)})\) is drawn from the kernel \(\kappa(\cdot,\cdot\mid s,a)\) via \(G\).
 
 Equation (4.3) is nothing but the **empirical Bellman operator** where the true conditional expectation
 
@@ -103,25 +103,25 @@ $$
 
 is *replaced* by the sample average; this replacement is the formal meaning of “plug‑in”.
 
-A standard Hoeffding argument on the product space $S\times\mathbb R$ grants
+A standard Hoeffding argument on the product space \(S\times\mathbb R\) grants
 
 $$
 \Pr\Bigl[ \lvert \widehat Q_{H,n}(s,a)-Q^\ast_H(s,a) \rvert >\varepsilon \bigr] \le 2\exp\Bigl(-2n\varepsilon^{2}(1-\gamma)^{2}/R_{\max}^{2}\Bigr) \tag{4.4}
 $$
 
-uniformly for all $(s,a)$.  Note that no discretisation of $S$ or $A$ appears; measurability suffices.
+uniformly for all \((s,a)\).  Note that no discretisation of \(S\) or \(A\) appears; measurability suffices.
 
 ---
 
 ### 4.4 Sparse‑Sampling re‑derived
 
-Choose a *deterministic* fan‑out $C=C(\varepsilon,\gamma,R_{\max})$ and depth
+Choose a *deterministic* fan‑out \(C=C(\varepsilon,\gamma,R_{\max})\) and depth
 
 $$
 H=\bigl\lceil \log_\gamma(\varepsilon/R_{\max})\bigr\rceil.
 $$
 
-Applying (4.3) with $n=C$ at every internal node produces a **random subtree** with at most $(\lvert A\rvert C)^H$ leaves.
+Applying (4.3) with \(n=C\) at every internal node produces a **random subtree** with at most \((\lvert A\rvert C)^H\) leaves.
 By union‑bounding (4.4) along this tree one obtains
 
 $$
@@ -137,14 +137,14 @@ T_{\text{SS}}=O\bigl((\lvert A\rvert C)^H\bigr)
 \tag{4.5}
 $$
 
-**independent** of the cardinality or topology of $S$.
+**independent** of the cardinality or topology of \(S\).
 The classical tabular bound is thus a corollary of the more general **kernel‑based** statement.
 
 ---
 
 ### 4.5 Monte‑Carlo Tree Search (UCT) under kernels
 
-Instead of a fixed $C$, UCT allocates a *random* number $n_t(s,a)$ of samples to each edge according to the exploration rule
+Instead of a fixed \(C\), UCT allocates a *random* number \(n_t(s,a)\) of samples to each edge according to the exploration rule
 
 $$
 a \leftarrow \arg\max_{a} \left\lbrace \widehat Q(s,a) + c\sqrt{\tfrac{\log N(s)}{N(s,a)}} \right\rbrace \tag{4.6}
@@ -158,22 +158,22 @@ $$
 \tag{4.7}
 $$
 
-again without any appeal to finiteness of $S$.  Because each rollout is an independent draw from the kernel product measure $\kappa^{\otimes H}$, the proof is unchanged except that the underlying probability space is now $\bigl(S\times\mathbb R\bigr)^{H}$ equipped with the product $\sigma$-algebra.
+again without any appeal to finiteness of \(S\).  Because each rollout is an independent draw from the kernel product measure \(\kappa^{\otimes H}\), the proof is unchanged except that the underlying probability space is now \(\bigl(S\times\mathbb R\bigr)^{H}\) equipped with the product \(\sigma\)-algebra.
 
 ---
 
 ### 4.6 Why the measure‑theoretic lift matters
 
-1. **Continuous domains.**  All equations remain valid when $S\subset\mathbb R^{d}$ or even an infinite‑dimensional Hilbert space, provided $S$ is standard Borel.
+1. **Continuous domains.**  All equations remain valid when \(S\subset\mathbb R^{d}\) or even an infinite‑dimensional Hilbert space, provided \(S\) is standard Borel.
 2. **Unified rewards.**  Random, continuous or hybrid reward models are handled by the joint kernel (4.1) rather than ad‑hoc cases.
 3. **Strong Markov guarantees.**  The kernel‑based process inherits the Feller property under mild continuity, ensuring that online planners are well‑posed at arbitrary stopping times.&#x20;
-4. **Inductive bias exposed.**  All simulated rollouts *must* obey the true $\kappa$; the hypothesis space is therefore the singleton $\{\kappa\}$ rather than a large parametric family, explaining the dramatic sample‑complexity advantage over model‑free methods.
+4. **Inductive bias exposed.**  All simulated rollouts *must* obey the true \(\kappa\); the hypothesis space is therefore the singleton \(\{\kappa\}\) rather than a large parametric family, explaining the dramatic sample‑complexity advantage over model‑free methods.
 
 ---
 
 ### 4.7 Summary
 
-* A **known model** is formalised as a kernel $\kappa$ on a standard‑Borel state‑action space.
+* A **known model** is formalised as a kernel \(\kappa\) on a standard‑Borel state‑action space.
 * Online planners build empirical Bellman estimates entirely through calls to the *generative* kernel.
 * Sparse‑Sampling and MCTS are two allocation strategies for those calls; their existing guarantees lift verbatim to the measure‑theoretic setting.
 * This reconstruction exposes the exact location of the inductive bias and clarifies why the algorithms’ proofs do **not** rely on finiteness or grids, only on measurability and bounded rewards.

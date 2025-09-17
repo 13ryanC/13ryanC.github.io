@@ -17,11 +17,11 @@ Below is a parallel “two‑road” map for **reinforcement learning (RL)** tha
 
 | Construct                          | Formal sketch                                             | Intuition                                          |                                                     |                                                      |
 | ---------------------------------- | --------------------------------------------------------- | -------------------------------------------------- | --------------------------------------------------- | ---------------------------------------------------- |
-| **Markov decision process (MDP)**  | $\langle\!\mathcal S,\mathcal A,P,r,\gamma\rangle$; (P(s' | s,a)) and reward $r(s,a)$.                         | Minimal description of a sequential choice problem. |                                                      |
-| **Return**                         | $G_t=\sum_{k=0}^{\infty}\gamma^{k} r_{t+k+1}$             | Discounted future utility.                         |                                                     |                                                      |
+| **Markov decision process (MDP)**  | \(\langle\!\mathcal S,\mathcal A,P,r,\gamma\rangle\); (P(s' | s,a)) and reward \(r(s,a)\).                         | Minimal description of a sequential choice problem. |                                                      |
+| **Return**                         | \(G_t=\sum_{k=0}^{\infty}\gamma^{k} r_{t+k+1}\)             | Discounted future utility.                         |                                                     |                                                      |
 | **Value‑function / Q‑function**    | (V^\pi(s)=\mathbf E\_\pi\[G\_t                            | s\_t=s]), (Q^\pi(s,a)=\mathbf E\_\pi\[G\_t         | s\_t=s,a\_t=a])                                     | Long‑run usefulness of a state or state‑action pair. |
 | **Bellman optimality**             | (V^\* (s)=\max\_{a}!\bigl\[r(s,a)+\gamma!\sum\_{s'}P(s'   | s,a)V^\*(s')\bigr])                                | A self‑consistency equation for optimal behaviour.  |                                                      |
-| **Temporal‑difference (TD) error** | $\delta_t=r_{t+1}+\gamma V(s_{t+1})-V(s_t)$               | Instantaneous surprise; the basic learning signal. |                                                     |                                                      |
+| **Temporal‑difference (TD) error** | \(\delta_t=r_{t+1}+\gamma V(s_{t+1})-V(s_t)\)               | Instantaneous surprise; the basic learning signal. |                                                     |                                                      |
 
 ---
 
@@ -31,7 +31,7 @@ Below is a parallel “two‑road” map for **reinforcement learning (RL)** tha
    Early psychology (Rescorla‑Wagner) already used a delta‑rule very close to TD learning for Pavlovian conditioning.  Sutton & Barto extend this to sequential tasks by bootstrapping on later predictions. ([web.stanford.edu][1])
 
 2. **Define mechanistic update rules**
-   With a fixed learning rate $\alpha$, a tabular critic updates
+   With a fixed learning rate \(\alpha\), a tabular critic updates
 
    $$
    V_{t+1}(s_t)\;\leftarrow\;V_t(s_t)+\alpha\,\delta_t,
@@ -62,7 +62,7 @@ Below is a parallel “two‑road” map for **reinforcement learning (RL)** tha
    Add (i) stationarity, (ii) conditional independence given the current state, and (iii) time‑consistent discounting, and the utility maximisation problem *reduces* to an MDP whose solution is **Bellman optimal control**. ([icml.cc][4])
 
 3. **Unknown dynamics → learning ≡ reinforcement learning**
-   If the transition matrix $P$ or reward function $r$ is unknown, the only way to approximate Bellman‑optimal action is to *interact* with the environment and learn value functions or policies from data.  That interactive estimation procedure *is* RL.
+   If the transition matrix \(P\) or reward function \(r\) is unknown, the only way to approximate Bellman‑optimal action is to *interact* with the environment and learn value functions or policies from data.  That interactive estimation procedure *is* RL.
 
 4. **Links to optimal control and information theory**
    In continuous time the Bellman recursion becomes the Hamilton‑Jacobi‑Bellman (HJB) partial differential equation—the fundamental equation of stochastic optimal control. ([proceedings.mlr.press][5])
@@ -137,17 +137,17 @@ Reinforcement learning can be reached from **two complementary starting points**
 
 #### 1  Common peak (what both roads reach)
 
-* **MDP:**  $\langle\mathcal S,\mathcal A,P,r,\gamma\rangle$
-* **Return:**  $G_t=\sum_{k\ge0}\gamma^{k}r_{t+k+1}$
-* **Optimality:**  $V^\*(s)=\max_a\bigl[r(s,a)+\gamma\sum_{s'}P(s'|s,a)V^\*(s')\bigr]$
-* **Learning signal:**  TD‑error $\delta_t=r_{t+1}+\gamma V(s_{t+1})-V(s_t)$
+* **MDP:**  \(\langle\mathcal S,\mathcal A,P,r,\gamma\rangle\)
+* **Return:**  \(G_t=\sum_{k\ge0}\gamma^{k}r_{t+k+1}\)
+* **Optimality:**  \(V^\*(s)=\max_a\bigl[r(s,a)+\gamma\sum_{s'}P(s'|s,a)V^\*(s')\bigr]\)
+* **Learning signal:**  TD‑error \(\delta_t=r_{t+1}+\gamma V(s_{t+1})-V(s_t)\)
 
 ---
 
 #### 2  Low Road — *Process & implementation*
 
 1. **Associative beginnings.**  Rescorla–Wagner’s delta‑rule → Sutton & Barto’s TD‑learning.
-2. **Local updates.**  $V(s)\!\leftarrow\!V(s)+\alpha\,\delta$; actor‑critic nudges policy toward actions that would have raised reward.
+2. **Local updates.**  \(V(s)\!\leftarrow\!V(s)+\alpha\,\delta\); actor‑critic nudges policy toward actions that would have raised reward.
 3. **Scaling up.**  Q‑learning, SARSA, policy‑gradient; deep nets (DQN, PPO, SAC) supply function approximators and stabilisers.
 4. **Biological anchor.**  Mid‑brain dopamine firing ≈ TD‑error, tying the math to neural circuitry.
 
@@ -160,7 +160,7 @@ Reinforcement learning can be reached from **two complementary starting points**
 
 1. **Utility axioms.**  Von Neumann–Morgenstern ➜ “max expected scalar utility.”
 2. **From utility to control.**  Time consistency + Markov property collapse sequential choice to an MDP solved by Bellman recursions.
-3. **Unknown world?**  Interaction-driven estimation (i.e., RL) is *necessary* when $P$ or $r$ are hidden.
+3. **Unknown world?**  Interaction-driven estimation (i.e., RL) is *necessary* when \(P\) or \(r\) are hidden.
 4. **Continuous & bounded variants.**  HJB equations for continuous time; entropy‑regularised (soft) RL emerges when information costs are penalised.
 
 *Virtue:* explains *why* maximising discounted reward is rational and quantifies sample complexity & regret.
@@ -170,7 +170,7 @@ Reinforcement learning can be reached from **two complementary starting points**
 
 #### 4  Bridges and Interplay
 
-* **Control‑as‑Inference:**  Exponentiating $-r$ into a Boltzmann factor reframes soft‑RL as Bayesian inference, algebraically uniting both roads.
+* **Control‑as‑Inference:**  Exponentiating \(-r\) into a Boltzmann factor reframes soft‑RL as Bayesian inference, algebraically uniting both roads.
 * **Evolutionary layering:**  Natural selection may sculpt reward functions (high‑road logic) while individual brains run TD‑like low‑road updates day‑to‑day.
 * **Research workflow:**  Theory bounds set the **target**, empirical design (à la *Experimentology*) tests which algorithms hit it in noisy, high‑dimensional worlds.
 
@@ -205,7 +205,7 @@ The low road treats RL as an engineering discipline first: collect evidence, ite
 *Purpose* Begin with first principles—optimality in Markov Decision Processes (MDPs) and regret or sample‑complexity bounds—and derive what an ideal learner should do.
 *Core activities*
 
-* **Formal problem statements.**  Define returns $J(\pi)=\mathbb E[\sum_t\gamma^t r_t]$, Bellman equations, value and policy optimality conditions.
+* **Formal problem statements.**  Define returns \(J(\pi)=\mathbb E[\sum_t\gamma^t r_t]\), Bellman equations, value and policy optimality conditions.
 * **Theoretical algorithms.**  Value‑iteration, policy‑iteration, linear‑quadratic regulators, upper‑confidence and Thompson‑sampling bandits—developed and analysed in Szepesvári’s *Algorithms for Reinforcement Learning* (#ref‑szepesvari) and Lattimore & Szepesvári’s *Bandit Algorithms*.
 * **Provable properties.**  Convergence rates, PAC and minimax regret bounds, stability under function approximation—topics covered in the RL Theory seminar series (#ref‑rltheory).
 
@@ -332,7 +332,7 @@ $$
 J(\pi)=\mathbb E_{p_\pi}\Bigl[\sum_{t=0}^\infty\gamma^{t} r_t\Bigr].
 $$
 
-Here the environment is defined by $(\mathcal S,\mathcal A,P,R,\gamma)$. ([neptune.ai][3])
+Here the environment is defined by \((\mathcal S,\mathcal A,P,R,\gamma)\). ([neptune.ai][3])
 
 ### 3.2 Essential moves
 
@@ -345,7 +345,7 @@ Here the environment is defined by $(\mathcal S,\mathcal A,P,R,\gamma)$. ([neptu
    This gives the unique fixed-point solved by dynamic-programming methods. ([deeplearningwizard.com][4], [datacamp.com][5])
 
 2. **Dynamic programming algorithms**
-   *Value-iteration* and *policy-iteration* compute $V^\*$ and an optimal policy when $P$ and $R$ are known.
+   *Value-iteration* and *policy-iteration* compute \(V^\*\) and an optimal policy when \(P\) and \(R\) are known.
 
 3. **Planning as trajectory optimisation**
    Continuous-time and continuous-state analogues lead to the Hamilton–Jacobi–Bellman equation and links with classical control.

@@ -20,18 +20,18 @@ Your sentence captures the intuition, but a **rigorous definition** helps avoid 
 
 Let
 
-* **Decision space** $X\subseteq\mathbb{R}^n$ (all feasible designs $x$).
-* **Objective vector** $f:X\to\mathbb{R}^m$, where
+* **Decision space** \(X\subseteq\mathbb{R}^n\) (all feasible designs \(x\)).
+* **Objective vector** \(f:X\to\mathbb{R}^m\), where
 
   $$
     f(x)=\bigl(f_1(x),\dots,f_m(x)\bigr)
   $$
 
-  and each $f_i$ is a scalar metric to be **minimised** (the usual convention; if a metric is to be maximised you minimise its negative).
+  and each \(f_i\) is a scalar metric to be **minimised** (the usual convention; if a metric is to be maximised you minimise its negative).
 
 ### Pareto dominance
 
-For two designs $x,y\in X$,
+For two designs \(x,y\in X\),
 
 $$
   y \prec x \quad\Longleftrightarrow\quad 
@@ -41,11 +41,11 @@ $$
   \end{cases}
 $$
 
-$y\prec x$ means *y dominates x*.
+\(y\prec x\) means *y dominates x*.
 
 ### Pareto optimality
 
-A design $x^\star\in X$ is **Pareto optimal** (sometimes **efficient**) iff
+A design \(x^\star\in X\) is **Pareto optimal** (sometimes **efficient**) iff
 
 $$
   \nexists\,y\in X:\; y\prec x^\star .
@@ -98,18 +98,18 @@ Your statement is almost always *understood* correctly, but two closely‑relate
 
 | Name (common synonyms)                                   | Lives in …                                         | Formal definition                                               |
 | -------------------------------------------------------- | -------------------------------------------------- | --------------------------------------------------------------- |
-| **Pareto‑optimal set**<br>(efficient set, *Pareto set*)  | **Decision/design space** $X\subseteq\mathbb{R}^n$ | $P \;=\;\bigl\{\,x\in X \mid\nexists\,y\in X:\;y\prec x\bigr\}$ |
-| **Pareto frontier**<br>(Pareto front, trade‑off surface) | **Objective space** $\mathbb{R}^m$                 | $F \;=\;f(P)=\bigl\{\,f(x)\mid x\in P\bigr\}$                   |
+| **Pareto‑optimal set**<br>(efficient set, *Pareto set*)  | **Decision/design space** \(X\subseteq\mathbb{R}^n\) | \(P \;=\;\bigl\{\,x\in X \mid\nexists\,y\in X:\;y\prec x\bigr\}\) |
+| **Pareto frontier**<br>(Pareto front, trade‑off surface) | **Objective space** \(\mathbb{R}^m\)                 | \(F \;=\;f(P)=\bigl\{\,f(x)\mid x\in P\bigr\}\)                   |
 
-*Here $y\prec x$ denotes *Pareto dominance* and $f:X\!\to\!\mathbb{R}^m$ is the vector of objectives, all assumed to be minimised.*
+*Here \(y\prec x\) denotes *Pareto dominance* and \(f:X\!\to\!\mathbb{R}^m\) is the vector of objectives, all assumed to be minimised.*
 
 ---
 
 ### Why the distinction matters
 
-* **Visualisation** – Engineers plot the *frontier* $F$ because it shows explicit trade‑offs between metrics (cost vs performance, etc.).
-* **Decision making** – A final choice must ultimately be a design $x\in P$; selecting a point on $F$ is only half the story—you still need the corresponding design variables.
-* **Algorithm design** – Some algorithms (e.g., evolutionary methods) operate in $X$ and return $P$; others (e.g., adaptive sampling in objective space) aim directly at $F$.
+* **Visualisation** – Engineers plot the *frontier* \(F\) because it shows explicit trade‑offs between metrics (cost vs performance, etc.).
+* **Decision making** – A final choice must ultimately be a design \(x\in P\); selecting a point on \(F\) is only half the story—you still need the corresponding design variables.
+* **Algorithm design** – Some algorithms (e.g., evolutionary methods) operate in \(X\) and return \(P\); others (e.g., adaptive sampling in objective space) aim directly at \(F\).
 
 ---
 
@@ -126,7 +126,7 @@ Design  x  ──f──▶  Objectives  f(x)
    └─ efficient set  P     └─ frontier  F
 ```
 
-Keeping the two sets distinct prevents confusion when you (i) implement dominance checks in $X$ yet (ii) plot or reason about trade‑offs in $f(X)$.
+Keeping the two sets distinct prevents confusion when you (i) implement dominance checks in \(X\) yet (ii) plot or reason about trade‑offs in \(f(X)\).
 
 
 A design dominates another design if it is equal or better in all objectives.
@@ -141,10 +141,10 @@ Below is the hierarchy that removes the ambiguity.
 
 Let
 
-* $X\subseteq\mathbb{R}^n$ be the feasible design space.
-* $f:X\!\to\!\mathbb{R}^m,\;f(x)=\bigl(f_1(x),\dots,f_m(x)\bigr)$ be the vector of objectives to **minimise** (if an objective is to be maximised, work with its negative).
+* \(X\subseteq\mathbb{R}^n\) be the feasible design space.
+* \(f:X\!\to\!\mathbb{R}^m,\;f(x)=\bigl(f_1(x),\dots,f_m(x)\bigr)\) be the vector of objectives to **minimise** (if an objective is to be maximised, work with its negative).
 
-For two designs $x,y\in X$ define, component‑wise,
+For two designs \(x,y\in X\) define, component‑wise,
 
 $$
 f(y)\le f(x)\;:\;\;f_i(y)\le f_i(x)\quad \forall i\in\{1,\dots,m\}.
@@ -154,11 +154,11 @@ $$
 
 ## Three related relations
 
-| Symbol       | Name                                   | Condition on $y$ relative to $x$                        | Comments                                                                                       |
+| Symbol       | Name                                   | Condition on \(y\) relative to \(x\)                        | Comments                                                                                       |
 | ------------ | -------------------------------------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| $y\prec x$   | **(Strict) Pareto dominance**          | $f(y)\le f(x)$ **and** $f_j(y)<f_j(x)$ for **some** $j$ | “Equal or better in all, strictly better in at least one.” Used in defining Pareto optimality. |
-| $y\preceq x$ | **Weak dominance** (weak Pareto order) | $f(y)\le f(x)$                                          | Allows complete ties—your wording matches this case.                                           |
-| $f(y)=f(x)$  | **Indifference** (objective tie)       | equality in every objective                             | Distinct designs can map to the same objective vector.                                         |
+| \(y\prec x\)   | **(Strict) Pareto dominance**          | \(f(y)\le f(x)\) **and** \(f_j(y)<f_j(x)\) for **some** \(j\) | “Equal or better in all, strictly better in at least one.” Used in defining Pareto optimality. |
+| \(y\preceq x\) | **Weak dominance** (weak Pareto order) | \(f(y)\le f(x)\)                                          | Allows complete ties—your wording matches this case.                                           |
+| \(f(y)=f(x)\)  | **Indifference** (objective tie)       | equality in every objective                             | Distinct designs can map to the same objective vector.                                         |
 
 ### Relationship
 
@@ -190,8 +190,8 @@ $$
 | Design | Weight (kg) | Cost (\$) | Pairwise comparison to A                  |
 | ------ | ----------- | --------- | ----------------------------------------- |
 | **A**  | 10          | 100       | –                                         |
-| **B**  | 10          | 90        | $B\prec A$ (strict)                       |
-| **C**  | 10          | 100       | $C\preceq A$ but **not** $C\prec A$ (tie) |
+| **B**  | 10          | 90        | \(B\prec A\) (strict)                       |
+| **C**  | 10          | 100       | \(C\preceq A\) but **not** \(C\prec A\) (tie) |
 | **D**  | 8           | 120       | incomparable (one better, one worse)      |
 
 *Only B dominates A in the strict sense; C is merely weakly dominating.*
@@ -224,8 +224,8 @@ $$
 
 *Specify*
 
-* **Decision domain $X$** – continuous, integer, mixed?
-* **Objectives $f_i$** – black‑box, differentiable, or cheaply evaluable?
+* **Decision domain \(X\)** – continuous, integer, mixed?
+* **Objectives \(f_i\)** – black‑box, differentiable, or cheaply evaluable?
 * **Budget** – number of function calls you can afford.
 
 Everything else follows from these traits.
@@ -234,13 +234,13 @@ Everything else follows from these traits.
 
 ## 1.  Tiny or enumerable design spaces
 
-*($|X|\lesssim10^5$)*
+*(\(|X|\lesssim10^5\))*
 
-1. **Enumerate all feasible $x\in X$**.
+1. **Enumerate all feasible \(x\in X\)**.
 2. **Pareto filter**: keep a design if no other row strictly dominates it (Algorithm 1 below).
-3. Map surviving designs through $f$ – that image is the frontier.
+3. Map surviving designs through \(f\) – that image is the frontier.
 
-> **Complexity**: $O(|X|^2)$ naïvely; $O(|X|\log|X|)$ with divide‑and‑conquer filters.
+> **Complexity**: \(O(|X|^2)\) naïvely; \(O(|X|\log|X|)\) with divide‑and‑conquer filters.
 
 This is exact, but tractable only for small discrete problems.
 
@@ -250,8 +250,8 @@ This is exact, but tractable only for small discrete problems.
 
 | Method                                     | How                                                                                                   | Pros                                                                                                     | Cons                                                                |
 | ------------------------------------------ | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| **Weighted‑sum**                           | Solve $\min_x \sum_i w_i f_i(x)$ for many weight vectors $w$ sampled on the simplex                   | Simple; any single‑objective solver works                                                                | Misses *non‑convex* parts of the frontier ([Purdue Engineering][1]) |
-| **ϵ‑Constraint**                           | Pick one objective to keep; turn the others into constraints $f_j(x)\le \epsilon_j$; sweep $\epsilon$ | Captures non‑convex fronts; you control point spacing ([openmdao.github.io][2], [openmdao.github.io][2]) | Needs many runs; tight ε values can make problems infeasible        |
+| **Weighted‑sum**                           | Solve \(\min_x \sum_i w_i f_i(x)\) for many weight vectors \(w\) sampled on the simplex                   | Simple; any single‑objective solver works                                                                | Misses *non‑convex* parts of the frontier ([Purdue Engineering][1]) |
+| **ϵ‑Constraint**                           | Pick one objective to keep; turn the others into constraints \(f_j(x)\le \epsilon_j\); sweep \(\epsilon\) | Captures non‑convex fronts; you control point spacing ([openmdao.github.io][2], [openmdao.github.io][2]) | Needs many runs; tight ε values can make problems infeasible        |
 | **Chebyshev / NBI / Augmented Lagrangian** | Minimise a distance to an *ideal* or *utopia* point                                                   | Good spread; handles non‑convexity                                                                       | Implementation effort                                               |
 
 **When to use** – You already have a robust single‑objective optimiser (SQP, IPOPT, etc.) and the objective evaluations are cheap enough to run it dozens–hundreds of times.
@@ -264,11 +264,11 @@ This is exact, but tractable only for small discrete problems.
 
 **Loop** until termination:
 
-1. Initialise population $P$.
-2. **Fast non‑dominated sorting** ⟶ fronts $F_1,F_2,\dots$.
+1. Initialise population \(P\).
+2. **Fast non‑dominated sorting** ⟶ fronts \(F_1,F_2,\dots\).
 3. **Crowding‑distance** preserves diversity inside a front.
-4. Tournament‑select parents, apply crossover & mutation to create offspring $Q$.
-5. Next generation $P\gets$ best $ |P|$ individuals from $P\cup Q$.
+4. Tournament‑select parents, apply crossover & mutation to create offspring \(Q\).
+5. Next generation \(P\gets\) best \( |P|\) individuals from \(P\cup Q\).
 
 Detailed pseudocode and explanations are in the original paper by Deb et al. (2002) ([sci2s.ugr.es][3], [GeeksforGeeks][4]) and modern tutorials ([Pymoo][5]).
 
@@ -293,7 +293,7 @@ Detailed pseudocode and explanations are in the original paper by Deb et al.
 
 Choose these if:
 
-* $m>3$ objectives (NSGA‑III, MOEA/D).
+* \(m>3\) objectives (NSGA‑III, MOEA/D).
 * You care about hypervolume as a convergence metric (SMS‑EMOA).
 * You can run tens of thousands of evaluations or use cheap surrogates.
 
@@ -303,7 +303,7 @@ Choose these if:
 
 *(“expensive” objectives, e.g. CFD in minutes)*
 
-1. **Build Gaussian‑process (GP) or other surrogate** for each $f_i$.
+1. **Build Gaussian‑process (GP) or other surrogate** for each \(f_i\).
 2. **Acquisition function**: Expected Hypervolume Improvement (EHVI) or its parallel forms qEHVI ([ScienceDirect][7], [NeurIPS Proceedings][8]).
 3. **Sequential loop**: sample a batch maximizing the acquisition, evaluate expensive model, update surrogate, repeat.
 
@@ -317,25 +317,25 @@ Choose these if:
 **Trade‑offs**
 
 * Extra coding effort.
-* GP scalings $O(N^3)$; high‑dimensional design spaces need sparse or deep‑kernel surrogates.
+* GP scalings \(O(N^3)\); high‑dimensional design spaces need sparse or deep‑kernel surrogates.
 
 ---
 
 ## 5.  Gradient‑based continuous methods
 
-When $f$ is smooth and derivatives are available, solve Karush‑Kuhn‑Tucker (KKT) conditions:
+When \(f\) is smooth and derivatives are available, solve Karush‑Kuhn‑Tucker (KKT) conditions:
 
 $$
 \exists\;\lambda\in\Delta^{m-1} :
 \sum_{i=1}^{m} \lambda_i\nabla f_i(x^\star)=0 ,
 $$
 
-and $x^\star$ satisfies constraints.
+and \(x^\star\) satisfies constraints.
 
 Practical realisation:
 
 * Use scalarisation with *adaptive* weights that follow a predictor–corrector path across the front.
-* Good for low‑dimensional $X$ and high precision requirements.
+* Good for low‑dimensional \(X\) and high precision requirements.
 
 ---
 
@@ -441,12 +441,12 @@ Below are **self‑contained, implementation‑ready descriptions** of the two c
 
 ### 1.1 Idea
 
-Choose **one objective** to optimise; impose **upper bounds** $\epsilon_j$ (hence the name) on every other objective.  By sweeping the $\epsilon_j$ values you trace the entire Pareto front—even its non‑convex parts ([openmdao.github.io][1]).
+Choose **one objective** to optimise; impose **upper bounds** \(\epsilon_j\) (hence the name) on every other objective.  By sweeping the \(\epsilon_j\) values you trace the entire Pareto front—even its non‑convex parts ([openmdao.github.io][1]).
 
 ### 1.2 Mathematical Formulation (minimisation)
 
-Let $f=(f_1,\dots ,f_m)$ with all $f_i$ to be minimised.
-Pick an “active” objective $f_1$.  For a prescribed vector $\epsilon=(\epsilon_2,\dots ,\epsilon_m)$,
+Let \(f=(f_1,\dots ,f_m)\) with all \(f_i\) to be minimised.
+Pick an “active” objective \(f_1\).  For a prescribed vector \(\epsilon=(\epsilon_2,\dots ,\epsilon_m)\),
 
 $$
 \begin{aligned}
@@ -470,7 +470,7 @@ for ε in {ε1,…,εK}:
 Pareto filter stored points   ←  Algorithm 1 in my previous reply
 ```
 
-*General $m>2$ case*: loop over a grid for $(\epsilon_2,\dots,\epsilon_m)$ or vary them sequentially.
+*General \(m>2\) case*: loop over a grid for \((\epsilon_2,\dots,\epsilon_m)\) or vary them sequentially.
 
 ### 1.4 Strengths & Weaknesses
 
@@ -481,7 +481,7 @@ Pareto filter stored points   ←  Algorithm 1 in my previous reply
 
 ### 1.5 Practical Tips
 
-* **Epsilon grid** – Find the natural bounds by first solving the two “anchor” single‑objective problems $\min f_1, \min f_2,\dots$.
+* **Epsilon grid** – Find the natural bounds by first solving the two “anchor” single‑objective problems \(\min f_1, \min f_2,\dots\).
 * **Augmented ε‑constraint** – For MILPs or badly scaled problems, add a penalty term to soften the constraints; see the GAMS *Augmented ε‑Constraint* driver ([gams.com][2]).
 * **Parallelism** – Each ε run is independent; embarrassingly parallel on a cluster.
 
@@ -495,7 +495,7 @@ Rank objectives by *priority*.  Fully optimise the most important one; **freeze 
 
 ### 2.2 Mathematical Formulation (minimisation)
 
-Let the priority order be $f_1 \succ f_2 \succ \dots \succ f_m$.
+Let the priority order be \(f_1 \succ f_2 \succ \dots \succ f_m\).
 
 **Stage 1**
 
@@ -514,8 +514,8 @@ $$
 \end{aligned}
 $$
 
-giving $x_t^\star$ and $z_t^\star=f_t(x_t^\star)$.
-The final design $x_m^\star$ is **lexicographically optimal** ([Wikipedia][3], [gams.com][2]).
+giving \(x_t^\star\) and \(z_t^\star=f_t(x_t^\star)\).
+The final design \(x_m^\star\) is **lexicographically optimal** ([Wikipedia][3], [gams.com][2]).
 
 ### 2.3 Algorithm (sequential implementation)
 
@@ -532,7 +532,7 @@ return x* = x_m*
 
 ### 2.4 Strengths & Weaknesses
 
-| ✔ Simple; only **m** solves                        | ✘ **Extremely rigid** – tiny gains in $f_1$ can wipe out immense gains in $f_2,…$            |
+| ✔ Simple; only **m** solves                        | ✘ **Extremely rigid** – tiny gains in \(f_1\) can wipe out immense gains in \(f_2,…\)            |
 | -------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | ✔ Guarantees a unique best solution if ties absent | ✘ Does **not** generate an entire Pareto front; yields a **single** corner (supported) point |
 | ✔ Compatible with any single‑objective solver      | ✘ Front becomes sensitive to scaling and numerical tolerances in equality constraints        |
@@ -573,7 +573,7 @@ weighted sum method, The weighted sum method will miss parts of non-convex Paret
 
 ### 1 What the weighted‑sum method actually does
 
-For positive weights $w\in\mathbb{R}^m_{>0}$ with $\sum_{i=1}^{m}w_i=1$ the *weighted‑sum scalarisation* solves
+For positive weights \(w\in\mathbb{R}^m_{>0}\) with \(\sum_{i=1}^{m}w_i=1\) the *weighted‑sum scalarisation* solves
 
 $$
 \min_{x\in X}\;w^{\mathsf T}f(x)=\sum_{i=1}^{m}w_i\,f_i(x)\qquad(\text{all }f_i\text{ are to be minimised}).
@@ -581,15 +581,15 @@ $$
 $$
 
 Geometrically this pushes an *affine half‑space*
-$\{z\in\mathbb{R}^m\mid w^{\mathsf T}z=c\}$  inward until it first touches the attainable objective set
-$\mathcal Z:=f(X)$.
+\(\{z\in\mathbb{R}^m\mid w^{\mathsf T}z=c\}\)  inward until it first touches the attainable objective set
+\(\mathcal Z:=f(X)\).
 
 ---
 
 ### 2 Supported vs. unsupported Pareto points
 
-* **Supported (or “convex‐hull”) points** are the ones hit by some supporting hyperplane of $\mathcal Z$; they are exactly the optimal images of $(\text{WS}_w)$.
-* **Unsupported** points are Pareto–optimal but lie in a *concave indentation* of $\mathcal Z$; no hyperplane with non‑negative normal can touch them.
+* **Supported (or “convex‐hull”) points** are the ones hit by some supporting hyperplane of \(\mathcal Z\); they are exactly the optimal images of \((\text{WS}_w)\).
+* **Unsupported** points are Pareto–optimal but lie in a *concave indentation* of \(\mathcal Z\); no hyperplane with non‑negative normal can touch them.
 
 Hence
 
@@ -603,30 +603,30 @@ References: formal proofs in recent surveys on “supportedness” ([arXiv][1])
 
 ### 3 Why non‑convex fronts disappear
 
-If the *Pareto frontier* $F=f(P)\subset\mathbb{R}^m$ is non‑convex, there exist Pareto points $z^u\in F$ such that every supporting hyperplane touches $F$ at *different* point(s) $z^s$.
-By Theorem ⋄, no weight vector will make $z^u$ optimal in $(\text{WS}_w)$.
+If the *Pareto frontier* \(F=f(P)\subset\mathbb{R}^m\) is non‑convex, there exist Pareto points \(z^u\in F\) such that every supporting hyperplane touches \(F\) at *different* point(s) \(z^s\).
+By Theorem ⋄, no weight vector will make \(z^u\) optimal in \((\text{WS}_w)\).
 Therefore **any concave arc (or “dent”) on the front is skipped** by the weighted‑sum sweep ([SciSpace][3]).
 
 ---
 
 ### 4 Concrete two‑objective example (discrete)
 
-| Design | $f_1$ | $f_2$ |          Supported?          |
+| Design | \(f_1\) | \(f_2\) |          Supported?          |
 | ------ | :---: | :---: | :--------------------------: |
-| **A**  |   0   |   2   | ✔ (weight ratio $w_1/w_2>1$) |
-| **B**  |   2   |   0   |        ✔ ($w_1/w_2<1$)       |
+| **A**  |   0   |   2   | ✔ (weight ratio \(w_1/w_2>1\)) |
+| **B**  |   2   |   0   |        ✔ (\(w_1/w_2<1\))       |
 | **C**  |   1   |  1.5  |           ❌ concave          |
 
-*All three points are nondominated, but any line $w_1 f_1 + w_2 f_2 = \text{const}$ that passes through **C** also intersects the convex hull edge $\overline{AB}$; thus **C** can never win $(\text{WS}_w)$.*
+*All three points are nondominated, but any line \(w_1 f_1 + w_2 f_2 = \text{const}\) that passes through **C** also intersects the convex hull edge \(\overline{AB}\); thus **C** can never win \((\text{WS}_w)\).*
 
 ---
 
 ### 5 Conditions under which weighted‑sum *is* complete
 
-* The attainable set $\mathcal Z$ is **(piecewise) convex** *and*
+* The attainable set \(\mathcal Z\) is **(piecewise) convex** *and*
 * weights are allowed to vary over **all** strictly positive directions.
 
-Then $(\text{WS}_w)$ sweeps exactly the front. This is the classical result for linear objectives over convex $X$.
+Then \((\text{WS}_w)\) sweeps exactly the front. This is the classical result for linear objectives over convex \(X\).
 
 ---
 
@@ -675,8 +675,8 @@ For each method you will find a **formal model, algorithm sketch, Pareto‑compl
 
 | Feature              | Description                                                                                         |
 | -------------------- | --------------------------------------------------------------------------------------------------- |
-| *Philosophy*         | Satisfy target “goals” $g_i$ rather than minimise $f_i$ per se.                                     |
-| *Decision variables* | Original $x$ plus **deviation variables** $d_i^{+},d_i^{-}\ge0$ for over/under‑achieving each goal. |
+| *Philosophy*         | Satisfy target “goals” \(g_i\) rather than minimise \(f_i\) per se.                                     |
+| *Decision variables* | Original \(x\) plus **deviation variables** \(d_i^{+},d_i^{-}\ge0\) for over/under‑achieving each goal. |
 | *Generic model*      |                                                                                                     |
 
 $$
@@ -687,16 +687,16 @@ $$
 \end{aligned}
 $$
 
-*Variants of* $\Phi$:
+*Variants of* \(\Phi\):
 
-1. **Weighted** GP $ \Phi=\sum_{i}w_i(d_i^{+}+d_i^{-})$
-2. **Pre‑emptive (lexicographic)** GP — minimise deviations in strict priority levels $P_1\succ P_2\succ\cdots$.
-3. **Chebyshev GP** minimise $\max_i w_i(d_i^{+}+d_i^{-})$. ([Wikipedia][1]) |
+1. **Weighted** GP \( \Phi=\sum_{i}w_i(d_i^{+}+d_i^{-})\)
+2. **Pre‑emptive (lexicographic)** GP — minimise deviations in strict priority levels \(P_1\succ P_2\succ\cdots\).
+3. **Chebyshev GP** minimise \(\max_i w_i(d_i^{+}+d_i^{-})\). ([Wikipedia][1]) |
 
 ### How it generates Pareto points
 
-* If all weights $w_i>0$ the optimum is **weakly Pareto‑optimal**. Proper tuning (or pre‑emptive tiers) removes weak dominance.
-* Sweeping the goal vector $g$ (e.g. along a grid between the ideal and nadir points) yields a *set* that approximates the frontier.
+* If all weights \(w_i>0\) the optimum is **weakly Pareto‑optimal**. Proper tuning (or pre‑emptive tiers) removes weak dominance.
+* Sweeping the goal vector \(g\) (e.g. along a grid between the ideal and nadir points) yields a *set* that approximates the frontier.
 
 ### Strengths
 
@@ -705,7 +705,7 @@ $$
 
 ### Caveats
 
-* Poorly chosen $g$ may land outside the feasible image—⇒ infeasible model.
+* Poorly chosen \(g\) may land outside the feasible image—⇒ infeasible model.
 * Weighted GP can return *internally dominated* solutions if the weights/normalisation are inconsistent; post‑filtering is advised. ([Department of Engineering][2])
 
 ---
@@ -716,9 +716,9 @@ $$
 
 ### 2.1 Definition
 
-Choose an **ideal (utopia) point** $z^{\star}=(z^{\star}_1,\dots ,z^{\star}_m)$ with
-$z^{\star}_i=\min_{x\in X}f_i(x)$.
-For a weight vector $w\in\mathbb{R}^m_{>0}$ on the simplex and a norm index $p\in[1,\infty]$
+Choose an **ideal (utopia) point** \(z^{\star}=(z^{\star}_1,\dots ,z^{\star}_m)\) with
+\(z^{\star}_i=\min_{x\in X}f_i(x)\).
+For a weight vector \(w\in\mathbb{R}^m_{>0}\) on the simplex and a norm index \(p\in[1,\infty]\)
 
 $$
 \boxed{\;GC_{p}(w):\;
@@ -730,20 +730,20 @@ $$
 
 *Special cases*
 
-* $p=1$ → **Manhattan / weighted‑sum of deviations** (sometimes called the *augmented* L¹ when a small $\rho\sum f_i$ is added to break ties).
-* $p=2$ → **Euclidean compromise programming** (smooth, differentiable).
-* $p=\infty$ → **Chebyshev (min–max)**: $\min_x\max_i w_i\,[f_i(x)-z^{\star}_i]$.
+* \(p=1\) → **Manhattan / weighted‑sum of deviations** (sometimes called the *augmented* L¹ when a small \(\rho\sum f_i\) is added to break ties).
+* \(p=2\) → **Euclidean compromise programming** (smooth, differentiable).
+* \(p=\infty\) → **Chebyshev (min–max)**: \(\min_x\max_i w_i\,[f_i(x)-z^{\star}_i]\).
 
 ### 2.2 Pareto‑completeness
 
 * **Chebyshev (L∞)**: for every Pareto point there exists a weight vector making it optimal, even on **non‑convex** fronts. ([White Rose Research Online][3], [arXiv][4])
-* $1\le p<\infty$**:** guarantees weak Pareto optimality, but *may* skip unsupported points unless the front is convex or an “augmented” term is added. ([www2.math.uni-wuppertal.de][5])
+* \(1\le p<\infty\)**:** guarantees weak Pareto optimality, but *may* skip unsupported points unless the front is convex or an “augmented” term is added. ([www2.math.uni-wuppertal.de][5])
 
 ### 2.3 Implementation tips
 
 * Normalise objectives (range or goal‑based) before applying weights.
-* In practice solve a *sequence* of (1) with different $(w,p)$ to sample the front; Latin‑hypercube weight sampling gives good coverage.
-* L∞ formulation becomes a smooth LP/NLP with an auxiliary variable $ \lambda$:
+* In practice solve a *sequence* of (1) with different \((w,p)\) to sample the front; Latin‑hypercube weight sampling gives good coverage.
+* L∞ formulation becomes a smooth LP/NLP with an auxiliary variable \( \lambda\):
 
 $$
 \min_{x,\lambda}\;\lambda\;\; \text{s.t.}\; w_i\,[f_i(x)-z^{\star}_i]\le\lambda,\;i=1..m.
@@ -756,7 +756,7 @@ $$
 
 ---
 
-## 3 Weighted **Exponential** (or $p$‑power) **Sum**
+## 3 Weighted **Exponential** (or \(p\)‑power) **Sum**
 
 ### 3.1 Scalarising function
 
@@ -768,33 +768,33 @@ p>0,\;w_i>0,\;\sum w_i=1
 \tag{2}
 $$
 
-(Equivalent to $\min \sum w_i f_i^p$ when the $1/p$ root is dropped—it does not affect arg min.) ([Department of Computer Science][6])
+(Equivalent to \(\min \sum w_i f_i^p\) when the \(1/p\) root is dropped—it does not affect arg min.) ([Department of Computer Science][6])
 
 ### 3.2 Relationship to other norms
 
-* $p=1$ → ordinary weighted sum.
-* $p\to\infty$ → approaches the Chebyshev scalarisation, because $(\sum w_if_i^{p})^{1/p}\to\max_i f_i$.
+* \(p=1\) → ordinary weighted sum.
+* \(p\to\infty\) → approaches the Chebyshev scalarisation, because \((\sum w_if_i^{p})^{1/p}\to\max_i f_i\).
 * Thus WES forms a **continuous bridge** between linear and min–max norms.
 
 ### 3.3 Pareto coverage
 
-* For *any* $p>0$ the optimum is weakly Pareto‑optimal when all $w_i>0$.
-* As $p$ grows, WES increasingly emphasises the largest component; with sufficiently large $p$ and suitable weights it can recover unsupported points that plain weighted sums miss. ([Department of Computer Science][6])
-* However, extremely large $p$ (≥ 100) cause ill‑conditioning; use scaled objectives or logarithmic reparameterisation.
+* For *any* \(p>0\) the optimum is weakly Pareto‑optimal when all \(w_i>0\).
+* As \(p\) grows, WES increasingly emphasises the largest component; with sufficiently large \(p\) and suitable weights it can recover unsupported points that plain weighted sums miss. ([Department of Computer Science][6])
+* However, extremely large \(p\) (≥ 100) cause ill‑conditioning; use scaled objectives or logarithmic reparameterisation.
 
 ### 3.4 Algorithmic notes
 
-1. Pick a small set of exponents (e.g. $p\in\{1,2,4,8,16\}$);
-2. For each $p$ sample weights $w$;
-3. Solve (2) with any smooth NLP solver—gradients exist wherever $f_i$ are differentiable.
+1. Pick a small set of exponents (e.g. \(p\in\{1,2,4,8,16\}\));
+2. For each \(p\) sample weights \(w\);
+3. Solve (2) with any smooth NLP solver—gradients exist wherever \(f_i\) are differentiable.
 4. Apply a Pareto filter to the union of solutions.
 
-This typically yields a denser and more uniformly spaced front than using weights alone, at only $O(|p|\times|w|)$ runs.
+This typically yields a denser and more uniformly spaced front than using weights alone, at only \(O(|p|\times|w|)\) runs.
 
 ### Advantages / Limits
 
-\| ✔ Captures concave regions earlier than L¹/L² | ✘ Exponent tuning still heuristic; no universal “best” $p$ |
-\| ✔ Smooth everywhere (except when some $f_i=0$) | ✘ Large $m$ ⇒ high‑dimensional weight simplex |
+\| ✔ Captures concave regions earlier than L¹/L² | ✘ Exponent tuning still heuristic; no universal “best” \(p\) |
+\| ✔ Smooth everywhere (except when some \(f_i=0\)) | ✘ Large \(m\) ⇒ high‑dimensional weight simplex |
 
 ---
 
@@ -802,9 +802,9 @@ This typically yields a denser and more uniformly spaced front than using weight
 
 | Property                   | Goal Prog.                         | L₁/L₂/L∞ Norm                          | Weighted Exp. Sum            |
 | -------------------------- | ---------------------------------- | -------------------------------------- | ---------------------------- |
-| Inputs                     | Targets $g_i$ (+ weights/priority) | Weights $w$, norm $p$, ideal $z^\star$ | Weights $w$, exponent $p$    |
-| Yields                     | **One** solution per model run     | One solution per $(w,p)$               | Same                         |
-| Captures non‑convex front? | Yes, if goals sweep                | L∞: yes; p<∞: not guaranteed           | Often, for large $p$         |
+| Inputs                     | Targets \(g_i\) (+ weights/priority) | Weights \(w\), norm \(p\), ideal \(z^\star\) | Weights \(w\), exponent \(p\)    |
+| Yields                     | **One** solution per model run     | One solution per \((w,p)\)               | Same                         |
+| Captures non‑convex front? | Yes, if goals sweep                | L∞: yes; p<∞: not guaranteed           | Often, for large \(p\)         |
 | Smooth objective?          | Yes (linear/quadratic)             | p<∞: smooth; L∞ need auxiliary var     | Yes                          |
 | Solvers                    | LP/MILP/NLP                        | Same                                   | Same                         |
 | Typical use                | Satisficing, policy targets        | Engineering “distance‑to‑ideal”        | Front densification after WS |
@@ -813,9 +813,9 @@ This typically yields a denser and more uniformly spaced front than using weight
 
 ### Practical take‑aways
 
-* **Start** with a Chebyshev (L∞) or WES $p\!>\!4$**:** both reliably reach unsupported regions that plain weighted sums miss.
+* **Start** with a Chebyshev (L∞) or WES \(p\!>\!4\)**:** both reliably reach unsupported regions that plain weighted sums miss.
 * **Goal programming** is invaluable when stakeholders can state **concrete targets**. Use weighted or Chebyshev GP to stay on (or project onto) the Pareto set.
-* **Parameter sweeps** (weights, $p$, or goal levels) are essential; one scalarisation run ≠ the frontier. Automate grid or Latin‑hypercube sampling and Pareto‑filter the union.
+* **Parameter sweeps** (weights, \(p\), or goal levels) are essential; one scalarisation run ≠ the frontier. Automate grid or Latin‑hypercube sampling and Pareto‑filter the union.
 * Always **normalise** objectives before weighting—especially when mixing different units—to avoid unintended bias.
 * Post‑process with a hypervolume or spread metric to check whether additional weight/exponent samples are needed.
 
@@ -843,10 +843,10 @@ weighted min-max method;
 
 Let
 
-* $X\subseteq\mathbb{R}^n$ — feasible designs
-* $f:X\to\mathbb{R}^m$ — objectives to **minimise**
-* $z^{\star}\in\mathbb{R}^m$ — reference point (often $z^{\star}_i=\min_{x\in X}f_i(x)$)
-* $w\in\mathbb{R}^m_{>0}$, $\sum_i w_i=1$ — positive weights
+* \(X\subseteq\mathbb{R}^n\) — feasible designs
+* \(f:X\to\mathbb{R}^m\) — objectives to **minimise**
+* \(z^{\star}\in\mathbb{R}^m\) — reference point (often \(z^{\star}_i=\min_{x\in X}f_i(x)\))
+* \(w\in\mathbb{R}^m_{>0}\), \(\sum_i w_i=1\) — positive weights
 
 Define the **weighted min–max problem**
 
@@ -872,9 +872,9 @@ $$
 
 ### 2 Pareto‑optimality guarantees
 
-* **Weak Pareto‑optimality:** every solution of (WM$_w$) with strictly positive $w$ is weakly Pareto‑optimal.
-* **Completeness:** for *every* Pareto‑optimal point $x^{\dagger}$ there exists a weight vector $w\!\succ\!0$ (often unique up to scaling) such that $x^{\dagger}$ solves (WM$_w$) ([SpringerLink][1]).
-* **Non‑convex fronts:** unlike plain weighted‑sum, (WM$_w$) reaches **unsupported** Pareto points inside concave regions of the frontier ([ScienceDirect][2]).
+* **Weak Pareto‑optimality:** every solution of (WM\(_w\)) with strictly positive \(w\) is weakly Pareto‑optimal.
+* **Completeness:** for *every* Pareto‑optimal point \(x^{\dagger}\) there exists a weight vector \(w\!\succ\!0\) (often unique up to scaling) such that \(x^{\dagger}\) solves (WM\(_w\)) ([SpringerLink][1]).
+* **Non‑convex fronts:** unlike plain weighted‑sum, (WM\(_w\)) reaches **unsupported** Pareto points inside concave regions of the frontier ([ScienceDirect][2]).
 
 ---
 
@@ -899,8 +899,8 @@ Output : set P of Pareto designs; frontier F=f(P)
 
 ### 4 Practical strengths and caveats
 
-\| ✔ **Captures concave regions** missed by weighted‑sum | ✘ Requires a **good reference** point; an inaccurate $z^{\star}$ skews the search |
-|✔ **One optimisation per weight** → embarrassingly parallel | ✘ Sensitive to **scaling**; always normalise $f_i$ or use range‑based weights |
+\| ✔ **Captures concave regions** missed by weighted‑sum | ✘ Requires a **good reference** point; an inaccurate \(z^{\star}\) skews the search |
+|✔ **One optimisation per weight** → embarrassingly parallel | ✘ Sensitive to **scaling**; always normalise \(f_i\) or use range‑based weights |
 |✔ Smooth auxiliary form — usable with gradient NLP, MILP, or black‑box solver | ✘ Very small weights can create flat regions ⇒ numerical ill‑conditioning |
 |✔ Provably convergent to *any* Pareto point as weights vary | ✘ Each run gives **one** point; many runs needed for dense fronts |
 
@@ -910,17 +910,17 @@ Output : set P of Pareto designs; frontier F=f(P)
 
 | Relation                                                       | Comment                                                                                                                       |
 | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| **L∞ norm** with weights = (WM$_w$)                            | It is precisely the weighted Chebyshev distance to $z^{\star}$.                                                               |
-| **Weighted exponential / p‑power sum**                         | As $p\to\infty$ the weighted $p$-norm tends to (WM$_w$); using several $p$ values bridges between ordinary WS and min–max.    |
-| **Normal Boundary Intersection (NBI)** & **Normal Constraint** | These methods solve sequences of (WM$_w$)‑type sub‑problems along normals to the convex hull to obtain evenly spaced fronts.  |
-| **MOEA/D decomposition**                                       | Uses (WM$_w$) or its Tchebycheff variant as sub‑problem inside an evolutionary framework; inherits the completeness property. |
+| **L∞ norm** with weights = (WM\(_w\))                            | It is precisely the weighted Chebyshev distance to \(z^{\star}\).                                                               |
+| **Weighted exponential / p‑power sum**                         | As \(p\to\infty\) the weighted \(p\)-norm tends to (WM\(_w\)); using several \(p\) values bridges between ordinary WS and min–max.    |
+| **Normal Boundary Intersection (NBI)** & **Normal Constraint** | These methods solve sequences of (WM\(_w\))‑type sub‑problems along normals to the convex hull to obtain evenly spaced fronts.  |
+| **MOEA/D decomposition**                                       | Uses (WM\(_w\)) or its Tchebycheff variant as sub‑problem inside an evolutionary framework; inherits the completeness property. |
 
 ---
 
 ### 6 Illustrative bi‑objective example
 
-Suppose $f_1$ = cost, $f_2$ = weight (both to minimise) with ideal point $$z^{\star}=(100\,\$,\,10\,\text{kg})$$.
-*Weights*: $w=(0.7,\,0.3)$.
+Suppose \(f_1\) = cost, \(f_2\) = weight (both to minimise) with ideal point $$z^{\star}=(100\,\$,\,10\,\text{kg})$$.
+*Weights*: \(w=(0.7,\,0.3)\).
 *Scalar objective*:
 
 $$
@@ -928,7 +928,7 @@ $$
 $$
 
 The optimiser pushes **whichever of the two scaled gaps is larger** toward zero first; if cost is far above ideal but weight is near ideal, it prioritises cost until the scaled gaps tie, then improves both.
-By sweeping $w_1/w_2$ you trace the complete nondominated curve, including concave bends that a weighted‑sum sweep would skip.
+By sweeping \(w_1/w_2\) you trace the complete nondominated curve, including concave bends that a weighted‑sum sweep would skip.
 
 ---
 
@@ -954,7 +954,7 @@ x^{\star}(w)
 }
 $$
 
-Vary $w$ over the positive simplex → **complete Pareto coverage**, even on non‑convex frontiers ([ScienceDirect][2], [SpringerLink][1]).
+Vary \(w\) over the positive simplex → **complete Pareto coverage**, even on non‑convex frontiers ([ScienceDirect][2], [SpringerLink][1]).
 
 Adopt normalisation, sample weights systematically, and filter duplicates; the result is a rigorous, solver‑agnostic pipeline for mapping the entire Pareto frontier.
 
@@ -976,10 +976,10 @@ Because a **population** stores many candidate designs simultaneously, evolution
 
 | Step                                                                                                                                    | Description |
 | --------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| **1. Partition** the global population $P$ of size $N$ into $m$ *equal* sub‑populations $P^{(1)},\dots ,P^{(m)}$ — one per objective.   |             |
-| **2. Objective‑wise fitness**: in sub‑population $P^{(j)}$ rank individuals by the single objective $f_j$ only (ties get average rank). |             |
+| **1. Partition** the global population \(P\) of size \(N\) into \(m\) *equal* sub‑populations \(P^{(1)},\dots ,P^{(m)}\) — one per objective.   |             |
+| **2. Objective‑wise fitness**: in sub‑population \(P^{(j)}\) rank individuals by the single objective \(f_j\) only (ties get average rank). |             |
 | **3. Parent selection** is performed **within each sub‑population** using the ranks just computed.                                      |             |
-| **4. Recombine** all selected parents, apply crossover + mutation to create $N$ offspring.                                              |             |
+| **4. Recombine** all selected parents, apply crossover + mutation to create \(N\) offspring.                                              |             |
 | **5. Replace** the old population with the offspring and loop to Step 1.                                                                |             |
 
 *(J. D. Schaffer, 1985) ([ResearchGate][1])*
@@ -1000,10 +1000,10 @@ Because each objective occasionally becomes the *sole* selection criterion, indi
 
 | Algorithm (year)                 | Main ideas                                                                                                                 | How diversity is preserved                                             | Advantages over VEGA                                                                  |
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| **NSGA‑II** (2002)               | Fast non‑dominated sorting + crowding distance + explicit elitism                                                          | Secondary sort on *crowding distance* within each non‑domination front | Covers entire front steadily; $O(mN^2)$ but efficient in practice ([sci2s.ugr.es][3]) |
+| **NSGA‑II** (2002)               | Fast non‑dominated sorting + crowding distance + explicit elitism                                                          | Secondary sort on *crowding distance* within each non‑domination front | Covers entire front steadily; \(O(mN^2)\) but efficient in practice ([sci2s.ugr.es][3]) |
 | **SPEA2** (2002)                 | External archive + fitness based on dominance count + k‑th‑nearest‑neighbour density                                       | Truncation keeps archive uniformly spread                              | Better convergence metric (strength); archive adds elitism                            |
-| **MOEA/D** (2007)                | Decompose MOO into $K$ scalar sub‑problems (weighted min–max, Tchebycheff, …); neighbouring sub‑problems share information | Implicit via geographic weights                                        | Linear per‑generation cost; natural parallelism                                       |
-| **NSGA‑III / R‑NSGA‑II** (2013–) | Reference‑point based niching for $m>3$ objectives                                                                         | Reference directions on a simplex                                      | Maintains spread in high‑D objective spaces where crowding fails                      |
+| **MOEA/D** (2007)                | Decompose MOO into \(K\) scalar sub‑problems (weighted min–max, Tchebycheff, …); neighbouring sub‑problems share information | Implicit via geographic weights                                        | Linear per‑generation cost; natural parallelism                                       |
+| **NSGA‑III / R‑NSGA‑II** (2013–) | Reference‑point based niching for \(m>3\) objectives                                                                         | Reference directions on a simplex                                      | Maintains spread in high‑D objective spaces where crowding fails                      |
 
 All four inherit VEGA’s *concept* of working with a population but replace its selection rule.
 
@@ -1027,7 +1027,7 @@ All four inherit VEGA’s *concept* of working with a population but replace its
    * Apply *crowding distance* or *fitness sharing* after objective‑wise ranking to mitigate the extreme‑solution bias.
 5. **Termination**
 
-   * Monitor hypervolume or inverted generational distance (IGD); stop when Δmetric < ε for $k$ generations.
+   * Monitor hypervolume or inverted generational distance (IGD); stop when Δmetric < ε for \(k\) generations.
 
 ---
 
@@ -1035,10 +1035,10 @@ All four inherit VEGA’s *concept* of working with a population but replace its
 
 | Issue                                              | Mitigation                                                                                                                             |
 | -------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| **Objective scaling** – one metric dominates ranks | Normalise $f_i$ to \[0, 1] or use percentile ranks inside each sub‑pop.                                                                |
+| **Objective scaling** – one metric dominates ranks | Normalise \(f_i\) to \[0, 1] or use percentile ranks inside each sub‑pop.                                                                |
 | **Premature loss of good individuals**             | Keep an *external archive* updated every generation; insert archive elites back into mating pool.                                      |
 | **High cost per evaluation**                       | Couple VEGA‑like partitioning with **surrogate models** (one per sub‑pop) so each objective is emulated locally.                       |
-| **Uneven front sampling**                          | Periodically *rotate* which objective each partition optimises; over $m·T$ generations each sub‑pop has targeted every objective once. |
+| **Uneven front sampling**                          | Periodically *rotate* which objective each partition optimises; over \(m·T\) generations each sub‑pop has targeted every objective once. |
 
 ---
 
@@ -1048,7 +1048,7 @@ All four inherit VEGA’s *concept* of working with a population but replace its
 | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | Objectives are **computationally separable** and single‑objective specialists exist (e.g., tuning separate PID loops). | You need *systematic* Pareto coverage without manual tweaking of partitions.                               |
 | Implementation simplicity or legacy GA code must be reused.                                                            | You require theoretical guarantees of elitism and convergence.                                             |
-| You plan to add your own diversity / elitism modules and like the interpretability of sub‑populations.                 | The front has $>3$ objectives or severe concavity that crowding/reference‑direction methods handle better. |
+| You plan to add your own diversity / elitism modules and like the interpretability of sub‑populations.                 | The front has \(>3\) objectives or severe concavity that crowding/reference‑direction methods handle better. |
 
 ---
 
@@ -1094,8 +1094,8 @@ Below is a toolbox‑style guide, arranged from *lowest‑effort* to *most‑rig
 
 | Task                                                                                                                                | Why it matters                                                             |
 | ----------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| **1.1 Define value direction**: convert all “maximise” metrics to minimisation (e.g. $ -\text{utility}$).                           | Keeps dominance and weighting rules consistent.                            |
-| **1.2 Normalise each objective**—common choices: linear to $[0,1]$ using its *range on the Pareto set* or the *ideal/nadir* points. | Otherwise a \$10 k change dwarfs a 1 kg change regardless of “importance”. |
+| **1.1 Define value direction**: convert all “maximise” metrics to minimisation (e.g. \( -\text{utility}\)).                           | Keeps dominance and weighting rules consistent.                            |
+| **1.2 Normalise each objective**—common choices: linear to \([0,1]\) using its *range on the Pareto set* or the *ideal/nadir* points. | Otherwise a \$10 k change dwarfs a 1 kg change regardless of “importance”. |
 | **1.3 Check units & monotonicity**.                                                                                                 | Prevents hidden bias from unit choices (e.g., kg vs g).                    |
 
 ---
@@ -1104,11 +1104,11 @@ Below is a toolbox‑style guide, arranged from *lowest‑effort* to *most‑rig
 
 | Method                                                                                             | Elicitation questions (typical)                                                                                                                 | How weights are computed                       | Pros                                                             | Cons / when to avoid                                       |
 | -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------- |
-| **Direct rating / 100‑point budget**                                                               | “Distribute 100 chips across the criteria proportional to their importance.”                                                                    | $w_i = \frac{\text{chips}_i}{100}$             | Fast; good for small teams.                                      | Coarse; people anchor on round numbers.                    |
+| **Direct rating / 100‑point budget**                                                               | “Distribute 100 chips across the criteria proportional to their importance.”                                                                    | \(w_i = \frac{\text{chips}_i}{100}\)             | Fast; good for small teams.                                      | Coarse; people anchor on round numbers.                    |
 | **SMART / SMARTER** (Simple Multi‑Attribute Rating) ([ScienceDirect][1])                           | Rank criteria by importance; give top rank 100, next 90, … (SMART) or use “rank sum” formula (SMARTER).                                         | Rank‑based formula normalises automatically.   | No pairwise burden; robust to scale.                             | Differences between neighbouring ranks forced to be equal. |
-| **Swing weighting** (“swing matrix”) ([analysisfunction.civilservice.gov.uk][2], [web.mst.edu][3]) | “If **all** criteria are at their worst, which single *swing* to best would you take first, second, …?”  Allocate 100 points over these swings. | Convert points to $w_i$ after *range* scaling. | Incorporates both range and importance; intuitive for engineers. | Needs clear best/worst levels; 30–60 min workshop.         |
+| **Swing weighting** (“swing matrix”) ([analysisfunction.civilservice.gov.uk][2], [web.mst.edu][3]) | “If **all** criteria are at their worst, which single *swing* to best would you take first, second, …?”  Allocate 100 points over these swings. | Convert points to \(w_i\) after *range* scaling. | Incorporates both range and importance; intuitive for engineers. | Needs clear best/worst levels; 30–60 min workshop.         |
 
-All three produce a **weight vector once**, after which you evaluate every design with the same $F_w$.
+All three produce a **weight vector once**, after which you evaluate every design with the same \(F_w\).
 
 ---
 
@@ -1126,7 +1126,7 @@ All three produce a **weight vector once**, after which you evaluate every desig
 
 **Caveats**
 
-* $O(m^2)$ judgements; becomes tiring for $m>8$.
+* \(O(m^2)\) judgements; becomes tiring for \(m>8\).
 * Produces complete order even if the DM is indifferent—check by sensitivity analysis.
 
 ---
@@ -1137,9 +1137,9 @@ Instead of asking for numbers up front, **let the frontier guide the discussion*
 
 | Family                                    | How it works                                                                                                                                                                   | Key sources                                      |
 | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------ |
-| **Trade‑off queries / Zionts–Wallenius**  | Show the DM two frontier designs; ask “prefer A, B, or indifferent?” Infer linear inequalities on $w$; repeat until a unique region remains.                                   | ([ScienceDirect][6])                             |
-| **Interactive Evolutionary MOO**          | An EMOA periodically presents a diverse “menu” of solutions; the DM scores or ranks them; a machine‑learning model updates $w$ or a utility proxy guiding the next population. | ([ScienceDirect][7])                             |
-| **Pareto‑front region of interest (ROI)** | DM specifies a reference point $z^{\text{aspire}}$; algorithm automatically finds $w$ (or ε‑constraint box) that zooms into designs better than $z^{\text{aspire}}$.           | Recent interactive ε‑constraint work ([SSRN][8]) |
+| **Trade‑off queries / Zionts–Wallenius**  | Show the DM two frontier designs; ask “prefer A, B, or indifferent?” Infer linear inequalities on \(w\); repeat until a unique region remains.                                   | ([ScienceDirect][6])                             |
+| **Interactive Evolutionary MOO**          | An EMOA periodically presents a diverse “menu” of solutions; the DM scores or ranks them; a machine‑learning model updates \(w\) or a utility proxy guiding the next population. | ([ScienceDirect][7])                             |
+| **Pareto‑front region of interest (ROI)** | DM specifies a reference point \(z^{\text{aspire}}\); algorithm automatically finds \(w\) (or ε‑constraint box) that zooms into designs better than \(z^{\text{aspire}}\).           | Recent interactive ε‑constraint work ([SSRN][8]) |
 
 *Advantages*:
 
@@ -1156,14 +1156,14 @@ Instead of asking for numbers up front, **let the frontier guide the discussion*
   * Weighted voting / bargaining
   * Social‑choice rules (e.g. Borda) when consensus impossible.
 
-* **Imprecise weights**: treat each $w_i$ as an interval; compute **robust solution** via Stochastic Multi‑attribute Acceptability Analysis (SMAA) or max‑regret criteria.
+* **Imprecise weights**: treat each \(w_i\) as an interval; compute **robust solution** via Stochastic Multi‑attribute Acceptability Analysis (SMAA) or max‑regret criteria.
 
 ---
 
 ## 6 After you have weights – sanity checks
 
 1. **Dominance audit**: verify that the chosen design is on (or very near) the Pareto frontier produced earlier; if not, redo normalisation or elicitation.
-2. **Sensitivity sweep**: perturb each $w_i$ ±10 % (or over stated confidence intervals) and see if design selection changes.  Huge flips → revisit elicitation.
+2. **Sensitivity sweep**: perturb each \(w_i\) ±10 % (or over stated confidence intervals) and see if design selection changes.  Huge flips → revisit elicitation.
 3. **Stakeholder validation**: present *what‑if* scenarios (“With these weights we accepted +5 % cost to save 1 kg. Is that OK?”).
 
 ---
@@ -1171,7 +1171,7 @@ Instead of asking for numbers up front, **let the frontier guide the discussion*
 ## 7 If elicitation fails – fallback heuristics
 
 * **Knee‑point detection**: pick the design with the largest curvature change on the frontier; gives a “balanced compromise” without explicit weights.
-* **Min‑max normalised regret**: choose $x^\star=\arg\min_x\max_i\frac{f_i(x)-z_i^\star}{z_i^{\text{worst}}-z_i^\star}$; equivalent to weighted min–max with equal weights.
+* **Min‑max normalised regret**: choose \(x^\star=\arg\min_x\max_i\frac{f_i(x)-z_i^\star}{z_i^{\text{worst}}-z_i^\star}\); equivalent to weighted min–max with equal weights.
 * **Median objective**: minimise the median of ranked, normalised objectives—robust to outliers but only defensible when loss symmetry is acceptable.
 
 ---

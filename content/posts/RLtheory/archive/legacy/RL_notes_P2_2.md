@@ -33,7 +33,7 @@ $$
 \mathscr F=\sigma\!\bigl(\text{cylinder sets}\bigr).
 $$
 
-Random co‑ordinate projections give $S_t,A_t,R_{t+1}$.
+Random co‑ordinate projections give \(S_t,A_t,R_{t+1}\).
 
 ---
 
@@ -43,10 +43,10 @@ $$
 \boxed{\mathcal M=(S,A,T,R,\gamma)},\qquad\gamma\in[0,1).
 $$
 
-* $S$: state space          \* $A$: action space
-* $T(s,a,\cdot)$: transition kernel (probability measure on $S$).
-* $R(s,a)$: reward, either deterministic or the mean of a bounded distribution.
-* $\gamma$: discount factor ensuring $|G_t|<\infty$.
+* \(S\): state space          \* \(A\): action space
+* \(T(s,a,\cdot)\): transition kernel (probability measure on \(S\)).
+* \(R(s,a)\): reward, either deterministic or the mean of a bounded distribution.
+* \(\gamma\): discount factor ensuring \(|G_t|<\infty\).
 
 ---
 
@@ -64,7 +64,7 @@ $$
 $$
 
 > **Memoryless / stationary**
-> $\pi_t(\cdot\mid H_t)=\pi(\cdot\mid S_t)$.
+> \(\pi_t(\cdot\mid H_t)=\pi(\cdot\mid S_t)\).
 
 ### 1.4 Return
 
@@ -109,7 +109,7 @@ $$
 = (1-\gamma)\sum_{s,a}d^{\pi}_\gamma(s,a)R(s,a),
 $$
 
-so $\mu_0$ merely **rescales** the occupancy measure; optimisation is state‑wise.
+so \(\mu_0\) merely **rescales** the occupancy measure; optimisation is state‑wise.
 
 ---
 
@@ -123,27 +123,27 @@ $$
 
 Properties
 
-* total mass $=1/(1-\gamma)$;
+* total mass \(=1/(1-\gamma)\);
 * **linear value identity**
-  $V^{\pi}(s_0)=\sum_{s,a}d^{\pi}_\gamma(s,a)R(s,a)$.
+  \(V^{\pi}(s_0)=\sum_{s,a}d^{\pi}_\gamma(s,a)R(s,a)\).
 
 ### 3.2 LP formulation
 
-Maximise $\sum_{s,a}d(s,a)R(s,a)$ subject to linear **balance constraints**
+Maximise \(\sum_{s,a}d(s,a)R(s,a)\) subject to linear **balance constraints**
 
 $$
 \sum_a d(s,a)-(1-\gamma)\mu_0(s)=
 \gamma \sum_{s',a'}d(s',a')T(s',a',s),\quad d\ge0.
 $$
 
-Feasible set is a compact, convex polytope $𝒟$.
+Feasible set is a compact, convex polytope \(𝒟\).
 
 ### 3.3 Extremal structure
 
-**Lemma.** An extreme point of $𝒟$ corresponds to a **deterministic stationary** policy.
+**Lemma.** An extreme point of \(𝒟\) corresponds to a **deterministic stationary** policy.
 
 *Proof sketch.*
-Eliminate $d$ to $(|S|\times|A|)$ variables.  Every basic feasible solution has at most $|S|$ non‑zero state‑action pairs ⇒ each state chooses exactly **one** action ⇒ deterministic & stationary.
+Eliminate \(d\) to \((|S|\times|A|)\) variables.  Every basic feasible solution has at most \(|S|\) non‑zero state‑action pairs ⇒ each state chooses exactly **one** action ⇒ deterministic & stationary.
 
 ---
 
@@ -153,14 +153,14 @@ $$
 \boxed{\exists\;\pi^\star\in A^{S}\text{ deterministic stationary with }V^{\pi^\star}=V^\star.}
 $$
 
-*Proof.* Objective is linear, so optimum is at an extreme point of $\mathcal{D}$ ⇒ deterministic stationary $\pi^{\ast}$ (Lemma). □
+*Proof.* Objective is linear, so optimum is at an extreme point of \(\mathcal{D}\) ⇒ deterministic stationary \(\pi^{\ast}\) (Lemma). □
 
 ---
 
 ### 3.5 Memoryless ≠ Greedy
 
-*Memoryless* merely means $\pi(s)$ depends only on $s$.
-Greedy w.r.t $V$ means
+*Memoryless* merely means \(\pi(s)\) depends only on \(s\).
+Greedy w.r.t \(V\) means
 
 $$
 \pi(s)=\arg\max_{a} \lbrace R(s,a)+\gamma\sum_{s'}T(s,a,s')V(s') \rbrace.
@@ -216,26 +216,26 @@ Policy‑iteration / VI avoid this blow‑up; nevertheless, exact optimal contro
 
 ### 4.5 Geometry of value space
 
-Attainable value vectors form a **convex polytope** in $\mathbb R^{|S|}$.
-Value Iteration traces a γ‑contractive trajectory that spirals onto the **upper surface** (Pareto‑optimal frontier).  For |S| = 3 one can visualise this as a 3‑D polyhedron; successive $T^\star$ images move the point outward until convergence at the extreme point representing π★.
+Attainable value vectors form a **convex polytope** in \(\mathbb R^{|S|}\).
+Value Iteration traces a γ‑contractive trajectory that spirals onto the **upper surface** (Pareto‑optimal frontier).  For |S| = 3 one can visualise this as a 3‑D polyhedron; successive \(T^\star\) images move the point outward until convergence at the extreme point representing π★.
 
 ---
 
 ## 𝒞₅ — Measure‑theoretic foundations
 
 * **σ‑algebras** guarantee every infinite‑length event we care about (e.g. “visit s infinitely often”) is measurable.
-* **Dominated convergence** lets us swap limit ↔ expectation when proving convergence of $G_t$.
-* **Radon–Nikodym** derivatives underpin conditional values $V^{\pi}(s)=\mathbf E[G_t\mid S_t=s]$.
+* **Dominated convergence** lets us swap limit ↔ expectation when proving convergence of \(G_t\).
+* **Radon–Nikodym** derivatives underpin conditional values \(V^{\pi}(s)=\mathbf E[G_t\mid S_t=s]\).
 
 ### St Petersburg paradox (why γ < 1)
 
-With payoff $2^{N}$ on first heads,
-$\mathbf E[2^{N}]=\infty$.  Discounting with γ<½ yields finite expectation
-$\sum_{n\ge0}γ^{n}2^{n}<\infty$.  This motivates insisting on γ<1 or bounded horizon.
+With payoff \(2^{N}\) on first heads,
+\(\mathbf E[2^{N}]=\infty\).  Discounting with γ<½ yields finite expectation
+\(\sum_{n\ge0}γ^{n}2^{n}<\infty\).  This motivates insisting on γ<1 or bounded horizon.
 
 ### Weak vs. strong Markov
 
-* **Strong Markov property**: state at a stopping time τ is independent of past given $S_\tau$.
+* **Strong Markov property**: state at a stopping time τ is independent of past given \(S_\tau\).
 * **Weak Markov**: independence only for fixed times.
   Strong ⇒ Weak ⇒ sufficiency of stationary policies; equality holds for time‑homogeneous kernels.
 
@@ -246,11 +246,11 @@ $\sum_{n\ge0}γ^{n}2^{n}<\infty$.  This motivates insisting on γ<1 or bounded h
 | Setting                   | Policy form                                    | Bellman equation                      | Issues                                          |
 | ------------------------- | ---------------------------------------------- | ------------------------------------- | ----------------------------------------------- |
 | Finite horizon T          | time‑indexed πₜ(s)                             | backward recursion over t             | Stationarity lost.                              |
-| Undiscounted total reward | stationary π may suffice but $G_t$ may diverge | no contraction ⇒ different algorithms | Requires positive recurrence or absorbing goal. |
-| Average reward            | stationary π, bias functions h(s)              | $ρ + h(s) = \max_a[R + \sum T h]$     | Needs gain‑bias VI or relative‑value PI.        |
+| Undiscounted total reward | stationary π may suffice but \(G_t\) may diverge | no contraction ⇒ different algorithms | Requires positive recurrence or absorbing goal. |
+| Average reward            | stationary π, bias functions h(s)              | \(ρ + h(s) = \max_a[R + \sum T h]\)     | Needs gain‑bias VI or relative‑value PI.        |
 
 **Goal states & deadlines**
-Augment state with clock $t$ or absorbing “terminal”; Markov property restored, algorithms unchanged.
+Augment state with clock \(t\) or absorbing “terminal”; Markov property restored, algorithms unchanged.
 
 ---
 
@@ -279,7 +279,7 @@ Non‑stationary exploration policies used during learning purposely break optim
 ### Time‑outs & soft deadlines
 
 *Hard* — add clock dimension.
-*Soft* — reward shaping $R'(s,a)=R(s,a)-\lambda$ each step imposes implicit discount.
+*Soft* — reward shaping \(R'(s,a)=R(s,a)-\lambda\) each step imposes implicit discount.
 
 ### Non‑memoryless policies with unmatched value profile
 

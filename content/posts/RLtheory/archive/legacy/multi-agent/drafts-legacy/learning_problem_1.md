@@ -26,18 +26,18 @@ In MARL, a set of autonomous agents interact within a shared environment to achi
 
 #### **1.1. The General Learning Loop**
 
-The MARL process is a cycle that begins with a **game model** and iteratively refines a joint policy, $\omega$.
+The MARL process is a cycle that begins with a **game model** and iteratively refines a joint policy, \(\omega\).
 
-1.  **Data Collection:** The current joint policy, $\omega_z$, is used to generate a batch of **histories**—sequences of states, actions, and rewards.
-    $h_z = \{(s_t, a_t, r_t, s_{t+1})\}_{t=0}^{T_z-1}$
-2.  **Learning Update:** A learning operator, $\mathcal{L}$, uses this data to compute an update, which is then applied to the policy parameters with a learning rate, $\alpha_z$.
-    $\omega_{z+1} = \Gamma(\omega_z + \alpha_z \mathcal{L}(\omega_z, h_z))$
-    *(where $\Gamma$ is a projection to keep parameters valid)*.
+1.  **Data Collection:** The current joint policy, \(\omega_z\), is used to generate a batch of **histories**—sequences of states, actions, and rewards.
+    \(h_z = \{(s_t, a_t, r_t, s_{t+1})\}_{t=0}^{T_z-1}\)
+2.  **Learning Update:** A learning operator, \(\mathcal{L}\), uses this data to compute an update, which is then applied to the policy parameters with a learning rate, \(\alpha_z\).
+    \(\omega_{z+1} = \Gamma(\omega_z + \alpha_z \mathcal{L}(\omega_z, h_z))\)
+    *(where \(\Gamma\) is a projection to keep parameters valid)*.
 3.  **Repetition:** The process repeats until the policy converges according to a chosen criterion.
 
 #### **1.2. The Goal: Solution-Oriented Learning**
 
-Unlike single-agent RL where the goal is simply to maximize returns, MARL success is typically defined by the quality of the final joint policy in a game-theoretic sense. The learning goal is to find a policy $\omega^*$ that satisfies a chosen **solution concept**, such as:
+Unlike single-agent RL where the goal is simply to maximize returns, MARL success is typically defined by the quality of the final joint policy in a game-theoretic sense. The learning goal is to find a policy \(\omega^*\) that satisfies a chosen **solution concept**, such as:
 
 * **Nash Equilibrium (NE):** No agent can improve its outcome by unilaterally changing its strategy.
 * **Correlated Equilibrium (CE):** A generalization of NE where a central device can recommend actions to agents. No agent has an incentive to deviate from its recommended action.
@@ -54,7 +54,7 @@ The transition from a single-agent to a multi-agent setting introduces several f
 | **Non-Stationarity** | From any single agent's perspective, the environment is non-stationary because the other agents' policies are simultaneously changing. This violates the Markov assumption underpinning many single-agent RL algorithms, leading to unstable learning. |
 | **Equilibrium Selection** | In general-sum games with multiple equilibria (e.g., *Stag Hunt*), agents may converge to a socially sub-optimal but "safer" (risk-dominant) equilibrium. This necessitates mechanisms for coordination and equilibrium refinement.                |
 | **Multi-Agent Credit Assignment** | When agents receive a shared team reward, it is difficult to determine the contribution of each individual agent's actions. This complicates the learning signal and can reward "lazy" agents while penalizing effective ones.                      |
-| **Scalability** | As the number of agents increases, the joint action space grows exponentially ($|A| = \prod_i |A_i|$). This "curse of dimensionality" makes methods that explicitly reason over the joint action space computationally intractable.               |
+| **Scalability** | As the number of agents increases, the joint action space grows exponentially (\(|A| = \prod_i |A_i|\)). This "curse of dimensionality" makes methods that explicitly reason over the joint action space computationally intractable.               |
 
 ---
 
@@ -68,7 +68,7 @@ These are the simplest approaches, treating the multi-agent problem as one or mo
 
 | Approach                                 | How It Works                                                                                         | Strengths                                                                                             | Weaknesses                                                                                                    |
 | ---------------------------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| **Central Learning (CL)** | A single "super-agent" learns a policy over the entire **joint action space** $A$.                     | Avoids non-stationarity; can guarantee convergence to optimal correlated equilibria in common-reward games. | Joint action space grows exponentially with the number of agents, rendering it impractical for most problems. |
+| **Central Learning (CL)** | A single "super-agent" learns a policy over the entire **joint action space** \(A\).                     | Avoids non-stationarity; can guarantee convergence to optimal correlated equilibria in common-reward games. | Joint action space grows exponentially with the number of agents, rendering it impractical for most problems. |
 | **Independent Learning (IL)** | Each agent runs its own single-agent RL algorithm, treating all other agents as part of the environment. | Highly scalable and fully decentralized. Simple to implement using standard single-agent RL libraries.      | Faces severe non-stationarity, which can lead to unstable or chaotic learning dynamics. No convergence guarantees in general. |
 
 #### **3.2. Centralized Training with Decentralized Execution (CTDE)**
@@ -103,13 +103,13 @@ These methods train a diverse population of policies and find an equilibrium ove
 
 Evaluating whether a MARL algorithm has "succeeded" requires a precise definition of convergence. These definitions form a hierarchy, from strongest to weakest.
 
-| Level                                       | Formal Statement (for joint policy sequence $\{\omega_z\}$)                                                               | What It Guarantees                                                                              |
+| Level                                       | Formal Statement (for joint policy sequence \(\{\omega_z\}\))                                                               | What It Guarantees                                                                              |
 | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| **1. Point-wise Policy Convergence** | $\lim_{z\to\infty} \omega_z = \omega^\star$                                                                                   | Every agent’s policy stabilizes at a single, fixed solution. The strongest and rarest guarantee. |
-| **2. Expected-Return Convergence** | $\lim_{z\to\infty} U_i(\omega_z) = U_i(\omega^\star) \quad \forall i$                                                               | The *outcome* (payoff) matches an equilibrium, even if policies continue to oscillate.             |
-| **3. Empirical-Distribution Convergence** | $\lim_{z\to\infty} \bar{\omega}_z = \omega^\star$, where $\bar{\omega}_z$ is the time-average of policies.                       | Time-averaged play converges to a single equilibrium. The foundation of no-regret learning.      |
-| **4. Convergence to the Solution Set** | The average policy, $\bar{\omega}_z$, stays arbitrarily close to the *set* of equilibria, but may wander within it. | A weaker version of #3, common for algorithms that find correlated equilibria.                  |
-| **5. Average-Return Convergence** | $\lim_{z\to\infty} \bar{U}^z_i = U_i(\omega^\star) \quad \forall i$                                                               | The running mean of returns stabilizes at an equilibrium value. A practical but weak guarantee.    |
+| **1. Point-wise Policy Convergence** | \(\lim_{z\to\infty} \omega_z = \omega^\star\)                                                                                   | Every agent’s policy stabilizes at a single, fixed solution. The strongest and rarest guarantee. |
+| **2. Expected-Return Convergence** | \(\lim_{z\to\infty} U_i(\omega_z) = U_i(\omega^\star) \quad \forall i\)                                                               | The *outcome* (payoff) matches an equilibrium, even if policies continue to oscillate.             |
+| **3. Empirical-Distribution Convergence** | \(\lim_{z\to\infty} \bar{\omega}_z = \omega^\star\), where \(\bar{\omega}_z\) is the time-average of policies.                       | Time-averaged play converges to a single equilibrium. The foundation of no-regret learning.      |
+| **4. Convergence to the Solution Set** | The average policy, \(\bar{\omega}_z\), stays arbitrarily close to the *set* of equilibria, but may wander within it. | A weaker version of #3, common for algorithms that find correlated equilibria.                  |
+| **5. Average-Return Convergence** | \(\lim_{z\to\infty} \bar{U}^z_i = U_i(\omega^\star) \quad \forall i\)                                                               | The running mean of returns stabilizes at an equilibrium value. A practical but weak guarantee.    |
 | **6. Regret / Exploitability Convergence** | The agent's *regret* or the game's *exploitability* approaches zero.                                                     | A learning-theoretic view. Zero regret implies the empirical distribution converges to a (coarse) correlated equilibrium. |
 
 **Key Takeaway:** Many practical algorithms cannot guarantee strict policy convergence (#1). Therefore, a key skill in MARL is to select the weakest convergence criterion that still meets the application's needs and to use evaluation metrics that align with that criterion.
@@ -139,7 +139,7 @@ This checklist synthesizes the concepts above into a rigorous, step-by-step proc
 
 | Choice                                                              | Select One | Feasibility Gates                                                             |
 | ------------------------------------------------------------------- | ---------- | ----------------------------------------------------------------------------- |
-| **2-A. Central Learning (CL)** - One agent controls the joint action. | □          | Only if $|A| = \prod_i |A_i|$ fits in memory and rewards are scalarized.       |
+| **2-A. Central Learning (CL)** - One agent controls the joint action. | □          | Only if \(|A| = \prod_i |A_i|\) fits in memory and rewards are scalarized.       |
 | **2-B. Independent Learning (IL)** - Each agent learns on its own.  | □          | Accepts non-stationarity; expect weaker convergence guarantees.               |
 | **2-C. Factorised / CTDE** - Central critic, decentralized actors.  | □          | Hybrid approach; still bounded by the complexity of the central critic.         |
 *If none are feasible, you must simplify the Game Model (e.g., state/action abstraction) or relax the tags in Step 1.*

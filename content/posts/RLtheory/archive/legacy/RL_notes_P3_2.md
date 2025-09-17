@@ -48,15 +48,15 @@ We now walk that path.
 1. **States (S)** – the finite set of environment configurations; every other quantity is *indexed* by S.
 2. **Actions (A)** – the finite set of choices the agent may take in any state.
 3. **Transition kernel (P)** – for each action a, a row‑stochastic matrix
-   $P^a_{ss'}=\Pr\{S_{t+1}=s' \mid S_t=s, A_t=a\}$.
-4. **Reward function (R)** – either deterministic $R:S\times A\to\mathbb R$ or a random variable with that expectation.
+   \(P^a_{ss'}=\Pr\{S_{t+1}=s' \mid S_t=s, A_t=a\}\).
+4. **Reward function (R)** – either deterministic \(R:S\times A\to\mathbb R\) or a random variable with that expectation.
 5. **Discount factor (γ∈\[0,1))** – geometrically de‑emphasises distant rewards; guarantees convergence of infinite sums.
 6. **Policies**
 
-   * **General**: a time‑varying stochastic map $π_t(a\mid h_t)$ from full histories $h_t$.
-   * **Memory‑less**: $π(a\mid s)$ depends only on the current state.
-   * **Deterministic memory‑less**: a function $\mu:S→A$ selecting a single action.
-7. **Planning vs. Learning** – in *planning* the tuple $(S,A,P,R,γ)$ is known; in *learning* the agent must infer $P$ and $R$ from samples.  The mathematics of optimality is identical, but algorithms differ.
+   * **General**: a time‑varying stochastic map \(π_t(a\mid h_t)\) from full histories \(h_t\).
+   * **Memory‑less**: \(π(a\mid s)\) depends only on the current state.
+   * **Deterministic memory‑less**: a function \(\mu:S→A\) selecting a single action.
+7. **Planning vs. Learning** – in *planning* the tuple \((S,A,P,R,γ)\) is known; in *learning* the agent must infer \(P\) and \(R\) from samples.  The mathematics of optimality is identical, but algorithms differ.
 
 These primitives are the **alphabet** of the theory; everything else will be algebra built from them.
 
@@ -80,7 +80,7 @@ These primitives are the **alphabet** of the theory; everything else will be alg
 
 ### B.2 Primitive Bellman‑style Operators
 
-For any scalar function $v:S→\mathbb R$:
+For any scalar function \(v:S→\mathbb R\):
 
 * **Deterministic‑action operator**
 
@@ -89,13 +89,13 @@ For any scalar function $v:S→\mathbb R$:
   $$
 
   It is *linear*, *monotone*, and a **γ‑contraction** in the max‑norm
-  $\|v\|_\infty=\max_s|v(s)|$.
+  \(\|v\|_\infty=\max_s|v(s)|\).
 
 * **Policy‑specific operator**
-  $T^{π}v=\sum_{a}π(a\mid s)T^{a}v$, same properties.
+  \(T^{π}v=\sum_{a}π(a\mid s)T^{a}v\), same properties.
 
 * **Greedy (max) operator**
-  $Mv(s)=\max_{a}(T^{a}v)(s)$; 1‑Lipschitz in the max‑norm.
+  \(Mv(s)=\max_{a}(T^{a}v)(s)\); 1‑Lipschitz in the max‑norm.
 
 ### B.3 Composite Operator
 
@@ -105,7 +105,7 @@ $$
   Tv = M\bigl(R + γ P v\bigr)
 $$
 
-is again a γ‑contraction, hence possesses a unique fixed point $v^*$.
+is again a γ‑contraction, hence possesses a unique fixed point \(v^*\).
 
 ### B.4 Auxiliary Identities
 
@@ -117,7 +117,7 @@ is again a γ‑contraction, hence possesses a unique fixed point $v^*$.
 
   a workhorse for error bounds.
 
-* **Monotonicity**: if $v≤w$ (component‑wise) then $Tv≤Tw$.
+* **Monotonicity**: if \(v≤w\) (component‑wise) then \(Tv≤Tw\).
 
 Operators are the **verbs** with which the alphabet of Cluster A is turned into meaningful statements.
 
@@ -126,14 +126,14 @@ Operators are the **verbs** with which the alphabet of Cluster A is turned int
 ## Cluster C Fundamental Theorems & Expressive Power
 
 1. **Banach Fixed‑Point Theorem** – every contraction on a complete metric space has a unique fixed point that iterative application converges to.
-   *Application*: $T$ from Cluster B is such a contraction ⇒ iterative “value iteration” converges.
+   *Application*: \(T\) from Cluster B is such a contraction ⇒ iterative “value iteration” converges.
 
-2. **Bellman Fixed‑Point Property** – $Tv^*=v^*$, and for any start $v_0$, $T^k v_0→v^*$.
+2. **Bellman Fixed‑Point Property** – \(Tv^*=v^*\), and for any start \(v_0\), \(T^k v_0→v^*\).
 
-3. **Fundamental Theorem of MDPs** – there exists at least one **deterministic memory‑less** policy $\mu^*$ such that $v^{\mu^*}=v^*$.
-   *Consequence*: the search space collapses from the continuum of general policies to $|A|^{|S|}$ discrete ones.
+3. **Fundamental Theorem of MDPs** – there exists at least one **deterministic memory‑less** policy \(\mu^*\) such that \(v^{\mu^*}=v^*\).
+   *Consequence*: the search space collapses from the continuum of general policies to \(|A|^{|S|}\) discrete ones.
 
-4. **Continuity / Sensitivity of Greedy Policies** – if $v$ is close to $v^*$ then the greedy policy w\.r.t. $v$ is close‑to‑optimal:
+4. **Continuity / Sensitivity of Greedy Policies** – if \(v\) is close to \(v^*\) then the greedy policy w\.r.t. \(v\) is close‑to‑optimal:
 
    $$
        \|v^{\text{greedy}(v)}-v^*\|_\infty
@@ -149,17 +149,17 @@ These theorems **explain why** the algorithms to follow work and why memory‑le
 ## Cluster D Solution Algorithms
 
 * **Value Iteration (VI)**
-  Initialise $v_0$ arbitrarily. Repeat $v_{k+1}=Tv_k$.
-  Stop when $\|v_{k+1}-v_k\|_\infty ≤ \frac{ε(1-γ)}{2γ}$;
-  the greedy policy of $v_k$ is then ε‑optimal.
+  Initialise \(v_0\) arbitrarily. Repeat \(v_{k+1}=Tv_k\).
+  Stop when \(\|v_{k+1}-v_k\|_\infty ≤ \frac{ε(1-γ)}{2γ}\);
+  the greedy policy of \(v_k\) is then ε‑optimal.
   Computational cost: one *Bellman backup* per state‑action pair per sweep →
-  $O(|S||A|)$ per iteration.
+  \(O(|S||A|)\) per iteration.
 
 * **Finite‑horizon / n‑step VI**
-  For horizon $n$ with known terminal rewards, sweep backwards $n$ times; gives the exact optimal policy.
+  For horizon \(n\) with known terminal rewards, sweep backwards \(n\) times; gives the exact optimal policy.
 
 * **Policy Evaluation**
-  Solve $(I-γP^{π})v=r^{π}$ either by direct matrix inversion $O(|S|^3)$ or iterative methods $O(|S|^2\log 1/δ)$ for accuracy δ.
+  Solve \((I-γP^{π})v=r^{π}\) either by direct matrix inversion \(O(|S|^3)\) or iterative methods \(O(|S|^2\log 1/δ)\) for accuracy δ.
 
 * **Policy Improvement (greedification)**
   Produce
@@ -169,7 +169,7 @@ These theorems **explain why** the algorithms to follow work and why memory‑le
   $$
 
 * **Policy Iteration (PI)**
-  Loop: Evaluate current π to obtain $v^{π}$; Improve to π′; halt when π′=π.
+  Loop: Evaluate current π to obtain \(v^{π}\); Improve to π′; halt when π′=π.
   Guarantees exact optimality in a finite number of iterations; worst‑case ≤|A|<sup>|S|</sup>, empirical behaviour far faster.
   Tie‑breaking must be deterministic to avoid cycling.
 
@@ -182,18 +182,18 @@ These algorithms **realise** the constructive content of Cluster C’s theorem
 ## Cluster E Convergence & Error Analysis
 
 * **Effective horizon**
-  $H_{\text{eff}}=1/(1-γ)$.  Intuitively the future beyond \~$H_{\text{eff}}$ steps contributes less than ≈ e<sup>−1</sup> to present value.
+  \(H_{\text{eff}}=1/(1-γ)\).  Intuitively the future beyond \~\(H_{\text{eff}}\) steps contributes less than ≈ e<sup>−1</sup> to present value.
 
 * **Contraction rate of VI**
-  $\|v_k-v^*\|∞≤γ^k\|v_0-v^*\|∞$.
+  \(\|v_k-v^*\|∞≤γ^k\|v_0-v^*\|∞\).
   Taking logs yields the iteration bound
-  $k≥H_{\text{eff}}\ln\frac{1}{ε(1-γ)}$ for ε‑optimality.
+  \(k≥H_{\text{eff}}\ln\frac{1}{ε(1-γ)}\) for ε‑optimality.
 
-* **Policy‑loss bound** (from Cluster C) – the loss of the greedy policy produced by an approximate value is at most $\tfrac{2γ}{1-γ}$ times that value error.
+* **Policy‑loss bound** (from Cluster C) – the loss of the greedy policy produced by an approximate value is at most \(\tfrac{2γ}{1-γ}\) times that value error.
 
-* **Policy Iteration bound** – classical analysis shows ≤$\frac{|A||S|}{1-γ}$ policy switches, dominated by evaluation cost each switch.
+* **Policy Iteration bound** – classical analysis shows ≤\(\frac{|A||S|}{1-γ}\) policy switches, dominated by evaluation cost each switch.
 
-* **Normalization & span** – subtracting $\min_s v(s)$ keeps value magnitudes O(1) even when γ→1; essential for numerical stability and for *instance‑dependent* complexity results.
+* **Normalization & span** – subtracting \(\min_s v(s)\) keeps value magnitudes O(1) even when γ→1; essential for numerical stability and for *instance‑dependent* complexity results.
 
 Thus Cluster E quantifies *how long* the Cluster D algorithms must run to achieve a desired accuracy.
 
@@ -203,15 +203,15 @@ Thus Cluster E quantifies *how long* the Cluster D algorithms must run to ac
 
 * **Algorithm‑independent (information‑theoretic) lower bound**
   Any procedure that outputs an ε‑optimal policy must perform
-  Ω$\bigl(|S|²|A|\log(1/ε)/(1-γ)\bigr)$ Bellman‑style operations.
-  Therefore the $(1-γ)^{-1}$ term in VI’s runtime is **provably unavoidable**.
+  Ω\(\bigl(|S|²|A|\log(1/ε)/(1-γ)\bigr)\) Bellman‑style operations.
+  Therefore the \((1-γ)^{-1}\) term in VI’s runtime is **provably unavoidable**.
 
 * **Upper vs. lower gap** – standard VI achieves
-  O$\bigl(|S||A|/(1-γ)\, \log(1/ε(1-γ))\bigr)$.  The gap is roughly a factor |S|; narrowing it is an open problem.
+  O\(\bigl(|S||A|/(1-γ)\, \log(1/ε(1-γ))\bigr)\).  The gap is roughly a factor |S|; narrowing it is an open problem.
 
 * **Policy Iteration nuance** – PI’s iteration count does **not** depend on ε (it either finds the exact optimum or does not), but each evaluation is costly.  Hence VI is preferred at low accuracy, PI near exactness.
 
-* **Instance‑dependent hardness** – if the *span* of $v^*$ is bounded independently of γ (fast‑mixing environments), complexity falls to Õ(|S||A|).  Conversely, *hot* instances with γ→1 and slow mixing show near‑worst‑case performance.
+* **Instance‑dependent hardness** – if the *span* of \(v^*\) is bounded independently of γ (fast‑mixing environments), complexity falls to Õ(|S||A|).  Conversely, *hot* instances with γ→1 and slow mixing show near‑worst‑case performance.
 
 * **Delta‑dependence debate** – proving lower bounds that *remove* ε from the complexity of approximate planning remains elusive; PI sidesteps ε by aiming for exact optimality.
 
@@ -227,11 +227,11 @@ $$
   V=\{v^{π}\mid π\text{ any policy}\}\subset\mathbb R^{|S|}.
 $$
 
-* **Convex‑polytope theorem** – $V$ is the convex hull of the |A|<sup>|S|</sup> extreme points corresponding to deterministic policies.  Carathéodory’s theorem implies *any* value vector can be written as a mixture of at most |S|+1 such extremes.
+* **Convex‑polytope theorem** – \(V\) is the convex hull of the |A|<sup>|S|</sup> extreme points corresponding to deterministic policies.  Carathéodory’s theorem implies *any* value vector can be written as a mixture of at most |S|+1 such extremes.
 
-* **Projection interpretation of VI** – one sweep of VI replaces $v_k$ by its projection onto the intersection of half‑spaces $v≥T^{a}v_k$.  Because these constraints are of the form “coordinate ≤ max”, the naturally compatible metric is the **max‑norm**, explaining its primacy in all contraction proofs.
+* **Projection interpretation of VI** – one sweep of VI replaces \(v_k\) by its projection onto the intersection of half‑spaces \(v≥T^{a}v_k\).  Because these constraints are of the form “coordinate ≤ max”, the naturally compatible metric is the **max‑norm**, explaining its primacy in all contraction proofs.
 
-* **Distance picture** – the fixed point $v^*$ is the unique point in V that also satisfies all greedy constraints simultaneously.  Successive projections monotonically shrink the max‑norm distance to that point.
+* **Distance picture** – the fixed point \(v^*\) is the unique point in V that also satisfies all greedy constraints simultaneously.  Successive projections monotonically shrink the max‑norm distance to that point.
 
 The geometric cluster is not required for the causal chain A→F, but it offers an *alternative interpretation* that often yields shorter or more intuitive proofs.
 

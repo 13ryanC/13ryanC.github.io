@@ -15,125 +15,125 @@ This section reviews the foundational elements of Markov Decision Processes (MDP
 Markov Decision Process (MDP): A mathematical framework for modeling decision-making in situations where outcomes are partly random and partly under the control of a decision-maker. It is defined by a five-tuple:
 States (S): A set of possible situations the agent can be in.
 Actions (A): A set of actions available to the agent in each state.
-Transitions (P): Probabilities of moving to a new state given the current state and action. Represented as $P(s'|s, a)$.
-Rewards (R): The immediate reward received after taking an action in a given state and transitioning to a new state. Represented as $R(s, a, s')$.
+Transitions (P): Probabilities of moving to a new state given the current state and action. Represented as \(P(s'|s, a)\).
+Rewards (R): The immediate reward received after taking an action in a given state and transitioning to a new state. Represented as \(R(s, a, s')\).
 Discount Factor (γ): A value between 0 and 1 that discounts future rewards, making immediate rewards more valuable.
 Policy (π): A rule that specifies which action to take in each state.
-Memoryless Policy: A policy where the action chosen in a state depends only on the current state, not on the history of states or actions. Often denoted as $\pi(a|s)$.
+Memoryless Policy: A policy where the action chosen in a state depends only on the current state, not on the history of states or actions. Often denoted as \(\pi(a|s)\).
 General Policy: A policy that can depend on the entire history of states, actions, and rewards encountered so far. More powerful, especially in unknown MDPs (learning scenarios).
 Value Function (V): A function that quantifies the "goodness" of a state or state-action pair under a given policy.
-Value Function of a Policy (Vπ): The expected cumulative discounted reward starting from a state 's' and following policy 'π'. It is a fixed point of the Bellman operator for that policy, $T_\pi$.
+Value Function of a Policy (Vπ): The expected cumulative discounted reward starting from a state 's' and following policy 'π'. It is a fixed point of the Bellman operator for that policy, \(T_\pi\).
 Optimal Value Function (V):* The maximum possible expected cumulative discounted reward achievable from each state. This is the value function of an optimal policy.
 Bellman Operators:
-Bellman Operator for Policy π (Tπ): An operator that takes a value function 'V' and returns a new value function based on immediate rewards and discounted future rewards under policy π. $T_\pi V(s) = R_\pi(s) + \gamma \sum_{s'} P_\pi(s,s') V(s')$.
-Bellman Optimality Operator (T): An operator that takes a value function 'V' and returns a new value function by maximizing over all possible actions in each state. $T V(s) = \max_a (R(s,a) + \gamma \sum_{s'} P(s'|s,a) V(s'))$.
-Greedy Policy: A policy that, given a value function V, chooses the action in each state that maximizes the one-step look-ahead value, considering immediate rewards and discounted future values from V. If $\pi$ is greedy with respect to V, then $T_\pi V = T V$.
+Bellman Operator for Policy π (Tπ): An operator that takes a value function 'V' and returns a new value function based on immediate rewards and discounted future rewards under policy π. \(T_\pi V(s) = R_\pi(s) + \gamma \sum_{s'} P_\pi(s,s') V(s')\).
+Bellman Optimality Operator (T): An operator that takes a value function 'V' and returns a new value function by maximizing over all possible actions in each state. \(T V(s) = \max_a (R(s,a) + \gamma \sum_{s'} P(s'|s,a) V(s'))\).
+Greedy Policy: A policy that, given a value function V, chooses the action in each state that maximizes the one-step look-ahead value, considering immediate rewards and discounted future values from V. If \(\pi\) is greedy with respect to V, then \(T_\pi V = T V\).
 Fixed Point Theorem (Banach Fixed-Point Theorem): States that a contraction mapping on a complete metric space has a unique fixed point, and iterating the mapping from any point in the space converges to this fixed point. This theorem is crucial for proving the convergence of Value Iteration.
 II. Fundamental Theorem of MDPs
 This theorem is a cornerstone for understanding optimality in MDPs. It states two key properties:
-Existence of Optimal Memoryless Policy: If a policy $\pi$ is greedy with respect to the optimal value function $V^$, then $\pi$ is an optimal policy, and its value function $V^\pi$ is equal to $V^$. This implies that a memoryless policy is sufficient to achieve optimality in finite-state MDPs.
-$V^*$ as a Fixed Point: The optimal value function $V^$ is the unique fixed point of the Bellman Optimality Operator $T$. That is, $V^ = T V^*$.
+Existence of Optimal Memoryless Policy: If a policy \(\pi\) is greedy with respect to the optimal value function \(V^\), then \(\pi\) is an optimal policy, and its value function \(V^\pi\) is equal to \(V^\). This implies that a memoryless policy is sufficient to achieve optimality in finite-state MDPs.
+\(V^*\) as a Fixed Point: The optimal value function \(V^\) is the unique fixed point of the Bellman Optimality Operator \(T\). That is, \(V^ = T V^*\).
 Proof Outline (as discussed in lecture):
-Part 1 ($V^\pi = V^$ for greedy $\pi$ w.r.t. $V^$):
-It's sufficient to show that if $\pi$ is greedy w.r.t. $V^$, then $V^\pi \ge V^$.
-Use the monotonicity of Bellman operators ($T_\pi$ and $T$).
-Show that for any policy $\pi'$, $V^{\pi'} \le T V^$. Taking the supremum over all $\pi'$ then shows $V^ \le T V^*$.
-For the greedy policy $\pi$, $T_\pi V^* = T V^*$.
-By repeatedly applying $T_\pi$ to $V^$ and using the above inequalities, demonstrate that $T_\pi^k V^ \ge V^*$.
-As $k \to \infty$, $T_\pi^k V^$ converges to $V^\pi$ (by Banach Fixed-Point Theorem), thus $V^\pi \ge V^$.
-Since $V^\pi \le V^$ by definition, it follows that $V^\pi = V^$.
-Part 2 ($V^ = T V^*$):*
-From Part 1, we know that if $\pi$ is greedy with respect to $V^$, then $V^\pi = V^$.
-We also know that $V^\pi$ is a fixed point of $T_\pi$, i.e., $V^\pi = T_\pi V^\pi$.
-Substituting $V^\pi = V^$ and using the greediness property ($T_\pi V^ = T V^$), we get $V^ = T V^*$.
+Part 1 (\(V^\pi = V^\) for greedy \(\pi\) w.r.t. \(V^\)):
+It's sufficient to show that if \(\pi\) is greedy w.r.t. \(V^\), then \(V^\pi \ge V^\).
+Use the monotonicity of Bellman operators (\(T_\pi\) and \(T\)).
+Show that for any policy \(\pi'\), \(V^{\pi'} \le T V^\). Taking the supremum over all \(\pi'\) then shows \(V^ \le T V^*\).
+For the greedy policy \(\pi\), \(T_\pi V^* = T V^*\).
+By repeatedly applying \(T_\pi\) to \(V^\) and using the above inequalities, demonstrate that \(T_\pi^k V^ \ge V^*\).
+As \(k \to \infty\), \(T_\pi^k V^\) converges to \(V^\pi\) (by Banach Fixed-Point Theorem), thus \(V^\pi \ge V^\).
+Since \(V^\pi \le V^\) by definition, it follows that \(V^\pi = V^\).
+Part 2 (\(V^ = T V^*\)):*
+From Part 1, we know that if \(\pi\) is greedy with respect to \(V^\), then \(V^\pi = V^\).
+We also know that \(V^\pi\) is a fixed point of \(T_\pi\), i.e., \(V^\pi = T_\pi V^\pi\).
+Substituting \(V^\pi = V^\) and using the greediness property (\(T_\pi V^ = T V^\)), we get \(V^ = T V^*\).
 III. Algorithms for Finding Optimal Policies
 This section compares and contrasts two primary algorithms for solving MDPs: Value Iteration and Policy Iteration.
 A. Value Iteration (VI)
-Goal: To find an approximation of the optimal value function $V^*$, from which an approximately optimal policy can be derived.
-Mechanism: Iteratively applies the Bellman Optimality Operator $T$ to a current estimate of the value function.
-Initialize $V_0 = 0$ (or any arbitrary vector).
-For $k=0, 1, 2, \dots$: $V_{k+1} = T V_k$.
-Convergence: $V_k$ converges to $V^*$ exponentially fast (geometrically fast) due to the Banach Fixed-Point Theorem, as $T$ is a contraction mapping.
-Computational Cost per Iteration: $O(S^2A)$ (for dense transitions).
-Iteration Complexity (for ε-accuracy): $K = O(\frac{1}{1-\gamma} \log(\frac{1}{\epsilon(1-\gamma)}))$. This shows a logarithmic dependence on $\epsilon$, which is "very mild" or "geometrically fast," implying that high accuracy doesn't require a vastly larger number of iterations.
-Deriving a Policy: Once $V_k$ is sufficiently close to $V^*$, a "near-optimal" policy $\pi_k$ is obtained by being greedy with respect to $V_k$.
-Performance Guarantee: If $||V_k - V^||_\infty \le \epsilon$, then the value of the greedy policy $V^{\pi_k}$ satisfies $V^{\pi_k} \ge V^ - \frac{2\epsilon}{1-\gamma}$. This implies that the error in the policy's value is inflated by a factor of $1/(1-\gamma)$ compared to the error in the value function approximation.
+Goal: To find an approximation of the optimal value function \(V^*\), from which an approximately optimal policy can be derived.
+Mechanism: Iteratively applies the Bellman Optimality Operator \(T\) to a current estimate of the value function.
+Initialize \(V_0 = 0\) (or any arbitrary vector).
+For \(k=0, 1, 2, \dots\): \(V_{k+1} = T V_k\).
+Convergence: \(V_k\) converges to \(V^*\) exponentially fast (geometrically fast) due to the Banach Fixed-Point Theorem, as \(T\) is a contraction mapping.
+Computational Cost per Iteration: \(O(S^2A)\) (for dense transitions).
+Iteration Complexity (for ε-accuracy): \(K = O(\frac{1}{1-\gamma} \log(\frac{1}{\epsilon(1-\gamma)}))\). This shows a logarithmic dependence on \(\epsilon\), which is "very mild" or "geometrically fast," implying that high accuracy doesn't require a vastly larger number of iterations.
+Deriving a Policy: Once \(V_k\) is sufficiently close to \(V^*\), a "near-optimal" policy \(\pi_k\) is obtained by being greedy with respect to \(V_k\).
+Performance Guarantee: If \(||V_k - V^||_\infty \le \epsilon\), then the value of the greedy policy \(V^{\pi_k}\) satisfies \(V^{\pi_k} \ge V^ - \frac{2\epsilon}{1-\gamma}\). This implies that the error in the policy's value is inflated by a factor of \(1/(1-\gamma)\) compared to the error in the value function approximation.
 Limitations:Does not produce an exactly optimal policy in a finite number of steps (unless lucky).
 For exact optimality, it can run indefinitely if there are very small differences in values.
 B. Policy Iteration (PI)
 Goal: To find an exactly optimal policy.
 Mechanism: Alternates between two steps:
-Policy Evaluation: For the current policy $\pi_k$, compute its exact value function $V^{\pi_k}$. This involves solving a system of linear equations: $V^{\pi_k} = R_{\pi_k} + \gamma P_{\pi_k} V^{\pi_k} \implies V^{\pi_k} = (I - \gamma P_{\pi_k})^{-1} R_{\pi_k}$. This step typically costs $O(S^3)$ (matrix inversion) or $O(S^2)$ to $O(S^2A)$ (iterative methods).
-Policy Improvement: Derive a new policy $\pi_{k+1}$ by being greedy with respect to $V^{\pi_k}$. This involves a one-step look-ahead maximization: $\pi_{k+1}(s) = \arg\max_a (R(s,a) + \gamma \sum_{s'} P(s'|s,a) V^{\pi_k}(s'))$. This step costs $O(SA)$.
+Policy Evaluation: For the current policy \(\pi_k\), compute its exact value function \(V^{\pi_k}\). This involves solving a system of linear equations: \(V^{\pi_k} = R_{\pi_k} + \gamma P_{\pi_k} V^{\pi_k} \implies V^{\pi_k} = (I - \gamma P_{\pi_k})^{-1} R_{\pi_k}\). This step typically costs \(O(S^3)\) (matrix inversion) or \(O(S^2)\) to \(O(S^2A)\) (iterative methods).
+Policy Improvement: Derive a new policy \(\pi_{k+1}\) by being greedy with respect to \(V^{\pi_k}\). This involves a one-step look-ahead maximization: \(\pi_{k+1}(s) = \arg\max_a (R(s,a) + \gamma \sum_{s'} P(s'|s,a) V^{\pi_k}(s'))\). This step costs \(O(SA)\).
 Convergence:Guaranteed to converge to an optimal policy in a finite number of iterations.
-The value functions $V^{\pi_k}$ are monotonically improving: $V^{\pi_{k+1}} \ge V^{\pi_k}$.
-Iteration Complexity: $O(\frac{SA}{1-\gamma} \log(\frac{SA}{1-\gamma}))$ or roughly $O(SA)$ if assuming efficient tie-breaking. This remarkable bound shows no dependence on $\epsilon$, as it finds an exact optimal policy.
+The value functions \(V^{\pi_k}\) are monotonically improving: \(V^{\pi_{k+1}} \ge V^{\pi_k}\).
+Iteration Complexity: \(O(\frac{SA}{1-\gamma} \log(\frac{SA}{1-\gamma}))\) or roughly \(O(SA)\) if assuming efficient tie-breaking. This remarkable bound shows no dependence on \(\epsilon\), as it finds an exact optimal policy.
 Advantages:Finds an exact optimal policy in a finite number of steps.
 Often converges faster in terms of iterations than Value Iteration for exact solutions.
-Computational Cost: Typically higher per iteration ($O(S^3)$ for policy evaluation) but fewer iterations total than VI for exact problems.
+Computational Cost: Typically higher per iteration (\(O(S^3)\) for policy evaluation) but fewer iterations total than VI for exact problems.
 IV. Computational Complexity and Lower Bounds
 Inherent Complexity of Planning: What is the fundamental computational cost to find optimal or approximately optimal policies in finite MDPs?
-Value Iteration (Approximate): Total complexity $O(S^2 A \cdot \frac{1}{1-\gamma} \log(\frac{1}{\epsilon(1-\gamma)}))$.
-Policy Iteration (Exact): Total complexity $O(S^3 \cdot \frac{SA}{1-\gamma})$ (if using matrix inversion for policy evaluation).
-Lower Bounds: There exist problems where finding an optimal policy requires reading a significant portion of the MDP's transition table. A proposed lower bound is $O(S^2 A)$ for deterministic policies, implying that in the worst case, one might need to inspect every state-action-next-state possibility to find the optimal path. This highlights the inherent cost of fully understanding an MDP.
-The $1/(1-\gamma)$ Factor: This factor appears in the iteration complexity of both algorithms and represents the "effective horizon" or the number of steps over which rewards significantly influence the value. Whether this factor is truly necessary for all algorithms or if tighter bounds exist (especially for exact solutions) remains an active area of research.
+Value Iteration (Approximate): Total complexity \(O(S^2 A \cdot \frac{1}{1-\gamma} \log(\frac{1}{\epsilon(1-\gamma)}))\).
+Policy Iteration (Exact): Total complexity \(O(S^3 \cdot \frac{SA}{1-\gamma})\) (if using matrix inversion for policy evaluation).
+Lower Bounds: There exist problems where finding an optimal policy requires reading a significant portion of the MDP's transition table. A proposed lower bound is \(O(S^2 A)\) for deterministic policies, implying that in the worst case, one might need to inspect every state-action-next-state possibility to find the optimal path. This highlights the inherent cost of fully understanding an MDP.
+The \(1/(1-\gamma)\) Factor: This factor appears in the iteration complexity of both algorithms and represents the "effective horizon" or the number of steps over which rewards significantly influence the value. Whether this factor is truly necessary for all algorithms or if tighter bounds exist (especially for exact solutions) remains an active area of research.
 Exact vs. Approximate Solutions: The lecture emphasizes that while exact solutions are theoretically appealing, approximate solutions (from Value Iteration) are often sufficient and more practical given their logarithmic dependence on desired accuracy. The choice depends on the specific application's requirements (e.g., absolute vs. relative error).
-State-Independent Computation: A future topic to be explored is whether it's possible to find good actions in a single queried state without necessarily computing the optimal policy for all states, thereby potentially reducing the dependence on $S$.
+State-Independent Computation: A future topic to be explored is whether it's possible to find good actions in a single queried state without necessarily computing the optimal policy for all states, thereby potentially reducing the dependence on \(S\).
 V. Monotonicity and Contraction
-Monotonicity: Bellman operators ($T_\pi$ and $T$) are monotone, meaning that if $V_1 \le V_2$ (pointwise), then $T V_1 \le T V_2$. This property is crucial for many proofs, including the convergence of value iteration and policy iteration's improvement property.
-Contraction: The Bellman Optimality Operator $T$ is a $\gamma$-contraction in the max-norm ($||T V_1 - T V_2||_\infty \le \gamma ||V_1 - V_2||_\infty$). This property, combined with the completeness of the space of value functions, guarantees convergence to a unique fixed point (Banach Fixed-Point Theorem).
+Monotonicity: Bellman operators (\(T_\pi\) and \(T\)) are monotone, meaning that if \(V_1 \le V_2\) (pointwise), then \(T V_1 \le T V_2\). This property is crucial for many proofs, including the convergence of value iteration and policy iteration's improvement property.
+Contraction: The Bellman Optimality Operator \(T\) is a \(\gamma\)-contraction in the max-norm (\(||T V_1 - T V_2||_\infty \le \gamma ||V_1 - V_2||_\infty\)). This property, combined with the completeness of the space of value functions, guarantees convergence to a unique fixed point (Banach Fixed-Point Theorem).
 Quiz: MDPs and Optimal Policies
 Instructions: Answer each question in 2-3 sentences.
 Define a Markov Decision Process (MDP) by listing its five key components. An MDP is a mathematical framework for sequential decision-making under uncertainty, defined by a five-tuple: states, actions, transition probabilities between states given an action, rewards received for state-action-next state transitions, and a discount factor for future rewards. This tuple formally describes the environment and the agent's interaction with it.
 Distinguish between a "memoryless policy" and a "general policy." Why are memoryless policies often preferred in planning problems? A memoryless policy's action choice depends solely on the current state, while a general policy can use the entire history of states and actions. In planning problems where the MDP is fully known, memoryless policies are preferred because the Fundamental Theorem of MDPs proves that a memoryless policy can achieve optimality, simplifying representation and computation without loss of performance.
-What does the "Fundamental Theorem of MDPs" state about the optimal value function ($V^*$) and greedy policies? The Fundamental Theorem of MDPs states two main things: first, that if a policy is greedy with respect to $V^$, it is an optimal policy itself. Second, it states that $V^$ is the unique fixed point of the Bellman Optimality Operator ($T V^* = V^*$).
-Briefly explain the role of the "Bellman Optimality Operator (T)" in the context of MDPs. The Bellman Optimality Operator (T) is a crucial mathematical tool that takes a value function and returns an improved one by performing a one-step look-ahead maximization over all possible actions. Its fixed point is the optimal value function ($V^*$), which represents the maximum achievable discounted reward from any state.
-How does Value Iteration compute the optimal value function? What property guarantees its convergence? Value Iteration computes the optimal value function by iteratively applying the Bellman Optimality Operator ($T$) to an initial value function estimate. Its convergence to the unique optimal value function is guaranteed by the Banach Fixed-Point Theorem, as the Bellman Optimality Operator is a contraction mapping.
-What is the "iteration complexity" of Value Iteration, and what does its dependence on $\epsilon$ signify? The iteration complexity of Value Iteration for achieving $\epsilon$-accuracy is logarithmic in $1/\epsilon$, specifically $O(\frac{1}{1-\gamma} \log(\frac{1}{\epsilon(1-\gamma)}))$. This logarithmic dependence on $\epsilon$ indicates a geometric or "very fast" rate of convergence, meaning that achieving higher accuracy (smaller $\epsilon$) does not require a disproportionately larger number of iterations.
+What does the "Fundamental Theorem of MDPs" state about the optimal value function (\(V^*\)) and greedy policies? The Fundamental Theorem of MDPs states two main things: first, that if a policy is greedy with respect to \(V^\), it is an optimal policy itself. Second, it states that \(V^\) is the unique fixed point of the Bellman Optimality Operator (\(T V^* = V^*\)).
+Briefly explain the role of the "Bellman Optimality Operator (T)" in the context of MDPs. The Bellman Optimality Operator (T) is a crucial mathematical tool that takes a value function and returns an improved one by performing a one-step look-ahead maximization over all possible actions. Its fixed point is the optimal value function (\(V^*\)), which represents the maximum achievable discounted reward from any state.
+How does Value Iteration compute the optimal value function? What property guarantees its convergence? Value Iteration computes the optimal value function by iteratively applying the Bellman Optimality Operator (\(T\)) to an initial value function estimate. Its convergence to the unique optimal value function is guaranteed by the Banach Fixed-Point Theorem, as the Bellman Optimality Operator is a contraction mapping.
+What is the "iteration complexity" of Value Iteration, and what does its dependence on \(\epsilon\) signify? The iteration complexity of Value Iteration for achieving \(\epsilon\)-accuracy is logarithmic in \(1/\epsilon\), specifically \(O(\frac{1}{1-\gamma} \log(\frac{1}{\epsilon(1-\gamma)}))\). This logarithmic dependence on \(\epsilon\) indicates a geometric or "very fast" rate of convergence, meaning that achieving higher accuracy (smaller \(\epsilon\)) does not require a disproportionately larger number of iterations.
 Describe the two main steps involved in each iteration of Policy Iteration. Each iteration of Policy Iteration involves two steps: Policy Evaluation and Policy Improvement. In Policy Evaluation, the exact value function for the current policy is computed (often by solving a system of linear equations). In Policy Improvement, a new policy is derived by being greedy with respect to the value function just computed.
 What is a significant advantage of Policy Iteration over Value Iteration, particularly concerning the type of policy found? A significant advantage of Policy Iteration over Value Iteration is that it is guaranteed to find an exactly optimal policy in a finite number of iterations. In contrast, Value Iteration typically produces an approximately optimal value function and thus an approximately optimal policy, never achieving exact optimality in a finite number of steps for all cases.
-Explain the meaning of the $1/(1-\gamma)$ factor that frequently appears in the computational complexity bounds for MDP algorithms. The $1/(1-\gamma)$ factor represents the "effective horizon" of the discounted MDP, which is roughly the number of steps over which future rewards significantly influence the current value function. A larger discount factor (gamma closer to 1) implies a longer effective horizon and thus a greater number of iterations or computations required.
+Explain the meaning of the \(1/(1-\gamma)\) factor that frequently appears in the computational complexity bounds for MDP algorithms. The \(1/(1-\gamma)\) factor represents the "effective horizon" of the discounted MDP, which is roughly the number of steps over which future rewards significantly influence the current value function. A larger discount factor (gamma closer to 1) implies a longer effective horizon and thus a greater number of iterations or computations required.
 Why are Value Iteration and Policy Iteration proofs often reliant on "monotonicity" and "contraction" properties? These proofs rely on monotonicity to show that improvements or bounds in value functions are preserved through Bellman operator applications. Contraction (specifically of the Bellman Optimality Operator) ensures that iterative applications converge to a unique fixed point, providing a strong mathematical guarantee for the algorithms' convergence to the optimal value function.
 Quiz Answer Key
 Define a Markov Decision Process (MDP) by listing its five key components. An MDP is defined by its five components: a set of states (S), a set of actions (A), transition probabilities (P) indicating the likelihood of moving to a new state given a state-action pair, a reward function (R) specifying immediate rewards, and a discount factor (γ) that weights future rewards. Together, these elements describe the environment and how an agent interacts with it to maximize cumulative reward.
 Distinguish between a "memoryless policy" and a "general policy." Why are memoryless policies often preferred in planning problems? A memoryless policy determines actions based only on the current state, whereas a general policy can use the entire history of observations. In planning problems where the MDP model is known, memoryless policies are preferred because the Fundamental Theorem of MDPs guarantees that an optimal policy can always be memoryless, simplifying computation and representation without sacrificing optimality.
-What does the "Fundamental Theorem of MDPs" state about the optimal value function ($V^*$) and greedy policies? The Fundamental Theorem of MDPs states two critical points: first, a policy that is greedy with respect to the optimal value function ($V^$) is itself an optimal policy. Second, $V^$ is the unique fixed point of the Bellman Optimality Operator ($T$), meaning $V^* = T V^*$.
-Briefly explain the role of the "Bellman Optimality Operator (T)" in the context of MDPs. The Bellman Optimality Operator (T) is an operator that transforms a value function by considering the maximum possible expected one-step reward plus discounted future value for each state. Its unique fixed point is the optimal value function ($V^*$), making it central to algorithms that aim to discover the best possible long-term rewards.
-How does Value Iteration compute the optimal value function? What property guarantees its convergence? Value Iteration computes the optimal value function by iteratively applying the Bellman Optimality Operator (T) to an initial value function estimate, $V_{k+1} = T V_k$. Its convergence to the unique optimal value function ($V^*$) is guaranteed by the Banach Fixed-Point Theorem, as the Bellman Optimality Operator is a contraction mapping.
-What is the "iteration complexity" of Value Iteration, and what does its dependence on $\epsilon$ signify? The iteration complexity of Value Iteration for achieving $\epsilon$-accuracy is logarithmic in $1/\epsilon$. This dependence implies a geometric rate of convergence, meaning that the number of iterations required grows very slowly with increasing desired precision, making it efficient for obtaining high approximate accuracy.
+What does the "Fundamental Theorem of MDPs" state about the optimal value function (\(V^*\)) and greedy policies? The Fundamental Theorem of MDPs states two critical points: first, a policy that is greedy with respect to the optimal value function (\(V^\)) is itself an optimal policy. Second, \(V^\) is the unique fixed point of the Bellman Optimality Operator (\(T\)), meaning \(V^* = T V^*\).
+Briefly explain the role of the "Bellman Optimality Operator (T)" in the context of MDPs. The Bellman Optimality Operator (T) is an operator that transforms a value function by considering the maximum possible expected one-step reward plus discounted future value for each state. Its unique fixed point is the optimal value function (\(V^*\)), making it central to algorithms that aim to discover the best possible long-term rewards.
+How does Value Iteration compute the optimal value function? What property guarantees its convergence? Value Iteration computes the optimal value function by iteratively applying the Bellman Optimality Operator (T) to an initial value function estimate, \(V_{k+1} = T V_k\). Its convergence to the unique optimal value function (\(V^*\)) is guaranteed by the Banach Fixed-Point Theorem, as the Bellman Optimality Operator is a contraction mapping.
+What is the "iteration complexity" of Value Iteration, and what does its dependence on \(\epsilon\) signify? The iteration complexity of Value Iteration for achieving \(\epsilon\)-accuracy is logarithmic in \(1/\epsilon\). This dependence implies a geometric rate of convergence, meaning that the number of iterations required grows very slowly with increasing desired precision, making it efficient for obtaining high approximate accuracy.
 Describe the two main steps involved in each iteration of Policy Iteration. Each iteration of Policy Iteration comprises two main steps: Policy Evaluation and Policy Improvement. In Policy Evaluation, the exact value function for the current policy is computed. Subsequently, in Policy Improvement, a new, potentially better policy is derived by choosing actions greedily with respect to the evaluated value function.
 What is a significant advantage of Policy Iteration over Value Iteration, particularly concerning the type of policy found? A significant advantage of Policy Iteration is its guarantee to converge to an exactly optimal policy in a finite number of iterations. In contrast, Value Iteration typically yields an approximately optimal policy, and finding an exact optimal policy through Value Iteration might require an indefinite number of iterations due to the nature of its convergence.
-Explain the meaning of the $1/(1-\gamma)$ factor that frequently appears in the computational complexity bounds for MDP algorithms. The $1/(1-\gamma)$ factor, often termed the "effective horizon," represents the typical number of time steps over which future rewards significantly contribute to the current state's value due to discounting. A larger value of gamma (closer to 1) means a longer effective horizon, leading to more iterations or computations needed to capture long-term effects.
+Explain the meaning of the \(1/(1-\gamma)\) factor that frequently appears in the computational complexity bounds for MDP algorithms. The \(1/(1-\gamma)\) factor, often termed the "effective horizon," represents the typical number of time steps over which future rewards significantly contribute to the current state's value due to discounting. A larger value of gamma (closer to 1) means a longer effective horizon, leading to more iterations or computations needed to capture long-term effects.
 Why are Value Iteration and Policy Iteration proofs often reliant on "monotonicity" and "contraction" properties? Proofs for Value Iteration and Policy Iteration heavily rely on monotonicity to show that improvements to value functions are preserved through Bellman operator applications. Contraction, specifically that the Bellman optimality operator shrinks differences in value functions, ensures that the iterative processes converge to a unique and correct solution.
 Essay Questions
 Compare and contrast Value Iteration and Policy Iteration. Discuss their respective strengths, weaknesses, computational complexities, and the nature of the solutions (exact vs. approximate) they provide. Under what circumstances would one algorithm be preferred over the other?
 Explain the significance of the Banach Fixed-Point Theorem in the context of MDPs. How does it guarantee the convergence of Value Iteration, and how does the "contraction mapping" property of the Bellman Optimality Operator relate to this theorem?
 Discuss the two parts of the Fundamental Theorem of MDPs. How does this theorem establish the sufficiency of memoryless policies for achieving optimality and provide a theoretical basis for iterative solution methods like Policy Iteration?
-Analyze the role of the discount factor (γ) in MDPs. How does it influence the values of policies, the convergence rate of algorithms, and the overall computational complexity? Discuss the meaning and implications of the $1/(1-\gamma)$ factor that often appears in complexity bounds.
+Analyze the role of the discount factor (γ) in MDPs. How does it influence the values of policies, the convergence rate of algorithms, and the overall computational complexity? Discuss the meaning and implications of the \(1/(1-\gamma)\) factor that often appears in complexity bounds.
 Consider the trade-offs between seeking an "exact" optimal policy versus an "approximately" optimal policy in finite MDPs. Discuss the computational implications of each approach, referencing the relevant complexities and practical considerations for real-world applications.
 Glossary of Key Terms
 Action (A): A choice an agent can make in a given state.
 Assignment Zero: A preliminary assignment given at the start of the course, due a few days prior to the lecture.
 Assignment One: The first graded assignment, released on the same day as the lecture and due in two weeks.
 Banach Fixed-Point Theorem: A mathematical theorem stating that a contraction mapping on a complete metric space has a unique fixed point, and iterating the mapping converges to this fixed point. Crucial for proving convergence of Value Iteration.
-Bellman Optimality Operator (T): An operator that takes a value function and computes the maximum expected one-step reward plus discounted future value achievable for each state. Its unique fixed point is the optimal value function ($V^*$).
-Bellman Operator for Policy π (Tπ): An operator that computes the expected one-step reward plus discounted future value for a given policy π. Its fixed point is the value function of that policy ($V^\pi$).
+Bellman Optimality Operator (T): An operator that takes a value function and computes the maximum expected one-step reward plus discounted future value achievable for each state. Its unique fixed point is the optimal value function (\(V^*\)).
+Bellman Operator for Policy π (Tπ): An operator that computes the expected one-step reward plus discounted future value for a given policy π. Its fixed point is the value function of that policy (\(V^\pi\)).
 Computational Complexity: A measure of the resources (e.g., time, memory) required by an algorithm to solve a problem.
 Contraction Mapping: A function that "shrinks" distances between points. In MDPs, the Bellman Optimality Operator is a contraction mapping, ensuring convergence of iterative algorithms.
 Discount Factor (γ): A value between 0 and 1 that discounts future rewards, making immediate rewards more valuable in the cumulative sum.
-Effective Horizon: The approximate number of time steps into the future over which rewards significantly influence the current value function, often represented as $1/(1-\gamma)$.
-Epsilon-Accuracy (ε-accuracy): A measure of how close an approximate solution is to the true optimal solution, usually defined as being within a distance $\epsilon$ in a chosen norm (e.g., max-norm).
+Effective Horizon: The approximate number of time steps into the future over which rewards significantly influence the current value function, often represented as \(1/(1-\gamma)\).
+Epsilon-Accuracy (ε-accuracy): A measure of how close an approximate solution is to the true optimal solution, usually defined as being within a distance \(\epsilon\) in a chosen norm (e.g., max-norm).
 Fixed Point: A value or function that remains unchanged after an operation or mapping is applied to it.
-Fundamental Theorem of MDPs: A core theorem stating that an optimal memoryless policy exists (one that is greedy with respect to $V^$) and that the optimal value function $V^$ is the unique fixed point of the Bellman Optimality Operator.
+Fundamental Theorem of MDPs: A core theorem stating that an optimal memoryless policy exists (one that is greedy with respect to \(V^\)) and that the optimal value function \(V^\) is the unique fixed point of the Bellman Optimality Operator.
 General Policy: A policy whose action choice can depend on the entire history of states, actions, and rewards, not just the current state.
 Geometric Rate: A term used to describe exponential convergence, where the error decreases by a constant factor in each step.
 Greedy Policy: A policy that, given a value function, selects the action in each state that maximizes the immediate reward plus the discounted future value from the given value function.
 Iteration Complexity: The number of iterations an algorithm needs to converge or reach a desired level of accuracy.
 Lower Bound: The theoretical minimum computational cost required to solve a problem.
 Markov Decision Process (MDP): A mathematical framework for modeling decision-making in situations where outcomes are partly random and partly under the control of a decision-maker. Defined by a 5-tuple: (S, A, P, R, γ).
-Max-Norm ($||\cdot||_\infty$): A vector norm that takes the maximum absolute value of any element in the vector. Used to measure the "distance" or error between value functions.
+Max-Norm (\(||\cdot||_\infty\)): A vector norm that takes the maximum absolute value of any element in the vector. Used to measure the "distance" or error between value functions.
 Memoryless Policy: A policy where the action chosen in a state depends only on the current state, not on the sequence of past states or actions.
-Monotonicity: A property of operators (like Bellman operators) where if input values are ordered, their output values maintain that order. If $V_1 \le V_2$, then $T V_1 \le T V_2$.
+Monotonicity: A property of operators (like Bellman operators) where if input values are ordered, their output values maintain that order. If \(V_1 \le V_2\), then \(T V_1 \le T V_2\).
 Optimal Policy (π*): A policy that achieves the maximum possible expected cumulative discounted reward from every state.
 Optimal Value Function (V*): The maximum possible expected cumulative discounted reward achievable from each state when following an optimal policy.
 Planning Problems: MDP problems where the transition probabilities and reward function are fully known.
@@ -396,24 +396,24 @@ Here's why rewards are typically not explicitly discussed as part of the policy'
 We have discussed the lower bounds of algorithms and the types of policies in Markov Decision Processes (MDPs), along with the role of rewards in planning problems. Drawing on the sources, here are some nuanced insights that we have not yet mentioned in our conversation:
 
 *   **The Nature of Value Iteration's Convergence and Error Propagation:**
-    *   Value Iteration (VI) converges to the optimal value function ($v^*$) at an **exponentially fast, or geometric rate**. This means its dependence on the desired accuracy ($\epsilon$) is "very mild" due to the `log(1/epsilon)` term, making it "not too sensitive to the desired accuracy".
-    *   However, a crucial practical nuance is that if you obtain a value function $v_k$ that is $\epsilon$-close to $v^*$, the policy you derive by greedifying $v_k$ will only be **$\epsilon / (1-\gamma)$ near-optimal**. This implies that the initial $\epsilon$ for the value function approximation needs to be "pre-inflated" by a factor of $(1-\gamma)$ to achieve the desired policy optimality, as errors propagate and scale with the effective planning horizon.
+    *   Value Iteration (VI) converges to the optimal value function (\(v^*\)) at an **exponentially fast, or geometric rate**. This means its dependence on the desired accuracy (\(\epsilon\)) is "very mild" due to the `log(1/epsilon)` term, making it "not too sensitive to the desired accuracy".
+    *   However, a crucial practical nuance is that if you obtain a value function \(v_k\) that is \(\epsilon\)-close to \(v^*\), the policy you derive by greedifying \(v_k\) will only be **\(\epsilon / (1-\gamma)\) near-optimal**. This implies that the initial \(\epsilon\) for the value function approximation needs to be "pre-inflated" by a factor of \((1-\gamma)\) to achieve the desired policy optimality, as errors propagate and scale with the effective planning horizon.
     *   Furthermore, while VI is effective for approximations, it is **not well-suited for finding *exact* optimal policies**. In situations where there are "almost ties" between actions, VI might require an "arbitrarily large amount of time" to close infinitesimally small value gaps, potentially running indefinitely. It is fundamentally an approximation algorithm for most practical purposes.
 
 *   **Policy Iteration's Guarantee and Underlying Mechanism:**
-    *   Policy Iteration (PI) is described as a "pretty amazing" algorithm because it guarantees to find an **exact optimal policy** in a **finite number of iterations** (specifically, $O(S \cdot A / (1-\gamma))$ iterations, up to log factors), without the need for approximations or an $\epsilon$ parameter.
-    *   Its effectiveness stems from an **"elimination" process**. The algorithm works by systematically refining the policy such that, if the current policy is suboptimal, after a certain number of iterations ($k^*$), at least one "bad action" (an action chosen by a suboptimal policy in some state) will be "crossed out" and never chosen again by subsequent policies. This effectively prunes the search space of policies, leading to convergence to an optimal one. To ensure termination, PI systematically resolves ties in action selection (e.g., always choosing the action with the lowest index).
+    *   Policy Iteration (PI) is described as a "pretty amazing" algorithm because it guarantees to find an **exact optimal policy** in a **finite number of iterations** (specifically, \(O(S \cdot A / (1-\gamma))\) iterations, up to log factors), without the need for approximations or an \(\epsilon\) parameter.
+    *   Its effectiveness stems from an **"elimination" process**. The algorithm works by systematically refining the policy such that, if the current policy is suboptimal, after a certain number of iterations (\(k^*\)), at least one "bad action" (an action chosen by a suboptimal policy in some state) will be "crossed out" and never chosen again by subsequent policies. This effectively prunes the search space of policies, leading to convergence to an optimal one. To ensure termination, PI systematically resolves ties in action selection (e.g., always choosing the action with the lowest index).
 
-*   **The Context-Dependent Necessity of the $1/(1-\gamma)$ Factor:**
-    *   The presence of the $1/(1-\gamma)$ factor in the complexity of algorithms like Policy Iteration, but its absence in the best-known lower bound of $O(S \cdot A)$ for exact optimal policies, represents a "curious" and "delicate question".
-    *   A significant insight is that the relevance of this factor depends on the **relationship between the number of states (S) and the "planning horizon" $1/(1-\gamma)$**. If the number of states ($S$) is small and fixed relative to $1/(1-\gamma)$, it is theoretically possible to enumerate all $A^S$ deterministic policies and compute their values to find the optimal one. In this specific scenario, the running time would be **independent of $1/(1-\gamma)$**. This demonstrates that the $1/(1-\gamma)$ dependence is not universally inherent to planning and can be circumvented under specific conditions, particularly when the state space is not prohibitively large.
+*   **The Context-Dependent Necessity of the \(1/(1-\gamma)\) Factor:**
+    *   The presence of the \(1/(1-\gamma)\) factor in the complexity of algorithms like Policy Iteration, but its absence in the best-known lower bound of \(O(S \cdot A)\) for exact optimal policies, represents a "curious" and "delicate question".
+    *   A significant insight is that the relevance of this factor depends on the **relationship between the number of states (S) and the "planning horizon" \(1/(1-\gamma)\)**. If the number of states (\(S\)) is small and fixed relative to \(1/(1-\gamma)\), it is theoretically possible to enumerate all \(A^S\) deterministic policies and compute their values to find the optimal one. In this specific scenario, the running time would be **independent of \(1/(1-\gamma)\)**. This demonstrates that the \(1/(1-\gamma)\) dependence is not universally inherent to planning and can be circumvented under specific conditions, particularly when the state space is not prohibitively large.
 
 *   **Specificity of the Lower Bound and Problem Definition:**
-    *   The discussed $O(S \cdot A)$ lower bound is specifically for problems that require finding an **optimal action for *every* state** in the MDP. The illustrative example of finding the single "heaven" transition among $S \cdot A$ possibilities necessitates checking each state-action pair.
-    *   This implies a critical distinction: if the problem definition were relaxed—for example, if one only needed to find an optimal action for a *given starting state* rather than a complete optimal policy for all states—it might be possible to develop algorithms whose running time is **independent of the total number of states ($S$)**. This highlights that the "S dependence" is "highly problematic" in current algorithms and changing the problem's scope could lead to computational savings.
+    *   The discussed \(O(S \cdot A)\) lower bound is specifically for problems that require finding an **optimal action for *every* state** in the MDP. The illustrative example of finding the single "heaven" transition among \(S \cdot A\) possibilities necessitates checking each state-action pair.
+    *   This implies a critical distinction: if the problem definition were relaxed—for example, if one only needed to find an optimal action for a *given starting state* rather than a complete optimal policy for all states—it might be possible to develop algorithms whose running time is **independent of the total number of states (\(S\))**. This highlights that the "S dependence" is "highly problematic" in current algorithms and changing the problem's scope could lead to computational savings.
 
 *   **Absolute vs. Relative Error in Approximations:**
-    *   When discussing approximate calculations, the $\epsilon$ used (as in Value Iteration's `log(1/epsilon)` term) refers to an **absolute error bound** on the value function.
+    *   When discussing approximate calculations, the \(\epsilon\) used (as in Value Iteration's `log(1/epsilon)` term) refers to an **absolute error bound** on the value function.
     *   However, if the goal is to keep **relative errors small** (i.e., the error is small compared to the magnitude of the optimal value), this task becomes "much harder" and is "almost like doing exact calculations". This distinction is crucial for practical applications, as an absolute error might be acceptable for large value differences but problematic for small ones.
 
 
@@ -421,32 +421,32 @@ We have discussed the lower bounds of algorithms and the types of policies in Ma
 We have discussed the broad categories of policies (memoryless and general), the rationale behind treating rewards in planning problems, and the fundamental algorithms of Value Iteration (VI) and Policy Iteration (PI), along with their computational complexities and lower bounds. Building upon our conversation and the provided sources, here are several additional nuanced insights:
 
 *   **Value Iteration's Suitability for Approximation, Not Exactness**:
-    *   While Value Iteration converges to the optimal value function ($v^*$) at an **exponentially fast, or geometric rate**, meaning its dependence on desired accuracy ($\epsilon$) is "very mild" (due to `log(1/epsilon)`), it is **not well-suited for finding *exact* optimal policies**.
+    *   While Value Iteration converges to the optimal value function (\(v^*\)) at an **exponentially fast, or geometric rate**, meaning its dependence on desired accuracy (\(\epsilon\)) is "very mild" (due to `log(1/epsilon)`), it is **not well-suited for finding *exact* optimal policies**.
     *   In scenarios with "almost ties" between actions, VI might require an "arbitrarily large amount of time" to close infinitesimally small value gaps, potentially running indefinitely. It is fundamentally an approximation algorithm for practical purposes.
-    *   This raises the question of whether one needs **absolute error bounds** (like the $\epsilon$ in VI) or **relative errors**. Maintaining small relative errors is "much harder" and "almost like doing exact calculations". However, if an absolute error is acceptable relative to the maximum possible reward, then approximate calculations are generally sufficient.
+    *   This raises the question of whether one needs **absolute error bounds** (like the \(\epsilon\) in VI) or **relative errors**. Maintaining small relative errors is "much harder" and "almost like doing exact calculations". However, if an absolute error is acceptable relative to the maximum possible reward, then approximate calculations are generally sufficient.
 
 *   **Error Propagation in Value Iteration and Policy Optimality**:
-    *   A critical practical nuance is that if you obtain a value function $v_k$ that is $\epsilon$-close to $v^*$ (i.e., $\|v_k - v^*\|_{\max} \le \epsilon$), the policy derived by greedifying $v_k$ will only be **$\epsilon / (1-\gamma)$ near-optimal**.
-    *   This implies that the initial $\epsilon$ for the value function approximation needs to be "pre-inflated" by a factor of $(1-\gamma)$ to achieve the desired policy optimality, as errors propagate and scale with the effective planning horizon. This leads to the total computational complexity of Value Iteration having a $1/(1-\gamma)$ dependence, not just $log(1/\epsilon)$.
+    *   A critical practical nuance is that if you obtain a value function \(v_k\) that is \(\epsilon\)-close to \(v^*\) (i.e., \(\|v_k - v^*\|_{\max} \le \epsilon\)), the policy derived by greedifying \(v_k\) will only be **\(\epsilon / (1-\gamma)\) near-optimal**.
+    *   This implies that the initial \(\epsilon\) for the value function approximation needs to be "pre-inflated" by a factor of \((1-\gamma)\) to achieve the desired policy optimality, as errors propagate and scale with the effective planning horizon. This leads to the total computational complexity of Value Iteration having a \(1/(1-\gamma)\) dependence, not just \(log(1/\epsilon)\).
 
 *   **Policy Iteration's Guarantee and "Elimination" Mechanism**:
-    *   Policy Iteration (PI) is considered "pretty amazing" because it guarantees to find an **exact optimal policy** in a **finite number of iterations**. Specifically, it completes within $O(SA / (1-\gamma))$ iterations (up to log factors).
-    *   Its underlying mechanism is an **"elimination" process**: If the current policy is suboptimal, after a certain number of iterations ($k^*$, roughly proportional to $SA/(1-\gamma)$), at least one "bad action" (an action chosen by a suboptimal policy in some state) will be "crossed out" and never chosen again by subsequent policies. This effectively prunes the search space of policies, leading to convergence to an optimal one.
+    *   Policy Iteration (PI) is considered "pretty amazing" because it guarantees to find an **exact optimal policy** in a **finite number of iterations**. Specifically, it completes within \(O(SA / (1-\gamma))\) iterations (up to log factors).
+    *   Its underlying mechanism is an **"elimination" process**: If the current policy is suboptimal, after a certain number of iterations (\(k^*\), roughly proportional to \(SA/(1-\gamma)\)), at least one "bad action" (an action chosen by a suboptimal policy in some state) will be "crossed out" and never chosen again by subsequent policies. This effectively prunes the search space of policies, leading to convergence to an optimal one.
     *   To ensure termination and correctness, PI requires **systematically resolving ties** in action selection (e.g., always choosing the action with the lowest index).
     *   The policies considered in this "elimination" process are **deterministic policies**, as considering non-deterministic policies in this setting is "unnecessary".
-    *   Calculating the value function for a given policy in PI can be done by **solving a linear equation** (matrix inversion of an $S \times S$ matrix), which has a finite cost (e.g., $S^3$ or $S^{2.3}$ depending on the method).
+    *   Calculating the value function for a given policy in PI can be done by **solving a linear equation** (matrix inversion of an \(S \times S\) matrix), which has a finite cost (e.g., \(S^3\) or \(S^{2.3}\) depending on the method).
 
-*   **The Delicate Question of the $1/(1-\gamma)$ Factor in Computational Complexity**:
-    *   The presence of the $1/(1-\gamma)$ factor in algorithms like Policy Iteration and the derived complexity for Value Iteration, but its absence in the best-known lower bound of $O(SA)$ for exact optimal policies, presents a "curious" and "delicate question".
-    *   A significant insight is that the relevance of this factor depends on the **relationship between the number of states ($S$) and the "planning horizon" $1/(1-\gamma)$**.
-    *   If the number of states ($S$) is **small and fixed** relative to $1/(1-\gamma)$, it is theoretically possible to **enumerate all $A^S$ deterministic policies** and compute their values to find the optimal one. In this specific scenario, the running time would be **independent of $1/(1-\gamma)$**. This shows that the $1/(1-\gamma)$ dependence is not universally inherent to all planning scenarios and can be circumvented under specific conditions.
+*   **The Delicate Question of the \(1/(1-\gamma)\) Factor in Computational Complexity**:
+    *   The presence of the \(1/(1-\gamma)\) factor in algorithms like Policy Iteration and the derived complexity for Value Iteration, but its absence in the best-known lower bound of \(O(SA)\) for exact optimal policies, presents a "curious" and "delicate question".
+    *   A significant insight is that the relevance of this factor depends on the **relationship between the number of states (\(S\)) and the "planning horizon" \(1/(1-\gamma)\)**.
+    *   If the number of states (\(S\)) is **small and fixed** relative to \(1/(1-\gamma)\), it is theoretically possible to **enumerate all \(A^S\) deterministic policies** and compute their values to find the optimal one. In this specific scenario, the running time would be **independent of \(1/(1-\gamma)\)**. This shows that the \(1/(1-\gamma)\) dependence is not universally inherent to all planning scenarios and can be circumvented under specific conditions.
 
 *   **Specificity of the Lower Bound and Problem Definition**:
-    *   The $O(SA)$ lower bound discussed is specifically for problems that require finding an **optimal action for *every* state** in the MDP. The illustrative example involves finding a single "heaven" transition among $SA$ possibilities, necessitating checking each state-action pair to ensure an optimal policy for all states.
-    *   This highlights a crucial distinction: if the problem definition were relaxed—for example, if one only needed to find an optimal action for a *given starting state* rather than a complete optimal policy for all states—it might be possible to develop algorithms whose running time is **independent of the total number of states ($S$)**. This means the "S dependence" is "highly problematic" in current algorithms, and changing the problem's scope could lead to computational savings.
+    *   The \(O(SA)\) lower bound discussed is specifically for problems that require finding an **optimal action for *every* state** in the MDP. The illustrative example involves finding a single "heaven" transition among \(SA\) possibilities, necessitating checking each state-action pair to ensure an optimal policy for all states.
+    *   This highlights a crucial distinction: if the problem definition were relaxed—for example, if one only needed to find an optimal action for a *given starting state* rather than a complete optimal policy for all states—it might be possible to develop algorithms whose running time is **independent of the total number of states (\(S\))**. This means the "S dependence" is "highly problematic" in current algorithms, and changing the problem's scope could lead to computational savings.
 
 *   **Operator Monotonicity as a Proof Technique**:
-    *   A recurring technique in proving properties of value functions and operators (like the Bellman optimality operator $T$ and the policy evaluation operator $T_\pi$) is their **monotonicity property**. If you apply a monotone operator to both sides of an inequality, the inequality is preserved. This, combined with fixed-point theorems (like the Banach Fixed Point Theorem, which guarantees unique fixed points and convergence for contractions in complete norm spaces), allows for chaining inequalities and proving convergence results for various algorithms.
+    *   A recurring technique in proving properties of value functions and operators (like the Bellman optimality operator \(T\) and the policy evaluation operator \(T_\pi\)) is their **monotonicity property**. If you apply a monotone operator to both sides of an inequality, the inequality is preserved. This, combined with fixed-point theorems (like the Banach Fixed Point Theorem, which guarantees unique fixed points and convergence for contractions in complete norm spaces), allows for chaining inequalities and proving convergence results for various algorithms.
 
 
 
@@ -466,38 +466,38 @@ Policies can be either **general** or **memoryless**.
 *   **General policies** can potentially be more powerful by using the entire history of observations (including past rewards), especially when the MDP is unknown and learning is involved. However, for planning, the fundamental theorem shows that such generalization is "unnecessary" for finding optimal policies.
 
 ### The Fundamental Theorem
-The theorem addresses whether policies need to use the history to achieve optimal performance in planning problems. It makes two key statements about the optimal value function, denoted as $v^*$:
+The theorem addresses whether policies need to use the history to achieve optimal performance in planning problems. It makes two key statements about the optimal value function, denoted as \(v^*\):
 
 #### Part 1: Greedy Memoryless Policy is Optimal
-*   **Statement:** If you have a memoryless policy $\pi$ that is **greedy with respect to the optimal value function $v^*$**, then this policy $\pi$ is an optimal policy. This means its value function, $v_\pi$, will be equal to the optimal value function, $v^*$.
-*   **Definition of Greediness:** A policy $\pi$ is greedy with respect to $v^*$ if applying the policy's Bellman operator $T_\pi$ to $v^*$ yields the same result as applying the Bellman optimality operator $T$ to $v^*$. In operator notation, this is expressed as: **$T_\pi v^* = T v^*$**. This implies that the policy $\pi$ deterministically chooses actions that maximize the one-step Bellman look-ahead under $v^*$.
+*   **Statement:** If you have a memoryless policy \(\pi\) that is **greedy with respect to the optimal value function \(v^*\)**, then this policy \(\pi\) is an optimal policy. This means its value function, \(v_\pi\), will be equal to the optimal value function, \(v^*\).
+*   **Definition of Greediness:** A policy \(\pi\) is greedy with respect to \(v^*\) if applying the policy's Bellman operator \(T_\pi\) to \(v^*\) yields the same result as applying the Bellman optimality operator \(T\) to \(v^*\). In operator notation, this is expressed as: **\(T_\pi v^* = T v^*\)**. This implies that the policy \(\pi\) deterministically chooses actions that maximize the one-step Bellman look-ahead under \(v^*\).
 *   **Operators Explained:**
-    *   **$T_\pi$ (Policy Evaluation Operator):** For a given policy $\pi$ and value function $v$, $T_\pi v$ computes the immediate reward for taking actions according to $\pi$ plus the discounted predicted future value if $\pi$ is followed: $R_\pi + \gamma P_\pi v$. This can also be seen as applying $T_a$ (operator for a deterministic action $a$) based on the policy's chosen action.
-    *   **$T$ (Bellman Optimality Operator):** For a given value function $v$, $T v$ computes the maximum possible immediate reward plus the discounted predicted future value over all possible actions: $T v = \max_a (R_a + \gamma P_a v)$. This involves a one-step optimal look-ahead.
+    *   **\(T_\pi\) (Policy Evaluation Operator):** For a given policy \(\pi\) and value function \(v\), \(T_\pi v\) computes the immediate reward for taking actions according to \(\pi\) plus the discounted predicted future value if \(\pi\) is followed: \(R_\pi + \gamma P_\pi v\). This can also be seen as applying \(T_a\) (operator for a deterministic action \(a\)) based on the policy's chosen action.
+    *   **\(T\) (Bellman Optimality Operator):** For a given value function \(v\), \(T v\) computes the maximum possible immediate reward plus the discounted predicted future value over all possible actions: \(T v = \max_a (R_a + \gamma P_a v)\). This involves a one-step optimal look-ahead.
 
 #### Part 2: Optimal Value Function is a Fixed Point of the Bellman Optimality Operator
-*   **Statement:** The optimal value function **$v^*$ is a fixed point of the Bellman optimality operator $T$**.
-*   **Definition of Fixed Point:** This means that applying the $T$ operator to $v^*$ results in $v^*$ itself: **$v^* = T v^*$**.
+*   **Statement:** The optimal value function **\(v^*\) is a fixed point of the Bellman optimality operator \(T\)**.
+*   **Definition of Fixed Point:** This means that applying the \(T\) operator to \(v^*\) results in \(v^*\) itself: **\(v^* = T v^*\)**.
 
 ### Proof Strategy and Key Insights
 The proof of the fundamental theorem relies on two main parts:
-1.  First, defining an "alternate optimal value function" $v_{\tilde{*}}$ that only considers memoryless policies, proving the theorem for this $v_{\tilde{*}}$.
-2.  Then, showing that this $v_{\tilde{*}}$ is indeed equal to the true optimal value function $v^*$. The lecture focuses on proving the first part in detail.
+1.  First, defining an "alternate optimal value function" \(v_{\tilde{*}}\) that only considers memoryless policies, proving the theorem for this \(v_{\tilde{*}}\).
+2.  Then, showing that this \(v_{\tilde{*}}\) is indeed equal to the true optimal value function \(v^*\). The lecture focuses on proving the first part in detail.
 
 Key elements and techniques used in the proof include:
 
-*   **Monotonicity of Operators:** Both the policy evaluation operator ($T_\pi$) and the Bellman optimality operator ($T$) exhibit the **monotonicity property**. This means that if you apply these operators to both sides of an inequality (e.g., if $v \le v'$), the inequality is preserved (e.g., $T_\pi v \le T_\pi v'$ and $T v \le T v'$). This property is fundamental because the operators involve adding rewards, multiplying by a stochastic matrix (which preserves inequality), and discounting, all of which maintain the inequality.
-*   **Pulling Out Constants:** A useful property of these operators is that if you add a constant $A$ (times the all-ones vector $\mathbf{1}$) to a value function $v$ before applying the operator, the constant comes out multiplied by the discount factor $\gamma$: $T_\pi (v + A\mathbf{1}) = T_\pi v + \gamma A\mathbf{1}$ and $T (v + A\mathbf{1}) = T v + \gamma A\mathbf{1}$. This linearity (for $T_\pi$) and quasi-linearity (for $T$) is crucial for error analysis in algorithms like Value Iteration.
+*   **Monotonicity of Operators:** Both the policy evaluation operator (\(T_\pi\)) and the Bellman optimality operator (\(T\)) exhibit the **monotonicity property**. This means that if you apply these operators to both sides of an inequality (e.g., if \(v \le v'\)), the inequality is preserved (e.g., \(T_\pi v \le T_\pi v'\) and \(T v \le T v'\)). This property is fundamental because the operators involve adding rewards, multiplying by a stochastic matrix (which preserves inequality), and discounting, all of which maintain the inequality.
+*   **Pulling Out Constants:** A useful property of these operators is that if you add a constant \(A\) (times the all-ones vector \(\mathbf{1}\)) to a value function \(v\) before applying the operator, the constant comes out multiplied by the discount factor \(\gamma\): \(T_\pi (v + A\mathbf{1}) = T_\pi v + \gamma A\mathbf{1}\) and \(T (v + A\mathbf{1}) = T v + \gamma A\mathbf{1}\). This linearity (for \(T_\pi\)) and quasi-linearity (for \(T\)) is crucial for error analysis in algorithms like Value Iteration.
 *   **Banach Fixed Point Theorem and Convergence:** The proof extensively uses the Banach Fixed Point Theorem.
-    *   The operators $T_\pi$ and $T$ are **contractions** in a complete norm space (such as the max-norm space of value functions on a Euclidean space). A contraction is a map that reduces the distance between any two points in the space.
+    *   The operators \(T_\pi\) and \(T\) are **contractions** in a complete norm space (such as the max-norm space of value functions on a Euclidean space). A contraction is a map that reduces the distance between any two points in the space.
     *   The theorem guarantees that any such contraction has a **unique fixed point**.
-    *   Furthermore, repeated application of the operator on *any* initial function will **converge geometrically** to this unique fixed point. This principle is applied to show that repeated applications of $T_\pi$ to $v_{\tilde{*}}$ converge to $v_\pi$.
-    *   The property that if a sequence of values maintains an inequality (e.g., $a_k \ge b$) and converges, its limit will also maintain that inequality ($\lim a_k \ge b$) is used to conclude convergence of the inequalities in the proof.
+    *   Furthermore, repeated application of the operator on *any* initial function will **converge geometrically** to this unique fixed point. This principle is applied to show that repeated applications of \(T_\pi\) to \(v_{\tilde{*}}\) converge to \(v_\pi\).
+    *   The property that if a sequence of values maintains an inequality (e.g., \(a_k \ge b\)) and converges, its limit will also maintain that inequality (\(\lim a_k \ge b\)) is used to conclude convergence of the inequalities in the proof.
 
 ### Practical Implications
 The fundamental theorem is pivotal because it establishes that:
-*   Once the optimal value function ($v^*$) is known, finding an optimal policy is straightforward: **simply choose the action that maximizes the one-step look-ahead under $v^*$ for every state (greedify $v^*$)**. This is a "non-expensive operation".
-*   This theoretical guarantee underpins the validity of algorithms like **Value Iteration** which iteratively approximate $v^*$. Although Value Iteration converges to $v^*$ at an "exponentially fast, or geometric rate", it is primarily an approximation algorithm and "not well-suited for finding *exact* optimal policies" due to "almost ties" between actions.
+*   Once the optimal value function (\(v^*\)) is known, finding an optimal policy is straightforward: **simply choose the action that maximizes the one-step look-ahead under \(v^*\) for every state (greedify \(v^*\))**. This is a "non-expensive operation".
+*   This theoretical guarantee underpins the validity of algorithms like **Value Iteration** which iteratively approximate \(v^*\). Although Value Iteration converges to \(v^*\) at an "exponentially fast, or geometric rate", it is primarily an approximation algorithm and "not well-suited for finding *exact* optimal policies" due to "almost ties" between actions.
 *   The fact that **deterministic memoryless policies** are sufficient for optimality in MDPs simplifies the search space for optimal policies.
 
 
@@ -506,111 +506,111 @@ The Fundamental Theorem of MDPs is a crucial result that clarifies the relations
 
 An MDP is formally defined as a **five-tuple**: States, Actions, Transitions, Rewards, and Discounting. Policies in MDPs can be either **general** (potentially using the entire history of observations and rewards, especially when the MDP is unknown) or **memoryless** (assigning a probability distribution to every state). The theorem addresses whether policies need to use history to achieve optimal performance in planning problems, concluding it's "unnecessary" for optimal policies in this context.
 
-The Fundamental Theorem states two key things about the optimal value function, denoted as $v^*$:
+The Fundamental Theorem states two key things about the optimal value function, denoted as \(v^*\):
 
-1.  **If a memoryless policy $\pi$ is greedy with respect to $v^*$, then $\pi$ is an optimal policy**, meaning its value function, $v_\pi$, is equal to the optimal value function, $v^*$.
-2.  **The optimal value function $v^*$ is a fixed point of the Bellman optimality operator $T$**, meaning $v^* = T v^*$.
+1.  **If a memoryless policy \(\pi\) is greedy with respect to \(v^*\), then \(\pi\) is an optimal policy**, meaning its value function, \(v_\pi\), is equal to the optimal value function, \(v^*\).
+2.  **The optimal value function \(v^*\) is a fixed point of the Bellman optimality operator \(T\)**, meaning \(v^* = T v^*\).
 
 ### Operators Defined
 
 To understand the theorem and its proof, it's essential to define the relevant operators:
-*   **$T_\pi$ (Policy Evaluation Operator):** For a given policy $\pi$ and value function $v$, $T_\pi v$ computes the immediate reward for actions taken according to $\pi$ plus the discounted future value if $\pi$ is followed. It is expressed as $R_\pi + \gamma P_\pi v$.
-*   **$T_a$ (Deterministic Action Operator):** Similar to $T_\pi$, but for a policy that takes a specific action $a$ deterministically in every state.
-*   **$T$ (Bellman Optimality Operator):** For a given value function $v$, $T v$ computes the maximum possible immediate reward plus the discounted future value over all possible actions. It is expressed as $T v = \max_a (R_a + \gamma P_a v)$, representing a one-step optimal look-ahead.
-*   **Greediness:** A policy $\pi$ is greedy with respect to a value function $v$ if applying the policy's Bellman operator $T_\pi$ to $v$ yields the same result as applying the Bellman optimality operator $T$ to $v$. In operator notation, this is **$T_\pi v = T v$**. This implies that $\pi$ deterministically chooses actions that maximize the one-step Bellman look-ahead under $v$.
+*   **\(T_\pi\) (Policy Evaluation Operator):** For a given policy \(\pi\) and value function \(v\), \(T_\pi v\) computes the immediate reward for actions taken according to \(\pi\) plus the discounted future value if \(\pi\) is followed. It is expressed as \(R_\pi + \gamma P_\pi v\).
+*   **\(T_a\) (Deterministic Action Operator):** Similar to \(T_\pi\), but for a policy that takes a specific action \(a\) deterministically in every state.
+*   **\(T\) (Bellman Optimality Operator):** For a given value function \(v\), \(T v\) computes the maximum possible immediate reward plus the discounted future value over all possible actions. It is expressed as \(T v = \max_a (R_a + \gamma P_a v)\), representing a one-step optimal look-ahead.
+*   **Greediness:** A policy \(\pi\) is greedy with respect to a value function \(v\) if applying the policy's Bellman operator \(T_\pi\) to \(v\) yields the same result as applying the Bellman optimality operator \(T\) to \(v\). In operator notation, this is **\(T_\pi v = T v\)**. This implies that \(\pi\) deterministically chooses actions that maximize the one-step Bellman look-ahead under \(v\).
 
 ### Proof of the Fundamental Theorem
 
 The proof proceeds in two main parts:
-1.  First, one defines an "alternate optimal value function" $v_{\tilde{*}}$ that considers only memoryless policies. The theorem is then proven for this $v_{\tilde{*}}$.
-2.  Second, it is shown that this $v_{\tilde{*}}$ is indeed equal to the true optimal value function $v^*$. The lecture notes indicate that $v^* = v_{\tilde{*}}$ was shown in a previous lecture, so the detailed proof within the provided source focuses on the first part.
+1.  First, one defines an "alternate optimal value function" \(v_{\tilde{*}}\) that considers only memoryless policies. The theorem is then proven for this \(v_{\tilde{*}}\).
+2.  Second, it is shown that this \(v_{\tilde{*}}\) is indeed equal to the true optimal value function \(v^*\). The lecture notes indicate that \(v^* = v_{\tilde{*}}\) was shown in a previous lecture, so the detailed proof within the provided source focuses on the first part.
 
 Let's detail the proof:
 
-#### Part 1: Proving that a Greedy Memoryless Policy is Optimal with Respect to $v_{\tilde{*}}$
+#### Part 1: Proving that a Greedy Memoryless Policy is Optimal with Respect to \(v_{\tilde{*}}\)
 
-We want to show that if $\pi$ is a memoryless policy that is **greedy with respect to $v_{\tilde{*}}$** (i.e., $T_\pi v_{\tilde{*}} = T v_{\tilde{*}}$), then **$v_\pi = v_{\tilde{*}}$**.
+We want to show that if \(\pi\) is a memoryless policy that is **greedy with respect to \(v_{\tilde{*}}\)** (i.e., \(T_\pi v_{\tilde{*}} = T v_{\tilde{*}}\)), then **\(v_\pi = v_{\tilde{*}}\)**.
 
-**Step A: Show $v_{\tilde{*}} \le T v_{\tilde{*}}$**
+**Step A: Show \(v_{\tilde{*}} \le T v_{\tilde{*}}\)**
 
-1.  **Initial Inequality:** By definition, for any memoryless policy $\pi$, its value function $v_\pi$ must be less than or equal to $v_{\tilde{*}}$ (since $v_{\tilde{*}}$ is the supremum over all memoryless policies): **$v_\pi \le v_{\tilde{*}}$**.
-2.  **Monotonicity of Operators:** The operators $T_\pi$ and $T$ possess a **monotonicity property**: if $v \le v'$, then $T_\pi v \le T_\pi v'$ and $T v \le T v'$. This holds because adding rewards, multiplying by stochastic matrices (which preserve inequalities), and discounting all maintain the inequality.
-3.  **Apply $T_\pi$ to the Inequality:** Apply $T_\pi$ to both sides of $v_\pi \le v_{\tilde{*}}$:
-    $T_\pi v_\pi \le T_\pi v_{\tilde{*}}$.
-4.  **Fixed Point Property of $v_\pi$:** We know that $v_\pi$ is the unique fixed point of its corresponding operator $T_\pi$, meaning **$v_\pi = T_\pi v_\pi$**.
-5.  **Combining to get $v_\pi \le T_\pi v_{\tilde{*}}$:** Substituting $v_\pi$ for $T_\pi v_\pi$ from the fixed point property, we get:
-    **$v_\pi \le T_\pi v_{\tilde{*}}$**.
-6.  **Relating $T_\pi$ to $T$:** The Bellman optimality operator $T$ maximizes over all actions, while $T_\pi$ makes choices according to policy $\pi$. Therefore, for any value function $v$, $T_\pi v \le T v$ pointwise.
+1.  **Initial Inequality:** By definition, for any memoryless policy \(\pi\), its value function \(v_\pi\) must be less than or equal to \(v_{\tilde{*}}\) (since \(v_{\tilde{*}}\) is the supremum over all memoryless policies): **\(v_\pi \le v_{\tilde{*}}\)**.
+2.  **Monotonicity of Operators:** The operators \(T_\pi\) and \(T\) possess a **monotonicity property**: if \(v \le v'\), then \(T_\pi v \le T_\pi v'\) and \(T v \le T v'\). This holds because adding rewards, multiplying by stochastic matrices (which preserve inequalities), and discounting all maintain the inequality.
+3.  **Apply \(T_\pi\) to the Inequality:** Apply \(T_\pi\) to both sides of \(v_\pi \le v_{\tilde{*}}\):
+    \(T_\pi v_\pi \le T_\pi v_{\tilde{*}}\).
+4.  **Fixed Point Property of \(v_\pi\):** We know that \(v_\pi\) is the unique fixed point of its corresponding operator \(T_\pi\), meaning **\(v_\pi = T_\pi v_\pi\)**.
+5.  **Combining to get \(v_\pi \le T_\pi v_{\tilde{*}}\):** Substituting \(v_\pi\) for \(T_\pi v_\pi\) from the fixed point property, we get:
+    **\(v_\pi \le T_\pi v_{\tilde{*}}\)**.
+6.  **Relating \(T_\pi\) to \(T\):** The Bellman optimality operator \(T\) maximizes over all actions, while \(T_\pi\) makes choices according to policy \(\pi\). Therefore, for any value function \(v\), \(T_\pi v \le T v\) pointwise.
 7.  **Chaining Inequalities:** Combine the previous inequalities:
-    $v_\pi \le T_\pi v_{\tilde{*}} \le T v_{\tilde{*}}$.
-8.  **Taking the Supremum:** Since the inequality $v_\pi \le T v_{\tilde{*}}$ holds for *any* memoryless policy $\pi$, we can take the supremum over all memoryless policies on the left side:
-    $\sup_{\pi \in ML} v_\pi \le T v_{\tilde{*}}$.
-    By definition, $\sup_{\pi \in ML} v_\pi = v_{\tilde{*}}$.
-    Thus, we conclude: **$v_{\tilde{*}} \le T v_{\tilde{*}}$**. This step is highlighted as a "very typical argument" used frequently in proofs.
+    \(v_\pi \le T_\pi v_{\tilde{*}} \le T v_{\tilde{*}}\).
+8.  **Taking the Supremum:** Since the inequality \(v_\pi \le T v_{\tilde{*}}\) holds for *any* memoryless policy \(\pi\), we can take the supremum over all memoryless policies on the left side:
+    \(\sup_{\pi \in ML} v_\pi \le T v_{\tilde{*}}\).
+    By definition, \(\sup_{\pi \in ML} v_\pi = v_{\tilde{*}}\).
+    Thus, we conclude: **\(v_{\tilde{*}} \le T v_{\tilde{*}}\)**. This step is highlighted as a "very typical argument" used frequently in proofs.
 
-**Step B: Show $v_\pi \ge v_{\tilde{*}}$ (using greediness and Banach Fixed Point Theorem)**
+**Step B: Show \(v_\pi \ge v_{\tilde{*}}\) (using greediness and Banach Fixed Point Theorem)**
 
-1.  **Utilize Greediness:** Now, assume $\pi$ is greedy with respect to $v_{\tilde{*}}$. This means $T_\pi v_{\tilde{*}} = T v_{\tilde{*}}$.
-2.  **Apply Greediness to Inequality from Step A:** Substitute $T v_{\tilde{*}}$ with $T_\pi v_{\tilde{*}}$ in the inequality $v_{\tilde{*}} \le T v_{\tilde{*}}$ from Step A:
-    **$v_{\tilde{*}} \le T_\pi v_{\tilde{*}}$**.
-3.  **Repeated Application of $T_\pi$:** Since $T_\pi$ is a monotonic operator, applying it repeatedly to both sides of this inequality preserves it:
-    *   Apply $T_\pi$ once: $T_\pi v_{\tilde{*}} \le T_\pi (T_\pi v_{\tilde{*}}) \implies T_\pi v_{\tilde{*}} \le T_\pi^2 v_{\tilde{*}}$.
-    *   Since we also know $v_{\tilde{*}} \le T_\pi v_{\tilde{*}}$ (from the line above), we can substitute this into the right side of the expression: $v_{\tilde{*}} \le T_\pi v_{\tilde{*}} \le T_\pi^2 v_{\tilde{*}}$.
-    *   By induction, repeating this $k$ times: **$v_{\tilde{*}} \le T_\pi^k v_{\tilde{*}}$** for any $k \ge 1$.
+1.  **Utilize Greediness:** Now, assume \(\pi\) is greedy with respect to \(v_{\tilde{*}}\). This means \(T_\pi v_{\tilde{*}} = T v_{\tilde{*}}\).
+2.  **Apply Greediness to Inequality from Step A:** Substitute \(T v_{\tilde{*}}\) with \(T_\pi v_{\tilde{*}}\) in the inequality \(v_{\tilde{*}} \le T v_{\tilde{*}}\) from Step A:
+    **\(v_{\tilde{*}} \le T_\pi v_{\tilde{*}}\)**.
+3.  **Repeated Application of \(T_\pi\):** Since \(T_\pi\) is a monotonic operator, applying it repeatedly to both sides of this inequality preserves it:
+    *   Apply \(T_\pi\) once: \(T_\pi v_{\tilde{*}} \le T_\pi (T_\pi v_{\tilde{*}}) \implies T_\pi v_{\tilde{*}} \le T_\pi^2 v_{\tilde{*}}\).
+    *   Since we also know \(v_{\tilde{*}} \le T_\pi v_{\tilde{*}}\) (from the line above), we can substitute this into the right side of the expression: \(v_{\tilde{*}} \le T_\pi v_{\tilde{*}} \le T_\pi^2 v_{\tilde{*}}\).
+    *   By induction, repeating this \(k\) times: **\(v_{\tilde{*}} \le T_\pi^k v_{\tilde{*}}\)** for any \(k \ge 1\).
 4.  **Application of the Banach Fixed Point Theorem (Contraction Mapping Theorem):**
-    *   The operator $T_\pi$ is a **contraction** in a complete norm space (specifically, the max-norm space of value functions on a Euclidean space). A contraction is a map that strictly reduces the distance between any two points in the space.
+    *   The operator \(T_\pi\) is a **contraction** in a complete norm space (specifically, the max-norm space of value functions on a Euclidean space). A contraction is a map that strictly reduces the distance between any two points in the space.
     *   The Banach Fixed Point Theorem guarantees that any such contraction has a **unique fixed point**.
     *   Furthermore, repeated application of a contraction operator on *any* initial function in the space will **converge geometrically** to this unique fixed point.
-    *   In this case, $T_\pi^k v_{\tilde{*}}$ converges to $v_\pi$ as $k \to \infty$ because $v_\pi$ is the unique fixed point of $T_\pi$.
-5.  **Taking the Limit:** Take the limit as $k \to \infty$ of the inequality $v_{\tilde{*}} \le T_\pi^k v_{\tilde{*}}$:
-    $v_{\tilde{*}} \le \lim_{k \to \infty} (T_\pi^k v_{\tilde{*}})$.
-    Since $\lim_{k \to \infty} (T_\pi^k v_{\tilde{*}}) = v_\pi$, we conclude: **$v_{\tilde{*}} \le v_\pi$**. The property that if a sequence of values maintains an inequality and converges, its limit will also maintain that inequality, is a basic property of real numbers and limits.
+    *   In this case, \(T_\pi^k v_{\tilde{*}}\) converges to \(v_\pi\) as \(k \to \infty\) because \(v_\pi\) is the unique fixed point of \(T_\pi\).
+5.  **Taking the Limit:** Take the limit as \(k \to \infty\) of the inequality \(v_{\tilde{*}} \le T_\pi^k v_{\tilde{*}}\):
+    \(v_{\tilde{*}} \le \lim_{k \to \infty} (T_\pi^k v_{\tilde{*}})\).
+    Since \(\lim_{k \to \infty} (T_\pi^k v_{\tilde{*}}) = v_\pi\), we conclude: **\(v_{\tilde{*}} \le v_\pi\)**. The property that if a sequence of values maintains an inequality and converges, its limit will also maintain that inequality, is a basic property of real numbers and limits.
 
 **Conclusion of Part 1:**
-Having shown both $v_\pi \le v_{\tilde{*}}$ (from Step A) and $v_\pi \ge v_{\tilde{*}}$ (from Step B), it follows that **$v_\pi = v_{\tilde{*}}$**. This proves the first part of the theorem for $v_{\tilde{*}}$.
+Having shown both \(v_\pi \le v_{\tilde{*}}\) (from Step A) and \(v_\pi \ge v_{\tilde{*}}\) (from Step B), it follows that **\(v_\pi = v_{\tilde{*}}\)**. This proves the first part of the theorem for \(v_{\tilde{*}}\).
 
-#### Part 2: Proving that $v^*$ is a Fixed Point of $T$ ($v^* = T v^*$)
+#### Part 2: Proving that \(v^*\) is a Fixed Point of \(T\) (\(v^* = T v^*\))
 
-This part also establishes that the optimal value function $v^*$ is equal to $v_{\tilde{*}}$.
-1.  **Equivalence of $v^*$ and $v_{\tilde{*}}$:** The lecture notes state that **$v^* = v_{\tilde{*}}$** was shown previously. This means the optimal value achieved by considering *all* possible policies (general or memoryless) is the same as the optimal value achieved by only considering memoryless policies.
-2.  **Using results from Part 1:** We already showed in Part 1 (Step A) that $v_{\tilde{*}} \le T v_{\tilde{*}}$. Since $v^* = v_{\tilde{*}}$ this implies **$v^* \le T v^*$**.
-3.  **Showing $v^* \ge T v^*$:**
-    *   Consider a policy $\pi$ that is greedy with respect to $v^*$. From Part 1 (and the equivalence $v^* = v_{\tilde{*}}$), we know that if such a greedy policy $\pi$ exists, then **$v_\pi = v^*$**.
-    *   We also know that $v_\pi$ is the fixed point of $T_\pi$, so **$v_\pi = T_\pi v_\pi$**.
-    *   Substitute $v_\pi = v^*$ into the fixed point equation: **$v^* = T_\pi v^*$**.
-    *   Since $\pi$ is greedy with respect to $v^*$, by definition, **$T_\pi v^* = T v^*$**.
-    *   Chaining these equalities, we get: **$v^* = T v^*$**.
+This part also establishes that the optimal value function \(v^*\) is equal to \(v_{\tilde{*}}\).
+1.  **Equivalence of \(v^*\) and \(v_{\tilde{*}}\):** The lecture notes state that **\(v^* = v_{\tilde{*}}\)** was shown previously. This means the optimal value achieved by considering *all* possible policies (general or memoryless) is the same as the optimal value achieved by only considering memoryless policies.
+2.  **Using results from Part 1:** We already showed in Part 1 (Step A) that \(v_{\tilde{*}} \le T v_{\tilde{*}}\). Since \(v^* = v_{\tilde{*}}\) this implies **\(v^* \le T v^*\)**.
+3.  **Showing \(v^* \ge T v^*\):**
+    *   Consider a policy \(\pi\) that is greedy with respect to \(v^*\). From Part 1 (and the equivalence \(v^* = v_{\tilde{*}}\)), we know that if such a greedy policy \(\pi\) exists, then **\(v_\pi = v^*\)**.
+    *   We also know that \(v_\pi\) is the fixed point of \(T_\pi\), so **\(v_\pi = T_\pi v_\pi\)**.
+    *   Substitute \(v_\pi = v^*\) into the fixed point equation: **\(v^* = T_\pi v^*\)**.
+    *   Since \(\pi\) is greedy with respect to \(v^*\), by definition, **\(T_\pi v^* = T v^*\)**.
+    *   Chaining these equalities, we get: **\(v^* = T v^*\)**.
 
 **Conclusion of Part 2:**
-Since both $v^* \le T v^*$ and $v^* \ge T v^*$ have been shown, it follows that **$v^* = T v^*$**. This proves that the optimal value function is a fixed point of the Bellman optimality operator.
+Since both \(v^* \le T v^*\) and \(v^* \ge T v^*\) have been shown, it follows that **\(v^* = T v^*\)**. This proves that the optimal value function is a fixed point of the Bellman optimality operator.
 
 ### Practical Implications
 
 The Fundamental Theorem of MDPs has significant practical consequences:
 *   It demonstrates that **memoryless policies are sufficient for achieving optimality** in finite MDP planning problems. This simplifies the search for optimal policies because one doesn't need to consider policies that depend on the entire history of states and rewards.
-*   It establishes that once the optimal value function $v^*$ is known, **finding an optimal policy is a "non-expensive operation"**. One simply needs to perform a one-step look-ahead to choose the action that maximizes the expected future reward under $v^*$ for each state. This process is called "greedifying $v^*$".
-*   This theorem provides the theoretical foundation for algorithms like **Value Iteration**, which iteratively apply the Bellman optimality operator $T$ to an initial value function to converge to $v^*$. Value Iteration converges "exponentially fast, or geometric rate" to $v^*$. While Value Iteration is excellent for *approximating* $v^*$, it's "not well-suited for finding *exact* optimal policies" due to potential "almost ties" between actions.
-*   The theorem implies that if we obtain an approximate value function $V$ that is $\epsilon$-close to $v^*$ (i.e., $\|V - v^*\|_\infty \le \epsilon$), then greedifying $V$ will yield a policy whose value is near-optimal, specifically within $2\epsilon/(1-\gamma)$ of the optimal value. This means the error in the policy's value scales with $\frac{1}{1-\gamma}$ times the error in the value function approximation.
+*   It establishes that once the optimal value function \(v^*\) is known, **finding an optimal policy is a "non-expensive operation"**. One simply needs to perform a one-step look-ahead to choose the action that maximizes the expected future reward under \(v^*\) for each state. This process is called "greedifying \(v^*\)".
+*   This theorem provides the theoretical foundation for algorithms like **Value Iteration**, which iteratively apply the Bellman optimality operator \(T\) to an initial value function to converge to \(v^*\). Value Iteration converges "exponentially fast, or geometric rate" to \(v^*\). While Value Iteration is excellent for *approximating* \(v^*\), it's "not well-suited for finding *exact* optimal policies" due to potential "almost ties" between actions.
+*   The theorem implies that if we obtain an approximate value function \(V\) that is \(\epsilon\)-close to \(v^*\) (i.e., \(\|V - v^*\|_\infty \le \epsilon\)), then greedifying \(V\) will yield a policy whose value is near-optimal, specifically within \(2\epsilon/(1-\gamma)\) of the optimal value. This means the error in the policy's value scales with \(\frac{1}{1-\gamma}\) times the error in the value function approximation.
 
 
 
-The monotonicity property is a crucial characteristic of the operators used in Markov Decision Processes (MDPs), specifically the policy evaluation operator ($T_\pi$) and the Bellman optimality operator ($T$).
+The monotonicity property is a crucial characteristic of the operators used in Markov Decision Processes (MDPs), specifically the policy evaluation operator (\(T_\pi\)) and the Bellman optimality operator (\(T\)).
 
 Here's more detail about this property:
 
-*   **Definition of Monotonicity:** An operator (or function) is considered **monotonic** if it preserves the order of its inputs. In the context of value functions in MDPs, this means that if one value function $v$ is less than or equal to another value function $v'$ (pointwise, meaning for every state), then applying a monotonic operator to both $v$ and $v'$ will result in $T v \le T v'$ or $T_\pi v \le T_\pi v'$.
+*   **Definition of Monotonicity:** An operator (or function) is considered **monotonic** if it preserves the order of its inputs. In the context of value functions in MDPs, this means that if one value function \(v\) is less than or equal to another value function \(v'\) (pointwise, meaning for every state), then applying a monotonic operator to both \(v\) and \(v'\) will result in \(T v \le T v'\) or \(T_\pi v \le T_\pi v'\).
 
-*   **Why $T_\pi$ and $T$ are Monotonic:**
-    *   The operators $T_\pi$ and $T$ involve three fundamental operations: adding rewards, multiplying by a stochastic matrix, and discounting.
+*   **Why \(T_\pi\) and \(T\) are Monotonic:**
+    *   The operators \(T_\pi\) and \(T\) involve three fundamental operations: adding rewards, multiplying by a stochastic matrix, and discounting.
     *   **Adding Rewards:** When you add a reward vector to a value function, if the original value function was smaller, the resulting sum will also be smaller.
     *   **Multiplying by a Stochastic Matrix:** Stochastic matrices, which represent state transitions, are known to preserve inequalities. This means if you have two value functions where one is pointwise less than or equal to the other, multiplying both by a stochastic transition matrix will maintain that inequality.
-    *   **Discounting ($\gamma$):** Multiplying by the discount factor $\gamma$ (which is between 0 and 1) also preserves inequalities.
-    *   Since all these component operations preserve inequalities, the combined operators $T_\pi$ and $T$ are also **monotone**. Even though $T$ involves a maximization step (making it a non-linear operator), it still maintains this monotonicity.
+    *   **Discounting (\(\gamma\)):** Multiplying by the discount factor \(\gamma\) (which is between 0 and 1) also preserves inequalities.
+    *   Since all these component operations preserve inequalities, the combined operators \(T_\pi\) and \(T\) are also **monotone**. Even though \(T\) involves a maximization step (making it a non-linear operator), it still maintains this monotonicity.
 
 *   **Importance in Proofs:**
     *   The monotonicity property is **fundamental** for proving results in MDP theory, including the Fundamental Theorem. It allows for the chaining of inequalities, which is a common technique in these proofs.
-    *   For example, in the proof of the Fundamental Theorem, to show that $v_{\tilde{*}} \le T v_{\tilde{*}}$ (where $v_{\tilde{*}}$ is the optimal value function for memoryless policies), the proof starts with the definition $v_\pi \le v_{\tilde{*}}$ for any memoryless policy $\pi$. By applying the monotonic operator $T_\pi$ to both sides, the inequality is preserved: $T_\pi v_\pi \le T_\pi v_{\tilde{*}}$. Since $v_\pi = T_\pi v_\pi$ (because $v_\pi$ is a fixed point of $T_\pi$), this leads to $v_\pi \le T_\pi v_{\tilde{*}}$. This type of argument is described as a "very typical argument that people use in all kind of proofs".
-    *   Similarly, it's used to show that if a policy $\pi$ is greedy with respect to $v_{\tilde{*}}$, then $v_{\tilde{*}} \le T_\pi v_{\tilde{*}}$. Repeated application of the monotonic operator $T_\pi$ preserves this inequality, leading to $v_{\tilde{*}} \le T_\pi^k v_{\tilde{*}}$ for any $k \ge 1$. This is a crucial step before applying the Banach Fixed Point Theorem, which states that $T_\pi^k v_{\tilde{*}}$ converges to $v_\pi$ as $k \to \infty$. Because the inequality is preserved, it eventually leads to $v_{\tilde{*}} \le v_\pi$.
+    *   For example, in the proof of the Fundamental Theorem, to show that \(v_{\tilde{*}} \le T v_{\tilde{*}}\) (where \(v_{\tilde{*}}\) is the optimal value function for memoryless policies), the proof starts with the definition \(v_\pi \le v_{\tilde{*}}\) for any memoryless policy \(\pi\). By applying the monotonic operator \(T_\pi\) to both sides, the inequality is preserved: \(T_\pi v_\pi \le T_\pi v_{\tilde{*}}\). Since \(v_\pi = T_\pi v_\pi\) (because \(v_\pi\) is a fixed point of \(T_\pi\)), this leads to \(v_\pi \le T_\pi v_{\tilde{*}}\). This type of argument is described as a "very typical argument that people use in all kind of proofs".
+    *   Similarly, it's used to show that if a policy \(\pi\) is greedy with respect to \(v_{\tilde{*}}\), then \(v_{\tilde{*}} \le T_\pi v_{\tilde{*}}\). Repeated application of the monotonic operator \(T_\pi\) preserves this inequality, leading to \(v_{\tilde{*}} \le T_\pi^k v_{\tilde{*}}\) for any \(k \ge 1\). This is a crucial step before applying the Banach Fixed Point Theorem, which states that \(T_\pi^k v_{\tilde{*}}\) converges to \(v_\pi\) as \(k \to \infty\). Because the inequality is preserved, it eventually leads to \(v_{\tilde{*}} \le v_\pi\).
 
 In essence, the monotonicity property ensures that if you start with an ordered relationship between value functions, that order is maintained when you apply the Bellman operators, which is vital for deriving the convergence and optimality properties of MDP algorithms and theorems.
 
@@ -668,7 +668,7 @@ Here's a detailed explanation:
 
 *   **Contraction Mapping Property**
     *   The `T` operator (and similarly the policy evaluation operator `T_pi`) is a **contraction mapping** in a complete normed vector space, such as Euclidean spaces with the max norm.
-    *   A contraction mapping is essentially an operator that brings points "closer together" with each application. More formally, it means that there's a Lipschitz constant (often the discount factor $\gamma$) that is **strictly smaller than 1**. This property dictates that the distance between the results of applying `T` to two different value functions will be smaller than the distance between the original value functions.
+    *   A contraction mapping is essentially an operator that brings points "closer together" with each application. More formally, it means that there's a Lipschitz constant (often the discount factor \(\gamma\)) that is **strictly smaller than 1**. This property dictates that the distance between the results of applying `T` to two different value functions will be smaller than the distance between the original value functions.
 
 *   **Role of the Banach Fixed Point Theorem**
     *   The **Banach Fixed Point Theorem** is the fundamental mathematical tool that leverages the contraction property. It states that if you have a contraction mapping on a complete normed space, then:
@@ -770,7 +770,7 @@ Here are the details of the Banach Fixed Point Theorem as discussed in the sourc
     *   **Operator Mapping to Itself**: There must be an **operator (or map) that takes an element from this space and maps it back into the same space**.
     *   **Contraction Mapping**: The operator must be a **contraction mapping**.
         *   A contraction mapping is an operator that brings points "closer together" with each application, meaning the distance between the results of applying the operator to two different points will be smaller than the distance between the original points [my previous response].
-        *   Formally, it means there exists a **Lipschitz constant that is strictly smaller than 1**. In the context of Bellman operators (`T` and `T_pi`) in MDPs, the **discount factor ($\gamma$)** serves as this Lipschitz constant, and it is always strictly less than 1 [my previous response].
+        *   Formally, it means there exists a **Lipschitz constant that is strictly smaller than 1**. In the context of Bellman operators (`T` and `T_pi`) in MDPs, the **discount factor (\(\gamma\))** serves as this Lipschitz constant, and it is always strictly less than 1 [my previous response].
 
 *   **Conclusions of the Theorem**:
     *   **Unique Fixed Point**: If the aforementioned conditions are satisfied, then there **exists a unique fixed point for that operator**.
@@ -841,8 +841,8 @@ Here's a breakdown:
 *   **Geometric Rate of Convergence (or Exponential/Really Fast Rate)**:
     *   This is the **favorable type of convergence** observed in Value Iteration.
     *   It means that the **error (the distance between the current estimate and the true optimal value function) shrinks by a constant factor with each iteration** [my previous response].
-    *   For Value Iteration, this constant factor is the **discount factor ($\gamma$)**. Specifically, the error at iteration `k` is bounded by $\gamma^k$ multiplied by a constant related to the optimal value function and discount factor: $||V_k - v^*||_{\max} \leq \gamma^k \frac{||v^*||_{\max}}{1 - \gamma}$ [my previous response, 11]. Since $\gamma < 1$, the term $\gamma^k$ decreases very rapidly as `k` increases.
-    *   A key characteristic of geometric convergence is that the **number of iterations (`k`) required to achieve an epsilon-accurate estimate depends logarithmically on `1/epsilon`** [my previous response, 11]. This relationship is expressed by the "epsilon horizon" formula: $k \geq \frac{\log(\frac{1}{\epsilon(1-\gamma)})}{\log(\frac{1}{\gamma})}$ [my previous response, 11].
+    *   For Value Iteration, this constant factor is the **discount factor (\(\gamma\))**. Specifically, the error at iteration `k` is bounded by \(\gamma^k\) multiplied by a constant related to the optimal value function and discount factor: \(||V_k - v^*||_{\max} \leq \gamma^k \frac{||v^*||_{\max}}{1 - \gamma}\) [my previous response, 11]. Since \(\gamma < 1\), the term \(\gamma^k\) decreases very rapidly as `k` increases.
+    *   A key characteristic of geometric convergence is that the **number of iterations (`k`) required to achieve an epsilon-accurate estimate depends logarithmically on `1/epsilon`** [my previous response, 11]. This relationship is expressed by the "epsilon horizon" formula: \(k \geq \frac{\log(\frac{1}{\epsilon(1-\gamma)})}{\log(\frac{1}{\gamma})}\) [my previous response, 11].
     *   The `log(1/epsilon)` dependence is considered **"very mild"** and indicates a **"really fast rate"** of convergence, meaning the algorithm is "not overly sensitive to the desired accuracy" [my previous response, 11].
 
 *   **"Linear Rate" in Optimization Context**:
@@ -875,7 +875,7 @@ Here's a detailed breakdown of the process:
        .
 
 *   **Policy Optimality Guarantee**
-    If `V_k` is `epsilon`-close to `v*` in max norm (i.e., $||V_k - v^*||_{\max} \leq \epsilon$), then the policy `pi_k` obtained by greedifying `V_k` will be **near-optimal**. Specifically, its value function `v_{pi_k}` will be close to `v*` up to a factor of $\frac{\epsilon}{1 - \gamma}$. This means $v_{\pi_k} \geq v^* - \frac{\epsilon}{1 - \gamma} \mathbf{1}$. This is a crucial result, implying that greedifying a good approximation of the optimal value function yields a good approximation of the optimal policy.
+    If `V_k` is `epsilon`-close to `v*` in max norm (i.e., \(||V_k - v^*||_{\max} \leq \epsilon\)), then the policy `pi_k` obtained by greedifying `V_k` will be **near-optimal**. Specifically, its value function `v_{pi_k}` will be close to `v*` up to a factor of \(\frac{\epsilon}{1 - \gamma}\). This means \(v_{\pi_k} \geq v^* - \frac{\epsilon}{1 - \gamma} \mathbf{1}\). This is a crucial result, implying that greedifying a good approximation of the optimal value function yields a good approximation of the optimal policy.
 
 *   **Computational Cost for Greedification**
     The actual greedification step itself (finding the argmax for each state) is a **finite computation**. For each state, it involves checking all actions and their expected next-state values, making its cost proportional to `S * A` (number of states times number of actions) if transitions are dense, or `S * A * S'` if `S'` is the number of possible next states. The overall computational complexity of Value Iteration to get a near-optimal policy is dominated by the iterations, scaling with `S^2 * A * log(1/epsilon) / (1-gamma)`.
@@ -883,21 +883,21 @@ Here's a detailed breakdown of the process:
 In summary, greedification is the mechanism that translates knowledge of (or an approximation of) the optimal value function into a concrete optimal (or near-optimal) action choice for every state.
 
 
-The **stochastic matrix**, often denoted as `P` or `P_pi` (when associated with a specific policy $\pi$), is a fundamental component in the mathematical framework of Markov Decision Processes (MDPs), particularly when calculating value functions.
+The **stochastic matrix**, often denoted as `P` or `P_pi` (when associated with a specific policy \(\pi\)), is a fundamental component in the mathematical framework of Markov Decision Processes (MDPs), particularly when calculating value functions.
 
 Here's what the sources and our conversation history tell us about it:
 
-*   **Representation of Transition Probabilities**: The stochastic matrix represents the **transition probabilities** of an MDP under a specific policy. When you have a policy $\pi$, for each state `s`, it specifies an action `a`. The transitions from `s` to next states `s'` are then governed by `P(s'|s,a)`. If we fix a policy $\pi$, we can form a matrix `P_pi` where each row `s` gives the probabilities of transitioning to `s'` when action `pi(s)` is taken [implied by 13, 17].
+*   **Representation of Transition Probabilities**: The stochastic matrix represents the **transition probabilities** of an MDP under a specific policy. When you have a policy \(\pi\), for each state `s`, it specifies an action `a`. The transitions from `s` to next states `s'` are then governed by `P(s'|s,a)`. If we fix a policy \(\pi\), we can form a matrix `P_pi` where each row `s` gives the probabilities of transitioning to `s'` when action `pi(s)` is taken [implied by 13, 17].
 
 *   **Key Properties**:
-    *   **Monotonicity**: Stochastic matrices have a **monotonicity property**. This means that if you have two value functions, say $V_1$ and $V_2$, such that $V_1 \le V_2$ (point-wise), then applying the stochastic matrix (multiplied by the discount factor) will preserve this inequality. As the source states, "stochastic matrices keep this inequality". This property is crucial for proving the convergence of Value Iteration and for deriving various inequalities in MDP theory.
+    *   **Monotonicity**: Stochastic matrices have a **monotonicity property**. This means that if you have two value functions, say \(V_1\) and \(V_2\), such that \(V_1 \le V_2\) (point-wise), then applying the stochastic matrix (multiplied by the discount factor) will preserve this inequality. As the source states, "stochastic matrices keep this inequality". This property is crucial for proving the convergence of Value Iteration and for deriving various inequalities in MDP theory.
     *   **Rows Sum to One**: A defining characteristic of a stochastic matrix is that **all of its rows sum to one**. This reflects the fact that from any given state, the probabilities of transitioning to all possible next states must sum to 1 (because the agent must transition to *some* state). This property has important implications for how constants behave when passed through the Bellman operator. For example, if you apply `P_pi` to a vector of all ones, the result is also a vector of all ones (i.e., `P_pi * 1 = 1`).
 
 *   **Role in Bellman Operators and Value Functions**:
-    *   **Future Value Calculation**: The stochastic matrix is integral to calculating the **discounted expected future value** in both the Bellman operator for a specific policy ($T_\pi$) and the Bellman optimality operator ($T$). It's used in the term `gamma * sum_s' P(s'|s,a) V(s')` or compactly `gamma * P_pi * V`.
-    *   **Linear System for Policy Evaluation**: For any given **memoryless policy** $\pi$, its value function $v_\pi$ is the unique fixed point of the Bellman operator $T_\pi$. This can be expressed as a linear system: $v_\pi = R_\pi + \gamma P_\pi v_\pi$, where $R_\pi$ is the immediate reward vector under policy $\pi$. This equation can be rearranged to solve for $v_\pi$ directly by inverting a matrix: $v_\pi = (I - \gamma P_\pi)^{-1} R_\pi$. This matrix inversion is computationally intensive, scaling with $S^3$ (number of states cubed), but it provides an exact value function for the policy.
+    *   **Future Value Calculation**: The stochastic matrix is integral to calculating the **discounted expected future value** in both the Bellman operator for a specific policy (\(T_\pi\)) and the Bellman optimality operator (\(T\)). It's used in the term `gamma * sum_s' P(s'|s,a) V(s')` or compactly `gamma * P_pi * V`.
+    *   **Linear System for Policy Evaluation**: For any given **memoryless policy** \(\pi\), its value function \(v_\pi\) is the unique fixed point of the Bellman operator \(T_\pi\). This can be expressed as a linear system: \(v_\pi = R_\pi + \gamma P_\pi v_\pi\), where \(R_\pi\) is the immediate reward vector under policy \(\pi\). This equation can be rearranged to solve for \(v_\pi\) directly by inverting a matrix: \(v_\pi = (I - \gamma P_\pi)^{-1} R_\pi\). This matrix inversion is computationally intensive, scaling with \(S^3\) (number of states cubed), but it provides an exact value function for the policy.
 
-*   **Significance in Proofs**: The properties of stochastic matrices (monotonicity and row sums) are repeatedly used in proofs for MDP algorithms, such as those demonstrating the convergence of Value Iteration and Policy Iteration, and in showing that greedifying a near-optimal value function yields a near-optimal policy. The ability to "pull out" constants when the Bellman operator acts on a function shifted by a constant, like $T(V + a\mathbf{1}) = T(V) + \gamma a\mathbf{1}$, directly relies on the stochastic matrix property that `P_pi * 1 = 1`.
+*   **Significance in Proofs**: The properties of stochastic matrices (monotonicity and row sums) are repeatedly used in proofs for MDP algorithms, such as those demonstrating the convergence of Value Iteration and Policy Iteration, and in showing that greedifying a near-optimal value function yields a near-optimal policy. The ability to "pull out" constants when the Bellman operator acts on a function shifted by a constant, like \(T(V + a\mathbf{1}) = T(V) + \gamma a\mathbf{1}\), directly relies on the stochastic matrix property that `P_pi * 1 = 1`.
 
 
 
@@ -906,18 +906,18 @@ Yinyu Ye's work, along with his collaborators, represents a significant breakthr
 Here are the key details and implications of this breakthrough:
 
 *   **The Problem Addressed**: Before this work, it was known that Policy Iteration is "always at least as fast in terms of its iteration complexity as value iteration". However, a precise bound on the number of iterations for finding an *exact* optimal policy without approximations was not known until relatively recently.
-*   **The Breakthrough Result**: Yinyu Ye and his colleagues (specifically, a paper by Yinyu Ye, Ichiro Inan, and Mengdi Wang in 2017 is mentioned, though it's described as "unpublished paper in 2017") figured out a way to show that Policy Iteration needs **poly $S \cdot A / (1 - \gamma)$ iterations**.
-    *   **Poly $S \cdot A / (1 - \gamma)$**: This means the number of iterations is polynomial in the number of states ($S$), actions ($A$), and the "planning horizon" term $1/(1 - \gamma)$.
-    *   **No Epsilon Dependence**: Crucially, this bound states that the algorithm can "stop and output an optimal policy" after this many iterations, implying **no dependence on $\epsilon$ (the desired accuracy)**. This is considered "pretty amazing" because it suggests that the $\log(1/\epsilon)$ dependence, which is characteristic of Value Iteration for *approximate* calculations, might not be necessary for *exact* optimal policies.
+*   **The Breakthrough Result**: Yinyu Ye and his colleagues (specifically, a paper by Yinyu Ye, Ichiro Inan, and Mengdi Wang in 2017 is mentioned, though it's described as "unpublished paper in 2017") figured out a way to show that Policy Iteration needs **poly \(S \cdot A / (1 - \gamma)\) iterations**.
+    *   **Poly \(S \cdot A / (1 - \gamma)\)**: This means the number of iterations is polynomial in the number of states (\(S\)), actions (\(A\)), and the "planning horizon" term \(1/(1 - \gamma)\).
+    *   **No Epsilon Dependence**: Crucially, this bound states that the algorithm can "stop and output an optimal policy" after this many iterations, implying **no dependence on \(\epsilon\) (the desired accuracy)**. This is considered "pretty amazing" because it suggests that the \(\log(1/\epsilon)\) dependence, which is characteristic of Value Iteration for *approximate* calculations, might not be necessary for *exact* optimal policies.
 *   **Contrast with Value Iteration**:
-    *   **Value Iteration (Approximate)**: Value Iteration converges to an $\epsilon$-accurate estimate of the optimal value function with an iteration complexity of roughly $\log(1/\epsilon) / \log(1/\gamma)$. This $\log(1/\epsilon)$ dependence is considered "very mild" and a "geometric rate," meaning it's "not overly sensitive to the desired accuracy" for *approximate* solutions.
-    *   **Policy Iteration (Exact)**: Yinyu Ye's result shows that for *exact* optimal policies, Policy Iteration avoids the $\log(1/\epsilon)$ term entirely, providing a bound that does not require approximation.
-    *   **Computational Cost per Iteration**: While Policy Iteration can provide an exact optimal policy, its computational cost *per iteration* is generally higher than Value Iteration. Policy Iteration requires calculating the exact value function for a policy, which typically involves **solving a linear system by inverting a matrix**, costing around $S^3$ (or $S^{2.3...}$) computations. Value Iteration, on the other hand, involves finite and often simpler computations per state for each iteration, summing up to around $S \cdot A \cdot S'$ or $S \cdot A$.
+    *   **Value Iteration (Approximate)**: Value Iteration converges to an \(\epsilon\)-accurate estimate of the optimal value function with an iteration complexity of roughly \(\log(1/\epsilon) / \log(1/\gamma)\). This \(\log(1/\epsilon)\) dependence is considered "very mild" and a "geometric rate," meaning it's "not overly sensitive to the desired accuracy" for *approximate* solutions.
+    *   **Policy Iteration (Exact)**: Yinyu Ye's result shows that for *exact* optimal policies, Policy Iteration avoids the \(\log(1/\epsilon)\) term entirely, providing a bound that does not require approximation.
+    *   **Computational Cost per Iteration**: While Policy Iteration can provide an exact optimal policy, its computational cost *per iteration* is generally higher than Value Iteration. Policy Iteration requires calculating the exact value function for a policy, which typically involves **solving a linear system by inverting a matrix**, costing around \(S^3\) (or \(S^{2.3...}\)) computations. Value Iteration, on the other hand, involves finite and often simpler computations per state for each iteration, summing up to around \(S \cdot A \cdot S'\) or \(S \cdot A\).
 *   **Mechanism of Policy Iteration and the Bound**:
-    *   Policy Iteration works by iteratively improving a policy: you evaluate the current policy ($v_{\pi_k}$), then greedify that value function to get a new, improved policy ($\pi_{k+1}$).
-    *   The proof behind Yinyu Ye's bound relies on an "elimination" argument. It shows that if you start with a sub-optimal policy, after roughly $k^*$ iterations (where $k^*$ is $\approx \log(\text{factors } S \cdot A / (1 - \gamma))$), there will be at least one state for which the action chosen by the initial policy will *never* be chosen again by subsequent iterates. Since there are a finite number of state-action pairs, and "bad" actions are progressively eliminated, this process must terminate after a finite number of such $k^*$ blocks, leading to the overall bound.
-*   **Significance of $1/(1-\gamma)$ Term**: This "planning horizon" term appears in many bounds for MDPs, including for Value Iteration and Policy Iteration. The question of whether this $1/(1-\gamma)$ dependence is truly necessary (i.e., whether tighter bounds exist without it) is a "dedicated question" in the field.
-*   **Practical vs. Theoretical Implications**: While this breakthrough provides a strong theoretical guarantee for exact calculations, the speaker notes that in practice, "very rarely need exact calculation," and "approximate calculations are fine" due to the mild $\log(1/\epsilon)$ dependence of Value Iteration. However, the result for Policy Iteration is still "pretty amazing".
+    *   Policy Iteration works by iteratively improving a policy: you evaluate the current policy (\(v_{\pi_k}\)), then greedify that value function to get a new, improved policy (\(\pi_{k+1}\)).
+    *   The proof behind Yinyu Ye's bound relies on an "elimination" argument. It shows that if you start with a sub-optimal policy, after roughly \(k^*\) iterations (where \(k^*\) is \(\approx \log(\text{factors } S \cdot A / (1 - \gamma))\)), there will be at least one state for which the action chosen by the initial policy will *never* be chosen again by subsequent iterates. Since there are a finite number of state-action pairs, and "bad" actions are progressively eliminated, this process must terminate after a finite number of such \(k^*\) blocks, leading to the overall bound.
+*   **Significance of \(1/(1-\gamma)\) Term**: This "planning horizon" term appears in many bounds for MDPs, including for Value Iteration and Policy Iteration. The question of whether this \(1/(1-\gamma)\) dependence is truly necessary (i.e., whether tighter bounds exist without it) is a "dedicated question" in the field.
+*   **Practical vs. Theoretical Implications**: While this breakthrough provides a strong theoretical guarantee for exact calculations, the speaker notes that in practice, "very rarely need exact calculation," and "approximate calculations are fine" due to the mild \(\log(1/\epsilon)\) dependence of Value Iteration. However, the result for Policy Iteration is still "pretty amazing".
 
 
 
@@ -926,32 +926,32 @@ Here are the key details and implications of this breakthrough:
 Here's a detailed explanation:
 
 *   **Role in Policy Evaluation**: In Policy Iteration, each step involves two main phases:
-    1.  **Policy Evaluation**: Given a current policy $\pi_k$, you need to compute its value function, $v_{\pi_k}$.
-    2.  **Policy Improvement**: Once $v_{\pi_k}$ is known, you greedily update the policy to $\pi_{k+1}$.
-    Matrix inversion comes into play during the Policy Evaluation phase. The value function $v_\pi$ for any given memoryless policy $\pi$ is the unique fixed point of its associated Bellman operator $T_\pi$ [My previous response]. This can be written as a **linear system of equations**:
-    $v_\pi = R_\pi + \gamma P_\pi v_\pi$ [My previous response].
+    1.  **Policy Evaluation**: Given a current policy \(\pi_k\), you need to compute its value function, \(v_{\pi_k}\).
+    2.  **Policy Improvement**: Once \(v_{\pi_k}\) is known, you greedily update the policy to \(\pi_{k+1}\).
+    Matrix inversion comes into play during the Policy Evaluation phase. The value function \(v_\pi\) for any given memoryless policy \(\pi\) is the unique fixed point of its associated Bellman operator \(T_\pi\) [My previous response]. This can be written as a **linear system of equations**:
+    \(v_\pi = R_\pi + \gamma P_\pi v_\pi\) [My previous response].
     Where:
-    *   $v_\pi$ is the vector of values for each state under policy $\pi$.
-    *   $R_\pi$ is the vector of immediate rewards when following policy $\pi$.
-    *   $\gamma$ is the discount factor.
-    *   $P_\pi$ is the stochastic matrix representing the transition probabilities when following policy $\pi$ [My previous response].
-    This linear system can be rearranged to directly solve for $v_\pi$:
-    $v_\pi = (I - \gamma P_\pi)^{-1} R_\pi$.
-    The term $(I - \gamma P_\pi)^{-1}$ signifies the need for **matrix inversion**.
+    *   \(v_\pi\) is the vector of values for each state under policy \(\pi\).
+    *   \(R_\pi\) is the vector of immediate rewards when following policy \(\pi\).
+    *   \(\gamma\) is the discount factor.
+    *   \(P_\pi\) is the stochastic matrix representing the transition probabilities when following policy \(\pi\) [My previous response].
+    This linear system can be rearranged to directly solve for \(v_\pi\):
+    \(v_\pi = (I - \gamma P_\pi)^{-1} R_\pi\).
+    The term \((I - \gamma P_\pi)^{-1}\) signifies the need for **matrix inversion**.
 
 *   **Computational Cost**:
-    *   Performing this matrix inversion for an $S \times S$ matrix (where $S$ is the number of states) is computationally intensive. Its cost typically scales with **$S^3$** (number of states cubed). Faster algorithms might reduce this to $S^{2.3...}$, but it remains a cubic or near-cubic operation with respect to the number of states.
-    *   This makes the *per-iteration cost* of Policy Iteration generally much higher than that of Value Iteration, which involves simpler finite computations for each state in an iteration, roughly scaling with $S \cdot A \cdot S'$ (states * actions * number of next states).
+    *   Performing this matrix inversion for an \(S \times S\) matrix (where \(S\) is the number of states) is computationally intensive. Its cost typically scales with **\(S^3\)** (number of states cubed). Faster algorithms might reduce this to \(S^{2.3...}\), but it remains a cubic or near-cubic operation with respect to the number of states.
+    *   This makes the *per-iteration cost* of Policy Iteration generally much higher than that of Value Iteration, which involves simpler finite computations for each state in an iteration, roughly scaling with \(S \cdot A \cdot S'\) (states * actions * number of next states).
 
 *   **Alternative to Matrix Inversion**:
-    *   Instead of directly inverting the matrix, you could **iteratively apply the $T_\pi$ operator** (i.e., $V_{k+1} = R_\pi + \gamma P_\pi V_k$) to find $v_\pi$ approximately. This would be an *approximate* way of solving the linear equation and might be faster if an exact solution for $v_\pi$ is not required.
+    *   Instead of directly inverting the matrix, you could **iteratively apply the \(T_\pi\) operator** (i.e., \(V_{k+1} = R_\pi + \gamma P_\pi V_k\)) to find \(v_\pi\) approximately. This would be an *approximate* way of solving the linear equation and might be faster if an exact solution for \(v_\pi\) is not required.
 
 *   **Significance in Policy Iteration Breakthrough**:
-    *   Despite the high per-iteration cost of matrix inversion, Yinyu Ye's breakthrough (with Ichiro Inan and Mengdi Wang in 2017) demonstrated that Policy Iteration, using these exact evaluations, requires **poly $S \cdot A / (1 - \gamma)$ iterations** to find an *exact* optimal policy, with **no dependence on $\epsilon$ (desired accuracy)**. This is "pretty amazing" because it contrasts with Value Iteration's $\log(1/\epsilon)$ dependence for approximate solutions.
+    *   Despite the high per-iteration cost of matrix inversion, Yinyu Ye's breakthrough (with Ichiro Inan and Mengdi Wang in 2017) demonstrated that Policy Iteration, using these exact evaluations, requires **poly \(S \cdot A / (1 - \gamma)\) iterations** to find an *exact* optimal policy, with **no dependence on \(\epsilon\) (desired accuracy)**. This is "pretty amazing" because it contrasts with Value Iteration's \(\log(1/\epsilon)\) dependence for approximate solutions.
     *   This means that for exact calculations, Policy Iteration, even with its expensive matrix inversion steps, offers a theoretically guaranteed polynomial time bound.
 
 *   **Practical Considerations**:
-    *   While theoretically significant for exact optimal policies, in practice, "very rarely need exact calculation," and "approximate calculations are fine". The mild $\log(1/\epsilon)$ dependence of Value Iteration makes it efficient for achieving good approximate solutions, often making it the preferred method for practical applications.
+    *   While theoretically significant for exact optimal policies, in practice, "very rarely need exact calculation," and "approximate calculations are fine". The mild \(\log(1/\epsilon)\) dependence of Value Iteration makes it efficient for achieving good approximate solutions, often making it the preferred method for practical applications.
 
 
 Comparing the runtime complexity of Policy Iteration (PI) and Value Iteration (VI) reveals distinct characteristics regarding their efficiency, especially concerning the need for exact versus approximate optimal policies.
@@ -963,104 +963,104 @@ Here's a breakdown:
 Policy Iteration is an algorithm that aims to find an **exact optimal policy**.
 
 *   **Iteration Complexity**:
-    *   The breakthrough by Yinyu Ye, Ichiro Inan, and Mengdi Wang (2017 unpublished paper) showed that Policy Iteration needs **polynomial in $S \cdot A / (1 - \gamma)$ iterations**.
-    *   This is a significant result because it means the algorithm can "stop and output an optimal policy" after this many iterations, with **no dependence on $\epsilon$ (desired accuracy)**. The absence of the $\log(1/\epsilon)$ term, typical for approximate methods, is considered "pretty amazing".
+    *   The breakthrough by Yinyu Ye, Ichiro Inan, and Mengdi Wang (2017 unpublished paper) showed that Policy Iteration needs **polynomial in \(S \cdot A / (1 - \gamma)\) iterations**.
+    *   This is a significant result because it means the algorithm can "stop and output an optimal policy" after this many iterations, with **no dependence on \(\epsilon\) (desired accuracy)**. The absence of the \(\log(1/\epsilon)\) term, typical for approximate methods, is considered "pretty amazing".
 *   **Computational Cost per Iteration**:
-    *   Each iteration of Policy Iteration involves **Policy Evaluation**, where the exact value function $v_{\pi_k}$ for the current policy $\pi_k$ must be computed.
-    *   This is typically done by solving a linear system of equations, which often requires **matrix inversion**: $v_\pi = (I - \gamma P_\pi)^{-1} R_\pi$ [My previous response, 17].
-    *   For an $S \times S$ matrix (where $S$ is the number of states), matrix inversion is computationally intensive, costing roughly **$S^3$** (or $S^{2.3...}$ with faster algorithms) operations. There is also an $S^2 A$ part involved in calculations.
+    *   Each iteration of Policy Iteration involves **Policy Evaluation**, where the exact value function \(v_{\pi_k}\) for the current policy \(\pi_k\) must be computed.
+    *   This is typically done by solving a linear system of equations, which often requires **matrix inversion**: \(v_\pi = (I - \gamma P_\pi)^{-1} R_\pi\) [My previous response, 17].
+    *   For an \(S \times S\) matrix (where \(S\) is the number of states), matrix inversion is computationally intensive, costing roughly **\(S^3\)** (or \(S^{2.3...}\) with faster algorithms) operations. There is also an \(S^2 A\) part involved in calculations.
 *   **Total Runtime Complexity**:
-    *   Combining the per-iteration cost with the iteration complexity, Policy Iteration's total runtime for exact optimal policies is roughly **$S^3 \cdot \text{poly}(S \cdot A / (1 - \gamma))$** [implied from 20].
+    *   Combining the per-iteration cost with the iteration complexity, Policy Iteration's total runtime for exact optimal policies is roughly **\(S^3 \cdot \text{poly}(S \cdot A / (1 - \gamma))\)** [implied from 20].
 
 ### Value Iteration (VI)
 
 Value Iteration is an algorithm primarily used to find an **approximately optimal policy**.
 
 *   **Iteration Complexity**:
-    *   Value Iteration converges to an $\epsilon$-accurate estimate of the optimal value function, $v^*$.
-    *   The number of iterations required for this is approximately **$\log(1/\epsilon) / \log(1/\gamma)$**.
-    *   The dependence on $\epsilon$ is logarithmic, referred to as a "geometric rate" or "very mild," meaning it's "not overly sensitive to the desired accuracy" for *approximate* solutions.
+    *   Value Iteration converges to an \(\epsilon\)-accurate estimate of the optimal value function, \(v^*\).
+    *   The number of iterations required for this is approximately **\(\log(1/\epsilon) / \log(1/\gamma)\)**.
+    *   The dependence on \(\epsilon\) is logarithmic, referred to as a "geometric rate" or "very mild," meaning it's "not overly sensitive to the desired accuracy" for *approximate* solutions.
     *   For *exact* optimal calculations, Value Iteration is "not good" and "can run indefinitely".
 *   **Computational Cost per Iteration**:
-    *   Each iteration of Value Iteration involves applying the Bellman optimality operator $T$ to the current value function estimate $V_k$: $V_{k+1} = T(V_k)$.
-    *   This involves a finite computation for every state. For each state, you perform calculations that involve the number of actions and the number of next states. This cost is roughly **$S \cdot A \cdot S'$** (where $S'$ is the number of possible next states, which can be up to $S$), often simplified to **$S \cdot A \cdot S$** or **$S^2 A$**.
+    *   Each iteration of Value Iteration involves applying the Bellman optimality operator \(T\) to the current value function estimate \(V_k\): \(V_{k+1} = T(V_k)\).
+    *   This involves a finite computation for every state. For each state, you perform calculations that involve the number of actions and the number of next states. This cost is roughly **\(S \cdot A \cdot S'\)** (where \(S'\) is the number of possible next states, which can be up to \(S\)), often simplified to **\(S \cdot A \cdot S\)** or **\(S^2 A\)**.
 *   **Total Runtime Complexity**:
-    *   The total computational complexity for Value Iteration to achieve an $\epsilon$-accurate solution is approximately **$S^2 A \cdot (\log(1/\epsilon) \cdot 1/(1-\gamma))$** [15, implied from 11]. Specifically, it has a "log one over epsilon dependence and it also has a one over one minus gamma dependence".
+    *   The total computational complexity for Value Iteration to achieve an \(\epsilon\)-accurate solution is approximately **\(S^2 A \cdot (\log(1/\epsilon) \cdot 1/(1-\gamma))\)** [15, implied from 11]. Specifically, it has a "log one over epsilon dependence and it also has a one over one minus gamma dependence".
 
 ### Comparison and Key Differences
 
 | Feature                 | Policy Iteration (PI)                                                | Value Iteration (VI)                                                      |
 | :---------------------- | :------------------------------------------------------------------- | :------------------------------------------------------------------------ |
 | **Goal**                | **Exact optimal policy**                              | **Approximately optimal policy**                                  |
-| **Iterations**          | Poly $S \cdot A / (1-\gamma)$                       | $\log(1/\epsilon) / \log(1/\gamma)$                                  |
-| **Per-Iteration Cost**  | High: Primarily due to **matrix inversion ($S^3$ or $S^{2.3...}$)** | Lower: Finite computations ($S^2 A$)                             |
-| **Dependence on $\epsilon$** | **None**                                              | **$\log(1/\epsilon)$** (mild/geometric rate)                           |
-| **Dependence on $1/(1-\gamma)$** | Present (polynomial)                                | Present (linear)                                                 |
-| **Practicality**        | Offers strong theoretical guarantee for exact solutions. | Preferred in practice for approximate solutions due to mild $\epsilon$ dependence. |
+| **Iterations**          | Poly \(S \cdot A / (1-\gamma)\)                       | \(\log(1/\epsilon) / \log(1/\gamma)\)                                  |
+| **Per-Iteration Cost**  | High: Primarily due to **matrix inversion (\(S^3\) or \(S^{2.3...}\))** | Lower: Finite computations (\(S^2 A\))                             |
+| **Dependence on \(\epsilon\)** | **None**                                              | **\(\log(1/\epsilon)\)** (mild/geometric rate)                           |
+| **Dependence on \(1/(1-\gamma)\)** | Present (polynomial)                                | Present (linear)                                                 |
+| **Practicality**        | Offers strong theoretical guarantee for exact solutions. | Preferred in practice for approximate solutions due to mild \(\epsilon\) dependence. |
 
-In summary, Policy Iteration guarantees finding an exact optimal policy in polynomial time, even though each step is computationally expensive due to matrix inversion. Value Iteration, on the other hand, is faster per iteration but only provides an approximate solution, with the number of iterations depending on the desired accuracy. The sources note that in practice, "very rarely need exact calculation," and "approximate calculations are fine" due to the mild $\log(1/\epsilon)$ dependence of Value Iteration.
+In summary, Policy Iteration guarantees finding an exact optimal policy in polynomial time, even though each step is computationally expensive due to matrix inversion. Value Iteration, on the other hand, is faster per iteration but only provides an approximate solution, with the number of iterations depending on the desired accuracy. The sources note that in practice, "very rarely need exact calculation," and "approximate calculations are fine" due to the mild \(\log(1/\epsilon)\) dependence of Value Iteration.
 
 
 Based on the provided sources and our conversation history, there is **no explicit proof for a "theorem that Runtime when Controlling for the Relative Error."**
 
-The sources discuss the runtime complexity of Value Iteration and Policy Iteration primarily in the context of achieving an **absolute error** ($\epsilon$) or an **exact optimal policy**.
+The sources discuss the runtime complexity of Value Iteration and Policy Iteration primarily in the context of achieving an **absolute error** (\(\epsilon\)) or an **exact optimal policy**.
 
-Specifically, when discussing the accuracy of Value Iteration, the convergence rates and iteration complexities are presented for achieving an $\epsilon$-accurate estimate of the optimal value function, where $\epsilon$ represents an absolute error. This means that the difference between the estimated value function and the true optimal value function is bounded by $\epsilon$ in the max norm. The runtime for this is proportional to $\log(1/\epsilon)$.
+Specifically, when discussing the accuracy of Value Iteration, the convergence rates and iteration complexities are presented for achieving an \(\epsilon\)-accurate estimate of the optimal value function, where \(\epsilon\) represents an absolute error. This means that the difference between the estimated value function and the true optimal value function is bounded by \(\epsilon\) in the max norm. The runtime for this is proportional to \(\log(1/\epsilon)\).
 
-The lecture briefly touches upon the concept of relative error at the end, stating that it is a "different question" and "much harder" to control for relative errors, nearly akin to demanding exact calculations. The speaker notes that if one is content with an "absolute epsilon" (e.g., $\epsilon=1$ being small compared to the maximum possible reward), then approximate calculations are "fine". However, no theorem or proof for achieving or bounding runtime for relative error is provided.
+The lecture briefly touches upon the concept of relative error at the end, stating that it is a "different question" and "much harder" to control for relative errors, nearly akin to demanding exact calculations. The speaker notes that if one is content with an "absolute epsilon" (e.g., \(\epsilon=1\) being small compared to the maximum possible reward), then approximate calculations are "fine". However, no theorem or proof for achieving or bounding runtime for relative error is provided.
 
 Therefore, while the sources discuss absolute error in detail, they do not offer the requested proof for runtime when controlling for relative error.
 
 
-When controlling for the absolute error ($\epsilon$) in Value Iteration, the runtime complexity for approximate planning can be derived by combining the per-iteration computational cost with the number of iterations required to achieve a desired accuracy. Value Iteration (VI) is primarily used to find an **approximately optimal policy** [1, My previous response].
+When controlling for the absolute error (\(\epsilon\)) in Value Iteration, the runtime complexity for approximate planning can be derived by combining the per-iteration computational cost with the number of iterations required to achieve a desired accuracy. Value Iteration (VI) is primarily used to find an **approximately optimal policy** [1, My previous response].
 
 Here's the derivation:
 
 ### 1. Value Iteration Process and Convergence
 
-*   Value Iteration begins with an arbitrary initialization, often setting $V_0$ to zero.
-*   In each subsequent iteration, the value function estimate $V_{k+1}$ is computed by applying the Bellman optimality operator $T$ to the previous estimate $V_k$: $\mathbf{V_{k+1} = T(V_k)}$.
-*   This process converges to the optimal value function $V^*$. This convergence is guaranteed by the **Banach Fixed-Point Theorem**, which applies because the Bellman optimality operator $T$ is a contraction mapping in the max-norm over a complete vector space.
+*   Value Iteration begins with an arbitrary initialization, often setting \(V_0\) to zero.
+*   In each subsequent iteration, the value function estimate \(V_{k+1}\) is computed by applying the Bellman optimality operator \(T\) to the previous estimate \(V_k\): \(\mathbf{V_{k+1} = T(V_k)}\).
+*   This process converges to the optimal value function \(V^*\). This convergence is guaranteed by the **Banach Fixed-Point Theorem**, which applies because the Bellman optimality operator \(T\) is a contraction mapping in the max-norm over a complete vector space.
 *   The convergence is **exponentially fast**, also described as a "geometric rate".
 
 ### 2. Error Bound per Iteration
 
-*   The error at iteration $k$ is typically bounded as: $\Vert V_k - V^* \Vert_{\max} \le \gamma^k \Vert V_0 - V^* \Vert_{\max}$ [implied by 10].
-*   If we initialize $V_0 = 0$, the error bound becomes $\Vert V_k - V^* \Vert_{\max} \le \gamma^k \Vert V^* \Vert_{\max}$.
-*   For a standard MDP where rewards $R(s,a,s')$ are normalized to be within $$, the value function for any policy, including the optimal one, is bounded. Specifically, $\Vert V^* \Vert_{\max} \le \frac{1}{1-\gamma}$. This is because the maximum possible sum of discounted rewards along any trajectory is $1 + \gamma + \gamma^2 + \dots = \frac{1}{1-\gamma}$.
-*   Combining these, the error after $k$ iterations is bounded by: $\mathbf{\Vert V_k - V^* \Vert_{\max} \le \gamma^k \frac{1}{1-\gamma}}$.
+*   The error at iteration \(k\) is typically bounded as: \(\Vert V_k - V^* \Vert_{\max} \le \gamma^k \Vert V_0 - V^* \Vert_{\max}\) [implied by 10].
+*   If we initialize \(V_0 = 0\), the error bound becomes \(\Vert V_k - V^* \Vert_{\max} \le \gamma^k \Vert V^* \Vert_{\max}\).
+*   For a standard MDP where rewards \(R(s,a,s')\) are normalized to be within $$, the value function for any policy, including the optimal one, is bounded. Specifically, \(\Vert V^* \Vert_{\max} \le \frac{1}{1-\gamma}\). This is because the maximum possible sum of discounted rewards along any trajectory is \(1 + \gamma + \gamma^2 + \dots = \frac{1}{1-\gamma}\).
+*   Combining these, the error after \(k\) iterations is bounded by: \(\mathbf{\Vert V_k - V^* \Vert_{\max} \le \gamma^k \frac{1}{1-\gamma}}\).
 
-### 3. Number of Iterations for $\epsilon$-Accuracy
+### 3. Number of Iterations for \(\epsilon\)-Accuracy
 
-*   To find the number of iterations ($k$) required for $V_k$ to be $\epsilon$-accurate (i.e., $\Vert V_k - V^* \Vert_{\max} \le \epsilon$), we set the error bound equal to $\epsilon$:
-    $\gamma^k \frac{1}{1-\gamma} \le \epsilon$.
-*   Solving for $k$:
-    $\gamma^k \le \epsilon (1-\gamma)$
-    $k \log(\gamma) \le \log(\epsilon (1-\gamma))$
-    Since $\gamma \in (0,1)$, $\log(\gamma)$ is negative. Dividing by $\log(\gamma)$ reverses the inequality:
-    $\mathbf{k \ge \frac{\log(\epsilon(1-\gamma))}{\log(\gamma)}}$.
-*   This can also be written as $\mathbf{k \ge \frac{\log(1/\epsilon) + \log(1/(1-\gamma))}{\log(1/\gamma)}}$ [derived from 11].
-*   The dependence on $\epsilon$ is logarithmic ($\log(1/\epsilon)$), which is considered "very mild" or a "geometric rate", meaning the algorithm is "not overly sensitive to the desired accuracy" for approximate solutions.
+*   To find the number of iterations (\(k\)) required for \(V_k\) to be \(\epsilon\)-accurate (i.e., \(\Vert V_k - V^* \Vert_{\max} \le \epsilon\)), we set the error bound equal to \(\epsilon\):
+    \(\gamma^k \frac{1}{1-\gamma} \le \epsilon\).
+*   Solving for \(k\):
+    \(\gamma^k \le \epsilon (1-\gamma)\)
+    \(k \log(\gamma) \le \log(\epsilon (1-\gamma))\)
+    Since \(\gamma \in (0,1)\), \(\log(\gamma)\) is negative. Dividing by \(\log(\gamma)\) reverses the inequality:
+    \(\mathbf{k \ge \frac{\log(\epsilon(1-\gamma))}{\log(\gamma)}}\).
+*   This can also be written as \(\mathbf{k \ge \frac{\log(1/\epsilon) + \log(1/(1-\gamma))}{\log(1/\gamma)}}\) [derived from 11].
+*   The dependence on \(\epsilon\) is logarithmic (\(\log(1/\epsilon)\)), which is considered "very mild" or a "geometric rate", meaning the algorithm is "not overly sensitive to the desired accuracy" for approximate solutions.
 
 ### 4. Computational Cost per Iteration
 
-*   Each iteration of Value Iteration involves computing $T(V_k)$ for all $S$ states.
-*   For each state, this requires considering all $A$ possible actions and summing over possible next states (up to $S$ next states in the worst case).
-*   Therefore, the computational cost per iteration is roughly $\mathbf{S \cdot A \cdot S}$ (or $S^2 A$).
+*   Each iteration of Value Iteration involves computing \(T(V_k)\) for all \(S\) states.
+*   For each state, this requires considering all \(A\) possible actions and summing over possible next states (up to \(S\) next states in the worst case).
+*   Therefore, the computational cost per iteration is roughly \(\mathbf{S \cdot A \cdot S}\) (or \(S^2 A\)).
 
 ### 5. Greedification and Policy Error
 
 *   The goal is not just an accurate value function but a **near-optimal policy**.
-*   After computing $V_k$ to be $\epsilon$-accurate, one obtains a policy $\pi_k$ by **greedifying** with respect to $V_k$. That is, for each state $s$, $\pi_k(s) = \operatorname{argmax}_a \{ R(s,a) + \gamma \sum_{s'} P(s'|s,a) V_k(s') \}$.
-*   The sources demonstrate that if $V_k$ is $\epsilon$-close to $V^*$ in max-norm, then the value function of the greedy policy, $V_{\pi_k}$, is near optimal, specifically: $\mathbf{V_{\pi_k} \ge V^* - \frac{\epsilon}{1-\gamma} \mathbf{1}}$.
-*   This means that the error in the policy's value function is proportional to $\epsilon$ but gets "multiplied by a one over one minus gamma". So, if you want your policy to be $\delta$-optimal, you need to ensure your value function $V_k$ is $(\delta(1-\gamma))$-accurate.
+*   After computing \(V_k\) to be \(\epsilon\)-accurate, one obtains a policy \(\pi_k\) by **greedifying** with respect to \(V_k\). That is, for each state \(s\), \(\pi_k(s) = \operatorname{argmax}_a \{ R(s,a) + \gamma \sum_{s'} P(s'|s,a) V_k(s') \}\).
+*   The sources demonstrate that if \(V_k\) is \(\epsilon\)-close to \(V^*\) in max-norm, then the value function of the greedy policy, \(V_{\pi_k}\), is near optimal, specifically: \(\mathbf{V_{\pi_k} \ge V^* - \frac{\epsilon}{1-\gamma} \mathbf{1}}\).
+*   This means that the error in the policy's value function is proportional to \(\epsilon\) but gets "multiplied by a one over one minus gamma". So, if you want your policy to be \(\delta\)-optimal, you need to ensure your value function \(V_k\) is \((\delta(1-\gamma))\)-accurate.
 
 ### 6. Total Runtime Complexity
 
-*   Combining the per-iteration cost ($S^2 A$) and the iteration count (proportional to $\frac{\log(1/\epsilon)}{1-\gamma}$), the total runtime complexity for Value Iteration to achieve an $\epsilon$-optimal policy is approximately:
-    $\mathbf{O\left( S^2 A \cdot \frac{\log(1/\epsilon)}{\log(1/\gamma)} \right)}$ [derived from 11, 15].
-    *   More precisely, substituting the full iteration bound for a $\delta$-optimal policy where $\delta = \frac{\epsilon}{1-\gamma}$:
-        $\mathbf{O\left( S^2 A \cdot \frac{\log(\epsilon)}{\log(\gamma)} + S^2 A \cdot \frac{\log(1/(1-\gamma))}{\log(\gamma)} \right)}$ [derived from 11, 15].
+*   Combining the per-iteration cost (\(S^2 A\)) and the iteration count (proportional to \(\frac{\log(1/\epsilon)}{1-\gamma}\)), the total runtime complexity for Value Iteration to achieve an \(\epsilon\)-optimal policy is approximately:
+    \(\mathbf{O\left( S^2 A \cdot \frac{\log(1/\epsilon)}{\log(1/\gamma)} \right)}\) [derived from 11, 15].
+    *   More precisely, substituting the full iteration bound for a \(\delta\)-optimal policy where \(\delta = \frac{\epsilon}{1-\gamma}\):
+        \(\mathbf{O\left( S^2 A \cdot \frac{\log(\epsilon)}{\log(\gamma)} + S^2 A \cdot \frac{\log(1/(1-\gamma))}{\log(\gamma)} \right)}\) [derived from 11, 15].
 *   This complexity "has a log one over epsilon dependence and it also has a one over one minus gamma dependence".
 
 ### Note on Relative Error
@@ -1072,17 +1072,17 @@ In the context of approximate planning with Value Iteration and Policy Iteration
 
 Here's a detailed explanation:
 
-*   **The Fundamental Theorem of MDPs and Greedy Policies:** The core reason for favoring deterministic policies lies in the fundamental theorem concerning optimal policies in MDPs. This theorem states that if you have a policy $\pi$ that is **memoryless and greedy with respect to the optimal value function ($V^*$)**, then this policy $\pi$ is itself an optimal policy. A greedy policy, by its very definition, involves **selecting the action that maximizes the one-step look-ahead Bellman optimality equation**. This maximization process inherently leads to a deterministic choice of action for each state. If there are multiple actions that yield the same maximal value, choosing any one of them deterministically is sufficient.
-    *   The Bellman optimality operator $T$ is defined with a $\max_a$ operation: $T(V)(s) = \max_a \left( R(s,a) + \gamma \sum_{s'} P(s'|s,a) V(s') \right)$. This operator's very structure dictates that the optimal decision involves picking the single best action (or one of the best actions if there's a tie) in each state, thereby producing a deterministic policy.
+*   **The Fundamental Theorem of MDPs and Greedy Policies:** The core reason for favoring deterministic policies lies in the fundamental theorem concerning optimal policies in MDPs. This theorem states that if you have a policy \(\pi\) that is **memoryless and greedy with respect to the optimal value function (\(V^*\))**, then this policy \(\pi\) is itself an optimal policy. A greedy policy, by its very definition, involves **selecting the action that maximizes the one-step look-ahead Bellman optimality equation**. This maximization process inherently leads to a deterministic choice of action for each state. If there are multiple actions that yield the same maximal value, choosing any one of them deterministically is sufficient.
+    *   The Bellman optimality operator \(T\) is defined with a \(\max_a\) operation: \(T(V)(s) = \max_a \left( R(s,a) + \gamma \sum_{s'} P(s'|s,a) V(s') \right)\). This operator's very structure dictates that the optimal decision involves picking the single best action (or one of the best actions if there's a tie) in each state, thereby producing a deterministic policy.
 
-*   **Sufficiency of Deterministic Policies for Optimality:** Since a policy that is greedy with respect to $V^*$ is guaranteed to be optimal, and a greedy policy is inherently deterministic, **there is no benefit in considering non-deterministic policies for achieving the optimal value function**. Introducing randomness (non-determinism) into action selection when a specific action (or set of tied actions) is known to yield the maximal expected future return does not improve performance and is therefore redundant for optimality.
+*   **Sufficiency of Deterministic Policies for Optimality:** Since a policy that is greedy with respect to \(V^*\) is guaranteed to be optimal, and a greedy policy is inherently deterministic, **there is no benefit in considering non-deterministic policies for achieving the optimal value function**. Introducing randomness (non-determinism) into action selection when a specific action (or set of tied actions) is known to yield the maximal expected future return does not improve performance and is therefore redundant for optimality.
 
 *   **Simplification in Policy Iteration:** Policy Iteration (PI) works by iteratively improving policies. A key step in each iteration of PI is to "greedify" with respect to the value function of the current policy. As established, this greedification process naturally yields a deterministic policy for the next iteration. The sources explicitly confirm that for Policy Iteration, it's appropriate to "let these be deterministic policies because otherwise we we go nuts and like it's unnecessary to consider non-deterministic policies ever in this setting". This highlights that considering non-deterministic policies would add unnecessary complexity to the algorithm and its analysis without providing any corresponding advantage in finding optimal solutions.
 
 In essence, the "uselessness" of non-deterministic policies in this scenario stems from the fact that **the search for an optimal policy can be entirely confined to the space of deterministic, memoryless policies** due to the properties of the Bellman optimality principle. Any non-deterministic policy can be "converted" into an equally (or more) optimal deterministic policy by simply choosing the best action in each state.
 
 
-The best lower bound mentioned in the sources for the computational complexity of finding optimal policies in finite Markov Decision Processes (MDPs) is **$S^2 A$**.
+The best lower bound mentioned in the sources for the computational complexity of finding optimal policies in finite Markov Decision Processes (MDPs) is **\(S^2 A\)**.
 
 This lower bound comes from an unpublished paper by Ichinose, Chandrasekaran, and Wong from 2017. It applies specifically to scenarios where you need to perform **exact calculations** to find an optimal policy, without approximations.
 
@@ -1101,14 +1101,14 @@ Here's a breakdown of the scenario and reasoning behind this lower bound:
     *   A randomized algorithm that achieves this would require approximately `S/2` reads for each state-action pair, meaning you effectively need to check a significant portion of all `S * A` possibilities.
 
 *   **Implications of the Lower Bound**:
-    *   This $S^2 A$ lower bound is notable because, unlike some of the upper bounds for Policy Iteration (which is designed for exact calculations), it **does not include a $1/(1-\gamma)$ dependence**. This quantity, $1/(1-\gamma)$, often appears in upper bounds and is related to the effective planning horizon in discounted MDPs.
-    *   The existence of this lower bound implies that if one requires an **optimal action for *every* state** (meaning you must "write at least S values" as output), then there is no way to perform fewer calculations than this $S^2 A$ scale.
+    *   This \(S^2 A\) lower bound is notable because, unlike some of the upper bounds for Policy Iteration (which is designed for exact calculations), it **does not include a \(1/(1-\gamma)\) dependence**. This quantity, \(1/(1-\gamma)\), often appears in upper bounds and is related to the effective planning horizon in discounted MDPs.
+    *   The existence of this lower bound implies that if one requires an **optimal action for *every* state** (meaning you must "write at least S values" as output), then there is no way to perform fewer calculations than this \(S^2 A\) scale.
     *   The speaker notes that the exact polynomial dependence on `S`, `A`, and `1/(1-gamma)` in various algorithms (including Policy Iteration) is a "very delicate question".
     *   However, if the problem can be modified such that you don't need to find an optimal policy for all states (e.g., only for a specific starting state), it might be possible to reduce the dependence on the number of states `S`.
 
 
 
-The derivation of the $S^2 A$ lower bound for finding optimal policies in finite MDPs relies on a specific, carefully constructed problem that exposes the minimum computational effort required. The key dependencies or assumptions in this argument are:
+The derivation of the \(S^2 A\) lower bound for finding optimal policies in finite MDPs relies on a specific, carefully constructed problem that exposes the minimum computational effort required. The key dependencies or assumptions in this argument are:
 
 *   **A Specific MDP Construction**: The argument uses an MDP with `S-2` regular states, plus two special states: "heaven" and "hell".
     *   In each of the `S-2` regular states, there are `A` possible actions.
@@ -1118,31 +1118,31 @@ The derivation of the $S^2 A$ lower bound for finding optimal policies in finite
 *   **The "Reading" Problem**: To identify the optimal action in each state, one effectively needs to **"read the whole table of S-square A transition probabilities"**. This is because:
     *   The optimal action for a given state is the one that leads to "heaven".
     *   To discover which action leads to "heaven," you must inspect the transition probabilities for each state-action pair.
-    *   This is likened to searching an array: you cannot determine the optimal action without examining a significant portion of the `S * A` possibilities. A randomized algorithm for this problem would require approximately `S/2` reads for each state-action pair, leading to the $S^2 A$ lower bound.
+    *   This is likened to searching an array: you cannot determine the optimal action without examining a significant portion of the `S * A` possibilities. A randomized algorithm for this problem would require approximately `S/2` reads for each state-action pair, leading to the \(S^2 A\) lower bound.
 
-*   **Requirement for an Optimal Policy at *Every* State**: A crucial dependency for this $S^2 A$ lower bound is the requirement to find an optimal policy, meaning you must identify the **optimal action for *every* state**.
+*   **Requirement for an Optimal Policy at *Every* State**: A crucial dependency for this \(S^2 A\) lower bound is the requirement to find an optimal policy, meaning you must identify the **optimal action for *every* state**.
     *   This implies that the output of the algorithm must "write at least S values" (one for each state).
-    *   If this requirement were relaxed, for instance, if only an optimal action for a *specific starting state* was needed, it might be possible to reduce the dependency on the number of states `S`. However, as the problem is formulated for this lower bound, the output itself requires a minimum of `S` operations, leading to the overall $S^2 A$ complexity.
+    *   If this requirement were relaxed, for instance, if only an optimal action for a *specific starting state* was needed, it might be possible to reduce the dependency on the number of states `S`. However, as the problem is formulated for this lower bound, the output itself requires a minimum of `S` operations, leading to the overall \(S^2 A\) complexity.
 
-The argument highlights that to guarantee finding the optimal action across all states, an algorithm inherently must "look at all the states in this set of s-2 possible states". This is why the $S^2 A$ lower bound does not include the $1/(1-\gamma)$ term, which is typically associated with the planning horizon in discounted MDPs and often appears in the upper bounds of algorithms like Policy Iteration for exact calculations.
+The argument highlights that to guarantee finding the optimal action across all states, an algorithm inherently must "look at all the states in this set of s-2 possible states". This is why the \(S^2 A\) lower bound does not include the \(1/(1-\gamma)\) term, which is typically associated with the planning horizon in discounted MDPs and often appears in the upper bounds of algorithms like Policy Iteration for exact calculations.
 
 
 
 Our conversation has touched upon the core aspects of deterministic policies, Policy Iteration (PI), Value Iteration (VI), and computational complexity. However, delving deeper into the provided sources reveals several nuanced insights that enhance our understanding:
 
-*   **The Practicality of Deterministic Policies:** Beyond merely being "unnecessary" for optimality, considering non-deterministic policies would make the theoretical and algorithmic framework significantly more complex, as the lecturer states, "otherwise we we go nuts". The entire structure of the Bellman optimality operator, with its $\max_a$ operation, inherently drives towards deterministic choices, simplifying analysis and algorithm design. The proofs of the fundamental theorem and the convergence of PI and VI implicitly rely on this simplification.
+*   **The Practicality of Deterministic Policies:** Beyond merely being "unnecessary" for optimality, considering non-deterministic policies would make the theoretical and algorithmic framework significantly more complex, as the lecturer states, "otherwise we we go nuts". The entire structure of the Bellman optimality operator, with its \(\max_a\) operation, inherently drives towards deterministic choices, simplifying analysis and algorithm design. The proofs of the fundamental theorem and the convergence of PI and VI implicitly rely on this simplification.
 
-*   **Policy Iteration's Unique Convergence Mechanism ("Elimination"):** While Value Iteration converges by iteratively refining value functions, Policy Iteration has a distinct "elimination" property. A key part of its convergence proof demonstrates that if you start with a non-optimal policy, after a certain number of iterations ($K^*$, roughly $\log \text{factors } SA / (1-\gamma)$), there exists at least one state where the action chosen by the initial non-optimal policy will **never be chosen again** by subsequent iterates. This mechanism implies that PI effectively "crosses out" suboptimal actions, systematically narrowing down the choices until only optimal ones remain.
+*   **Policy Iteration's Unique Convergence Mechanism ("Elimination"):** While Value Iteration converges by iteratively refining value functions, Policy Iteration has a distinct "elimination" property. A key part of its convergence proof demonstrates that if you start with a non-optimal policy, after a certain number of iterations (\(K^*\), roughly \(\log \text{factors } SA / (1-\gamma)\)), there exists at least one state where the action chosen by the initial non-optimal policy will **never be chosen again** by subsequent iterates. This mechanism implies that PI effectively "crosses out" suboptimal actions, systematically narrowing down the choices until only optimal ones remain.
 
-*   **Value Iteration's Limitation for *Exact* Calculation:** Although Value Iteration converges geometrically fast for approximate solutions (with a desirable $\log(1/\epsilon)$ dependence on accuracy), it is **"not good for exact calculation"**. This is because it's possible to construct scenarios where the value differences between actions become infinitesimally small, making the final convergence to the *exact* optimal policy take an "arbitrary large amount of time". This highlights a crucial distinction between VI (best for approximate optimality) and PI (capable of exact optimality).
+*   **Value Iteration's Limitation for *Exact* Calculation:** Although Value Iteration converges geometrically fast for approximate solutions (with a desirable \(\log(1/\epsilon)\) dependence on accuracy), it is **"not good for exact calculation"**. This is because it's possible to construct scenarios where the value differences between actions become infinitesimally small, making the final convergence to the *exact* optimal policy take an "arbitrary large amount of time". This highlights a crucial distinction between VI (best for approximate optimality) and PI (capable of exact optimality).
 
-*   **The "Delicate Question" of Computational Dependence:** The precise polynomial dependence of algorithms on parameters like the number of states ($S$), actions ($A$), and the discount factor's inverse planning horizon ($1/(1-\gamma)$) is a "very delicate question". This implies that while upper and lower bounds exist, finding the *tightest* possible bounds remains an active area of research and is not fully settled. The repeated appearance of $1/(1-\gamma)$ in upper bounds is "curious," and whether its presence is truly inherent to the problem's complexity or an artifact of current analyses is part of this "delicate question".
+*   **The "Delicate Question" of Computational Dependence:** The precise polynomial dependence of algorithms on parameters like the number of states (\(S\)), actions (\(A\)), and the discount factor's inverse planning horizon (\(1/(1-\gamma)\)) is a "very delicate question". This implies that while upper and lower bounds exist, finding the *tightest* possible bounds remains an active area of research and is not fully settled. The repeated appearance of \(1/(1-\gamma)\) in upper bounds is "curious," and whether its presence is truly inherent to the problem's complexity or an artifact of current analyses is part of this "delicate question".
 
-*   **The Absence of $1/(1-\gamma)$ in the Lower Bound's Implication:** The $S^2 A$ lower bound is significant because, unlike many upper bounds, it **does not contain the $1/(1-\gamma)$ term**. This suggests that for the specific problem of finding an optimal action for *every* state (which is the basis of this lower bound), the minimum computational cost is primarily dictated by the sheer size of the state-action space that *must* be examined to locate the "heaven" transitions, rather than the planning horizon imposed by the discount factor. This implies a fundamental cost irrespective of how heavily discounted future rewards are.
+*   **The Absence of \(1/(1-\gamma)\) in the Lower Bound's Implication:** The \(S^2 A\) lower bound is significant because, unlike many upper bounds, it **does not contain the \(1/(1-\gamma)\) term**. This suggests that for the specific problem of finding an optimal action for *every* state (which is the basis of this lower bound), the minimum computational cost is primarily dictated by the sheer size of the state-action space that *must* be examined to locate the "heaven" transitions, rather than the planning horizon imposed by the discount factor. This implies a fundamental cost irrespective of how heavily discounted future rewards are.
 
-*   **Context for "Exact" vs. "Approximate" Solutions:** The lecturer offers a practical perspective on the need for exact solutions, stating that "very rarely need exact calculation" in real-world applications, and that practitioners "should be happy with approximate" solutions if the absolute error $\epsilon$ is small relative to the expected rewards or values. This underscores that theoretical exactness, while important for foundational understanding, may not always be the practical objective.
+*   **Context for "Exact" vs. "Approximate" Solutions:** The lecturer offers a practical perspective on the need for exact solutions, stating that "very rarely need exact calculation" in real-world applications, and that practitioners "should be happy with approximate" solutions if the absolute error \(\epsilon\) is small relative to the expected rewards or values. This underscores that theoretical exactness, while important for foundational understanding, may not always be the practical objective.
 
-*   **Fixed Number of States Exception:** For MDPs with a small, fixed number of states, one could theoretically enumerate all $A^S$ possible deterministic policies. In this specific case, it's possible to find the optimal policy and its value function independent of the $1/(1-\gamma)$ term, by simply calculating the value for each policy and choosing the best. This contrasts with scenarios where $S$ is large, requiring more sophisticated algorithmic approaches whose complexity often *does* depend on $1/(1-\gamma)$.
+*   **Fixed Number of States Exception:** For MDPs with a small, fixed number of states, one could theoretically enumerate all \(A^S\) possible deterministic policies. In this specific case, it's possible to find the optimal policy and its value function independent of the \(1/(1-\gamma)\) term, by simply calculating the value for each policy and choosing the best. This contrasts with scenarios where \(S\) is large, requiring more sophisticated algorithmic approaches whose complexity often *does* depend on \(1/(1-\gamma)\).
 
 
 

@@ -42,18 +42,18 @@ The partial order ≤ᴴ (“hermeneutic plausibility”) states that material i
 | --------------- | ----------------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------- |
 | S, A            | finite state and action sets;                         |                                                                  |                                       |
 | (P(s'           | s,a))                                                 | transition probability, ∑ₛ′ = 1                                  | stored as SA rows; size matters later |
-| $R(s,a)$        | expected one‑step reward (real‑valued)                | can be negative                                                  |                                       |
-| $\gamma$        | discount factor; horizon $H=1/(1-\gamma)$             | γ ↗ 1 ⇒ long horizon                                             |                                       |
+| \(R(s,a)\)        | expected one‑step reward (real‑valued)                | can be negative                                                  |                                       |
+| \(\gamma\)        | discount factor; horizon \(H=1/(1-\gamma)\)             | γ ↗ 1 ⇒ long horizon                                             |                                       |
 | Policy π        | mapping S→Δ(A); deterministic if single action chosen | **vertices** of the value polytope                               |                                       |
-| $P_\pi,\,r_\pi$ | Markov kernel and reward vector induced by π          |                                                                  |                                       |
-| $V^\pi$         | unique solution of $\;(I-\gamma P_\pi)V=r_\pi$        | also $V^\pi(s)=\mathbb E_\pi\!\bigl[\sum_{t≥0}\gamma^tR_t\bigr]$ |                                       |
-| $Q^\pi(s,a)$    | (R(s,a)+\gamma\sum\_{s'}P(s'                          | s,a)V^\pi(s'))                                                   |                                       |
-| $V^*$           | $\max_\pi V^\pi$ (component‑wise)                     | sits at a polytope corner                                        |                                       |
-| $\|v\|_\infty$  | max norm on ℝ^S                                       | only norm that keeps Bellman maps non‑expansive                  |                                       |
-| span(v)         | $\max_s v(s)-\min_s v(s)$                             | ties to *mixing rate*                                            |                                       |
+| \(P_\pi,\,r_\pi\) | Markov kernel and reward vector induced by π          |                                                                  |                                       |
+| \(V^\pi\)         | unique solution of \(\;(I-\gamma P_\pi)V=r_\pi\)        | also \(V^\pi(s)=\mathbb E_\pi\!\bigl[\sum_{t≥0}\gamma^tR_t\bigr]\) |                                       |
+| \(Q^\pi(s,a)\)    | (R(s,a)+\gamma\sum\_{s'}P(s'                          | s,a)V^\pi(s'))                                                   |                                       |
+| \(V^*\)           | \(\max_\pi V^\pi\) (component‑wise)                     | sits at a polytope corner                                        |                                       |
+| \(\|v\|_\infty\)  | max norm on ℝ^S                                       | only norm that keeps Bellman maps non‑expansive                  |                                       |
+| span(v)         | \(\max_s v(s)-\min_s v(s)\)                             | ties to *mixing rate*                                            |                                       |
 
 **Normalization lemma (average reward).**
-$(1-\gamma)V^\pi$ stays O(1) as γ→1 and converges to the bias function $w^\pi$.
+\((1-\gamma)V^\pi\) stays O(1) as γ→1 and converges to the bias function \(w^\pi\).
 
 ---
 
@@ -69,7 +69,7 @@ $$
 \mathcal V = \{\,V^\pi\mid\pi\in\Pi_{\text{stat}}\}\subset\mathbb R^S
 $$
 
-is a **convex polytope**; its extreme points are precisely the $V^{π_d}$ of deterministic, memoryless policies (Dabashi, Dale & Mossel, 2021).
+is a **convex polytope**; its extreme points are precisely the \(V^{π_d}\) of deterministic, memoryless policies (Dabashi, Dale & Mossel, 2021).
 
 *Proof (complete).*
 Map every π to its **discounted occupancy measure**
@@ -78,18 +78,18 @@ $$
 d_\pi(s,a)=(1-\gamma)\sum_{t\ge0}\gamma^t\Pr_\pi[s_t=s,a_t=a].
 $$
 
-The feasible $d$-vectors form a simplex defined by linear “flow” constraints.
-$V^\pi = \frac1{1-\gamma}\sum_a d_\pi(s,a)$ is linear in d; linear images of a simplex are convex polytopes, and vertices map to vertices (deterministic π).
+The feasible \(d\)-vectors form a simplex defined by linear “flow” constraints.
+\(V^\pi = \frac1{1-\gamma}\sum_a d_\pi(s,a)\) is linear in d; linear images of a simplex are convex polytopes, and vertices map to vertices (deterministic π).
 
 ### 2.2 Minimum‑enclosing rectangle (MER)
 
-Upper‑right corner = $V^*$.
+Upper‑right corner = \(V^*\).
 Lower‑left = cost‑optimal analogue.
-Every $V^\pi$ lies inside.
+Every \(V^\pi\) lies inside.
 
 ### 2.3 Span & mixing
 
-$\operatorname{span}(V^π)$ remains bounded in “easy” MDPs and explodes in “hot” instances; in the γ→1 limit it controls average‑reward complexity.
+\(\operatorname{span}(V^π)\) remains bounded in “easy” MDPs and explodes in “hot” instances; in the γ→1 limit it controls average‑reward complexity.
 
 ### 2.4 Illustrative micro‑example (5‑state chain)
 
@@ -108,8 +108,8 @@ T(v)(s)=\max_{a}\bigl[ R(s,a)+\gamma\sum_{s'}P(s'|s,a)v(s')\bigr] ,\qquad
 \|T(v)-T(w)\|_\infty\le\gamma\|v-w\|_\infty.
 $$
 
-Hence $T$ has a unique fixed point $V^*$ and
-$\|T^k(v_0)-V^*\|_\infty\le\gamma^k\|v_0-V^*\|_\infty$.
+Hence \(T\) has a unique fixed point \(V^*\) and
+\(\|T^k(v_0)-V^*\|_\infty\le\gamma^k\|v_0-V^*\|_\infty\).
 
 ### 3.2 Value‑difference identity
 
@@ -131,7 +131,7 @@ $$
 $$
 
 *Proof.*
-Using the identity with π=π\_g and v, bound the residual $T(v)-v$ by γ‖v−V^\*‖ and multiply by operator norm 1/(1−γ).  A mirror bound gives the factor 2.
+Using the identity with π=π\_g and v, bound the residual \(T(v)-v\) by γ‖v−V^\*‖ and multiply by operator norm 1/(1−γ).  A mirror bound gives the factor 2.
 
 ---
 
@@ -171,7 +171,7 @@ while True:
 
 ### 4.3 Finite‑horizon backward induction (n‑step evaluation)
 
-Set $V_H≡0$.  For $t=H-1,…,0$
+Set \(V_H≡0\).  For \(t=H-1,…,0\)
 
 $$
 V_t(s)=\max_a\bigl[R(s,a)+\sum_{s'}P(s'|s,a)V_{t+1}(s')\bigr].
@@ -186,7 +186,7 @@ Outputs optimal π₀,…,π\_{H-1}.
 
 ### 4.5 Concrete “Heaven‑and‑Hell” lower‑bound MDP
 
-States = $h,n_1,…,n_{S-2},x$; two actions; rewards h = +1, x = 0.
+States = \(h,n_1,…,n_{S-2},x\); two actions; rewards h = +1, x = 0.
 Flipping a single probability entry in P swaps the optimal choice in exactly one state; any planner must read it ⇒ Ω(SA) table inspections.
 
 ---
@@ -204,7 +204,7 @@ Flipping a single probability entry in P swaps the optimal choice in exactly one
 
 | Algorithm         | per‑iter ops | # iters     | Total (RAM)                            |
 | ----------------- | ------------ | ----------- | -------------------------------------- |
-| VI                | θ(S²A)       | $H\ln(1/ε)$ | θ(S²A H log(1/ε))                      |
+| VI                | θ(S²A)       | \(H\ln(1/ε)\) | θ(S²A H log(1/ε))                      |
 | PI (dense solve)  | θ(S³+SA)     | ≤SA         | θ(S⁴A) = θ(S⁴A H) if P ill‑conditioned |
 | Finite‑horizon DP | θ(S²A·H)     | 1 pass      | θ(S²A H)                               |
 
@@ -215,8 +215,8 @@ Because PI finds an *exact* optimum in ≤SA iterations, no valid lower bound ca
 
 ### 5.4 Vanishing‑discount / average‑reward limit
 
-Multiply by (1‑γ): $(1-γ)V^\pi$ stays bounded; as γ→1 it tends to bias $w^\pi$ solving Poisson equation
-$w^\pi=r_\pi-ρ^\pi+P_\pi w^\pi$.
+Multiply by (1‑γ): \((1-γ)V^\pi\) stays bounded; as γ→1 it tends to bias \(w^\pi\) solving Poisson equation
+\(w^\pi=r_\pi-ρ^\pi+P_\pi w^\pi\).
 
 Open problem: prove matching lower bound Ω(SA·mixing‑time) in the average‑reward model.
 
@@ -248,7 +248,7 @@ Lower bound stuck at 2.  Analogy: improving *upper* bounds is easier than provin
 
 1. **Span‑aware lower bound.** Show Ω(SA·span/ε).
 2. **Iterative linear solvers in PI** with provable monotone improvement and o(S³) solve time.
-3. **Function‑approximation sensitivity bound** extending Thm 3.3 to $V\approxΨw$.
+3. **Function‑approximation sensitivity bound** extending Thm 3.3 to \(V\approxΨw\).
 4. **Average‑reward complexity** replacing H by mixing‐time.
 5. **Bit‑model tight bounds** unifying RAM/TM analyses.
 

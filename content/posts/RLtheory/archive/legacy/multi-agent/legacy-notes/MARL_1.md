@@ -107,7 +107,7 @@ Discuss key challenges in MARL, such as the non-stationarity and equilibrium sel
 ### 2  How Multi‑Agent Reinforcement Learning (MARL) operates inside a MAS
 
 1. **Interaction loop (Figure 1.3).**
-   Each timestep the agents observe $o^{1..N}$, pick individual actions $a^{1..N}$. The *joint action* drives the environment to a new state via its transition dynamics; each agent then receives its own reward and next observation. Episodes of such experience populate a replay buffer used to update the policies by trial‑and‑error optimisation of expected return .
+   Each timestep the agents observe \(o^{1..N}\), pick individual actions \(a^{1..N}\). The *joint action* drives the environment to a new state via its transition dynamics; each agent then receives its own reward and next observation. Episodes of such experience populate a replay buffer used to update the policies by trial‑and‑error optimisation of expected return .
 
 2. **Training / execution architectures.**
    *Centralised training & execution*, *fully decentralised*, and the dominant compromise **centralised training with decentralised execution (CTDE)** are distinguished by what information is shared and when. CTDE leverages full state information for a *central critic* during learning but produces lightweight policies that rely only on local observations at run‑time .
@@ -457,10 +457,10 @@ At its most basic, the chapter states that **a MAS is defined by three pillars**
 
 The chapter illustrates the MAS cycle with Figure 1.1 and Figure 1.3:
 
-1. **Observation** – At time t each agent i receives an observation $o_t^i$ drawn from its observation function (possibly partial and noisy).
-2. **Action selection** – Each agent feeds its observation (and possibly past observations) into its policy $\pi_i$ to pick an action $a_t^i$.
-3. **Joint impact** – The environment applies the *joint* action $a_t = (a_t^1,\ldots,a_t^N)$ to transition to a new state according to its dynamics.&#x20;
-4. **Reward & new observation** – Every agent receives its time‑step reward $r_t^i$ plus a fresh observation $o_{t+1}^i$; the loop repeats until an episode terminates.&#x20;
+1. **Observation** – At time t each agent i receives an observation \(o_t^i\) drawn from its observation function (possibly partial and noisy).
+2. **Action selection** – Each agent feeds its observation (and possibly past observations) into its policy \(\pi_i\) to pick an action \(a_t^i\).
+3. **Joint impact** – The environment applies the *joint* action \(a_t = (a_t^1,\ldots,a_t^N)\) to transition to a new state according to its dynamics.&#x20;
+4. **Reward & new observation** – Every agent receives its time‑step reward \(r_t^i\) plus a fresh observation \(o_{t+1}^i\); the loop repeats until an episode terminates.&#x20;
 
 Because rewards depend on the *joint* action, an individual agent’s optimal choice usually depends on what the others will do—this coupling is the hallmark of multi‑agent learning.
 

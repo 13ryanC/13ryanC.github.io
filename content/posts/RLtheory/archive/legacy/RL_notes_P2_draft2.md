@@ -46,28 +46,28 @@ Here's the mathematics behind it:
 *   **The Game Setup**:
     *   A fair coin is flipped repeatedly.
     *   The game continues until a head appears for the first time.
-    *   The **payout** is determined by which flip ($k$) the first head appears on:
-        *   If the first head is on the 1st flip ($k=1$), the player receives **$1** (which is $2^{1-1}$ or $2^0$).
-        *   If the first head is on the 2nd flip ($k=2$), the player receives **$2** (which is $2^{2-1}$ or $2^1$).
-        *   If the first head is on the 3rd flip ($k=3$), the player receives **$4** (which is $2^{3-1}$ or $2^2$).
-        *   In general, if the first head appears on the $k$-th flip, the player receives **$2^{k-1}$ dollars**.
+    *   The **payout** is determined by which flip (\(k\)) the first head appears on:
+        *   If the first head is on the 1st flip (\(k=1\)), the player receives **\(1** (which is \)2^{1-1}\( or \)2^0$).
+        *   If the first head is on the 2nd flip (\(k=2\)), the player receives **\(2** (which is \)2^{2-1}\( or \)2^1$).
+        *   If the first head is on the 3rd flip (\(k=3\)), the player receives **\(4** (which is \)2^{3-1}\( or \)2^2$).
+        *   In general, if the first head appears on the \(k\)-th flip, the player receives **\(2^{k-1}\) dollars**.
 
 *   **Calculating the Expected Value**:
-    *   The **probability** of the first head appearing on the $k$-th flip (meaning $k-1$ tails followed by one head) is $(1/2)^k$ or $1/2^k$. This is because each flip is independent, and the probability of a tail is $1/2$ and a head is $1/2$.
-    *   The **expected reward** for each possible outcome ($k$) is the probability of that outcome multiplied by its corresponding reward.
-    *   To find the **total expected value** (E) of the game, you sum the expected reward for all possible values of $k$ from 1 to infinity:
+    *   The **probability** of the first head appearing on the \(k\)-th flip (meaning \(k-1\) tails followed by one head) is \((1/2)^k\) or \(1/2^k\). This is because each flip is independent, and the probability of a tail is \(1/2\) and a head is \(1/2\).
+    *   The **expected reward** for each possible outcome (\(k\)) is the probability of that outcome multiplied by its corresponding reward.
+    *   To find the **total expected value** (E) of the game, you sum the expected reward for all possible values of \(k\) from 1 to infinity:
         $$ E = \sum_{k=1}^{\infty} \left( \text{Probability of head on k-th flip} \times \text{Reward for head on k-th flip} \right) $$
         $$ E = \sum_{k=1}^{\infty} \left( \frac{1}{2^k} \times 2^{k-1} \right) $$
     *   Let's simplify the term inside the summation:
         $$ \frac{1}{2^k} \times 2^{k-1} = \frac{1}{2^k} \times \frac{2^k}{2^1} = \frac{1}{2} $$
     *   So, the summation becomes:
         $$ E = \sum_{k=1}^{\infty} \frac{1}{2} $$
-    *   This is an infinite sum of $1/2$, which means the **expected value of the game is infinity**.
+    *   This is an infinite sum of \(1/2\), which means the **expected value of the game is infinity**.
 
 *   **The Paradox and Discussion**:
     *   Despite the mathematical expectation of an infinite return, people are generally **unwilling to pay a very large amount** (e.g., millions or billions of dollars) to play this game.
     *   The poll results reflected this: while 7 out of 15 votes were for "hundred plus" dollars, indicating some consideration for the high potential, other significant portions voted for much lower amounts like "less than one dollar" or "one to two dollars".
-    *   Those who voted for lower amounts often adopted a **worst-case analysis** or were **risk-averse**, focusing on the high probability of the game ending quickly with a small payout. For instance, there's a 50% chance of getting only $1 on the first flip, and a 75% chance of getting $2 or less within the first two flips.
+    *   Those who voted for lower amounts often adopted a **worst-case analysis** or were **risk-averse**, focusing on the high probability of the game ending quickly with a small payout. For instance, there's a 50% chance of getting only \(1 on the first flip, and a 75% chance of getting \)2 or less within the first two flips.
     *   The paradox highlights that **"just going for the expected return may not be the best thing"**. The distribution of returns is "very skewed," meaning there's a "very small probability of very large rewards". This implies that **risk** must be taken into account alongside expected value.
     *   This scenario serves as an example of why the **undiscounted case** in Markov Decision Processes (MDPs) can be "quite delicate". In undiscounted MDPs, values or returns might be infinite (positive or negative), making them challenging to define and work with. Unlike the discounted case where rewards are bounded (ensuring finite total rewards and well-defined expectations), the St. Petersburg paradox demonstrates a situation where immediate rewards are unbounded, leading to an infinite expected value. For the undiscounted case to be well-behaved, additional conditions, such as having "goal states" reachable with positive probability and non-negative costs, are often necessary for the fundamental theorem to hold and for values to be well-defined.
 
@@ -80,8 +80,8 @@ Here's an explanation of both:
 
 The primary example of a large, specifically infinite, expectation is illustrated by the **St. Petersburg paradox**.
 
-*   **The Game Setup**: In this game, a fair coin is flipped repeatedly until a head appears for the first time. If the first head appears on the $k$-th flip, the player receives $2^{k-1}$ dollars. For instance, a head on the 1st flip yields $1, on the 2nd flip $2, on the 3rd flip $4, and so on.
-*   **Calculating Infinite Expectation**: The probability of the first head appearing on the $k$-th flip is $1/2^k$. The expected reward for each $k$ is $(1/2^k) \times 2^{k-1}$, which simplifies to $1/2$. Summing this value ($1/2$) for all possible $k$ from 1 to infinity results in an **infinite expected value**.
+*   **The Game Setup**: In this game, a fair coin is flipped repeatedly until a head appears for the first time. If the first head appears on the \(k\)-th flip, the player receives \(2^{k-1}\) dollars. For instance, a head on the 1st flip yields \(1, on the 2nd flip \)2, on the 3rd flip $4, and so on.
+*   **Calculating Infinite Expectation**: The probability of the first head appearing on the \(k\)-th flip is \(1/2^k\). The expected reward for each \(k\) is \((1/2^k) \times 2^{k-1}\), which simplifies to \(1/2\). Summing this value (\(1/2\)) for all possible \(k\) from 1 to infinity results in an **infinite expected value**.
 *   **The Paradox**: Despite this mathematically infinite expected reward, most people are **unwilling to pay a very large amount** (e.g., millions or billions of dollars) to play the game.
     *   **Poll Results**: A poll conducted showed varied responses, with some participants willing to pay "less than one dollar" or "one to two dollars" due to a **worst-case analysis** or risk aversion, fearing the high probability of the game ending quickly with a small payout. Others, noting the infinite expected value, were willing to pay "hundred plus dollars," reasoning that one can "never pay too much" if the expected reward is infinity.
     *   **Key Insight**: The paradox demonstrates that **"just going for the expected return may not be the best thing"**. The distribution of returns is "very skewed," meaning there's a "very small probability of very large rewards". This highlights that **risk** must be factored into decision-making, not just the expected value.
@@ -105,8 +105,8 @@ The behavior of expected return varies significantly depending on whether the re
 
 The most prominent example of a large, specifically **infinite, expected return** is demonstrated by the **St. Petersburg paradox**.
 
-*   **The Game**: In this game, a fair coin is flipped repeatedly until a head appears for the first time. If the first head appears on the $k$-th flip, the player receives a payout of $2^{k-1}$ dollars. For instance, a head on the first flip yields $1, on the second flip $2, on the third flip $4, and so on.
-*   **Infinite Expectation Calculation**: The probability of the first head appearing on the $k$-th flip is $1/2^k$. The expected reward for each $k$ is calculated by multiplying this probability by the reward: $(1/2^k) \times 2^{k-1}$, which simplifies to $1/2$. When you sum this value ($1/2$) for all possible $k$ from 1 to infinity, the **total expected value of the game is infinite**.
+*   **The Game**: In this game, a fair coin is flipped repeatedly until a head appears for the first time. If the first head appears on the \(k\)-th flip, the player receives a payout of \(2^{k-1}\) dollars. For instance, a head on the first flip yields \(1, on the second flip \)2, on the third flip $4, and so on.
+*   **Infinite Expectation Calculation**: The probability of the first head appearing on the \(k\)-th flip is \(1/2^k\). The expected reward for each \(k\) is calculated by multiplying this probability by the reward: \((1/2^k) \times 2^{k-1}\), which simplifies to \(1/2\). When you sum this value (\(1/2\)) for all possible \(k\) from 1 to infinity, the **total expected value of the game is infinite**.
 *   **The Paradox and its Implications**: Despite this mathematically infinite expected reward, people are generally **unwilling to pay a very large amount** (e.g., millions or billions of dollars) to play this game.
     *   A poll conducted on this very question revealed varied responses: some participants voted for "less than one dollar" or "one to two dollars," often driven by a **worst-case analysis** or **risk aversion**, given the high probability of the game ending quickly with a small payout. For example, there's a 50% chance of getting only $1 on the first flip.
     *   Conversely, those who voted for "hundred plus" amounts reasoned that if the expected reward is infinity, "you can never pay too much".
@@ -209,11 +209,11 @@ Here's a breakdown of that discussion:
 
 *   **The Game's Setup**:
     *   You're offered a game where a fair coin is flipped repeatedly until a head appears for the first time.
-    *   If the first head appears on the *k*-th flip, you receive a reward of $2^{k-1}$ dollars.
+    *   If the first head appears on the *k*-th flip, you receive a reward of \(2^{k-1}\) dollars.
     *   For example:
-        *   If the first head is on the 1st flip, you get $2^{1-1} = \$1$.
-        *   If the first head is on the 2nd flip, you get $2^{2-1} = \$2$.
-        *   If the first head is on the 3rd flip, you get $2^{3-1} = \$4$.
+        *   If the first head is on the 1st flip, you get \(2^{1-1} = \\)1$.
+        *   If the first head is on the 2nd flip, you get \(2^{2-1} = \\)2$.
+        *   If the first head is on the 3rd flip, you get \(2^{3-1} = \\)4$.
         *   And so on, the reward **doubles with each additional tail** before the first head.
 
 *   **The Central Question**:
@@ -221,10 +221,10 @@ Here's a breakdown of that discussion:
 
 *   **The Paradoxical Expected Value**:
     *   The **mathematical expected reward** of this game is **infinite**. This is calculated by summing the product of each possible reward and its probability:
-        *   The probability of the game ending on the *k*-th trial (i.e., *k*-1 tails followed by a head) is $1/2^k$.
-        *   The reward for this outcome is $2^{k-1}$.
-        *   So, each term in the sum is $(1/2^k) \times (2^{k-1}) = 1/2$.
-        *   Summing an infinite number of $1/2$ terms results in an infinite expected value.
+        *   The probability of the game ending on the *k*-th trial (i.e., *k*-1 tails followed by a head) is \(1/2^k\).
+        *   The reward for this outcome is \(2^{k-1}\).
+        *   So, each term in the sum is \((1/2^k) \times (2^{k-1}) = 1/2\).
+        *   Summing an infinite number of \(1/2\) terms results in an infinite expected value.
 
 *   **The Discrepancy and Its Lesson**:
     *   Despite the theoretically infinite expected return, most people are **not willing to pay a very large sum** (like a billion dollars) to play the game.
@@ -301,7 +301,7 @@ Here's a detailed breakdown:
 
 *   **The Foundation: Fundamental Theorem for MDPs**
     *   The lecture begins by stating the **Fundamental Theorem for MDPs**, which has two key parts:
-        1.  The **optimal value function ($V^*$) is the fixed point of the Bellman optimality equation**.
+        1.  The **optimal value function (\(V^*\)) is the fixed point of the Bellman optimality equation**.
         2.  Any **greedy policy with respect to this optimal value function is an optimal policy**.
     *   This theorem is crucial because it provides the theoretical assurance that an optimal policy exists and can be found by focusing on the optimal value function. It also implies that for Markov Decision Processes, **memoryless policies are sufficient for achieving optimality**, meaning you don't need to remember the entire history of states and actions to act optimally.
 
@@ -313,7 +313,7 @@ Here's a detailed breakdown:
     *   The **Bellman optimality equation inherently embodies this dynamic programming principle**. It expresses the optimal value for a given state (which is a "sub problem") in terms of the optimal values of other states (and sometimes even the same state). This recursive definition allows the complex problem of finding optimal actions across an entire MDP to be broken down into smaller, interconnected parts.
     *   Bellman's approach, therefore, involves a **two-step computational process** to achieve optimality:
         1.  **Calculate the optimal value functions**: Bellman's idea was to introduce "value functions that summarize the values" for each state and then compute these optimal values.
-        2.  **Derive optimal policies from these values**: Once the optimal values ($V^*$) are known, you can simply act greedily with respect to them to find an optimal policy.
+        2.  **Derive optimal policies from these values**: Once the optimal values (\(V^*\)) are known, you can simply act greedily with respect to them to find an optimal policy.
 
 *   **The Link to Optimality**: The direct connection to optimality comes from the first part of the fundamental theorem: because the optimal value function *is* the fixed point of the Bellman optimality equation, solving this equation (through methods like value iteration, which converges at a geometric rate) directly yields the optimal values. Once you have these optimal values, the second part of the theorem guarantees that a greedy policy derived from them will be optimal. This means dynamic programming methods, by iteratively solving or finding the fixed point of the Bellman equation, are designed to converge to the optimal solution.
 
@@ -600,9 +600,9 @@ Here's a breakdown of the differences:
     *   In the finite horizon setting, because actions depend on the time remaining, the **optimal policies are not stationary memoryless policies**. They vary with time.
 
 *   **Mathematical Implications and Proof Methods**:
-    *   While the sources do not provide explicit mathematical formulas for the finite horizon Bellman optimality equation, they describe its nature. In this setting, you must **define value functions in terms of "how much time is left or how much time have elapsed from the beginning of time"**. This implies time-indexed value functions, such as $V_t(s)$, where $t$ is the time step or time remaining.
+    *   While the sources do not provide explicit mathematical formulas for the finite horizon Bellman optimality equation, they describe its nature. In this setting, you must **define value functions in terms of "how much time is left or how much time have elapsed from the beginning of time"**. This implies time-indexed value functions, such as \(V_t(s)\), where \(t\) is the time step or time remaining.
     *   The corresponding theorems for finite horizon problems are often **"even easier to prove"** and typically rely on **backwards induction**. This iterative method starts by calculating the optimal values for the very last time step and then works backward in time to determine the optimal values for earlier time steps.
-    *   If one wishes to force a finite horizon problem into a "stationary" framework, it can be done by **augmenting the state space to include a time index** (e.g., considering $(s, t)$ as a single state). However, this is merely a **"rephrasing"**; the underlying non-stationary nature of the optimal policy (which will still depend on the time component of the augmented state) remains.
+    *   If one wishes to force a finite horizon problem into a "stationary" framework, it can be done by **augmenting the state space to include a time index** (e.g., considering \((s, t)\) as a single state). However, this is merely a **"rephrasing"**; the underlying non-stationary nature of the optimal policy (which will still depend on the time component of the augmented state) remains.
 
 *   **Modeling Choices and Practicality**:
     *   The choice to model a problem with an infinite horizon, even when real-world interactions are finite, is often an **abstraction chosen for convenience and analytical tractability**. It avoids the need to explicitly define a deadline and the complexities of time-dependent policies.
@@ -637,7 +637,7 @@ Here's a breakdown of how optimality is addressed in these other settings:
     *   This setting is described as **"fundamentally different"** from the infinite horizon discounted setting because it **lacks stationarity**. This means that the optimal actions in a finite horizon problem are **inherently non-stationary; they depend on time**.
     *   As you approach the end of the horizon, your optimal actions will change. For example, if you have limited time and a large reward is too far to reach within that time, you won't pursue it. This is precisely how **deadlines and time-outs influence optimal decision-making**.
     *   Mathematically, in the finite horizon setting, **value functions must be defined in terms of "how much time is left or how much time have elapsed from the beginning of time"**. The corresponding theorems are "even easier to prove" and typically rely on **backwards induction**.
-    *   Because the optimal policies depend on the remaining time, they are **not stationary memoryless policies**. While one could technically "rephrase" this by augmenting the state space to include a time index (e.g., $(s, t)$ as a state), the underlying time-dependent nature of the optimal policy remains.
+    *   Because the optimal policies depend on the remaining time, they are **not stationary memoryless policies**. While one could technically "rephrase" this by augmenting the state space to include a time index (e.g., \((s, t)\) as a state), the underlying time-dependent nature of the optimal policy remains.
     *   From a modeling perspective, finite horizon models are highly realistic for problems with **clear, fixed end points or deadlines**. However, for continuous applications like AI systems meant to operate indefinitely, setting an "arbitrary deadline" could lead to "awkward" solutions where the system might "stop exploring" or act suboptimally as the deadline approaches, which is generally undesirable.
 
 *   **Infinite Horizon Undiscounted (Total Reward) Setting**
@@ -661,7 +661,7 @@ Considering broader policy classes, including history-dependent and non-stationa
 
 ### 1. To Prove Redundancy for Optimality in Markovian Settings
 
-The fundamental theorem of MDPs, especially for the discounted infinite horizon case with finitely many states and actions, begins by defining the optimal value function ($V^*$) **with respect to *all* possible policies**, including those that are history-dependent and non-stationary. The very point of this theorem is to mathematically demonstrate that these broader classes of policies **"do not add anything to the [optimality]"** in a Markovian context.
+The fundamental theorem of MDPs, especially for the discounted infinite horizon case with finitely many states and actions, begins by defining the optimal value function (\(V^*\)) **with respect to *all* possible policies**, including those that are history-dependent and non-stationary. The very point of this theorem is to mathematically demonstrate that these broader classes of policies **"do not add anything to the [optimality]"** in a Markovian context.
 
 The core mathematical argument supporting this is through the concept of **discounted state occupancy measures**:
 *   A state occupancy measure represents the total expected discounted time spent in a given state.
@@ -694,8 +694,8 @@ Here's an explanation of the paradox and why it's considered important in the co
 *   **What is the St. Petersburg Paradox?**
     *   It's a game or lottery where you pay an upfront fixed cost to play.
     *   A fair coin is flipped repeatedly.
-    *   If the first "head" appears on the $k$-th flip, you are paid $2^{k-1}$ dollars. For example, if the first head is on the first flip, you get $1; if on the second, $2; if on the third, $4, and so on, with the reward doubling for each subsequent flip until a head appears.
-    *   **The mathematical expectation (expected reward) of this game is infinite**. This is because the probability of the game ending on the $k$-th trial is $1/2^k$, and when multiplied by the reward of $2^{k-1}$, it gives a value that, when summed over all possible $k$ from 1 to infinity, results in an infinite total expected value.
+    *   If the first "head" appears on the \(k\)-th flip, you are paid \(2^{k-1}\) dollars. For example, if the first head is on the first flip, you get \(1; if on the second, \)2; if on the third, $4, and so on, with the reward doubling for each subsequent flip until a head appears.
+    *   **The mathematical expectation (expected reward) of this game is infinite**. This is because the probability of the game ending on the \(k\)-th trial is \(1/2^k\), and when multiplied by the reward of \(2^{k-1}\), it gives a value that, when summed over all possible \(k\) from 1 to infinity, results in an infinite total expected value.
     *   **The paradox arises because despite this infinite expected value, most people are not willing to pay an infinite, or even a very large, amount of money to play the game**. This highlights a disparity between theoretical expected value and practical human decision-making, which often accounts for risk and the low probability of extremely high returns.
 
 *   **Why do we care about it in MDPs?**
@@ -716,11 +716,11 @@ Here's a comprehensive discussion of the paradox and the insights it yields:
 The St. Petersburg Paradox describes a game or lottery with a peculiar outcome when calculating its expected value.
 
 *   **The Game Setup**: You pay an upfront fixed cost to play. A fair coin is flipped repeatedly.
-*   **The Reward**: If the first "head" appears on the $k$-th flip, you are paid $2^{k-1}$ dollars.
+*   **The Reward**: If the first "head" appears on the \(k\)-th flip, you are paid \(2^{k-1}\) dollars.
     *   For example, if the first head is on the 1st flip, you get $1.
     *   If it's on the 2nd flip, you get $2.
     *   If it's on the 3rd flip, you get $4, and so on, with the reward doubling for each subsequent flip until a head appears.
-*   **The Infinite Expectation**: The probability of the game ending on the $k$-th trial is $1/2^k$. When this probability is multiplied by the reward ($2^{k-1}$), the term for each $k$ is $1/2$ (since $2^{k-1}/2^k = 1/2$). When summed over all possible $k$ from 1 to infinity, the **expected reward of this game is infinite**.
+*   **The Infinite Expectation**: The probability of the game ending on the \(k\)-th trial is \(1/2^k\). When this probability is multiplied by the reward (\(2^{k-1}\)), the term for each \(k\) is \(1/2\) (since \(2^{k-1}/2^k = 1/2\)). When summed over all possible \(k\) from 1 to infinity, the **expected reward of this game is infinite**.
 *   **The Paradox**: Despite this infinite expected value, **most people are not willing to pay an infinite, or even a very large, amount of money to play the game**. This highlights a significant disparity between theoretical expected value and practical human decision-making, which often accounts for risk and the low probability of extremely high returns. People tend to be risk-averse, focusing on the high probability of losing in the very first few flips.
 
 ### Insights Yielded for MDPs
@@ -753,7 +753,7 @@ In the context of understanding Reinforcement Learning (RL) and Markov Decision 
 Here are the key mathematical obstructions discussed and the insights they yield:
 
 *   **The Infinite Horizon Undiscounted Setting and Unbounded Rewards/Costs (The St. Petersburg Paradox)**
-    *   **Obstruction**: In the infinite horizon undiscounted setting (where future rewards are not devalued), there is **no guarantee that value functions are well-defined and finite**; they could be minus infinity or positive infinity. The **St. Petersburg Paradox** (also called "the rich paradox the San Peterborough paradox") serves as a prime example of this "mathematical weirdness". In this game, despite an **infinite expected reward** (as the probability of ending on the $k$-th trial is $1/2^k$ and the reward is $2^{k-1}$, summing to infinity), most people are **unwilling to pay a very large amount** to play, highlighting a disconnect between theoretical expectation and practical risk aversion.
+    *   **Obstruction**: In the infinite horizon undiscounted setting (where future rewards are not devalued), there is **no guarantee that value functions are well-defined and finite**; they could be minus infinity or positive infinity. The **St. Petersburg Paradox** (also called "the rich paradox the San Peterborough paradox") serves as a prime example of this "mathematical weirdness". In this game, despite an **infinite expected reward** (as the probability of ending on the \(k\)-th trial is \(1/2^k\) and the reward is \(2^{k-1}\), summing to infinity), most people are **unwilling to pay a very large amount** to play, highlighting a disconnect between theoretical expectation and practical risk aversion.
     *   **Understanding Gained**:
         *   It demonstrates that **"just going for the expected return may not be the best thing"** in scenarios where the distribution of returns is "really skewed" with "very small probabilities of very large rewards".
         *   It emphasizes that this setting is **"quite delicate"** and necessitates **additional conditions** for value functions to be well-defined and for fundamental theorems to hold. For example, in the Stochastic Shortest Path (SSP) problem (an undiscounted case focused on costs), conditions like having "goal states" (absorbing states with no further cost), "proper policies" (reaching a goal state with positive probability), and non-negative costs are required for the fundamental theorem to be true.

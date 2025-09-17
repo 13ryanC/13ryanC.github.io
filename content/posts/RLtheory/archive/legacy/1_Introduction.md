@@ -44,8 +44,8 @@ Csaba sketches RL research as the intersection of three methodological areas:
 
 | Circle                 | Core question                                                                                                                                 | Typical assumptions                                                                              | Example tasks                                                                            |
 | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
-| **Planning**           | Given a *known* model of the environment, how do we compute a near‑optimal policy efficiently?                                                | Full access to transition kernel $P$ and reward function $r$; focus on computational complexity. | Value‑iteration, policy‑iteration, linear programming; real‑time game‑tree search.       |
-| **Batch (offline) RL** | With a fixed data set of transitions $(s,a,r,s')$ gathered *before* deployment, can we learn a policy that will perform well *when executed*? | No further interaction allowed; dataset may be off‑policy and biased.                            | Fitted Q‑evaluation, doubly‑robust methods, conservative policy iteration in healthcare. |
+| **Planning**           | Given a *known* model of the environment, how do we compute a near‑optimal policy efficiently?                                                | Full access to transition kernel \(P\) and reward function \(r\); focus on computational complexity. | Value‑iteration, policy‑iteration, linear programming; real‑time game‑tree search.       |
+| **Batch (offline) RL** | With a fixed data set of transitions \((s,a,r,s')\) gathered *before* deployment, can we learn a policy that will perform well *when executed*? | No further interaction allowed; dataset may be off‑policy and biased.                            | Fitted Q‑evaluation, doubly‑robust methods, conservative policy iteration in healthcare. |
 | **Online RL**          | While interacting with the environment, how should the agent trade off exploration vs. exploitation to maximise cumulative reward?            | Feedback is sequential and stochastic; regret or sample‑complexity is analysed.                  | UCB‑style algorithms, posterior sampling, deep RL with ε‑greedy exploration.             |
 
 
@@ -57,7 +57,7 @@ Csaba sketches RL research as the intersection of three methodological areas:
 
 The three circles overlap on the formal *Markov Decision Process* abstraction:
 
-> **MDP = (state space $S$, action space $A$, transition kernel $P$, reward function $r$, horizon/discount $H$/$\gamma$).**
+> **MDP = (state space \(S\), action space \(A\), transition kernel \(P\), reward function \(r\), horizon/discount \(H\)/\(\gamma\)).**
 
 Thus, ideas about *models*, *policies*, and *returns* are shared, even though the data‑access model (full, batch, or interactive) differs.
 
@@ -72,11 +72,11 @@ Thus, ideas about *models*, *policies*, and *returns* are shared, even though th
 
 | Symbol                              | Meaning                                                                     | Typical assumption in the lecture                                    |
 | ----------------------------------- | --------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| $S$                                 | **State space**                                                             | Finite (to avoid topological/measurability pitfalls on a first pass) |
-| $A$                                 | **Action space**                                                            | Finite                                                               |
-| $P(\,\cdot \mid s,a)$               | **Transition kernel** – probability distribution over next state $s' \in S$ | Stationary and Markovian                                             |
-| $r(s,a)$                            | **Immediate reward**                                                        | Bounded, w\.l.o.g. $r \in [0,1]$                                     |
-| $\gamma\in[0,1)$ or $H\in\mathbb N$ | **Discount factor** (infinite horizon) or **finite horizon** length         | The lecture mostly uses $\gamma$ for algebraic convenience           |
+| \(S\)                                 | **State space**                                                             | Finite (to avoid topological/measurability pitfalls on a first pass) |
+| \(A\)                                 | **Action space**                                                            | Finite                                                               |
+| \(P(\,\cdot \mid s,a)\)               | **Transition kernel** – probability distribution over next state \(s' \in S\) | Stationary and Markovian                                             |
+| \(r(s,a)\)                            | **Immediate reward**                                                        | Bounded, w\.l.o.g. \(r \in [0,1]\)                                     |
+| \(\gamma\in[0,1)\) or \(H\in\mathbb N\) | **Discount factor** (infinite horizon) or **finite horizon** length         | The lecture mostly uses \(\gamma\) for algebraic convenience           |
 
 > **MDP tuple:**
 >
@@ -86,7 +86,7 @@ Thus, ideas about *models*, *policies*, and *returns* are shared, even though th
 
 #### 3.1 Histories and policies
 
-* **History at time $t$:**
+* **History at time \(t\):**
 
   $$
   H_t = (s_0,a_0,\dots,s_{t-1},a_{t-1},s_t)\in\mathcal H_t := (S\times A)^{t}\times S .
@@ -98,35 +98,35 @@ Thus, ideas about *models*, *policies*, and *returns* are shared, even though th
   \pi_t : \mathcal H_t \;\longrightarrow\; \mathcal P(A),
   $$
 
-  where $\mathcal P(A)$ denotes the set of probability measures on $A$.
-  *If $S,A$ are finite, $\pi_t(H_t)$ is just a probability vector over $A$.*
-  Deterministic policies are the special case where $\pi_t(H_t)$ puts all mass on one action.
+  where \(\mathcal P(A)\) denotes the set of probability measures on \(A\).
+  *If \(S,A\) are finite, \(\pi_t(H_t)\) is just a probability vector over \(A\).*
+  Deterministic policies are the special case where \(\pi_t(H_t)\) puts all mass on one action.
 
 #### 3.2 Trajectory distribution and return
 
-A **trajectory** generated by $\pi$ in $\mathcal M$ is
+A **trajectory** generated by \(\pi\) in \(\mathcal M\) is
 
 $$
 \tau = (s_0,a_0,r_0,s_1,a_1,r_1,\dots),
 $$
 
-with $a_t\sim\pi_t(H_t)$, $s_{t+1}\sim P(\cdot\mid s_t,a_t)$, and $r_t = r(s_t,a_t)$.
+with \(a_t\sim\pi_t(H_t)\), \(s_{t+1}\sim P(\cdot\mid s_t,a_t)\), and \(r_t = r(s_t,a_t)\).
 
 | Return type              | Formula                                                                                                      | Comments                                                                                                 |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
-| **Discounted**           | $G = \sum_{t=0}^{\infty} \gamma^{t} r_t$                                                                     | Gives exponentially vanishing weight to future rewards; effective horizon $\approx \tfrac{1}{1-\gamma}$. |
-| **Finite‑horizon**       | $G = \sum_{t=0}^{H-1} r_t$                                                                                   | Equivalent to $\gamma=1$ followed by truncation.                                                         |
-| **Truncated discounted** | Stop after $T=\lceil \tfrac{\ln(1/\varepsilon)}{1-\gamma}\rceil$ terms to incur at most $\varepsilon$ error. |                                                                                                          |
+| **Discounted**           | \(G = \sum_{t=0}^{\infty} \gamma^{t} r_t\)                                                                     | Gives exponentially vanishing weight to future rewards; effective horizon \(\approx \tfrac{1}{1-\gamma}\). |
+| **Finite‑horizon**       | \(G = \sum_{t=0}^{H-1} r_t\)                                                                                   | Equivalent to \(\gamma=1\) followed by truncation.                                                         |
+| **Truncated discounted** | Stop after \(T=\lceil \tfrac{\ln(1/\varepsilon)}{1-\gamma}\rceil\) terms to incur at most \(\varepsilon\) error. |                                                                                                          |
 
-**Value functions** under policy $\pi$:
+**Value functions** under policy \(\pi\):
 
 $$
 V^\pi(s) = \mathbb E_\pi \bigl[G \mid s_0=s\bigr],\qquad  
 Q^\pi(s,a)=\mathbb E_\pi \bigl[G \mid s_0=s,a_0=a\bigr].
 $$
 
-The optimal value and policy are $V^{\ast} (s)= \sup_\pi V^{\pi}(s)$ and
-$\displaystyle \pi^{\ast} \in \arg\max_\pi V^{\pi}$ (existence is guaranteed in the finite case).
+The optimal value and policy are \(V^{\ast} (s)= \sup_\pi V^{\pi}(s)\) and
+\(\displaystyle \pi^{\ast} \in \arg\max_\pi V^{\pi}\) (existence is guaranteed in the finite case).
 
 ---
 
@@ -135,9 +135,9 @@ $\displaystyle \pi^{\ast} \in \arg\max_\pi V^{\pi}$ (existence is guaranteed in 
 | Design choice                | Why it appears in the lecture                                                                | What happens if we change it?                                                                         |
 | ---------------------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | **State fully observed**     | Simplifies control and learning proofs; converts the problem to an MDP.                      | Partial observability ⇒ POMDPs. Optimal control is PSPACE‑hard; sample complexity explodes.           |
-| **Finite $S,A$**             | Avoids measurable‑selection subtleties (choice of σ‑algebra, existence of Borel selectors).  | Continuous spaces need extra regularity (compactness, continuity of $P,r$) or function approximation. |
+| **Finite \(S,A\)**             | Avoids measurable‑selection subtleties (choice of σ‑algebra, existence of Borel selectors).  | Continuous spaces need extra regularity (compactness, continuity of \(P,r\)) or function approximation. |
 | **Stationary transitions**   | Makes Bellman equations well‑defined and allows dynamic‑programming arguments.               | Non‑stationary environments require regret or adaptation bounds.                                      |
-| **Discounting ($\gamma<1$)** | Ensures $G<\infty$ and allows contraction‑mapping proofs. Acts as an *implicit regulariser*. | Average‑reward and undiscounted infinite‑horizon settings demand different bias‑span analyses.        |
+| **Discounting (\(\gamma<1\))** | Ensures \(G<\infty\) and allows contraction‑mapping proofs. Acts as an *implicit regulariser*. | Average‑reward and undiscounted infinite‑horizon settings demand different bias‑span analyses.        |
 | **Bounded rewards**          | Guarantees concentration inequalities with sub‑Gaussian tails.                               | Heavy‑tailed rewards necessitate robust variants.                                                     |
 
 ### Open research‑style questions highlighted by Csaba
@@ -158,7 +158,7 @@ $\displaystyle \pi^{\ast} \in \arg\max_\pi V^{\pi}$ (existence is guaranteed in 
   (\mathcal T V)(s)=\max_{a\in A}\Bigl[r(s,a)+\gamma\sum_{s'} P(s'\!\mid s,a)\,V(s')\Bigr].
   $$
 
-  Contraction modulus: $\gamma$. Fixed point $V^*$ satisfies $\mathcal T V^*=V^*$.
+  Contraction modulus: \(\gamma\). Fixed point \(V^*\) satisfies \(\mathcal T V^*=V^*\).
 
 * **Regret (online RL):**
 
@@ -180,16 +180,16 @@ $\displaystyle \pi^{\ast} \in \arg\max_\pi V^{\pi}$ (existence is guaranteed in 
 
 ## 5  Formal MDP: enriched commentary
 
-1. **States $S$.**  The lecture *assumes* full observability “to free up mental space.”
-   *Open question:* *When can a learned representation $\phi(s)$ replace $s$ without sacrificing optimality?*
-2. **Actions $A$.**  Finite so that *measurable‑selection* theorems are not needed.  In continuous $A$, existence of optimal deterministic policies may fail without continuity of $r,P$.
-3. **Transition kernel $P$.**  Stationarity means “physics does not drift.”  Non‑stationary kernels turn the value operator from a contraction into a *moving* operator—fixed‑point theory no longer applies.
-4. **Reward $r\in[0,1]$.**  Boundedness ⇒ sub‑Gaussian tails.  If rewards are heavy‑tailed, concentration requires Catoni‑style robust means.
-5. **Discount $\gamma<1$.**
+1. **States \(S\).**  The lecture *assumes* full observability “to free up mental space.”
+   *Open question:* *When can a learned representation \(\phi(s)\) replace \(s\) without sacrificing optimality?*
+2. **Actions \(A\).**  Finite so that *measurable‑selection* theorems are not needed.  In continuous \(A\), existence of optimal deterministic policies may fail without continuity of \(r,P\).
+3. **Transition kernel \(P\).**  Stationarity means “physics does not drift.”  Non‑stationary kernels turn the value operator from a contraction into a *moving* operator—fixed‑point theory no longer applies.
+4. **Reward \(r\in[0,1]\).**  Boundedness ⇒ sub‑Gaussian tails.  If rewards are heavy‑tailed, concentration requires Catoni‑style robust means.
+5. **Discount \(\gamma<1\).**
 
-   *Implicit regularisation.*  The Lipschitz constant of the Bellman operator is $\gamma$; making $\gamma$ smaller shrinks the hypothesis class of value functions, improving generalisation in finite‑data regimes.
+   *Implicit regularisation.*  The Lipschitz constant of the Bellman operator is \(\gamma\); making \(\gamma\) smaller shrinks the hypothesis class of value functions, improving generalisation in finite‑data regimes.
 
-   *Effective horizon.*  To approximate an infinite sum within $\varepsilon$:
+   *Effective horizon.*  To approximate an infinite sum within \(\varepsilon\):
 
    $$
    T(\varepsilon,\gamma)=\Bigl\lceil\tfrac{\ln(1/\varepsilon)}{1-\gamma}\Bigr\rceil.
@@ -199,12 +199,12 @@ $\displaystyle \pi^{\ast} \in \arg\max_\pi V^{\pi}$ (existence is guaranteed in 
 
 ## 6  Histories, policies, and *why randomisation matters*
 
-* **History $H_t$.**  Contains *exactly* what the agent has seen.  If the policy instead used only $s_t$, it assumes the Markov property is correct.  When the modelling choice is wrong (POMDP), the dependence on *full history* is necessary to recover optimality.
+* **History \(H_t\).**  Contains *exactly* what the agent has seen.  If the policy instead used only \(s_t\), it assumes the Markov property is correct.  When the modelling choice is wrong (POMDP), the dependence on *full history* is necessary to recover optimality.
 
 * **Stochastic policies.**
   *Why randomise?*
 
-  1. *Tie‑breaking* when $Q^\pi(s,a)$ is flat.
+  1. *Tie‑breaking* when \(Q^\pi(s,a)\) is flat.
   2. *Mixed strategies* are sometimes uniquely optimal (e.g. zero‑sum games, exploration incentives).
   3. *Algorithmic convenience*—gradient methods treat actions as soft samples, which makes the loss differentiable.
 
@@ -216,7 +216,7 @@ Your raw notes asked:
 
 > *“What does it mean to maximise the return when the return itself is a random variable?”*
 
-* **Classical answer:** optimise the *expected* discounted sum $V^\pi(s)$.
+* **Classical answer:** optimise the *expected* discounted sum \(V^\pi(s)\).
 * **Critique:** expectation ignores risk.  Safety‑critical RL studies CVaR, variance‑penalised, or quantile criteria.
 * **Lecture hint:** future sessions may show how expectation‑optimality can mask heavy‑tail failures (e.g. a high‑variance policy that *usually* wins but occasionally crashes).
 
@@ -225,7 +225,7 @@ Your raw notes asked:
 ## 8  Measure‑theoretic footnotes (why Csaba waves his hands—for now)
 
 1. **Borel vs. universal measurability.**  An optimal policy measurable w\.r.t. the Borel σ‑algebra may *not* exist in general Polish spaces.  One needs analytic sets or Blackwell’s 1956 result.
-2. **Axiom of choice pitfalls.**  Non‑measurable sets can break the existence of probability kernels.  Textbooks often slip in “assume all troublesome sets are jointly measurable”—practitioners silently accept finite $S,A$.
+2. **Axiom of choice pitfalls.**  Non‑measurable sets can break the existence of probability kernels.  Textbooks often slip in “assume all troublesome sets are jointly measurable”—practitioners silently accept finite \(S,A\).
 3. **Weakening to “Terry’s Analysis I & II.”**  If one restricts to separable metric spaces and continuous kernels, measurable selection holds; the lecture promises to “extend power and expressivity” later.
 
 ---
@@ -245,10 +245,10 @@ Your raw notes asked:
 
 | Formula                                                        | When you will *actually* use it                                  |
 | -------------------------------------------------------------- | ---------------------------------------------------------------- |
-| $V^\pi(s)=\mathbb E_\pi\bigl[\sum_{t\ge0}\gamma^tr_t\bigr]$    | Baseline for policy‑gradient objectives.                         |
-| $\mathcal T V=\max_a\{r+\gamma P V\}$                          | Contraction proof of value‑iteration convergence.                |
-| $T(\varepsilon,\gamma)\approx \frac{1}{\varepsilon(1-\gamma)}$ | How long Monte‑Carlo rollouts must be to estimate $V^\pi$ to ±ε. |
-| $\text{Regret}(T)=\sum_{t=0}^{T-1}\bigl(r^*-r_t\bigr)$         | Performance metric in online RL proofs.                          |
+| \(V^\pi(s)=\mathbb E_\pi\bigl[\sum_{t\ge0}\gamma^tr_t\bigr]\)    | Baseline for policy‑gradient objectives.                         |
+| \(\mathcal T V=\max_a\{r+\gamma P V\}\)                          | Contraction proof of value‑iteration convergence.                |
+| \(T(\varepsilon,\gamma)\approx \frac{1}{\varepsilon(1-\gamma)}\) | How long Monte‑Carlo rollouts must be to estimate \(V^\pi\) to ±ε. |
+| \(\text{Regret}(T)=\sum_{t=0}^{T-1}\bigl(r^*-r_t\bigr)\)         | Performance metric in online RL proofs.                          |
 
 ---
 

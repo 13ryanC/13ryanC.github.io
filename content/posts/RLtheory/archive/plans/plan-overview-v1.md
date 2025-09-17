@@ -26,7 +26,7 @@ image: /assets/images/card3.png
 **Part II: Core Algorithmic Paradigms**
 
 * **Chapter 3: Model-Free Learning: Prediction and Control**
-    * **3.1.** On-Policy Value Prediction (MC, TD($\lambda$), LSTD)
+    * **3.1.** On-Policy Value Prediction (MC, TD(\(\lambda\)), LSTD)
     * **3.2.** On-Policy Control: Sarsa, Expected Sarsa, and GLIE
     * **3.3.** Off-Policy Value Prediction & Control (Q-Learning, Double-Q, Retrace, V-trace)
     * **3.4.** Policy Gradient Methods (REINFORCE, Actor-Critic, GAE)

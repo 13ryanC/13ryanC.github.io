@@ -29,17 +29,17 @@ We will execute **Sub-task A** now.
 
 **Markov Decision Process (MDP).**
 An MDP is the tuple
-$(\mathcal S,\mathcal A,P,r,\gamma,\mu_0),$
+\((\mathcal S,\mathcal A,P,r,\gamma,\mu_0),\)
 where
 
-* $ \mathcal S$ finite (or countable) state set,
-* $ \mathcal A$ finite action set,
-* $P(s'|s,a)=\Pr[S_{t+1}=s'\mid S_t=s,A_t=a]$ transition kernel,
-* $r:\mathcal S\times\mathcal A\to\mathbb R$ immediate reward,
-* $\gamma\in(0,1)$ discount factor,
-* $\mu_0$ initial-state distribution.
+* \( \mathcal S\) finite (or countable) state set,
+* \( \mathcal A\) finite action set,
+* \(P(s'|s,a)=\Pr[S_{t+1}=s'\mid S_t=s,A_t=a]\) transition kernel,
+* \(r:\mathcal S\times\mathcal A\to\mathbb R\) immediate reward,
+* \(\gamma\in(0,1)\) discount factor,
+* \(\mu_0\) initial-state distribution.
 
-**Policy.**  A (stationary, stochastic) policy $\pi(a|s)=\Pr[A_t=a\mid S_t=s]$.
+**Policy.**  A (stationary, stochastic) policy \(\pi(a|s)=\Pr[A_t=a\mid S_t=s]\).
 
 ---
 
@@ -52,7 +52,7 @@ $$
 \tag{1}
 $$
 
-the expected *discounted* number of visits to pair $(s,a)$.
+the expected *discounted* number of visits to pair \((s,a)\).
 
 Equivalently, with initial distribution µ₀,
 
@@ -60,9 +60,9 @@ $$
 \mu^{\pi}(s,a)=\sum_{t=0}^{\infty}\gamma^{t}\Pr_{\mu_0,\pi}(S_t=s,A_t=a).
 $$
 
-When rewards depend only on state (not action), the *state* occupancy measure $d^{\pi}(s)=\sum_a\mu^{\pi}(s,a)$ is used.
+When rewards depend only on state (not action), the *state* occupancy measure \(d^{\pi}(s)=\sum_a\mu^{\pi}(s,a)\) is used.
 
-Equation (1) depends **only** on $\pi$ and $P$; the reward function plays no role.  This “reward-free” quantity is what later lets us write the value as an inner product. ([rltheory.github.io][1])
+Equation (1) depends **only** on \(\pi\) and \(P\); the reward function plays no role.  This “reward-free” quantity is what later lets us write the value as an inner product. ([rltheory.github.io][1])
 
 ---
 
@@ -75,8 +75,8 @@ Equation (1) depends **only** on $\pi$ and $P$; the reward function plays no rol
 
 **Open issues for next step**
 
-1. Derive a linear-algebra form: $ \boldsymbol\mu^{\pi} = (1-\gamma)\,\bigl(I-\gamma P_\pi\bigr)^{-1}\operatorname{diag}(\mu_0)\pi$.
-2. Prove value decomposition $ J(π)=\sum_{s,a}\mu^{π}(s,a)r(s,a)=\langle \mu^{π},r\rangle$.
+1. Derive a linear-algebra form: \( \boldsymbol\mu^{\pi} = (1-\gamma)\,\bigl(I-\gamma P_\pi\bigr)^{-1}\operatorname{diag}(\mu_0)\pi\).
+2. Prove value decomposition \( J(π)=\sum_{s,a}\mu^{π}(s,a)r(s,a)=\langle \mu^{π},r\rangle\).
 3. Summarise independence and practical uses.
 
 Let me know if you want me to continue with derivation **B–C**, or adjust focus.
@@ -89,14 +89,14 @@ Let me know if you want me to continue with derivation **B–C**, or adjust focu
 
 | Symbol                                            | Meaning                                        | Dimensions (finite)                    |             |
 | ------------------------------------------------- | ---------------------------------------------- | -------------------------------------- | ----------- |
-| $\mathcal S=\{1,\dots,n\}$                        | state set                                      | $n$                                    |             |
-| $\mathcal A=\{1,\dots,m\}$                        | action set                                     | $m$                                    |             |
-| $P_a\in\mathbb R^{n\times n}$                     | $P_a[s,s']\!:=\Pr(S_{t+1}=s'\mid S_t=s,A_t=a)$ | transition under action $a$            |             |
+| \(\mathcal S=\{1,\dots,n\}\)                        | state set                                      | \(n\)                                    |             |
+| \(\mathcal A=\{1,\dots,m\}\)                        | action set                                     | \(m\)                                    |             |
+| \(P_a\in\mathbb R^{n\times n}\)                     | \(P_a[s,s']\!:=\Pr(S_{t+1}=s'\mid S_t=s,A_t=a)\) | transition under action \(a\)            |             |
 | (\pi(a                                            | s))                                            | stationary policy                      | —           |
-| (P\_\pi=\sum\_{a} \operatorname{diag}!\bigl(\pi(a | \cdot)\bigr),P\_a)                             | state‑to‑state kernel induced by $\pi$ | $n\times n$ |
-| $\mu_0\in\Delta(\mathcal S)$                      | row vector of initial‑state probabilities      | $1\times n$                            |             |
-| $r\in\mathbb R^{nm}$                              | reward vector *flattened* over $(s,a)$         | $1\times nm$                           |             |
-| $\gamma\in(0,1)$                                  | discount factor                                | —                                      |             |
+| (P\_\pi=\sum\_{a} \operatorname{diag}!\bigl(\pi(a | \cdot)\bigr),P\_a)                             | state‑to‑state kernel induced by \(\pi\) | \(n\times n\) |
+| \(\mu_0\in\Delta(\mathcal S)\)                      | row vector of initial‑state probabilities      | \(1\times n\)                            |             |
+| \(r\in\mathbb R^{nm}\)                              | reward vector *flattened* over \((s,a)\)         | \(1\times nm\)                           |             |
+| \(\gamma\in(0,1)\)                                  | discount factor                                | —                                      |             |
 
 We use **row vectors** throughout so that probabilities evolve by *right‑multiplication*.
 
@@ -119,14 +119,14 @@ $$
 \tag{2}
 $$
 
-where $\Pi\in\mathbb R^{n\times nm}$ has entries
-$\Pi[s,(s,a)]=\pi(a|s)$.
+where \(\Pi\in\mathbb R^{n\times nm}\) has entries
+\(\Pi[s,(s,a)]=\pi(a|s)\).
 
 ---
 
-### 3 Closed‑form solution for $d_\gamma^{\pi}$
+### 3 Closed‑form solution for \(d_\gamma^{\pi}\)
 
-Because $\rho_{t+1}:=\rho_tP_\pi$ with $\rho_0=\mu_0$, summation in (1) gives a geometric series:
+Because \(\rho_{t+1}:=\rho_tP_\pi\) with \(\rho_0=\mu_0\), summation in (1) gives a geometric series:
 
 $$
 d_\gamma^{\pi}
@@ -135,7 +135,7 @@ d_\gamma^{\pi}
 \tag{3}
 $$
 
-since $\| \gamma P_\pi\|_\infty\le\gamma<1$ implies $I-\gamma P_\pi$ is nonsingular. This is the *reward‑free* part—it depends **only** on $\mu_0,\pi,P$.&#x20;
+since \(\| \gamma P_\pi\|_\infty\le\gamma<1\) implies \(I-\gamma P_\pi\) is nonsingular. This is the *reward‑free* part—it depends **only** on \(\mu_0,\pi,P\).&#x20;
 
 A frequently used *probability* version rescales (3):
 
@@ -150,7 +150,7 @@ $$
 
 ### 4 Value as an inner product
 
-For any starting distribution $\mu_0$, the **discounted return** of policy $\pi$ is
+For any starting distribution \(\mu_0\), the **discounted return** of policy \(\pi\) is
 
 $$
 J(\pi)
@@ -176,16 +176,16 @@ Equation (5) is the **alignment** statement: value equals the inner product be
 
 ### 5 Summary of dependence
 
-| Quantity                                 | Depends on $P,\,\pi$             | Depends on $r$   |
+| Quantity                                 | Depends on \(P,\,\pi\)             | Depends on \(r\)   |
 | ---------------------------------------- | -------------------------------- | ---------------- |
-| Occupancy $d_\gamma^{\pi},\mu^{\pi}$     | **Yes** — via (3) & (2)          | **No**           |
-| Value $J(\pi)=\langle\mu^{\pi},r\rangle$ | indirectly (through $\mu^{\pi}$) | **Yes** — linear |
+| Occupancy \(d_\gamma^{\pi},\mu^{\pi}\)     | **Yes** — via (3) & (2)          | **No**           |
+| Value \(J(\pi)=\langle\mu^{\pi},r\rangle\) | indirectly (through \(\mu^{\pi}\)) | **Yes** — linear |
 
-The factorisation $J(\pi)=\langle\mu^{\pi},r\rangle$ underlies:
+The factorisation \(J(\pi)=\langle\mu^{\pi},r\rangle\) underlies:
 
-* **Inverse RL** – solve for $r$ that explains observed $\mu^{\pi}$.
-* **Policy search / gradients** – optimise $\pi$ while holding $r$ fixed (policy‑gradient theorem expresses $\nabla_\theta J$ via $\mu^{\pi}$).
-* **Reward‑agnostic evaluation** – one can estimate $\mu^{\pi}$ once, then plug in many candidate reward vectors without new roll‑outs.
+* **Inverse RL** – solve for \(r\) that explains observed \(\mu^{\pi}\).
+* **Policy search / gradients** – optimise \(\pi\) while holding \(r\) fixed (policy‑gradient theorem expresses \(\nabla_\theta J\) via \(\mu^{\pi}\)).
+* **Reward‑agnostic evaluation** – one can estimate \(\mu^{\pi}\) once, then plug in many candidate reward vectors without new roll‑outs.
 
 All of these exploit the *independence* delineated above.
 

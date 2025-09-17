@@ -63,8 +63,8 @@ $$
 $$
 
 is projectively consistent. **Kolmogorov‑Extension Theorem** ⇒ a unique measure
-$\bigl(Ω,\mathcal F,\mathbb P^{\pi,μ}\bigr)$ supports the infinite trajectory $(S_t,A_t)_{t≥0}$.
-**Return** $G=\sum_{t≥0}γ^t R(S_t,A_t)$ lies in $L^{1}$ because $|G|≤R_{\max}/(1-γ)$.
+\(\bigl(Ω,\mathcal F,\mathbb P^{\pi,μ}\bigr)\) supports the infinite trajectory \((S_t,A_t)_{t≥0}\).
+**Return** \(G=\sum_{t≥0}γ^t R(S_t,A_t)\) lies in \(L^{1}\) because \(|G|≤R_{\max}/(1-γ)\).
 
 **Strong / weak Markov.**  *Strong* means the conditional distribution of the future given any **stopping time** depends only on the state at that time; *weak* restricts to deterministic times. |
 \| (b) | Provides the grammar that every later symbol—value, operator, algorithm—speaks. |
@@ -76,8 +76,8 @@ $\bigl(Ω,\mathcal F,\mathbb P^{\pi,μ}\bigr)$ supports the infinite trajectory 
 ### 𝐎 Ontic Ingredients of an MDP
 
 \| (a) | **MDP tuple** ℳ = ⟨S, A, P, R, γ⟩.
-$P:S×A→Δ(S),\;0<γ<1$.
-Reward may be $R:S×A×S→ℝ$; set $r(s,a)=\mathbb E_{s'}R(s,a,s')$ to revert to state‑action rewards. |
+\(P:S×A→Δ(S),\;0<γ<1\).
+Reward may be \(R:S×A×S→ℝ\); set \(r(s,a)=\mathbb E_{s'}R(s,a,s')\) to revert to state‑action rewards. |
 \| (b) | These are the “nouns” in the theory: states exist, actions are chosen, transitions occur, rewards accrue. |
 \| (c) | **Micro‑example.**  Two states {g,b}, actions {stay,flip}.  Tables of P and R illustrate every concept later. |
 \| (d) | Continuous S or A: P becomes a stochastic kernel and sparse storage or function approximation is mandatory. |
@@ -88,8 +88,8 @@ Reward may be $R:S×A×S→ℝ$; set $r(s,a)=\mathbb E_{s'}R(s,a,s')$ to revert 
 
 \| (a) | **General policy** π = {π\_t}, π\_t: H\_t → Δ(A).
 **Memoryless** π\:H→Δ(A) collapses to π\:S→Δ(A).
-**Belief‑MDP for a POMDP:** state = posterior $b_t\inΔ(S)$, update
-$b_{t+1}=τ(b_t,a_t,o_{t+1})$.  The induced process is Markov. |
+**Belief‑MDP for a POMDP:** state = posterior \(b_t\inΔ(S)\), update
+\(b_{t+1}=τ(b_t,a_t,o_{t+1})\).  The induced process is Markov. |
 \| (b) | Determines “who chooses” and “what they see”.  Memoryless sufficiency will hinge on full observability. |
 \| (c) | Demo notebook filters the Tiger POMDP and solves the belief MDP with value iteration. |
 \| (d) | In partial observability, memoryless policies on observations are generally **sub‑optimal**; optimal solutions require memory or belief states. |
@@ -110,7 +110,7 @@ $$
 \nu^{π}_{μ}(s)=μ(s)+γ\!\sum_{s',a'}\!\nu^{π}_{μ}(s',a')P(s|s',a').
 $$
 
-**Value formula** $V^{π}_{μ}=⟨ν^{π}_{μ},r⟩.$
+**Value formula** \(V^{π}_{μ}=⟨ν^{π}_{μ},r⟩.\)
 
 **LP Formulation** (Puterman duality)
 
@@ -131,7 +131,7 @@ Strong duality ↔ Bellman optimality. |
 ### 𝐁 Fixed‑Point & Operator Calculus
 
 \| (a) | **Policy‑evaluation operator**
-$T_π V = R_π + γP_π V$.
+\(T_π V = R_π + γP_π V\).
 
 **Optimality operator**
 
@@ -140,7 +140,7 @@ $$
 $$
 
 **γ‑contraction** suffices:
-$\|TU-TV\|_\infty≤γ\|U-V\|_\infty$.
+\(\|TU-TV\|_\infty≤γ\|U-V\|_\infty\).
 
 **Banach fixed‑point theorem** (full proof in appendix) ⇒ unique V\*.
 
@@ -155,13 +155,13 @@ $\|TU-TV\|_\infty≤γ\|U-V\|_\infty$.
 
 ### 𝐓 Fundamental Theorem of MDPs
 
-\| (a) | **Existence & uniqueness** $T V^{*}=V^{*}$.
+\| (a) | **Existence & uniqueness** \(T V^{*}=V^{*}\).
 
 **Greedy‑is‑optimal** If π is greedy wrt V\*, then V\_π = V\*.
 
 **Occupancy lemma** ∀ π ∃ memoryless πᵐˡ with ν^{πᵐˡ}=ν^{π}.
 
-**Memoryless sufficiency** $\sup_{π}V_{π} = \sup_{π\in\text{ML}}V_{π}$. |
+**Memoryless sufficiency** \(\sup_{π}V_{π} = \sup_{π\in\text{ML}}V_{π}\). |
 
 \| (b) | A *hermeneutic miracle*: an infinite search collapses to a single fixed point plus a greedy lookup. |
 \| (c) | Classroom proof: construct πᵐˡ(a|s)=ν^{π}(s,a)/ν^{π}(s); verify flow equality. |
@@ -172,16 +172,16 @@ $\|TU-TV\|_\infty≤γ\|U-V\|_\infty$.
 ### 𝐀 Computational Schemes
 
 \| (a) | **Value Iteration**  
-$V_{k+1}=T V_k$. Converges:
-$\|V_k-V^{*}\|_\infty≤γ^{k}\|V_0-V^{*}\|_\infty$.
+\(V_{k+1}=T V_k\). Converges:
+\(\|V_k-V^{*}\|_\infty≤γ^{k}\|V_0-V^{*}\|_\infty\).
 
-**ε‑stopping rule** Stop when $\|V_{k+1}-V_k\|_\infty≤ε(1-γ)/2$; greedy policy then ε‑optimal.
+**ε‑stopping rule** Stop when \(\|V_{k+1}-V_k\|_\infty≤ε(1-γ)/2\); greedy policy then ε‑optimal.
 
 **Proof of inflation factor**
-Residual $δ=\|TV_k-V_k\|_\infty≤ε$ ⇒
-$\|V^{*}-V_k\|_\infty≤ε/(1-γ)$.
+Residual \(δ=\|TV_k-V_k\|_\infty≤ε\) ⇒
+\(\|V^{*}-V_k\|_\infty≤ε/(1-γ)\).
 For greedy πₖ,
-$\|V^{*}-V_{π_k}\|_\infty ≤ 2ε/(1-γ)$.
+\(\|V^{*}-V_{π_k}\|_\infty ≤ 2ε/(1-γ)\).
 
 **Policy Iteration**  
 

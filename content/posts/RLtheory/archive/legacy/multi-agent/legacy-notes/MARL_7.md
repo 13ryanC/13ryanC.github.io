@@ -23,7 +23,7 @@ Because tabular methods update each state in isolation, they cannot **generalise
 
 ## 2  From Linear to Deep Function Approximators
 
-* **Linear approximation** (Eq. 7.2) represents value $V(s)$ as an inner product between parameters ω and a hand‑crafted feature vector x(s). It learns quickly but depends entirely on good features .
+* **Linear approximation** (Eq. 7.2) represents value \(V(s)\) as an inner product between parameters ω and a hand‑crafted feature vector x(s). It learns quickly but depends entirely on good features .
 * **Deep learning** replaces manual feature design with *learned* features. Neural networks approximate extremely non‑linear functions by stacking many learnable layers, enabling end‑to‑end representation learning even for images or raw state vectors .
 
 ---
@@ -31,13 +31,13 @@ Because tabular methods update each state in isolation, they cannot **generalise
 ## 3  Anatomy of a Feed‑Forward Network
 
 1. **Neural unit (neuron).**
-   Each unit first performs a linear transformation $w^{\top}x + b$ and then applies a non‑linear **activation function** g (Eq. 7.5). Without this non‑linearity, stacking units would still yield only a linear map .
+   Each unit first performs a linear transformation \(w^{\top}x + b\) and then applies a non‑linear **activation function** g (Eq. 7.5). Without this non‑linearity, stacking units would still yield only a linear map .
 
 2. **Activation functions.**
    The chapter surveys ReLU, leaky‑ReLU, ELU, tanh and sigmoid (Figure 7.4). ReLU is favoured because it stays “close to linear”, sparsifies representations (outputs exact zeros) and preserves gradients better than saturating sigmoids .
 
 3. **Layers and depth.**
-   A layer aggregates many units; its computation can be written compactly as $g_k(W_k x_{k-1} + b_k)$ (Eq. 7.6). Deeper networks—with the same parameter budget—often generalise better than shallow ones because they reuse features hierarchically .
+   A layer aggregates many units; its computation can be written compactly as \(g_k(W_k x_{k-1} + b_k)\) (Eq. 7.6). Deeper networks—with the same parameter budget—often generalise better than shallow ones because they reuse features hierarchically .
 
 ---
 
@@ -46,8 +46,8 @@ Because tabular methods update each state in isolation, they cannot **generalise
 The chapter distils gradient‑based learning into a five‑step loop:
 
 1. **Mini‑batch sampling** from dataset D
-2. **Forward pass** to compute predictions $f(x;\,ω)$
-3. **Compute loss** $ℒ(f(x), y)$
+2. **Forward pass** to compute predictions \(f(x;\,ω)\)
+3. **Compute loss** \(ℒ(f(x), y)\)
 4. **Back‑propagation** to obtain ∇ₒℒ
 5. **Gradient‑descent update** of parameters ω&#x20;
 

@@ -28,19 +28,19 @@ lastmod: "2025-09-16"
 
 * **1.1. Formalism: MDPs, Policies, Value Functions, and Trajectories**
     * 1.1.1. Mathematical Foundations: Measure-theoretic set-up
-    * 1.1.2. Formal Definition of an MDP: $(S, A, P, r, \gamma)$
+    * 1.1.2. Formal Definition of an MDP: \((S, A, P, r, \gamma)\)
     * 1.1.3. Policies and the Agent–Environment Loop
     * 1.1.4. Trajectories, Returns, and Value Functions
-    * 1.1.5. The Discount Factor $\gamma$ & Effective Horizon
+    * 1.1.5. The Discount Factor \(\gamma\) & Effective Horizon
 
 * **1.2. Optimality: Bellman Operators, Contraction Properties, and the Fundamental Theorem**
     * 1.2.1. Optimality Notions and Objective Functions
-    * 1.2.2. Bellman Operators: $T^\pi, T^*$
+    * 1.2.2. Bellman Operators: \(T^\pi, T^*\)
     * 1.2.3. Key Analytical Properties (Monotonicity, Contraction, Error Bounds)
     * 1.2.4. Greedy Policies and the Fundamental Theorem of Dynamic Programming
 
 * **1.3. Exact Solutions: Value Iteration, Policy Iteration, and their Convergence Analysis**
-    * 1.3.1. Value Iteration (VI): Algorithm, Convergence, and $\varepsilon$-Stopping
+    * 1.3.1. Value Iteration (VI): Algorithm, Convergence, and \(\varepsilon\)-Stopping
     * 1.3.2. Policy Iteration (PI): Algorithm, Performance-Difference Identity, and Geometric Convergence
     * 1.3.3. Comparison and Runtime Bounds for VI and PI
 
@@ -75,23 +75,23 @@ lastmod: "2025-09-16"
 
 ### **Chapter 3: Model-Free Learning: Prediction and Control**
 
-* **3.1. On-Policy Value Prediction (MC, TD($\lambda$), LSTD)**
+* **3.1. On-Policy Value Prediction (MC, TD(\(\lambda\)), LSTD)**
     * 3.1.1. Motivation for learning from experience
     * 3.1.2. Monte-Carlo (MC) Prediction: First-visit, Every-visit, and Incremental Updates
     * 3.1.3. Temporal-Difference (TD) Learning: TD(0), Bias-Variance Trade-offs
-    * 3.1.4. Multi-Step TD and the $\lambda$-Return: TD($\lambda$) and Eligibility Traces (GAE)
+    * 3.1.4. Multi-Step TD and the \(\lambda\)-Return: TD(\(\lambda\)) and Eligibility Traces (GAE)
     * 3.1.5. Least-Squares Temporal Difference (LSTD) Learning
 
 * **3.2. On-Policy Control: Sarsa, Expected Sarsa, and GLIE**
     * 3.2.1. Sarsa and Expected Sarsa
-    * 3.2.2. Sarsa($\lambda$) and True-Online Sarsa($\lambda$)
+    * 3.2.2. Sarsa(\(\lambda\)) and True-Online Sarsa(\(\lambda\))
     * 3.2.3. GLIE (Greedy in the Limit with Infinite Exploration) Convergence
 
 * **3.3. Off-Policy Value Prediction & Control (Q-Learning, Double-Q, Retrace, V-trace)**
     * 3.3.1. Q-Learning: Maximisation Operator and Convergence
     * 3.3.2. Double Q-Learning: Mitigating Maximisation Bias
     * 3.3.3. Importance Sampling for Off-Policy Correction
-    * 3.3.4. Safe and Efficient Off-Policy TD: Retrace($\lambda$), V-trace, and Emphatic TD (ETD)
+    * 3.3.4. Safe and Efficient Off-Policy TD: Retrace(\(\lambda\)), V-trace, and Emphatic TD (ETD)
     * 3.3.5. Gradient-TD Methods for Stability (GTD, TDC)
 
 * **3.4. Policy Gradient Methods (REINFORCE, Actor-Critic)**

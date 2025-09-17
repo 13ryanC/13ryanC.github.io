@@ -20,9 +20,9 @@ Classical reinforcement learning focuses on learning expected returns—single s
 
 ### Why Averages Can Mislead
 
-The expectation operator $\mathbb{E}$ is inherently many-to-one: different probability distributions can share identical means while having vastly different shapes, variances, and tail behaviors. This information loss becomes problematic when the distribution's shape drives optimal decision-making.
+The expectation operator \(\mathbb{E}\) is inherently many-to-one: different probability distributions can share identical means while having vastly different shapes, variances, and tail behaviors. This information loss becomes problematic when the distribution's shape drives optimal decision-making.
 
-Formally, let the *return* be the random variable $G = \sum_{t=0}^{T-1} \gamma^{t} R_t$ with law $\mathcal{G}$ on $\mathbb{R}$. Different distributions that share the same mean collapse to the same value estimate $V = \mathbb{E}[G]$. Whenever the *shape* of $\mathcal{G}$ (variance, skew, multimodality, tail mass) drives good decisions, the scalar $V$ becomes a lossy—and potentially dangerous—summary.
+Formally, let the *return* be the random variable \(G = \sum_{t=0}^{T-1} \gamma^{t} R_t\) with law \(\mathcal{G}\) on \(\mathbb{R}\). Different distributions that share the same mean collapse to the same value estimate \(V = \mathbb{E}[G]\). Whenever the *shape* of \(\mathcal{G}\) (variance, skew, multimodality, tail mass) drives good decisions, the scalar \(V\) becomes a lossy—and potentially dangerous—summary.
 
 ### Problem Archetypes Where Expectations Fail
 
@@ -31,11 +31,11 @@ Several common scenarios expose the limitations of expectation-based approaches:
 | # | Archetype | Why the Mean Fails | Real-World Examples |
 |---|-----------|-------------------|-------------------|
 | **1** | **Binary-extreme outcomes** | Mean sits between two modes and suggests "mild profit" although most trajectories are bad | • Gambling & lotteries<br>• Early-stage drug discovery (rare blockbuster hit)<br>• Exploration-heavy RL domains like Montezuma's Revenge where ≥90% roll-outs score 0 but rare ones score very high |
-| **2** | **Catastrophe vs. nominal operation** | A tiny crash probability adds a large negative tail; $\mathbb{E}[G]$ can still be positive, masking fatal risk | • Autonomous driving or drone flight (0.1% collision rate)<br>• Robotic manipulation near fragile objects<br>• Nuclear power shutdown policies |
+| **2** | **Catastrophe vs. nominal operation** | A tiny crash probability adds a large negative tail; \(\mathbb{E}[G]\) can still be positive, masking fatal risk | • Autonomous driving or drone flight (0.1% collision rate)<br>• Robotic manipulation near fragile objects<br>• Nuclear power shutdown policies |
 | **3** | **Heavy-tailed cost or reward** | Variance is infinite or huge; the sample mean converges slowly and underestimates risk | • High-frequency trading P&L<br>• Network traffic surges causing queue overflow<br>• Insurance claim sizes |
 | **4** | **Threshold or draw-down constraints** | Decision quality depends on staying above a wealth/energy/health barrier, a property of the lower tail, not the mean | • Portfolio management with Value-at-Risk limits<br>• Battery-powered robot that must not deplete charge mid-mission<br>• Inventory control with stock-out penalties |
 | **5** | **Multi-modal strategy payoffs** | Averaging distinct modes gives a value that no single policy ever achieves; policy ranking becomes unreliable | • Poker variants<br>• Multi-agent coordination tasks with "win together/lose together" outcomes<br>• Curriculum-learning environments with disparate sub-tasks |
-| **6** | **Asymmetric loss functions** | When the user's utility $u(\cdot)$ is convex or concave, maximizing $\mathbb{E}[G] \neq$ maximizing $\mathbb{E}[u(G)]$ | • Risk-averse health-care dosing (quadratic penalty for overdosing)<br>• Risk-seeking advertising bids (concave gain for clicks) |
+| **6** | **Asymmetric loss functions** | When the user's utility \(u(\cdot)\) is convex or concave, maximizing \(\mathbb{E}[G] \neq\) maximizing \(\mathbb{E}[u(G)]\) | • Risk-averse health-care dosing (quadratic penalty for overdosing)<br>• Risk-seeking advertising bids (concave gain for clicks) |
 | **7** | **Sparse-reward or rare-event learning** | Expectation is near zero for long stretches, providing almost no learning signal even though informative tail events exist | • Goal-conditioned robotic pick-and-place<br>• Hard-exploration Atari games<br>• Cyber-security intrusion detection |
 
 ### Recognizing Risk-Sensitive Tasks in Practice
@@ -43,15 +43,15 @@ Several common scenarios expose the limitations of expectation-based approaches:
 | Indicator in Data/Model | Interpretation |
 |-------------------------|----------------|
 | Histogram or kernel density of returns shows multiple modes, heavy skew, or fat tails | Direct evidence that the mean is unrepresentative |
-| Empirical variance or CVaR (Conditional Value-at-Risk) is large relative to $\mathbb{E}[G]$ | Tail behavior dominates utility |
+| Empirical variance or CVaR (Conditional Value-at-Risk) is large relative to \(\mathbb{E}[G]\) | Tail behavior dominates utility |
 | Small policy tweaks change higher-order moments (probability of failure) while leaving the mean nearly unchanged | Performance depends on distribution shape |
 | Domain requirements mention "safety", "risk", "guarantees", "worst-case", "draw-down", "tail-probability" | Stakeholders already care about risk-sensitive criteria |
 
 ### Why Distributional RL Addresses These Archetypes
 
-1. **Tail-aware optimization** – Policies can be chosen to minimize CVaR, variance, or crash probability directly once $\mathcal{G}$ is learned.
+1. **Tail-aware optimization** – Policies can be chosen to minimize CVaR, variance, or crash probability directly once \(\mathcal{G}\) is learned.
 
-2. **Rich exploration signals** – High quantiles or entropy of $\mathcal{G}$ guide curiosity toward rare but valuable states.
+2. **Rich exploration signals** – High quantiles or entropy of \(\mathcal{G}\) guide curiosity toward rare but valuable states.
 
 3. **One-shot re-use** – A single learned distribution supports multiple downstream utilities without retraining (e.g., switching from risk-neutral to risk-averse planning).
 
@@ -70,23 +70,23 @@ Several common scenarios expose the limitations of expectation-based approaches:
 
 | Aspect | Classical RL | Distributional RL |
 |--------|-------------|------------------|
-| **Quantity modeled** | **Expected return** $V^\pi(x) = \mathbb{E}[G^\pi \mid X=x]$ – a single scalar per state | **Return distribution** $\mathcal{G}^\pi(x) = \text{Law}[G^\pi \mid X=x]$ – a full probability law (infinite-dimensional) |
-| **Bellman relation** | Scalar Bellman equation | *Distributional* Bellman equation $G^\pi(x) \overset{D}{=} R + \gamma G^\pi(X')$ |
-| **Objective implied** | Maximize expectation → *risk-neutral* policy | Can optimize arbitrary risk functionals of $\mathcal{G}$ (variance, CVaR, etc.) → *risk-sensitive/robust* policies |
-| **Error metric** | $L^1$/$L^2$ norm between scalars | Probability metrics between distributions (Wasserstein, KL, Cramér) |
-| **Representation** | A table or function approximator for $V$ or $Q$ | A parametric family for $\mathcal{G}$ (categorical "C51", quantile "QR-DQN", mixture models, particles) |
+| **Quantity modeled** | **Expected return** \(V^\pi(x) = \mathbb{E}[G^\pi \mid X=x]\) – a single scalar per state | **Return distribution** \(\mathcal{G}^\pi(x) = \text{Law}[G^\pi \mid X=x]\) – a full probability law (infinite-dimensional) |
+| **Bellman relation** | Scalar Bellman equation | *Distributional* Bellman equation \(G^\pi(x) \overset{D}{=} R + \gamma G^\pi(X')\) |
+| **Objective implied** | Maximize expectation → *risk-neutral* policy | Can optimize arbitrary risk functionals of \(\mathcal{G}\) (variance, CVaR, etc.) → *risk-sensitive/robust* policies |
+| **Error metric** | \(L^1\)/\(L^2\) norm between scalars | Probability metrics between distributions (Wasserstein, KL, Cramér) |
+| **Representation** | A table or function approximator for \(V\) or \(Q\) | A parametric family for \(\mathcal{G}\) (categorical "C51", quantile "QR-DQN", mixture models, particles) |
 | **Learning difficulty** | Single target per sample | Target *distribution* must be projected/approximated → heavier computation, stability issues |
 
 ### Mathematical Foundation
 
-**Finite discounted MDP** $M = (\mathcal{X}, \mathcal{A}, P, R, \gamma)$ with $\gamma \in (0,1)$.
+**Finite discounted MDP** \(M = (\mathcal{X}, \mathcal{A}, P, R, \gamma)\) with \(\gamma \in (0,1)\).
 
-For a stationary policy $\pi$:
+For a stationary policy \(\pi\):
 
 **Return random variable:**
 $$G^\pi_{x,a} = \sum_{t=0}^{\infty} \gamma^t R_t, \quad R_t \sim R(X_t, A_t), \quad X_{t+1} \sim P(\cdot|X_t, A_t), \quad A_t \sim \pi(\cdot|X_t)$$
 
-**Return distribution:** $\mathcal{Z}^\pi_{x,a} = \mathbb{P}(G^\pi_{x,a}) = \text{Law}(G^\pi_{x,a}) \in \mathcal{P}_1(\mathbb{R})$ (probability measures with finite first moment).
+**Return distribution:** \(\mathcal{Z}^\pi_{x,a} = \mathbb{P}(G^\pi_{x,a}) = \text{Law}(G^\pi_{x,a}) \in \mathcal{P}_1(\mathbb{R})\) (probability measures with finite first moment).
 
 **Distributional Bellman Operator:**
 
@@ -94,12 +94,12 @@ $$
 (\mathcal T^\pi \mathcal Z)_{x,a} = \text{Law}(R(x,a) + \gamma \mathcal Z_{X',A'})
 $$
 
-where $X' \sim P(\cdot|x,a)$ and $A' \sim \pi(\cdot|X')$.
+where \(X' \sim P(\cdot|x,a)\) and \(A' \sim \pi(\cdot|X')\).
 
-**Theorem 1 (Bellemare-Dabney-Munos 2017):** For any $p \geq 1$, the operator $\mathcal{T}^\pi$ is a $\gamma$-contraction in the $p$-Wasserstein metric $W_p$:
+**Theorem 1 (Bellemare-Dabney-Munos 2017):** For any \(p \geq 1\), the operator \(\mathcal{T}^\pi\) is a \(\gamma\)-contraction in the \(p\)-Wasserstein metric \(W_p\):
 $$W_p(\mathcal{T}^\pi \mathcal{Z}, \mathcal{T}^\pi \mathcal{Z}') \leq \gamma W_p(\mathcal{Z}, \mathcal{Z}')$$
 
-Hence a unique fixed point $\mathcal{Z}^{\pi*}$ exists.
+Hence a unique fixed point \(\mathcal{Z}^{\pi*}\) exists.
 
 ### Relationship to Classical RL
 
@@ -123,9 +123,9 @@ which is exactly the **scalar Bellman expectation equation**.
 
 For control, define:
 $$(\mathcal{T}\mathcal{Z})_{x,a} = \text{Law}(R(x,a) + \gamma \mathcal{Z}_{X', a^*(X')})$$
-where $a^*(x') \in \arg\max_{a'} \mathbb{E}[\mathcal{Z}_{x',a'}]$.
+where \(a^*(x') \in \arg\max_{a'} \mathbb{E}[\mathcal{Z}_{x',a'}]\).
 
-**Theorem 2:** $\mathcal{T}$ is *not* a contraction in any integral probability metric—even though its *mean* counterpart $T$ *is* a $\gamma$-contraction.
+**Theorem 2:** \(\mathcal{T}\) is *not* a contraction in any integral probability metric—even though its *mean* counterpart \(T\) *is* a \(\gamma\)-contraction.
 
 This *instability* does not break the abstraction (the mean is still preserved), but it does mean that additional assumptions (e.g., unique optimal policy) or algorithmic tweaks are required for guaranteed convergence in the control setting.
 
@@ -136,33 +136,33 @@ This *instability* does not break the abstraction (the mean is still preserved),
 In reinforcement learning we usually optimize the **expected return**:
 $$J_{\text{exp}}(\pi) = \mathbb{E}[G^\pi], \quad G^\pi = \sum_{t=0}^{T-1} \gamma^t R_t$$
 
-which implicitly treats all variability in the random return $G^\pi$ as irrelevant.
+which implicitly treats all variability in the random return \(G^\pi\) as irrelevant.
 
-A **risk-aware (or risk-sensitive) objective** replaces the plain expectation by a *functional* $\rho: \mathcal{P}(\mathbb{R}) \to \mathbb{R}$ that scores **the entire return distribution $\mathcal{G}^\pi$**:
+A **risk-aware (or risk-sensitive) objective** replaces the plain expectation by a *functional* \(\rho: \mathcal{P}(\mathbb{R}) \to \mathbb{R}\) that scores **the entire return distribution \(\mathcal{G}^\pi\)**:
 $$J_\rho(\pi) = \rho(\mathcal{G}^\pi)$$
 
-Typical choices of $\rho$ emphasize *tail events*, *dispersion*, or *asymmetry*:
+Typical choices of \(\rho\) emphasize *tail events*, *dispersion*, or *asymmetry*:
 
-| Risk Functional $\rho$ | Formal Definition | Captures |
+| Risk Functional \(\rho\) | Formal Definition | Captures |
 |----------------------|-------------------|----------|
-| **Variance-penalized mean** | $\mathbb{E}[G] - \lambda \text{Var}[G]$ | Trade-off accuracy vs. volatility |
-| **Value-at-Risk (VaR$_\alpha$)** | $\inf\{z: \Pr(G \leq z) \geq \alpha\}$ | Worst loss not exceeded with prob. $1-\alpha$ |
-| **Conditional VaR/CVaR$_\alpha$** | $\mathbb{E}[G \mid G \leq \text{VaR}_\alpha]$ | Expected loss *inside* the tail |
-| **Entropic risk** | $-\frac{1}{\eta}\log \mathbb{E}[e^{-\eta G}]$ | Exponential utility, robust to model error |
-| **Sharpe-like ratios** | $\frac{\mathbb{E}[G]}{\sqrt{\text{Var}[G]}}$ | Risk-adjusted performance |
+| **Variance-penalized mean** | \(\mathbb{E}[G] - \lambda \text{Var}[G]\) | Trade-off accuracy vs. volatility |
+| **Value-at-Risk (VaR\(_\alpha\))** | \(\inf\{z: \Pr(G \leq z) \geq \alpha\}\) | Worst loss not exceeded with prob. \(1-\alpha\) |
+| **Conditional VaR/CVaR\(_\alpha\)** | \(\mathbb{E}[G \mid G \leq \text{VaR}_\alpha]\) | Expected loss *inside* the tail |
+| **Entropic risk** | \(-\frac{1}{\eta}\log \mathbb{E}[e^{-\eta G}]\) | Exponential utility, robust to model error |
+| **Sharpe-like ratios** | \(\frac{\mathbb{E}[G]}{\sqrt{\text{Var}[G]}}\) | Risk-adjusted performance |
 
-All of these depend on higher-order statistics (variance, quantiles, cumulants) that the scalar $V^\pi = \mathbb{E}[G]$ cannot supply.
+All of these depend on higher-order statistics (variance, quantiles, cumulants) that the scalar \(V^\pi = \mathbb{E}[G]\) cannot supply.
 
 ### The Economics of Risk-Aware Objectives
 
 | Stage | Classical RL (mean only) | Distributional RL |
 |-------|-------------------------|------------------|
-| **Learning** | Train a value-function approximator for $V^\pi$ | Train a model $\hat{\mathcal{G}}^\pi$ (categorical, quantile, mixture, ...) that outputs the *full* return distribution |
-| **Switch to a new risk metric** | **Re-learn** or fine-tune because $V^\pi$ lacks tails; must approximate $\rho$ indirectly by shaping rewards or redefining TD targets | **No retraining:** compute $\rho(\hat{\mathcal{G}}^\pi)$ by closed-form formula or a small Monte-Carlo sample from the stored distribution |
-| **Per-state cost** | Extra simulation or network forward passes; sometimes impossible (e.g. CVaR needs quantiles you never estimated) | $O(K)$ arithmetic where $K$ = number of atoms/quantiles (usually 50-200) |
-| **Policy improvement** | Need brand-new loss/objective; may destabilize training | Plug $\rho(\hat{\mathcal{G}}^\pi)$ into the $\arg\max$ step; gradients flow through the same network |
+| **Learning** | Train a value-function approximator for \(V^\pi\) | Train a model \(\hat{\mathcal{G}}^\pi\) (categorical, quantile, mixture, ...) that outputs the *full* return distribution |
+| **Switch to a new risk metric** | **Re-learn** or fine-tune because \(V^\pi\) lacks tails; must approximate \(\rho\) indirectly by shaping rewards or redefining TD targets | **No retraining:** compute \(\rho(\hat{\mathcal{G}}^\pi)\) by closed-form formula or a small Monte-Carlo sample from the stored distribution |
+| **Per-state cost** | Extra simulation or network forward passes; sometimes impossible (e.g. CVaR needs quantiles you never estimated) | \(O(K)\) arithmetic where \(K\) = number of atoms/quantiles (usually 50-200) |
+| **Policy improvement** | Need brand-new loss/objective; may destabilize training | Plug \(\rho(\hat{\mathcal{G}}^\pi)\) into the \(\arg\max\) step; gradients flow through the same network |
 
-**Key intuition:** Learning $\hat{\mathcal{G}}^\pi$ is the "expensive" part (it subsumes learning the mean). *Any* coherent risk measure is then a *post-processing* of that distribution—just a few tensor operations on the output layer.
+**Key intuition:** Learning \(\hat{\mathcal{G}}^\pi\) is the "expensive" part (it subsumes learning the mean). *Any* coherent risk measure is then a *post-processing* of that distribution—just a few tensor operations on the output layer.
 
 ### Illustrative Examples of the "Cheapness"
 
@@ -178,7 +178,7 @@ Each query is a *constant-time* reduction over the stored support/probability ve
 
 1. **Representation too coarse.** If the support range is badly truncated or too few quantiles are used, tail estimates become noisy; risk measures lose fidelity.
 2. **Epistemic uncertainty dominates.** A pointwise return distribution does not express *model uncertainty*; additional Bayesian layers are needed.
-3. **High-dimensional action selection.** Computing $\rho(\mathcal{G}^\pi(s,a))$ for thousands of continuous actions may still be costly; actor-critic architectures alleviate this with a separate policy network.
+3. **High-dimensional action selection.** Computing \(\rho(\mathcal{G}^\pi(s,a))\) for thousands of continuous actions may still be costly; actor-critic architectures alleviate this with a separate policy network.
 
 ## 5. Workflow Applications
 
@@ -196,29 +196,29 @@ Each query is a *constant-time* reduction over the stored support/probability ve
 ### Representation Methods
 
 **Categorical (C51)**
-- Discretize return support $[V_{\min}, V_{\max}]$ into $N$ atoms: $z_i = V_{\min} + i \cdot \frac{V_{\max} - V_{\min}}{N-1}$
-- Learn probability mass $p_i$ for each atom: $\mathcal{Z}(s,a) = \sum_{i=0}^{N-1} p_i(s,a) \delta_{z_i}$
+- Discretize return support \([V_{\min}, V_{\max}]\) into \(N\) atoms: \(z_i = V_{\min} + i \cdot \frac{V_{\max} - V_{\min}}{N-1}\)
+- Learn probability mass \(p_i\) for each atom: \(\mathcal{Z}(s,a) = \sum_{i=0}^{N-1} p_i(s,a) \delta_{z_i}\)
 - **Loss:** Cross-entropy between projected target pmf and current pmf
 - **Advantages:** Simple, interpretable, good empirical performance
-- **Disadvantages:** Fixed support range, projection bias, sensitive to $V_{\min}/V_{\max}$ choice
+- **Disadvantages:** Fixed support range, projection bias, sensitive to \(V_{\min}/V_{\max}\) choice
 
 **Quantile Regression (QR-DQN)**
-- Learn specific quantiles $\tau_1, ..., \tau_N$ of return distribution
-- **Loss:** Quantile (pinball) loss: $\rho_\tau(u) = u(\tau - \mathbf{1}_{u<0})$
+- Learn specific quantiles \(\tau_1, ..., \tau_N\) of return distribution
+- **Loss:** Quantile (pinball) loss: \(\rho_\tau(u) = u(\tau - \mathbf{1}_{u<0})\)
 - **Advantages:** Adaptive support, excellent tail estimation, theoretically principled
 - **Disadvantages:** Requires choosing quantile levels, more complex than C51
 
 **Implicit Quantile Networks (IQN)**
-- Learn continuous quantile function $F_Z^{-1}(\tau)$ for $\tau \in [0,1]$
-- Sample quantiles $\tau \sim \text{Uniform}[0,1]$ during training/evaluation
+- Learn continuous quantile function \(F_Z^{-1}(\tau)\) for \(\tau \in [0,1]\)
+- Sample quantiles \(\tau \sim \text{Uniform}[0,1]\) during training/evaluation
 - **Advantages:** Maximum flexibility, no pre-specified quantiles, best empirical performance
 - **Disadvantages:** Most complex, hardest to interpret, requires careful architecture design
 
 ### Error Metrics and Evaluation
 
 **Classical RL Metrics:**
-- Mean-Squared Error (MSE): $\|\hat{V} - V^\pi\|_2^2$
-- Mean-Absolute Error (MAE): $\|\hat{V} - V^\pi\|_1$
+- Mean-Squared Error (MSE): \(\|\hat{V} - V^\pi\|_2^2\)
+- Mean-Absolute Error (MAE): \(\|\hat{V} - V^\pi\|_1\)
 - Root Mean Squared Value Error (RMSVE) over held-out state set
 
 **Distributional RL Metrics:**
@@ -238,22 +238,22 @@ $$D_{KL}(P||Q) = \sum_i P(i) \log \frac{P(i)}{Q(i)}$$
 ### Algorithmic Details
 
 **C51 Algorithm:**
-1. **Forward pass:** Compute atom probabilities $p_i(s,a)$ for current state-action
-2. **Target computation:** For next state $s'$, compute $\mathcal T Z(s,a) = r + \gamma Z(s', \arg\max_{a'} \sum_i p_i(s',a') z_i)$
-3. **Projection:** Project target distribution onto fixed support using $\Phi_z$ operator
+1. **Forward pass:** Compute atom probabilities \(p_i(s,a)\) for current state-action
+2. **Target computation:** For next state \(s'\), compute \(\mathcal T Z(s,a) = r + \gamma Z(s', \arg\max_{a'} \sum_i p_i(s',a') z_i)\)
+3. **Projection:** Project target distribution onto fixed support using \(\Phi_z\) operator
 4. **Loss:** Cross-entropy between projected target and current distribution
 5. **Update:** Standard SGD on cross-entropy loss
 
 **QR-DQN Algorithm:**
-1. **Forward pass:** Compute quantiles $\hat{z}_{\tau_i}(s,a)$ for fixed quantile levels $\tau_i$
-2. **Target computation:** $y_i = r + \gamma \hat z_{\tau_i}(s', \arg\max_{a'} \frac{1}{N} \sum_j \hat z_{\tau_j}(s',a'))$
-3. **Loss:** Quantile regression loss $\rho_{\tau_i}(y_i - \hat{z}_{\tau_i}(s,a))$
+1. **Forward pass:** Compute quantiles \(\hat{z}_{\tau_i}(s,a)\) for fixed quantile levels \(\tau_i\)
+2. **Target computation:** \(y_i = r + \gamma \hat z_{\tau_i}(s', \arg\max_{a'} \frac{1}{N} \sum_j \hat z_{\tau_j}(s',a'))\)
+3. **Loss:** Quantile regression loss \(\rho_{\tau_i}(y_i - \hat{z}_{\tau_i}(s,a))\)
 4. **Update:** SGD on quantile loss
 
 **IQN Algorithm:**
-1. **Forward pass:** Sample $\tau \sim \text{Uniform}[0,1]$, compute $\hat{z}_\tau(s,a)$
+1. **Forward pass:** Sample \(\tau \sim \text{Uniform}[0,1]\), compute \(\hat{z}_\tau(s,a)\)
 2. **Target computation:** Similar to QR-DQN but with sampled quantiles
-3. **Loss:** Quantile regression loss with sampled $\tau$
+3. **Loss:** Quantile regression loss with sampled \(\tau\)
 4. **Update:** SGD with respect to both quantile function and sampled quantiles
 
 ### Approximation Challenges
@@ -270,16 +270,16 @@ $$D_{KL}(P||Q) = \sum_i P(i) \log \frac{P(i)}{Q(i)}$$
 
 | Setting | Classical Baseline | Distributional Counterpart |
 |---------|-------------------|---------------------------|
-| **Tabular policy evaluation** | Compute RMSVE against exact dynamic-programming $V^\pi$ | Compute average $W_1$ (or Cramér) between learned $\hat{\mathcal{Z}}$ and analytic $\mathcal{Z}^\pi$ (possible on small chains) |
-| **Atari 2600 (Deep RL)** | Report mean human-normalized score of DQN variants | C51/QR-DQN report *same* score **plus** distributional diagnostics (average KL or $W_1$ on held-out rollouts) |
+| **Tabular policy evaluation** | Compute RMSVE against exact dynamic-programming \(V^\pi\) | Compute average \(W_1\) (or Cramér) between learned \(\hat{\mathcal{Z}}\) and analytic \(\mathcal{Z}^\pi\) (possible on small chains) |
+| **Atari 2600 (Deep RL)** | Report mean human-normalized score of DQN variants | C51/QR-DQN report *same* score **plus** distributional diagnostics (average KL or \(W_1\) on held-out rollouts) |
 | **Risk-aware control tasks** | Evaluate CVaR of total reward computed via Monte-Carlo | Measure CVaR directly from predicted distributions; also test pinball loss convergence |
 
 ### Micro-Example: Toy MDP
 
 | Toy MDP | Classical Estimate | Distributional Estimate |
 |---------|-------------------|------------------------|
-| **One-step coin:** reward +5 w.p. 0.1, else -1 | $V = 0.1 \times 5 + 0.9 \times (-1) = -0.4$ | $\mathcal{Z} = \begin{cases} +5 & p=0.1 \\ -1 & p=0.9 \end{cases}$ |
-| **Error if learner predicts 0** | Absolute value error = 0.4 | Wasserstein-1 error = $0.1 \times |5-0| + 0.9 \times |-1-0| = 1.4$ |
+| **One-step coin:** reward +5 w.p. 0.1, else -1 | \(V = 0.1 \times 5 + 0.9 \times (-1) = -0.4\) | \(\mathcal{Z} = \begin{cases} +5 & p=0.1 \\ -1 & p=0.9 \end{cases}\) |
+| **Error if learner predicts 0** | Absolute value error = 0.4 | Wasserstein-1 error = \(0.1 \times |5-0| + 0.9 \times |-1-0| = 1.4\) |
 | **Insight** | Scalar error small; agent believes near-neutral outcome | Probability metric reveals heavy left-tail (risk of -1) and right-tail (rare +5) |
 
 ## 8. Challenges and Limitations
@@ -287,11 +287,11 @@ $$D_{KL}(P||Q) = \sum_i P(i) \log \frac{P(i)}{Q(i)}$$
 ### Computational Overhead
 - **Memory:** Store 50-200 atoms/quantiles instead of single scalar
 - **Computation:** More complex forward/backward passes, projection operations
-- **Network size:** Distributional heads require $K$ times more parameters
+- **Network size:** Distributional heads require \(K\) times more parameters
 - **Training time:** Typically 1.5-3x slower than classical methods
 
 ### Representation Challenges
-- **Support selection:** Choosing appropriate $[V_{\min}, V_{\max}]$ and number of atoms/quantiles
+- **Support selection:** Choosing appropriate \([V_{\min}, V_{\max}]\) and number of atoms/quantiles
 - **Projection bias:** Approximation errors when projecting onto finite supports
 - **Hyperparameter sensitivity:** More tuning required than classical methods
 - **Tail estimation:** Finite representations may poorly capture extreme events
@@ -358,7 +358,7 @@ $$D_{KL}(P||Q) = \sum_i P(i) \log \frac{P(i)}{Q(i)}$$
 
 **Phase 2: Implementation**
 1. **Start simple:** Begin with C51 for categorical distributions
-2. **Tune support carefully:** Use domain knowledge to set $[V_{\min}, V_{\max}]$
+2. **Tune support carefully:** Use domain knowledge to set \([V_{\min}, V_{\max}]\)
 3. **Monitor multiple metrics:** Track mean, variance, and tail statistics simultaneously
 4. **Compare with classical baseline:** Ensure distributional method actually helps
 
@@ -371,12 +371,12 @@ $$D_{KL}(P||Q) = \sum_i P(i) \log \frac{P(i)}{Q(i)}$$
 ### Common Pitfalls and Solutions
 
 **Pitfall 1: Inadequate Support Range**
-- **Problem:** Returns fall outside $[V_{\min}, V_{\max}]$
+- **Problem:** Returns fall outside \([V_{\min}, V_{\max}]\)
 - **Solution:** Use percentile-based support estimation, dynamic expansion
 
 **Pitfall 2: Too Few Atoms/Quantiles**
 - **Problem:** Poor approximation of distribution tails
-- **Solution:** Increase $N$ gradually, use non-uniform quantile spacing
+- **Solution:** Increase \(N\) gradually, use non-uniform quantile spacing
 
 **Pitfall 3: Ignoring Projection Bias**
 - **Problem:** Mean of projected distribution differs from true mean

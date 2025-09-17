@@ -175,11 +175,11 @@ The Rend Hypotheses
 
 - That all of what we mean by goals and purpose, can be well thought of as the maximisation of the expected value, of the cumulative sum of a received scalar signal (called reward) - A reward signal is good, clear way to specify the goal.
 
- $\rightarrow$  It is used in many disciplines, economics, psychology, social, they.
+ \(\rightarrow\)  It is used in many disciplines, economics, psychology, social, they.
 
- $\rightarrow$  Holding constraints, multiple objectives, or risk sensitivity would not increase generality. (Setting the reward hypothesis, Boxing 2023)
+ \(\rightarrow\)  Holding constraints, multiple objectives, or risk sensitivity would not increase generality. (Setting the reward hypothesis, Boxing 2023)
 
- $\rightarrow$  Even a simple reward can lead to all the attributes of intelligence in a sufficiently complex world (Rend Hypothesis).
+ \(\rightarrow\)  Even a simple reward can lead to all the attributes of intelligence in a sufficiently complex world (Rend Hypothesis).
 
 # Fun- Time R Architectures
 
@@ -187,11 +187,11 @@ Model- free: Basic- RCI; the agent constructs an approximate policy model for va
 
 # Oak: The Oak architecture.
 
- $\rightarrow$  The agent poses auxiliary sub- problems for afflicting individual features.
+ \(\rightarrow\)  The agent poses auxiliary sub- problems for afflicting individual features.
 
- $\rightarrow$  These enable the discovery of higher and higher levels of obstruction.
+ \(\rightarrow\)  These enable the discovery of higher and higher levels of obstruction.
 
-Limited only by computational resources (ppm- ended abstraction).  $\rightarrow$  Optimised
+Limited only by computational resources (ppm- ended abstraction).  \(\rightarrow\)  Optimised
 
 # Agent
 
@@ -441,23 +441,23 @@ abstrued semantics
 
 Conventional Model:
 
- $\begin{array}{c} \text { starting states } \\ \text { action of } \\ \text { S. P. } \end{array}$  and shifting ver. next (state.
+ \(\begin{array}{c} \text { starting states } \\ \text { action of } \\ \text { S. P. } \end{array}\)  and shifting ver. next (state.
 
 Expected reward ?
 
 Frames an option model
 
- $\begin{array}{c} \text { starting states } \\ \text { action } \\ \text { chain } \end{array} \rightarrow \begin{array}{c} \text { Probability that the state } \\ \text { stopping state } \\ \text { chain } \end{array}$ 
+ \(\begin{array}{c} \text { starting states } \\ \text { action } \\ \text { chain } \end{array} \rightarrow \begin{array}{c} \text { Probability that the state } \\ \text { stopping state } \\ \text { chain } \end{array}\) 
 
 Value iteration is almost unchanged
 
- $\begin{array}{c} \text { (s) } \\ \text { possible option states } \end{array}$ 
+ \(\begin{array}{c} \text { (s) } \\ \text { possible option states } \end{array}\) 
 
 Planning with (or with another)
 
 Conventional VI
 
- $\begin{array}{c} \text { (s) } \\ \text { becoming } \end{array} \begin{array}{c} \text { (s, w) } \\ \text { (s, q) } \end{array}$ $\begin{array}{c} \text { (s) } \\ \text { model } \\ \text { chain } \\ \text { parameter } \end{array}$ $\begin{array}{c} \text { (s, w) } \\ \text { model } \\ \text { parameter } \end{array}$ $\begin{array}{c} \text { (s, q) } \\ \text { model } \\ \text { parameter } \end{array}$ $\begin{array}{c} \text { (s, w) } \\ \text { model } \\ \text { parameter } \end{array}$ $\begin{array}{c} \text { (s, q) } \\ \text { model } \\ \text { parameter } \end{array}$ $b(s, a, v) = \sum_{i = 0}^{n} (s_{i}, a) + 2 \sum_{i = 0}^{n} \sum_{p} (s_{i}^{\prime} | s_{p}) \cdot \nu (s_{i}, v)$ $\begin{array}{c} \text { (s, p) } \\ \text { (right words) } \\ \text { of function approximator. } \end{array}$ $\begin{array}{c} \text { (s, p) } \\ \text { (s, p) } \\ \text { parameter } \end{array}$ $w \leftarrow w + d \left[ \max_{a} b(s, a, v) - \widehat{\nu} (s, v) \right] \quad \widehat{\nu}_{w} \widehat{\nu} (s, v)$ $\begin{array}{c} \text { 1 } \\ \text { 2 } \\ \text { 3 } \\ \text { 4 } \\ \text { 5 } \\ \text { 6 } \\ \text { 7 } \\ \text { graded vector. } \end{array}$
+ \(\begin{array}{c} \text { (s) } \\ \text { becoming } \end{array} \begin{array}{c} \text { (s, w) } \\ \text { (s, q) } \end{array}\) \(\begin{array}{c} \text { (s) } \\ \text { model } \\ \text { chain } \\ \text { parameter } \end{array}\) \(\begin{array}{c} \text { (s, w) } \\ \text { model } \\ \text { parameter } \end{array}\) \(\begin{array}{c} \text { (s, q) } \\ \text { model } \\ \text { parameter } \end{array}\) \(\begin{array}{c} \text { (s, w) } \\ \text { model } \\ \text { parameter } \end{array}\) \(\begin{array}{c} \text { (s, q) } \\ \text { model } \\ \text { parameter } \end{array}\) \(b(s, a, v) = \sum_{i = 0}^{n} (s_{i}, a) + 2 \sum_{i = 0}^{n} \sum_{p} (s_{i}^{\prime} | s_{p}) \cdot \nu (s_{i}, v)\) \(\begin{array}{c} \text { (s, p) } \\ \text { (right words) } \\ \text { of function approximator. } \end{array}\) \(\begin{array}{c} \text { (s, p) } \\ \text { (s, p) } \\ \text { parameter } \end{array}\) \(w \leftarrow w + d \left[ \max_{a} b(s, a, v) - \widehat{\nu} (s, v) \right] \quad \widehat{\nu}_{w} \widehat{\nu} (s, v)\) \(\begin{array}{c} \text { 1 } \\ \text { 2 } \\ \text { 3 } \\ \text { 4 } \\ \text { 5 } \\ \text { 6 } \\ \text { 7 } \\ \text { graded vector. } \end{array}\)
 
 ---
 
@@ -482,13 +482,13 @@ There are also 2 loops inside each back- up.
 
 Incrementally (keep track of best- so- far, checks selected now options to see if they are hitting)
 
-- The  $\sum$  is the problem at the world's stochastic.
+- The  \(\sum\)  is the problem at the world's stochastic.
 
 Can the expected action value be computed officially?
 
 Planning with function Approximation and Stochastic Transles.
 
-- The Expected Action Value must be computed for every back- up:  $\sum \rho_{a}(s^{\prime}, (s, a) \widehat{V} (s, w)$ .
+- The Expected Action Value must be computed for every back- up:  \(\sum \rho_{a}(s^{\prime}, (s, a) \widehat{V} (s, w)\) .
 
 - It is cheap in the world's determinists. But really the Env's very stochastic.
 
@@ -496,7 +496,7 @@ Planning with function Approximation and Stochastic Transles.
 
 next state, then we would be pretty good (sample model).
 
-- There is a task that the value function is linear,  $\widehat{V} (s, w) = s^{\top} w$ .
+- There is a task that the value function is linear,  \(\widehat{V} (s, w) = s^{\top} w\) .
 
 Conventional Model
 
