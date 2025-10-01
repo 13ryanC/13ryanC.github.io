@@ -1,3 +1,9 @@
+---
+_build:
+  render: never
+  list: never
+---
+
 # Archived Planning Documents
 
 This directory contains the historical planning documents that were merged to create the authoritative `ROADMAP.md`.

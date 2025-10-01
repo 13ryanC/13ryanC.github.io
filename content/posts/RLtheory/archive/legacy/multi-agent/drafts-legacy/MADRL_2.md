@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-19"
 title: "Multi-Agent Deep Reinforcement Learning II"
 summary: "Multi-Agent Deep Reinforcement Learning II"

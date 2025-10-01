@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-08-26"
 title: "Why the World is non-stationary"
 summary: "Why the World is non-stationary"

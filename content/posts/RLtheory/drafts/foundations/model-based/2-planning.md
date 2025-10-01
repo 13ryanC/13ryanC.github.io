@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-11"
 title: "(4.2) Function Approximation, Lower Bounds & Realizability – From LSPI to TensorPlan"
 summary: "We move beyond tabular online‑planning and show how linear representations, tight lower bounds and new optimistic planners reshape the landscape."

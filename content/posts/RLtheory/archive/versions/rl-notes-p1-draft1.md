@@ -1,3 +1,9 @@
+---
+_build:
+  render: never
+  list: never
+---
+
 # A Complete Guide to Probability Theory and Markov Decision Processes
 
 ## Table of Contents

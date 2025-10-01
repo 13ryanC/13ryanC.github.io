@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-06-30"
 title: "Collection of MDPs"
 summary: "Collection of MDPs"

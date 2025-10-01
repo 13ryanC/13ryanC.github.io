@@ -1,3 +1,9 @@
+---
+_build:
+  render: never
+  list: never
+---
+
 # Chapter 11
 
 # *Off-policy Methods with Approximation

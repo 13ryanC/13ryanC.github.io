@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-20"
 title: "A2. Agent Knowledge and Observability in Multi-Agent Systems"
 summary: "A2. Agent Knowledge and Observability in Multi-Agent Systems"

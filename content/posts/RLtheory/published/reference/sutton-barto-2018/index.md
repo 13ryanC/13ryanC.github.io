@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-09-16"
 title: "Sutton & Barto Reinforcement Learning (2018)"
 summary: "Chapter-by-chapter reference notes for Sutton & Barto's Reinforcement Learning textbook."

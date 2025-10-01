@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-06-27"
 title: "High and Low Road of RL"
 summary: "Provide accessible landscape for RL beginners and practitioners alike"

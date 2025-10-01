@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-07"
 title: "(2.3) Statistical Toolkit: Concentration Inequalities, Uniform Convergence, and Martingales"
 summary: "Statistical Toolkit: Concentration Inequalities, Uniform Convergence, and Martingales"

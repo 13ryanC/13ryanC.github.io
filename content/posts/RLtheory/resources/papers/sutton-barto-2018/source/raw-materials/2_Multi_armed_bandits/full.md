@@ -1,3 +1,9 @@
+---
+_build:
+  render: never
+  list: never
+---
+
 # Chapter 2
 
 # Multi-armed Bandits

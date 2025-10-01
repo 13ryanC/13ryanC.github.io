@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-19"
 title: "H. Evaluation, Benchmarking & Environment Design"
 summary: "H. Evaluation, Benchmarking & Environment Design"

@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-09-16"
 title: "Foundations Module"
 summary: "Basic concepts and mathematical foundations for reinforcement learning theory"

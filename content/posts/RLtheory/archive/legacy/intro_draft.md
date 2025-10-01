@@ -1,3 +1,9 @@
+---
+_build:
+  render: never
+  list: never
+---
+
 
 There’s plenty of introductory material and textbooks on RL, yet, to be honest, I still don’t fully grasp any of them.
 

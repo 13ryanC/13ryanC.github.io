@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-06-26"
 title: "Some notes of the fundamental theorem of MDPs"
 summary: "errata"

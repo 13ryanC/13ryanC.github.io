@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-14"
 title: "Monte-Carlo Methods"
 summary: "Monte-Carlo Methods"

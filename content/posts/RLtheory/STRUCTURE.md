@@ -1,3 +1,9 @@
+---
+_build:
+  render: never
+  list: never
+---
+
 # RLtheory Directory Structure
 
 This document defines the canonical directory taxonomy for organizing all reinforcement learning theory content.

@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-11"
 title: "Regret Minimization and Rate-Optimal Online RL"
 summary: "Regret Minimization and Rate-Optimal Online RL"

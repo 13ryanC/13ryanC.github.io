@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-06-27"
 title: "(Part 1) MDP Fundamentals and Optimality" 
 summary: "Aim to provide more insight on RL foundations for beginners. Includes MDP definitions, bellman eq, funda thm, value functions, contrction mappings. Ensure rigorous definitions of MDP, value functions, contraction mappings."

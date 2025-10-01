@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-06-27"
 title: "(Draft 1 Part 2) Personal Notes on the Foundations of Reinforcement Learning"
 summary: "Aim to provide more insight on RL foundations for beginners"

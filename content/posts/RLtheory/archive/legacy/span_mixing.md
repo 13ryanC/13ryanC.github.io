@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-06-30"
 title: "Span of value function and mixing rate"
 summary: "Span of value function and mixing rate"

@@ -1,3 +1,9 @@
+---
+_build:
+  render: never
+  list: never
+---
+
 # Chapter 16
 
 # Applications and Case Studies

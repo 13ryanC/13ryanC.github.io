@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-06-26"
 title: "Chapter 9 On-policy Prediction with Approximation"
 summary: "errata"

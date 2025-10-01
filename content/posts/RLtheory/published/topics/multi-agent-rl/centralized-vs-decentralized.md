@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-19"
 title: "F. Multi‑Agent Actor–Critic & Centralised ↔ Decentralised Training"
 summary: "F. Multi‑Agent Actor–Critic & Centralised ↔ Decentralised Training"

@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-20"
 title: "A1. Sequential Decision Processes"
 summary: "A1. Sequential Decision Processes"

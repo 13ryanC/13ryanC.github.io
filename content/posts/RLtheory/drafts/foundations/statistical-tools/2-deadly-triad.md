@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-07"
 title: "(2.2) The Deadly Triad and Divergence Pathologies"
 summary: "The Deadly Triad and Divergence Pathologies"

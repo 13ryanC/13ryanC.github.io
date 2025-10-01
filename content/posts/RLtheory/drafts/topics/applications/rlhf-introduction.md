@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-17"
 title: "Reinforcement Learning from Human Feedback"
 summary: "Reinforcement Learning from Human Feedback"

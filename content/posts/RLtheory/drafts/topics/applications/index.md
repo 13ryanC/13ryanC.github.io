@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-09-16"
 title: "Applications Module"
 summary: "Practical applications and deployment considerations for RL"

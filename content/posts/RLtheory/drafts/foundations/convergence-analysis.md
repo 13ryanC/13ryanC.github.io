@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-03"
 title: "(Part 4.3) State Abstraction" 
 summary: "State Abstraction"

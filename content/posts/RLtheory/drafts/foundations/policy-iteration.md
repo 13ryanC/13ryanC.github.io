@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-03"
 title: "(Part 4.1) Value Function Approximation and its Theoretical Foundations"
 summary: "Value Function Approximation and its Theoretical Foundations"

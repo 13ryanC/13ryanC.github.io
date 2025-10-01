@@ -1,3 +1,9 @@
+---
+_build:
+  render: never
+  list: never
+---
+
 # Front Matter & Heading Standards for RLtheory
 
 Documentation of standardized front matter and heading hierarchy requirements for all markdown files in the RLtheory directory.

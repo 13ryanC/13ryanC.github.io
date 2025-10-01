@@ -1,3 +1,9 @@
+---
+_build:
+  render: never
+  list: never
+---
+
 # Chapter 9
 
 # On-policy Prediction with Approximation

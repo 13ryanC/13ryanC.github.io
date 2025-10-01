@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-12"
 title: "(1) Briefly on Distributional RL"
 summary: "(1) Briefly on Distributional RL"

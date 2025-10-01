@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-08-17"
 title: "Thoughts on MAS"
 summary: "Thoughts on MAS"

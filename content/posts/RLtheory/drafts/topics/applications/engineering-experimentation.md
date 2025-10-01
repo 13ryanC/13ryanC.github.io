@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-19"
 title: "G. Practical Engineering & Experimentation"
 summary: "G. Practical Engineering & Experimentation"

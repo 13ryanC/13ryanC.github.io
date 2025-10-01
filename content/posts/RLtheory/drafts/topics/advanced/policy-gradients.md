@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-11"
 title: "Convergence and Geometry of Policy-Gradient (PG) methods"
 summary: "Convergence and Geometry of Policy-Gradient (PG) methods"

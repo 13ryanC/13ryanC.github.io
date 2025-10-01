@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-11"
 title: "Off-Policy Evaluation (OPE) and counter-factual estimation"
 summary: "Off-Policy Evaluation (OPE) and counter-factual estimation"

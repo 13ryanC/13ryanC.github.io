@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-03"
 title: "(Part 3) Online Planning and Theoretical Foundations"
 summary: "Online Planning and Theoretical Foundations"

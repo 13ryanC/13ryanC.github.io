@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-07"
 title: "(2.4) Error Decomposition: Structural, Data‑Driven, Algorithmic, and Propagated Errors"
 summary: "Error Decomposition: Structural, Data‑Driven, Algorithmic, and Propagated Errors"
