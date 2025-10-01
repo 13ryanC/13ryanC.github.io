@@ -1,3 +1,9 @@
+---
+_build:
+  render: never
+  list: never
+---
+
 
 Below is an integrative primer that traces **how ideas, data and metaphors from biology shaped every major wave of neural‑network research** and culminated in today’s “deep” learning systems.  I organise the story as a sequence of biological questions and the engineering answers they provoked, then close with open problems where neuroscience and deep learning may converge again.
 

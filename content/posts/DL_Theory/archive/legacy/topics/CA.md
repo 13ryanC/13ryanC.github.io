@@ -1,3 +1,9 @@
+---
+_build:
+  render: never
+  list: never
+---
+
 The essay’s point of departure is a single, apparently straightforward question:
 
 > **“Are there what amount to *laws of innovation* that govern the arc of progress?”** ([writings.stephenwolfram.com][1])

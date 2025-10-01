@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-07"
 title: "(1.4) The Learning Problem: Empirical Risk Minimization and Generalization"
 summary: "The Learning Problem: Empirical Risk Minimization and Generalization"

@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-07"
 title: "(1.3) Loss Functions: Formulating the Learning Objective"
 summary: "Loss Functions: Formulating the Learning Objective"

@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-11"
 title: "Mode Connectivity in Weight Space"
 summary: "Mode Connectivity in Weight Space"

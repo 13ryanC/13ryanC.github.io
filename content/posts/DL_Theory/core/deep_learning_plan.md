@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-06"
 title: "(Higher-level) Tentative Plan for Deep Learning Theory Series"
 summary: "(Higher-level) Tentative Plan for Deep Learning Theory Series"
