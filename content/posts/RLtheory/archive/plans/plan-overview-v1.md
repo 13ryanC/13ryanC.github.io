@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-06"
 title: "(higher level) Tentative Plan for RL Theory Series"
 summary: "(higher level) Tentative Plan for RL Theory Series"

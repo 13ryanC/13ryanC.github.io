@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-09"
 title: "(3.2) On-Policy Control: Sarsa, Expected Sarsa, and GLIE"
 summary: "On-Policy Control: Sarsa, Expected Sarsa, and GLIE"

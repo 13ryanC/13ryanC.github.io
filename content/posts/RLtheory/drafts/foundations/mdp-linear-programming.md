@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-18"
 title: "(1.4) The Linear Programming Formulation of MDPs"
 summary: "The Linear Programming Formulation of MDPs"

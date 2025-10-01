@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-19"
 title: "Hierarchy of Solution Concepts"
 summary: "Hierarchy of Solution Concepts"

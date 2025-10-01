@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-19"
 title: "Draft A. Foundations of Sequential Multi‑Agent Decision‑Making"
 summary: "A. Foundations of Sequential Multi‑Agent Decision‑Making"

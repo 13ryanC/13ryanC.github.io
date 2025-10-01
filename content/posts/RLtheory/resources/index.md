@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-09-16"
 title: "RL Theory Resources"
 summary: "Support materials including images, papers, and planning documents for RL theory content."

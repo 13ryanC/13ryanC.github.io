@@ -1,3 +1,9 @@
+---
+_build:
+  render: never
+  list: never
+---
+
 # RLtheory Migration Checklist
 
 Step-by-step tasks for migrating 172 markdown files according to the FILE_MANIFEST.md and STRUCTURE.md taxonomy.

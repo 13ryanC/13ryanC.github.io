@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-10"
 title: "(4.2) From Planning to Learning: Exploration-Optimal Online RL in Tabular and Linear MDPs"
 summary: "From Planning to Learning: Exploration-Optimal Online RL in Tabular and Linear MDPs"

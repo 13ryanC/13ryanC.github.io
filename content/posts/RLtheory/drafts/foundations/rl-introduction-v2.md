@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-03"
 title: "(Part 1) MDP Foundations nad Optimality"
 summary: "MDP Foundations and Optimality"

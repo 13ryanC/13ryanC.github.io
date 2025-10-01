@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-06-27"
 title: "Start building the foundations of Reinforcement Learning that I Can Trust"
 summary: "After years of frustration with hand-waving and leaky abstractions, this is the start of my informal notes to unify the theory and practice of RL."

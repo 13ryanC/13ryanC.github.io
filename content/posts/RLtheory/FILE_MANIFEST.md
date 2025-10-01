@@ -1,3 +1,9 @@
+---
+_build:
+  render: never
+  list: never
+---
+
 # RLtheory File Manifest
 
 Complete inventory of all files in the RLtheory directory with migration destinations according to the STRUCTURE.md taxonomy.

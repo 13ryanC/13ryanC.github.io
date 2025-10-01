@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-10"
 title: "(2.1) Function Approximation Architectures (Linear, Kernel, Neural)"
 summary: "Function Approximation Architectures (Linear, Kernel, Neural)"

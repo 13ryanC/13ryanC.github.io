@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-04"
 title: "(Part 2.2) Dynamic Programming: Policy Iteration"
 summary: "Two classic planning algorithms for solving known MDPs. Present VI/ PI side by side; prove convergence rates, complexity"

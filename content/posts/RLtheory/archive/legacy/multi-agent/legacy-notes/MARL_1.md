@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-13"
 title: "(1) Briefly on Multi-Agent RL" 
 summary: "(1) Briefly on Multi-Agent RL"

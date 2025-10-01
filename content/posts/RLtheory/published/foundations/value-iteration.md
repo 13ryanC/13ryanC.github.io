@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-04"
 title: "(Part 3) Online vs Local Planning in Sequential Decision‑Making"
 summary: "Dissecting two practical faces of planning in RL‑style control. Treat as advanced planning heuristics; optional deep dive"

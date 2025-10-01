@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-06-30"
 title: "St Petersburgs Paradox"
 summary: "St Petersburgs Paradox"

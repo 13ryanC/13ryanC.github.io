@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-19"
 title: "Function Approximation via Deep Learning"
 summary: "Function Approximation via Deep Learning"

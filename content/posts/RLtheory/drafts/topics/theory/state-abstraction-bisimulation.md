@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-11"
 title: "State-abstraction and bisimulation metrics"
 summary: "State-abstraction and bisimulation metrics"

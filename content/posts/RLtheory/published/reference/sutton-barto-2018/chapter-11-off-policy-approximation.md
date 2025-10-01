@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-06-26"
 title: "Chapter 11 Off-policy Methods with Approximation"
 summary: "errata"

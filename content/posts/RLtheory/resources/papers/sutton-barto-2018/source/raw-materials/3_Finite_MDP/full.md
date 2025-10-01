@@ -1,3 +1,9 @@
+---
+_build:
+  render: never
+  list: never
+---
+
 # Chapter 3
 
 # Finite Markov Decision Processes

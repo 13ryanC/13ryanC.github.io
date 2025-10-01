@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-09"
 title: "(3.1 legacy) On-Policy Value Prediction (MC, TD-lambda, LSTD)"
 summary: "On-Policy Value Prediction (MC, TD-lambda, LSTD)"

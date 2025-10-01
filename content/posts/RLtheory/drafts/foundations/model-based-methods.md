@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-21"
 title: "On and off policy prediction and control"
 summary: "On and off policy prediction and control"

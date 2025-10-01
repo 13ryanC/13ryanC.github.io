@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-19"
 title: "D. Algorithmic Templates & Opponent Modelling"
 summary: "D. Algorithmic Templates & Opponent Modelling"

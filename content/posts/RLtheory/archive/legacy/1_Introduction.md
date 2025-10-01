@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-06-26"
 title: "Some Intuition from lecture 1 of Casba's RL theory series"
 summary: "errata"

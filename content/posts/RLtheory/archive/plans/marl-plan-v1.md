@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-19"
 title: "Plan for Multi-Agent Reinforcement Learning"
 summary: "Plan for Multi-Agent Reinforcement Learning"

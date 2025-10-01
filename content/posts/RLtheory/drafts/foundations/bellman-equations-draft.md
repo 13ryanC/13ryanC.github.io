@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-03"
 title: "(Part 2.2) Policy Iteration and its Theoretical Foundations"
 summary: "Policy Iteration and its Theoretical Foundations"

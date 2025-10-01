@@ -1,3 +1,9 @@
+---
+_build:
+  render: never
+  list: never
+---
+
 # Chapter 8
 
 # Planning and Learning with Tabular Methods

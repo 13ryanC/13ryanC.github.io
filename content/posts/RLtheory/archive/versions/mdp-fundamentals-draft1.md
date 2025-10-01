@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-06"
 title: "(Part 2.1) Value Iteration and its Theoretical Foundations"
 summary: "Value Iteration and its Theoretical Foundations"

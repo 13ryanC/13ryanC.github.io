@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-09"
 title: "(3.3) Off-Policy Value Prediction and Control" 
 summary: "Off-Policy Value Prediction and Control"

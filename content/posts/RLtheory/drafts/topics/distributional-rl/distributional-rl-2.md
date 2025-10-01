@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-12"
 title: "(2) (Pending) Notes Briefly on the foundations of Distributional RL"
 summary: "(2) (Pending) Notes Briefly on the foundations of Distributional RL"

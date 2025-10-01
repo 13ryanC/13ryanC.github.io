@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-21"
 title: "(On-going, read only the first question) A3. Actions and Rewards in Multi-Agent Systems"
 summary: "(On-going) A3. Actions and Rewards in Multi-Agent Systems"

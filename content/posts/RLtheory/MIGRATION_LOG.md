@@ -1,3 +1,9 @@
+---
+_build:
+  render: never
+  list: never
+---
+
 # RLtheory Migration Log
 
 ## Phase 0 – Backup and Validation (2025-09-16)

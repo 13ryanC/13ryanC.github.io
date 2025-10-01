@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-08-26"
 title: "Big World Hypothesis"
 summary: "Big World Hypothesis"

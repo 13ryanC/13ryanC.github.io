@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-08-24"
 title: "OaK"
 summary: "OaK"

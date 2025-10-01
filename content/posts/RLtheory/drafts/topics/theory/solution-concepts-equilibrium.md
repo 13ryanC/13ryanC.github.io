@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-19"
 title: "B. Solution Concepts & Equilibrium Analysis"
 summary: "B. Solution Concepts & Equilibrium Analysis"

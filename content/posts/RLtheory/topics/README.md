@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-09-16"
 title: "RL Theory Topics Navigation"
 summary: "Comprehensive guide to reinforcement learning theory topics organized by learning progression"

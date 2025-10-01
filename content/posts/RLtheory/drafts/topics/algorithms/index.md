@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-09-16"
 title: "Algorithms Module"
 summary: "Core RL algorithms from tabular to function approximation"

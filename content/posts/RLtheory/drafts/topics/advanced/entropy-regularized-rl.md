@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-11"
 title: "Entropy- or KL-regularised RL and the mirror-descent view"
 summary: "Entropy- or KL-regularised RL and the mirror-descent view"

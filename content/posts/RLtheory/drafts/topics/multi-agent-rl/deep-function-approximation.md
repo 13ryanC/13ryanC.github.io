@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-19"
 title: "E. Deep Function Approximation for MARL"
 summary: "E. Deep Function Approximation for MARL"
