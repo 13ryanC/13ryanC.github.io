@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-10"
 title: "(1.1) The Artificial Neuron: Definition, Analysis, and Biological Context"
 summary: "The Artificial Neuron: Definition, Analysis, and Biological Context"

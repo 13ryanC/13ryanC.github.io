@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-21"
 title: "Neural Network Approximation Theory"
 summary: "Neural Network Approximation Theory"

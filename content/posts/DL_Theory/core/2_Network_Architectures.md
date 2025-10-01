@@ -1,4 +1,8 @@
 ---
+_build:
+  render: never
+  list: never
+
 date: "2025-07-07"
 title: "(1.2) Network Architecture: Layers, Depth, Width, and Feed-Forward Computation"
 summary: "Network Architecture: Layers, Depth, Width, and Feed-Forward Computation"
