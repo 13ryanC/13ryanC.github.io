@@ -33,4 +33,8 @@ Here I'll provide a brief outline of points on why I think there actually *is* a
 
 ### Progress So Far
 
-Working on it at the moment, but I will draw examples from my background of chemical engineering where I have extensive knoweledge and exposure on safety and control engineering for dealing with chemical process. Meanwhile, I will also read the AI safety books from Stuart Russell, Yokkowsky, and more, as well as referring sources from LessWrong, alignment forum and arxiv papers when relevant.
+> 2025-10-03
+> Working on it at the moment, but I will draw examples from my background of chemical engineering where I have extensive knoweledge and exposure on safety and control engineering for dealing with chemical process. Meanwhile, I will also read the AI safety books from Stuart Russell, Yokkowsky, and more, as well as referring sources from LessWrong, alignment forum and arxiv papers when relevant.
+
+> 2025-10-04
+> Actually it is pretty hard to provide a robust case immediately after some reflection and reading of some of the counter-arguments, for now. But, I think that's precisely why one needs to work on, more closely, as it is an important problem and closing the gaps is crucial for enhancing model capabilities, safety and alignment, to really capture the benefits while mitigating all the serious risks. I will not update this thread for a while before I have concrete things to share.
