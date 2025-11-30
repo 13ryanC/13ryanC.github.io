@@ -1,0 +1,77 @@
+/* Books page styling */
+
+.book-entry {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 5px solid;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.book-entry:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.book-entry h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+/* Favourite books - Green/Emerald theme */
+.book-favourite {
+  background-color: rgba(16, 185, 129, 0.08);
+  border-left-color: #10b981;
+}
+
+[data-theme="dark"] .book-favourite {
+  background-color: rgba(16, 185, 129, 0.12);
+}
+
+/* Enjoyed books - Blue/Sky theme */
+.book-enjoyed {
+  background-color: rgba(59, 130, 246, 0.08);
+  border-left-color: #3b82f6;
+}
+
+[data-theme="dark"] .book-enjoyed {
+  background-color: rgba(59, 130, 246, 0.12);
+}
+
+/* Read books - Gray/Neutral theme */
+.book-read {
+  background-color: rgba(107, 114, 128, 0.08);
+  border-left-color: #6b7280;
+}
+
+[data-theme="dark"] .book-read {
+  background-color: rgba(107, 114, 128, 0.12);
+}
+
+/* Category headers styling */
+.book-entry + h2 {
+  margin-top: 3rem;
+}
+
+/* First category header */
+h1 + p + h2 {
+  margin-top: 2rem;
+}
+
+/* Author styling */
+.book-entry strong {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .book-entry {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .book-entry:hover {
+    transform: none;
+  }
+}
