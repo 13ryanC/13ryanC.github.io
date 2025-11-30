@@ -53,6 +53,12 @@ theme       = ["hugo-PaperMod", "hugo-cite"]
     url        = "/faq/"
     weight     = 60
 
+  [[menu.main]]
+    identifier = "books"
+    name       = "Books"
+    url        = "/books/"
+    weight     = 70
+
 # Number of posts per page
 [pagination]
   pagerSize = 20 
@@ -98,7 +104,8 @@ enableGitInfo = true          # ask Hugo to query Git history
   customCSS = [
     "css/math-table.css",    # (if you added this earlier)
     "css/math-scroll.css",    #  ← NEW
-    "css/pagination.css"      # styles for custom pagination
+    "css/pagination.css",     # styles for custom pagination
+    "css/books.css"           # styles for books page
   ]
   customJS = [
     "js/vendor/mermaid.min.js",
