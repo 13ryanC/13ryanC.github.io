@@ -25,8 +25,7 @@ The groupings below are rough markers of how deeply a book currently shapes my v
 
 <div class="book-entry book-formative">
 
-### [The Alignment Problem](/books/the-alignment-problem/)
-**Author:** Brian Christian
+### [Fooled by Randomness by nn.taleb](/books/formative/fooled-by-randomness/)
 
 </div>
 
@@ -35,8 +34,6 @@ The groupings below are rough markers of how deeply a book currently shapes my v
 
 <div class="book-entry book-illuminating">
 
-### [Thinking, Fast and Slow](/books/thinking-fast-and-slow/)
-**Author:** Daniel Kahneman
 
 </div>
 
@@ -45,7 +42,5 @@ The groupings below are rough markers of how deeply a book currently shapes my v
 
 <div class="book-entry book-encountered">
 
-### [The Innovator's Dilemma](/books/the-innovators-dilemma/)
-**Author:** Clayton Christensen
 
 </div>
