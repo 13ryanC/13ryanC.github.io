@@ -29,11 +29,108 @@ The groupings below are rough markers of how deeply a book currently shapes my v
 
 </div>
 
+<div class="book-entry book-formative">
+
+### [Poor Charlie’s Almanack: The Essential Wit and Wisdom of Charles T. Munger by Charles T. Munger and Peter D. Kaufman](/books/formative/poor-charlies-almanack/)
+
+</div>
+
+<div class="book-entry book-formative">
+
+### [The Right It: Why So Many Ideas Fail and How to Make Sure Yours Succeed by Alberto Savoia](/books/formative/the-right-it/)
+
+</div>
+
+<div class="book-entry book-formative">
+
+### [Thinking in Bets: Making Smarter Decisions When You Don’t Have All the Facts by Annie Duke](/books/formative/thinking-in-bets/)
+
+</div>
+
+<div class="book-entry book-formative">
+
+### [Set Boundaries, Find Peace: A Guide to Reclaiming Yourself by Nedra Glover Tawwab](/books/formative/set-boundaries-find-peace/)
+
+</div>
+
+<div class="book-entry book-formative">
+
+### [A Brief History of Intelligence: Why the Evolution of the Brain Holds the Key to the Future of AI by Max Bennett](/books/formative/brief-history-of-intelligence/)
+
+</div>
+
+<div class="book-entry book-formative">
+
+### [Analysis I by Terence Tao](/books/formative/analysis-i/)
+
+</div>
+
+<div class="book-entry book-formative">
+
+### [Why Greatness Cannot Be Planned: The Myth of the Objective by Kenneth O. Stanley and Joel Lehman](/books/formative/why-greatness-cannot-be-planned/)
+
+</div>
+
 ## Illuminating  
 *Books that provide different lenses or clarifications on issues I regularly encounter.*
 
 <div class="book-entry book-illuminating">
 
+### [The Black Swan: The Impact of the Highly Improbable by Nassim Nicholas Taleb](/books/illuminating/the-black-swan/)
+
+</div>
+
+<div class="book-entry book-illuminating">
+
+### [Antifragile: Things That Gain from Disorder by Nassim Nicholas Taleb](/books/illuminating/antifragile/)
+
+</div>
+
+<div class="book-entry book-illuminating">
+
+### [Skin in the Game: Hidden Asymmetries in Everyday Life by Nassim Nicholas Taleb](/books/illuminating/skin-in-the-game/)
+
+</div>
+
+<div class="book-entry book-illuminating">
+
+### [The Cold Start Problem: How to Start and Scale Network Effects by Andrew Chen](/books/illuminating/the-cold-start-problem/)
+
+</div>
+
+<div class="book-entry book-illuminating">
+
+### [The Venture Mindset: How to Make Smarter Bets and Achieve Extraordinary Growth by Ilya A. Strebulaev and Alex Dang](/books/illuminating/the-venture-mindset/)
+
+</div>
+
+<div class="book-entry book-illuminating">
+
+### [Pattern Breakers: Why Some Start-Ups Change the Future by Mike Maples Jr and Peter Ziebelman](/books/illuminating/pattern-breakers/)
+
+</div>
+
+<div class="book-entry book-illuminating">
+
+### [Zero to One: Notes on Startups, or How to Build the Future by Peter Thiel with Blake Masters](/books/illuminating/zero-to-one/)
+
+</div>
+
+<div class="book-entry book-illuminating">
+
+### [Influence: The Psychology of Persuasion by Robert B. Cialdini](/books/illuminating/influence/)
+
+</div>
+
+<div class="book-entry book-illuminating">
+
+### [You’re About to Make a Terrible Mistake!: How Biases Distort Decision-Making and What You Can Do to Fight Them by Olivier Sibony](/books/illuminating/youre-about-to-make-a-terrible-mistake/)
+
+</div>
+
+<div class="book-entry book-illuminating">
+
+### [The Checklist Manifesto: How to Get Things Right by Atul Gawande](/books/illuminating/the-checklist-manifesto/)
 
 </div>
 
