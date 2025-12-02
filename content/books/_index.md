@@ -56,6 +56,18 @@ The groupings below are rough markers of how deeply a book currently shapes my v
     <a href="/books/formative/why-greatness-cannot-be-planned/"><strong>Why Greatness Cannot Be Planned: The Myth of the Objective</strong></a><br />
     <span class="book-author">by Kenneth O. Stanley and Joel Lehman</span>
   </li>
+  <li class="book-entry">
+    <a href="/books/formative/zen-and-the-art-of-motorcycle-maintenance/"><strong>Zen and the Art of Motorcycle Maintenance: An Inquiry into Values</strong></a><br />
+    <span class="book-author">by Robert M. Pirsig</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/formative/lila-an-inquiry-into-morals/"><strong>Lila: An Inquiry into Morals</strong></a><br />
+    <span class="book-author">by Robert M. Pirsig</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/formative/structure-and-interpretation-of-computer-programs/"><strong>Structure and Interpretation of Computer Programs</strong></a><br />
+    <span class="book-author">by Harold Abelson, Gerald Jay Sussman, and Julie Sussman</span>
+  </li>
 </ul>
 
 ## Illuminating  
@@ -101,6 +113,10 @@ The groupings below are rough markers of how deeply a book currently shapes my v
   <li class="book-entry">
     <a href="/books/illuminating/the-checklist-manifesto/"><strong>The Checklist Manifesto: How to Get Things Right</strong></a><br />
     <span class="book-author">by Atul Gawande</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/illuminating/self-knowledge-for-humans/"><strong>Self-Knowledge for Humans</strong></a><br />
+    <span class="book-author">by Quassim Cassam</span>
   </li>
 </ul>
 
