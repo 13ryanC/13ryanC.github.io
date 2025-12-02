@@ -23,116 +23,86 @@ The groupings below are rough markers of how deeply a book currently shapes my v
 ## Formative  
 *Books that have durably reshaped how I think or act (significant belief updates).*
 
-<div class="book-entry book-formative">
-
-### [Fooled by Randomness by nn.taleb](/books/formative/fooled-by-randomness/)
-
-</div>
-
-<div class="book-entry book-formative">
-
-### [Poor Charlie’s Almanack: The Essential Wit and Wisdom of Charles T. Munger by Charles T. Munger and Peter D. Kaufman](/books/formative/poor-charlies-almanack/)
-
-</div>
-
-<div class="book-entry book-formative">
-
-### [The Right It: Why So Many Ideas Fail and How to Make Sure Yours Succeed by Alberto Savoia](/books/formative/the-right-it/)
-
-</div>
-
-<div class="book-entry book-formative">
-
-### [Thinking in Bets: Making Smarter Decisions When You Don’t Have All the Facts by Annie Duke](/books/formative/thinking-in-bets/)
-
-</div>
-
-<div class="book-entry book-formative">
-
-### [Set Boundaries, Find Peace: A Guide to Reclaiming Yourself by Nedra Glover Tawwab](/books/formative/set-boundaries-find-peace/)
-
-</div>
-
-<div class="book-entry book-formative">
-
-### [A Brief History of Intelligence: Why the Evolution of the Brain Holds the Key to the Future of AI by Max Bennett](/books/formative/brief-history-of-intelligence/)
-
-</div>
-
-<div class="book-entry book-formative">
-
-### [Analysis I by Terence Tao](/books/formative/analysis-i/)
-
-</div>
-
-<div class="book-entry book-formative">
-
-### [Why Greatness Cannot Be Planned: The Myth of the Objective by Kenneth O. Stanley and Joel Lehman](/books/formative/why-greatness-cannot-be-planned/)
-
-</div>
+<ul class="book-list book-formative">
+  <li class="book-entry">
+    <a href="/books/formative/fooled-by-randomness/"><strong>Fooled by Randomness</strong></a><br />
+    <span class="book-author">by Nassim Nicholas Taleb</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/formative/poor-charlies-almanack/"><strong>Poor Charlie’s Almanack: The Essential Wit and Wisdom of Charles T. Munger</strong></a><br />
+    <span class="book-author">by Charles T. Munger and Peter D. Kaufman</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/formative/the-right-it/"><strong>The Right It: Why So Many Ideas Fail and How to Make Sure Yours Succeed</strong></a><br />
+    <span class="book-author">by Alberto Savoia</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/formative/thinking-in-bets/"><strong>Thinking in Bets: Making Smarter Decisions When You Don’t Have All the Facts</strong></a><br />
+    <span class="book-author">by Annie Duke</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/formative/set-boundaries-find-peace/"><strong>Set Boundaries, Find Peace: A Guide to Reclaiming Yourself</strong></a><br />
+    <span class="book-author">by Nedra Glover Tawwab</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/formative/brief-history-of-intelligence/"><strong>A Brief History of Intelligence: Why the Evolution of the Brain Holds the Key to the Future of AI</strong></a><br />
+    <span class="book-author">by Max Bennett</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/formative/analysis-i/"><strong>Analysis I</strong></a><br />
+    <span class="book-author">by Terence Tao</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/formative/why-greatness-cannot-be-planned/"><strong>Why Greatness Cannot Be Planned: The Myth of the Objective</strong></a><br />
+    <span class="book-author">by Kenneth O. Stanley and Joel Lehman</span>
+  </li>
+</ul>
 
 ## Illuminating  
 *Books that provide different lenses or clarifications on issues I regularly encounter.*
 
-<div class="book-entry book-illuminating">
-
-### [The Black Swan: The Impact of the Highly Improbable by Nassim Nicholas Taleb](/books/illuminating/the-black-swan/)
-
-</div>
-
-<div class="book-entry book-illuminating">
-
-### [Antifragile: Things That Gain from Disorder by Nassim Nicholas Taleb](/books/illuminating/antifragile/)
-
-</div>
-
-<div class="book-entry book-illuminating">
-
-### [Skin in the Game: Hidden Asymmetries in Everyday Life by Nassim Nicholas Taleb](/books/illuminating/skin-in-the-game/)
-
-</div>
-
-<div class="book-entry book-illuminating">
-
-### [The Cold Start Problem: How to Start and Scale Network Effects by Andrew Chen](/books/illuminating/the-cold-start-problem/)
-
-</div>
-
-<div class="book-entry book-illuminating">
-
-### [The Venture Mindset: How to Make Smarter Bets and Achieve Extraordinary Growth by Ilya A. Strebulaev and Alex Dang](/books/illuminating/the-venture-mindset/)
-
-</div>
-
-<div class="book-entry book-illuminating">
-
-### [Pattern Breakers: Why Some Start-Ups Change the Future by Mike Maples Jr and Peter Ziebelman](/books/illuminating/pattern-breakers/)
-
-</div>
-
-<div class="book-entry book-illuminating">
-
-### [Zero to One: Notes on Startups, or How to Build the Future by Peter Thiel with Blake Masters](/books/illuminating/zero-to-one/)
-
-</div>
-
-<div class="book-entry book-illuminating">
-
-### [Influence: The Psychology of Persuasion by Robert B. Cialdini](/books/illuminating/influence/)
-
-</div>
-
-<div class="book-entry book-illuminating">
-
-### [You’re About to Make a Terrible Mistake!: How Biases Distort Decision-Making and What You Can Do to Fight Them by Olivier Sibony](/books/illuminating/youre-about-to-make-a-terrible-mistake/)
-
-</div>
-
-<div class="book-entry book-illuminating">
-
-### [The Checklist Manifesto: How to Get Things Right by Atul Gawande](/books/illuminating/the-checklist-manifesto/)
-
-</div>
+<ul class="book-list book-illuminating">
+  <li class="book-entry">
+    <a href="/books/illuminating/the-black-swan/"><strong>The Black Swan: The Impact of the Highly Improbable</strong></a><br />
+    <span class="book-author">by Nassim Nicholas Taleb</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/illuminating/antifragile/"><strong>Antifragile: Things That Gain from Disorder</strong></a><br />
+    <span class="book-author">by Nassim Nicholas Taleb</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/illuminating/skin-in-the-game/"><strong>Skin in the Game: Hidden Asymmetries in Everyday Life</strong></a><br />
+    <span class="book-author">by Nassim Nicholas Taleb</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/illuminating/the-cold-start-problem/"><strong>The Cold Start Problem: How to Start and Scale Network Effects</strong></a><br />
+    <span class="book-author">by Andrew Chen</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/illuminating/the-venture-mindset/"><strong>The Venture Mindset: How to Make Smarter Bets and Achieve Extraordinary Growth</strong></a><br />
+    <span class="book-author">by Ilya A. Strebulaev and Alex Dang</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/illuminating/pattern-breakers/"><strong>Pattern Breakers: Why Some Start-Ups Change the Future</strong></a><br />
+    <span class="book-author">by Mike Maples Jr and Peter Ziebelman</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/illuminating/zero-to-one/"><strong>Zero to One: Notes on Startups, or How to Build the Future</strong></a><br />
+    <span class="book-author">by Peter Thiel with Blake Masters</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/illuminating/influence/"><strong>Influence: The Psychology of Persuasion</strong></a><br />
+    <span class="book-author">by Robert B. Cialdini</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/illuminating/youre-about-to-make-a-terrible-mistake/"><strong>You’re About to Make a Terrible Mistake!: How Biases Distort Decision-Making and What You Can Do to Fight Them</strong></a><br />
+    <span class="book-author">by Olivier Sibony</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/illuminating/the-checklist-manifesto/"><strong>The Checklist Manifesto: How to Get Things Right</strong></a><br />
+    <span class="book-author">by Atul Gawande</span>
+  </li>
+</ul>
 
 ## Encountered  
 *Books I have read and engaged with, whose impact so far is more limited or still emerging.*
