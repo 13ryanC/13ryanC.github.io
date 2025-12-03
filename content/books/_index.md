@@ -18,7 +18,7 @@ This blog is a by-product of my desire to read many more books in an attempt to 
 
 Each book listed here links to a set of notes. They are not reviews or recommendations in the usual sense, but attempts to understand what the book illuminates, how it unsettles me, and where it exposes the limits of my thinking.  
 
-The groupings below are rough markers of how deeply a book currently shapes my view of the world and myself, rather than a ranking of quality or agreement.
+The groupings below are rough markers of how deeply a book has shaped my view of the world and myself, rather than a ranking of quality or agreement.
 
 ## Formative  
 *Books that have durably reshaped how I think or act (significant belief updates).*
