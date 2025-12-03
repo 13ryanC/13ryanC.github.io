@@ -114,6 +114,18 @@ The groupings below are rough markers of how deeply a book currently shapes my v
     <a href="/books/illuminating/self-knowledge-for-humans/"><strong>Self-Knowledge for Humans</strong></a><br />
     <span class="book-author">by Quassim Cassam</span>
   </li>
+  <li class="book-entry">
+    <a href="/books/illuminating/explaining-the-future/"><strong>Explaining the Future: How to Research, Analyse and Report on Emerging Technologies</strong></a><br />
+    <span class="book-author">by Sunny Bains</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/illuminating/the-physics-of-foraging/"><strong>The Physics of Foraging: An Introduction to Random Searches and Biological Encounters</strong></a><br />
+    <span class="book-author">by Gandhimohan M. Viswanathan, Marcos G. E. da Luz, Ernesto P. Raposo, and H. Eugene Stanley</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/illuminating/experimentology/"><strong>Experimentology: An Open Science Approach to Experimental Psychology Methods</strong></a><br />
+    <span class="book-author">by Michael C. Frank, Mika Braginsky, Julie Cachia, Nicholas A. Coles, Tom E. Hardwicke, Robert D. Hawkins, Maya B. Mathur, and Rondeline Williams</span>
+  </li>
 </ul>
 
 ## Encountered  
@@ -122,5 +134,13 @@ The groupings below are rough markers of how deeply a book currently shapes my v
   <li class="book-entry">
     <a href="/books/encountered/the-cold-start-problem/"><strong>The Cold Start Problem: How to Start and Scale Network Effects</strong></a><br />
     <span class="book-author">by Andrew Chen</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/encountered/nuclear-renaissance/"><strong>Nuclear Renaissance: Technologies and Policies for the Future of Nuclear Power</strong></a><br />
+    <span class="book-author">by William J. Nuttall</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/encountered/civilized-to-death/"><strong>Civilized to Death: The Price of Progress</strong></a><br />
+    <span class="book-author">by Christopher Ryan</span>
   </li>
 </ul>
