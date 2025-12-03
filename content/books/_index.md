@@ -87,10 +87,6 @@ The groupings below are rough markers of how deeply a book currently shapes my v
     <span class="book-author">by Nassim Nicholas Taleb</span>
   </li>
   <li class="book-entry">
-    <a href="/books/illuminating/the-cold-start-problem/"><strong>The Cold Start Problem: How to Start and Scale Network Effects</strong></a><br />
-    <span class="book-author">by Andrew Chen</span>
-  </li>
-  <li class="book-entry">
     <a href="/books/illuminating/the-venture-mindset/"><strong>The Venture Mindset: How to Make Smarter Bets and Achieve Extraordinary Growth</strong></a><br />
     <span class="book-author">by Ilya A. Strebulaev and Alex Dang</span>
   </li>
@@ -122,8 +118,9 @@ The groupings below are rough markers of how deeply a book currently shapes my v
 
 ## Encountered  
 *Books I have read and engaged with, whose impact so far is more limited or still emerging.*
-
-<div class="book-entry book-encountered">
-
-
-</div>
+<ul class="book-list book-encountered">
+  <li class="book-entry">
+    <a href="/books/encountered/the-cold-start-problem/"><strong>The Cold Start Problem: How to Start and Scale Network Effects</strong></a><br />
+    <span class="book-author">by Andrew Chen</span>
+  </li>
+</ul>
