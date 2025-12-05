@@ -2,26 +2,42 @@
 title: "Books"
 layout: "list"
 url: "/books/"
-summary: "Notes on books I’ve read, written as exercises in understanding, self-awareness, and intellectual humility."
+summary: "A loose, ongoing log of books I’ve crossed paths with, plus occasional notes."
 ---
 
 > *Life can only be understood backwards; but it must be lived forwards.*  
 > — Søren Kierkegaard
 
-All acts of creation run forward, whether it is writing books, pursuing new research, or more broadly producing and providing value to oneself and others.
+Most of reading happens in the “forwards” direction: you bump into a book, spend some time with it, and move on. The understanding part tends to arrive later, if it arrives at all.
 
-It is always the reverse part that is difficult, whether it is reverse-engineering, doing post-mortems, or trying to undo things. Causal relationships are tangled in multifaceted ways, and we simply fail to comprehend their complexity and scope, while we cannot help trying—and fooling—ourselves, given how much we do not know and our many natural fallacies in decision-making.
+This page is a simple record of that forward motion. It collects books I’ve read and found interesting or useful, with occasional notes when I have something to say. Some entries are just a title and an author; others are longer attempts to work out what, if anything, a book has done to my thinking.
 
-This blog is a by-product of my desire to read many more books in an attempt to become more aware of the world around us and, most importantly, ourselves, a bit more each day.
+It is not meant to be complete, balanced, or definitive. It is just a way to keep track of what has passed through my hands, and to leave myself breadcrumbs for future me.
 
-## How this page is organised
+## What this page is (and isn’t)
 
-Each book listed here links to a set of notes. They are not reviews or recommendations in the usual sense, but attempts to understand what the book illuminates, how it unsettles me, and where it exposes the limits of my thinking.  
+Each book listed here links to a set of notes. Those notes are written primarily for myself. They are:
 
-The groupings below are rough markers of how deeply a book has shaped my view of the world and myself, rather than a ranking of quality or agreement.
+- Not formal reviews or recommendations.
+- Not promises that the book is universally “good” or “important”.
+- Often partial, provisional, and subject to revision.
+
+Sometimes I try to articulate what a book illuminates, how it unsettles me, or where it exposes the limits of my thinking. Sometimes I just jot down a quote or a stray thought. Both levels of detail are allowed here.
+
+## How the groupings work
+
+The groupings below are **rough, overlapping labels**, not a strict ranking or a final judgement. They are there to give me (and you) a sense of how a book currently sits in my head:
+
+- **Formative** – books that have, so far, durably reshaped how I think or act.  
+- **Illuminating** – books that give me useful lenses, patterns, or clarifications for situations I regularly encounter.  
+- **Encountered** – books I’ve read and engaged with, whose role is still emerging or more local.
+
+A book could easily move between these over time, or belong to more than one. The labels are snapshots, not verdicts.
+
+---
 
 ## Formative  
-*Books that have durably reshaped how I think or act (significant belief updates).*
+*Books that have, in hindsight, reshaped how I think or act in a lasting way.*
 
 <ul class="book-list book-formative">
   <li class="book-entry">
@@ -71,7 +87,7 @@ The groupings below are rough markers of how deeply a book has shaped my view of
 </ul>
 
 ## Illuminating  
-*Books that provide different lenses or clarifications on issues I regularly encounter.*
+*Books that provide lenses, patterns, or clarifications I find myself returning to.*
 
 <ul class="book-list book-illuminating">
   <li class="book-entry">
@@ -129,7 +145,8 @@ The groupings below are rough markers of how deeply a book has shaped my view of
 </ul>
 
 ## Encountered  
-*Books I have read and engaged with, whose impact so far is more limited or still emerging.*
+*Books I’ve read and engaged with, where the longer-term impact (if any) is still emerging.*
+
 <ul class="book-list book-encountered">
   <li class="book-entry">
     <a href="/books/encountered/the-cold-start-problem/"><strong>The Cold Start Problem: How to Start and Scale Network Effects</strong></a><br />
@@ -144,3 +161,7 @@ The groupings below are rough markers of how deeply a book has shaped my view of
     <span class="book-author">by Christopher Ryan</span>
   </li>
 </ul>
+
+---
+
+Over time, some of these will probably drift between sections, and many more will join them. I don’t expect the structure to be stable; the whole point is to let it evolve as the reading does.
