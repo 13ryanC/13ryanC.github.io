@@ -13,7 +13,6 @@ status: draft
 author: Bryan Chan
 hero: /assets/images/hero3.png
 image: /assets/images/card3.png
-draft: true
 ---
 
 The breakthrough in pre-training of GPT-2/3 reveals the insight that scaling recipes can lead to genuine large improvements in language-related tasks.
