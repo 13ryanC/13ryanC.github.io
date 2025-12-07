@@ -6,9 +6,9 @@ description: One way to reduce pre-training budget by reducing data needed to be
 lastmod: '2025-12-07'
 category: Blog
 series:
-  - Research Notes
+- Research Notes
 tags:
-  - AI
+- AI
 status: draft
 author: Bryan Chan
 hero: /assets/images/hero3.png
