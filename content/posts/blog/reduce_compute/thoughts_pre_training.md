@@ -139,3 +139,111 @@ This architecture effectively internalises tokenisation as learned compression. 
 At the same time, the variable granularity of patches allows the system to approach the compression efficiency of advanced codecs while respecting streaming, vocabulary, and learnability constraints. In practice, this means more information-dense tokens, fewer total positions, and better utilisation of limited compute on a single GPU.
 
 Crucially, the downstream transformer never needs to solve segmentation itself; it simply consumes a sequence of well-behaved latent tokens whose boundaries already reflect underlying information content and structural salience directly.
+
+---
+
+
+## Some tinking Experiments on Colab
+
+Up to this point, most of the discussion has been conceptual: why tokenisation matters, why off-the-shelf compressors are not enough, and how Meta’s Byte-Latent Transformer points to a more principled “compress-then-pretrain” story on bytes. At some stage, however, the question stops being philosophical and turns engineering-blunt:
+
+> If I actually build a tiny BLT-style system and train it on a single T-class GPU, does anything interesting happen?
+
+Over the past weekend, I tried to answer this question with a sequence of small but increasingly concrete experiments. What follows is not a polished result, but a snapshot of what worked, what broke, and what that suggests for feasibility.
+
+### HEAT: An LZ77-Informed Transformer on Synthetic Data
+
+The first prototype, which I called HEAT, was deliberately modest. Instead of a full neural compressor, it used a classical LZ77 pre-processor as a “hard” front-end. The compressor scans the raw byte stream and emits a sequence of two kinds of tokens:
+
+- **Literals**, carrying short patches of raw bytes.  
+- **Matches**, carrying a distance–length pair that says “copy `length` bytes from `distance` bytes back in the already-seen history.”
+
+HEAT treats these LZ77 tokens as if they were a learned alphabet. Each literal patch is embedded by a small local network that sees the actual bytes, while each pointer is embedded by a separate “pointer encoder” that only sees the symbolic `(distance, length)` pair. A simple type embedding marks whether a position is a literal or a match. These vectors form a compressed sequence that a standard causal transformer then models.
+
+The critical training trick is the **next-patch objective**. Instead of asking the model to predict the next LZ symbol verbatim, which leads to a degenerate “just copy the pointer” solution, the target at time step \(t\) is the raw bytes associated with token \(t+1\). When the next token is a pointer, the model must mentally dereference it: the correct answer is the bytes that *would* be copied, not the pointer itself. This forces the transformer to actually reason about the compressed structure rather than memorise symbolic distances.
+
+On a synthetic Colab-scale dataset built from repeated patterns plus random noise, HEAT and a byte-level GPT baseline were given the same transformer backbone and trained under the same approximate FLOPs budget. The only difference was what they saw as input: raw bytes for the baseline, LZ77 tokens for HEAT.
+
+Even in this toy regime, a few patterns already appeared:
+
+- Because many repeated spans collapse into single match tokens, HEAT’s **sequence length in tokens** is much shorter than the raw byte length. A context window of a few hundred compressed tokens corresponds to several thousand raw bytes.
+- As training proceeds, the HEAT model’s **bits-per-byte** drops faster than the baseline’s for the same number of optimisation steps, and its BPB-vs-FLOPs curve sits consistently below the byte-GPT curve.
+- The qualitative behaviour of HEAT’s predictions on the synthetic task aligns with the intended semantics: it actually reconstructs the underlying patterns rather than parroting pointers.
+
+This experiment is too small to draw strong conclusions about natural language, but it gave a first sanity check: even with a crude compressor, **teaching the transformer to think in compressed LZ tokens can pay off per FLOP**.
+
+### LZ-BLT vs Byte-GPT on Tiny Shakespeare
+
+The next step was to move from toy synthetic data to a small but real corpus: a 100 kB slice of the standard Tiny Shakespeare dataset. The goal here was not to reach state-of-the-art perplexity, but to see whether the HEAT idea survives contact with “messy” text on a single GPU.
+
+The setup is intentionally simple:
+
+- Take the raw Shakespeare bytes (roughly 100 000 characters).
+- Run a lightweight LZ77 tokenizer over this corpus to obtain a sequence of LZ tokens. In the Colab run, this yields a compression ratio of about 2.4× in terms of raw bytes per LZ symbol.
+- Train two models under the same configuration:
+  - A **Byte-GPT baseline**, a small causal transformer that reads and predicts raw bytes directly.
+  - An **LZ-BLT model**, architecturally similar to HEAT but closer in spirit to Meta’s BLT: an LZ embedding layer, a local encoder that groups LZ tokens into patches, a global transformer over those patch-latents, and a local decoder head that predicts the next symbol in the compressed sequence.
+
+Both models share the same depth, width, and optimiser, and we track not only loss and bits-per-byte over time, but also BPB as a function of cumulative FLOPs. The effective context window is also compared by plotting how many raw bytes are “visible” as a function of input length when we account for the LZ compression ratio.
+
+The headline numbers after a longer 5 000-step run with a lower sampling temperature are striking:
+
+- The **Byte-GPT baseline** converges to around **2.17 bits per byte** on this tiny corpus.
+- The **LZ-BLT model** reaches around **0.69 bits per byte** on the compressed representation, while its LZ tokenizer achieves a compression ratio of roughly **2.5×** on the input text.
+
+Interpreting these together, the LZ-BLT model is effectively “seeing” about two and a half times more raw bytes per token and still assigning them a significantly lower bit budget than the baseline. In the BPB-vs-FLOPs plots, the LZ-BLT curve dominates: for any fixed compute budget within this small-scale setting, the compressed model achieves a lower effective entropy bound.
+
+For downstream uses that care primarily about **representations**—learning embeddings, serving as a feature extractor for classification, or acting as a compressor—this is exactly the pattern one hopes to see. Under the same single-GPU constraints, the compressed model gets more information-dense context and makes better predictions per FLOP.
+
+### Pointer Drift: When Compression Fights Autoregressive Generation
+
+The moment we switch from training curves to **sampled generations**, the picture becomes more subtle.
+
+The byte-level GPT baseline, when prompted with something like “The King ”, produces short continuations that, while far from perfect Shakespeare, at least read like plausible English: words, spaces, punctuation, and basic sentence structure survive temperature-0.3 sampling.
+
+The LZ-BLT model, in contrast, produces text that looks like a hallucinated cousin of Shakespeare: recognisable fragments of words spliced together into almost-words—an “indeed” fused with something else, a “remember” and “assemble” blurred into a single token, consonants doubled or dropped, spaces missing. The character distribution and rhythm feel vaguely right, but the actual strings are broken.
+
+This behaviour matches the failure mode you can reason about from first principles: **pointer drift**.
+
+During compression, an LZ77 “match” token is defined relative to a specific history buffer: “copy 7 bytes from 50 bytes ago” assumes that those 7 bytes are exactly what was observed in the original text at that offset. During generation, however, the model is sampling; any early mistake—one wrong byte in a literal, one mis-chosen match—changes the future contents of the history buffer. When the model later predicts a match that, during training, corresponded to “copy the letters  *r e m e m b e r*”, the same `(distance, length)` in the perturbed history might now point into the middle of a different word or across a boundary. The mismatch compounds over time, and the output devolves into semi-coherent gibberish even though the model has clearly internalised aspects of the compressed structure.
+
+At this point there is a tension:
+
+- From a **compression and training** point of view, predicting LZ symbols is wonderful: it forces the model to reason about copy structure and yields excellent BPB and FLOP-efficiency curves.
+- From a **generative** point of view, those very pointers are a liability: the slightest history mismatch can send them astray.
+
+The immediate architectural thought is to decouple these roles: let the model *think* in compressed space while *speaking* in raw bytes.
+
+### Iterative Re-compression: Keeping Pointers Grounded
+
+One natural way to remove pointer drift without discarding the LZ structure is to re-align symbolic compression with the generated text at every step. This is the idea behind the later **iterative re-compression** experiments.
+
+The LZ-BLT implementation in this phase still predicts LZ77 symbol triples—type, value, and length—but the **generation loop** is modified:
+
+1. We keep a growing buffer of the raw bytes generated so far.
+2. At each step, we **re-compress the entire current buffer** using the same LZ77 tokenizer used in training. This yields a fresh, self-consistent sequence of symbols whose pointers are guaranteed to be valid for this exact history.
+3. We crop or pad this symbol sequence to the model’s patch-based input shape and run a forward pass to predict the next symbol triple.
+4. We decode that single symbol back into bytes using the *current* history buffer (for a match, this means copying from the buffer; for a literal, just appending the literal bytes).
+5. We append those bytes to the buffer and repeat.
+
+By re-compressing at every generation step, we ensure that the model never relies on stale pointers: every symbol it sees is computed from the text it has actually produced so far. Pointer drift, in the sense of “LZ pointers referring to a history that never existed,” is eliminated by construction.
+
+This comes with an obvious cost. The generation loop now does work proportional to:
+
+- the cost of re-compressing the current history at each step, and
+- a full forward pass through the transformer for every new symbol,
+
+which is considerably heavier than the usual “single pass over a growing context” in standard autoregressive models. For small sequences and debugging-scale experiments this overhead is manageable; for large-scale pre-training it would need careful engineering or amortisation.
+
+Nonetheless, as a **conceptual prototype**, iterative re-compression proves that the core pathology of the initial LZ-BLT generations—pointers drifting off target—is not an inherent impossibility result. It is a consequence of naively mixing training-time compression and test-time generation. Once we insist that compression is always recomputed from what the model actually produced, the symbolic story becomes self-consistent again.
+
+### What These Experiments Say About Feasibility
+
+Taken together, these prototypes suggest a mixed but encouraging picture for single-GPU pre-training via compression:
+
+- On both synthetic and tiny-Shakespeare data, **modelling in compressed LZ space chews through entropy faster than a byte-level GPT** under similar FLOPs. The models see more effective context per token and achieve lower bits-per-byte on the data they are trained on.
+- The cost of this efficiency is that **generation over compressed symbols is fragile**. Pointer structures that are benign in analysis become dangerous when driven by a stochastic sampler.
+- Iterative re-compression and “local decoder” ideas show that this fragility is not fundamental. There are ways to keep the history and its compressed representation aligned, at the cost of added complexity and compute in the decoding path.
+
+For the central question of this note—*is it realistic to pre-train something GPT-2/3-like on a single GPU by being clever about tokens?*—these results look like a qualified “yes” on the *training* side and a large “to be continued” on the *generation* side. The experiments do not yet give me a practical model I would ship, but they do justify pushing further along this line: if compression can reliably buy a few bits-per-byte and a 2–3× context multiplier per FLOP at small scale, then scaling the same principles may be one of the few levers available to a resource-constrained researcher.
+
