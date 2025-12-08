@@ -61,10 +61,6 @@ A book could easily move between these over time, or belong to more than one. Th
     <span class="book-author">by Nedra Glover Tawwab</span>
   </li>
   <li class="book-entry">
-    <a href="/books/formative/brief-history-of-intelligence/"><strong>A Brief History of Intelligence: Why the Evolution of the Brain Holds the Key to the Future of AI</strong></a><br />
-    <span class="book-author">by Max Bennett</span>
-  </li>
-  <li class="book-entry">
     <a href="/books/formative/analysis-i/"><strong>Analysis I</strong></a><br />
     <span class="book-author">by Terence Tao</span>
   </li>
@@ -90,6 +86,10 @@ A book could easily move between these over time, or belong to more than one. Th
 *Books that provide lenses, patterns, or clarifications I find myself returning to.*
 
 <ul class="book-list book-illuminating">
+  <li class="book-entry">
+    <a href="/books/illuminating/brief-history-of-intelligence/"><strong>A Brief History of Intelligence: Why the Evolution of the Brain Holds the Key to the Future of AI</strong></a><br />
+    <span class="book-author">by Max Bennett</span>
+  </li>
   <li class="book-entry">
     <a href="/books/illuminating/the-black-swan/"><strong>The Black Swan: The Impact of the Highly Improbable</strong></a><br />
     <span class="book-author">by Nassim Nicholas Taleb</span>
