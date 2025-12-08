@@ -131,16 +131,24 @@ A book could easily move between these over time, or belong to more than one. Th
     <span class="book-author">by Quassim Cassam</span>
   </li>
   <li class="book-entry">
-    <a href="/books/illuminating/explaining-the-future/"><strong>Explaining the Future: How to Research, Analyse and Report on Emerging Technologies</strong></a><br />
-    <span class="book-author">by Sunny Bains</span>
-  </li>
-  <li class="book-entry">
     <a href="/books/illuminating/the-physics-of-foraging/"><strong>The Physics of Foraging: An Introduction to Random Searches and Biological Encounters</strong></a><br />
     <span class="book-author">by Gandhimohan M. Viswanathan, Marcos G. E. da Luz, Ernesto P. Raposo, and H. Eugene Stanley</span>
   </li>
   <li class="book-entry">
-    <a href="/books/illuminating/experimentology/"><strong>Experimentology: An Open Science Approach to Experimental Psychology Methods</strong></a><br />
-    <span class="book-author">by Michael C. Frank, Mika Braginsky, Julie Cachia, Nicholas A. Coles, Tom E. Hardwicke, Robert D. Hawkins, Maya B. Mathur, and Rondeline Williams</span>
+    <a href="/books/illuminating/thinking-fast-and-slow/"><strong>Thinking, Fast and Slow</strong></a><br />
+    <span class="book-author">by Daniel Kahneman</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/illuminating/man-and-his-symbols/"><strong>Man and His Symbols</strong></a><br />
+    <span class="book-author">by Carl G. Jung, Marie-Louise von Franz, Joseph L. Henderson, Aniela Jaffé, and Jolande Jacobi</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/illuminating/stumbling-on-happiness/"><strong>Stumbling on Happiness</strong></a><br />
+    <span class="book-author">by Daniel Gilbert</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/illuminating/the-knowledge-illusion/"><strong>The Knowledge Illusion: Why We Never Think Alone</strong></a><br />
+    <span class="book-author">by Steven A. Sloman and Philip Fernbach</span>
   </li>
 </ul>
 
@@ -159,6 +167,14 @@ A book could easily move between these over time, or belong to more than one. Th
   <li class="book-entry">
     <a href="/books/encountered/civilized-to-death/"><strong>Civilized to Death: The Price of Progress</strong></a><br />
     <span class="book-author">by Christopher Ryan</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/encountered/explaining-the-future/"><strong>Explaining the Future: How to Research, Analyse and Report on Emerging Technologies</strong></a><br />
+    <span class="book-author">by Sunny Bains</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/encountered/experimentology/"><strong>Experimentology: An Open Science Approach to Experimental Psychology Methods</strong></a><br />
+    <span class="book-author">by Michael C. Frank, Mika Braginsky, Julie Cachia, Nicholas A. Coles, Tom E. Hardwicke, Robert D. Hawkins, Maya B. Mathur, and Rondeline Williams</span>
   </li>
 </ul>
 
