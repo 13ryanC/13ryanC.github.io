@@ -14,9 +14,10 @@ hero: /assets/images/hero3.png
 image: /assets/images/card3.png
 ---
 
-> I have learnt about the importance of good questions in 2021 while I was still in HKUST. The example is also deliberately taken from one of the online lectures MATH 2431 Honors Probability taught by BAO, Zhigang. Ever since that moment, re-framing problems and refining questions to be asked has been my one tool for me to really learn, gauge with the material that leads to genuine understanding, though I had been fooled by myself, illusion of expantory depth, due to cognitive ease of getting answers from ChatGPT these days, where I have stopped relying on those tools, without actually read and gauge with the material myself.
+> I have learnt about the importance of good questions in 2021 while I was still in HKUST. The example is also deliberately taken from one of the online lectures MATH 2431 Honors Probability. Ever since that moment, re-framing problems and refining questions to be asked has been my one tool for me to really learn, gauge with the material that leads to genuine understanding, though I had been fooled by myself, illusion of expantory depth, due to cognitive ease of getting answers from ChatGPT these days, where I have stopped relying on those tools, without actually read and gauge with the material myself.
 
 > The reason that I retrieve this from my archive (this piece is written at 24 July 2024, which the original purpose is to encourage co-founders in my first start-up to ask more questions) is because it is still valid, but also, to remind myself of this, so it would be useful to just share this draft straight away.
+
 
 # Improving Question Asking
 
