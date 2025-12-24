@@ -26,8 +26,25 @@ Here is a list of books that I genuinely think and feel every startup founder MU
 ## The List
 
 1. *The Right It: Why So Many Ideas Fail and How to Make Sure Yours Succeed* by Alberto Savoia
+
+* A crisp, practical guide to product–market fit—and how to test and measure it.
+
 2. *Pattern Breakers: Why Some Start-Ups Change the Future* by Mike Maples Jr. and Peter Ziebelman
+
+* A contrarian framework for spotting truly disruptive start-ups, plus guidance on how to build one.
+
 3. *Thinking in Bets: Making Smarter Decisions When You Don't Have All the Facts* by Annie Duke
+
+* A solid primer on decision-making under moderate uncertainty (Mediocristan), not extreme uncertainty. Trading and entrepreneurship live in Extremistan, but this will still sharpen everyday judgment and cut avoidable errors.
+
 4. *You're About to Make a Terrible Mistake!: How Biases Distort Decision-Making and What You Can Do to Fight Them* by Olivier Sibony
+
+* A sharp, distilled tour of decision biases—and how to work with them.
+
 5. *The Venture Mindset: How to Make Smarter Bets and Achieve Extraordinary Growth* by Ilya A. Strebulaev and Alex Dang
+
+* A clear window, for founders, into how VCs think, decide, and act. If you want the VC mental model, start here.
+
 6. *Measure What Matters: The Simple Idea that Drives 10x Growth* by John Doerr
+
+* The classic playbook for OKRs: set the right goals, measure what matters, and execute.
