@@ -45,6 +45,10 @@ A book could easily move between these over time, or belong to more than one. Th
     <span class="book-author">by Nassim Nicholas Taleb</span>
   </li>
   <li class="book-entry">
+    <a href="/books/formative/stumbling-on-happiness/"><strong>Stumbling on Happiness</strong></a><br />
+    <span class="book-author">by Daniel Gilbert</span>
+  </li>
+  <li class="book-entry">
     <a href="/books/formative/poor-charlies-almanack/"><strong>Poor Charlie’s Almanack: The Essential Wit and Wisdom of Charles T. Munger</strong></a><br />
     <span class="book-author">by Charles T. Munger and Peter D. Kaufman</span>
   </li>
@@ -141,10 +145,6 @@ A book could easily move between these over time, or belong to more than one. Th
   <li class="book-entry">
     <a href="/books/illuminating/man-and-his-symbols/"><strong>Man and His Symbols</strong></a><br />
     <span class="book-author">by Carl G. Jung, Marie-Louise von Franz, Joseph L. Henderson, Aniela Jaffé, and Jolande Jacobi</span>
-  </li>
-  <li class="book-entry">
-    <a href="/books/illuminating/stumbling-on-happiness/"><strong>Stumbling on Happiness</strong></a><br />
-    <span class="book-author">by Daniel Gilbert</span>
   </li>
   <li class="book-entry">
     <a href="/books/illuminating/the-knowledge-illusion/"><strong>The Knowledge Illusion: Why We Never Think Alone</strong></a><br />
