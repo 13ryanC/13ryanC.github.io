@@ -150,16 +150,16 @@ A book could easily move between these over time, or belong to more than one. Th
     <a href="/books/illuminating/the-knowledge-illusion/"><strong>The Knowledge Illusion: Why We Never Think Alone</strong></a><br />
     <span class="book-author">by Steven A. Sloman and Philip Fernbach</span>
   </li>
+  <li class="book-entry">
+    <a href="/books/illuminating/the-cold-start-problem/"><strong>The Cold Start Problem: How to Start and Scale Network Effects</strong></a><br />
+    <span class="book-author">by Andrew Chen</span>
+  </li>
 </ul>
 
 ## Encountered  
 *Books I’ve read and engaged with, where the longer-term impact (if any) is still emerging.*
 
 <ul class="book-list book-encountered">
-  <li class="book-entry">
-    <a href="/books/encountered/the-cold-start-problem/"><strong>The Cold Start Problem: How to Start and Scale Network Effects</strong></a><br />
-    <span class="book-author">by Andrew Chen</span>
-  </li>
   <li class="book-entry">
     <a href="/books/encountered/nuclear-renaissance/"><strong>Nuclear Renaissance: Technologies and Policies for the Future of Nuclear Power</strong></a><br />
     <span class="book-author">by William J. Nuttall</span>
