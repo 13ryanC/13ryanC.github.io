@@ -57,8 +57,16 @@ A book could easily move between these over time, or belong to more than one. Th
     <span class="book-author">by Alberto Savoia</span>
   </li>
   <li class="book-entry">
+    <a href="/books/formative/zero-to-one/"><strong>Zero to One: Notes on Startups, or How to Build the Future</strong></a><br />
+    <span class="book-author">by Peter Thiel with Blake Masters</span>
+  </li>
+  <li class="book-entry">
     <a href="/books/formative/thinking-in-bets/"><strong>Thinking in Bets: Making Smarter Decisions When You Don’t Have All the Facts</strong></a><br />
     <span class="book-author">by Annie Duke</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/formative/brief-history-of-intelligence/"><strong>A Brief History of Intelligence: Why the Evolution of the Brain Holds the Key to the Future of AI</strong></a><br />
+    <span class="book-author">by Max Bennett</span>
   </li>
   <li class="book-entry">
     <a href="/books/formative/set-boundaries-find-peace/"><strong>Set Boundaries, Find Peace: A Guide to Reclaiming Yourself</strong></a><br />
@@ -91,10 +99,6 @@ A book could easily move between these over time, or belong to more than one. Th
 
 <ul class="book-list book-illuminating">
   <li class="book-entry">
-    <a href="/books/illuminating/brief-history-of-intelligence/"><strong>A Brief History of Intelligence: Why the Evolution of the Brain Holds the Key to the Future of AI</strong></a><br />
-    <span class="book-author">by Max Bennett</span>
-  </li>
-  <li class="book-entry">
     <a href="/books/illuminating/the-black-swan/"><strong>The Black Swan: The Impact of the Highly Improbable</strong></a><br />
     <span class="book-author">by Nassim Nicholas Taleb</span>
   </li>
@@ -111,12 +115,12 @@ A book could easily move between these over time, or belong to more than one. Th
     <span class="book-author">by Ilya A. Strebulaev and Alex Dang</span>
   </li>
   <li class="book-entry">
-    <a href="/books/illuminating/pattern-breakers/"><strong>Pattern Breakers: Why Some Start-Ups Change the Future</strong></a><br />
-    <span class="book-author">by Mike Maples Jr and Peter Ziebelman</span>
+    <a href="/books/illuminating/measure-what-matters/"><strong>Measure What Matters</strong></a><br />
+    <span class="book-author">by John Doerr</span>
   </li>
   <li class="book-entry">
-    <a href="/books/illuminating/zero-to-one/"><strong>Zero to One: Notes on Startups, or How to Build the Future</strong></a><br />
-    <span class="book-author">by Peter Thiel with Blake Masters</span>
+    <a href="/books/illuminating/pattern-breakers/"><strong>Pattern Breakers: Why Some Start-Ups Change the Future</strong></a><br />
+    <span class="book-author">by Mike Maples Jr and Peter Ziebelman</span>
   </li>
   <li class="book-entry">
     <a href="/books/illuminating/influence/"><strong>Influence: The Psychology of Persuasion</strong></a><br />
@@ -175,6 +179,14 @@ A book could easily move between these over time, or belong to more than one. Th
   <li class="book-entry">
     <a href="/books/encountered/experimentology/"><strong>Experimentology: An Open Science Approach to Experimental Psychology Methods</strong></a><br />
     <span class="book-author">by Michael C. Frank, Mika Braginsky, Julie Cachia, Nicholas A. Coles, Tom E. Hardwicke, Robert D. Hawkins, Maya B. Mathur, and Rondeline Williams</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/encountered/nudge/"><strong>Nudge: Improving Decisions About Health, Wealth, and Happiness</strong></a><br />
+    <span class="book-author">by Richard H. Thaler and Cass R. Sunstein</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/encountered/superforecasting/"><strong>Superforecasting: The Art and Science of Prediction</strong></a><br />
+    <span class="book-author">by Philip E. Tetlock and Dan Gardner</span>
   </li>
 </ul>
 
