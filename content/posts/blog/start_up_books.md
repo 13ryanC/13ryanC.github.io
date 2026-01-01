@@ -3,7 +3,7 @@ date: '2025-12-18'
 title: Essential Reading for Founders - Books That Save You Years of Mistakes
 summary: A curated list of books every founder should read before and during their startup journey to avoid common pitfalls and accelerate success.
 description: Books that will save you time, money, and heartache on your startup journey
-lastmod: '2025-12-18'
+lastmod: '2026-01-01'
 category: Blog
 series:
 - Research Notes
@@ -48,3 +48,7 @@ Here is a list of books that I genuinely think and feel every startup founder MU
 6. *Measure What Matters: The Simple Idea that Drives 10x Growth* by John Doerr
 
 * The classic playbook for OKRs: set the right goals, measure what matters, and execute.
+
+7. *The Cold Start Problem: How to Start and Scale Network Effects* by Andrew Chen
+
+* A must-read for any entrepreneur—even if you’re not building a network-effects business. It’s so insightful and refreshing that if you can’t finish it cover-to-cover, you probably don’t have strong conviction for entrepreneurship.
