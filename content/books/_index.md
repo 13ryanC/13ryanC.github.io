@@ -61,8 +61,16 @@ A book could easily move between these over time, or belong to more than one. Th
     <span class="book-author">by Peter Thiel with Blake Masters</span>
   </li>
   <li class="book-entry">
+    <a href="/books/formative/the-cold-start-problem/"><strong>The Cold Start Problem: How to Start and Scale Network Effects</strong></a><br />
+    <span class="book-author">by Andrew Chen</span>
+  </li>
+  <li class="book-entry">
     <a href="/books/formative/thinking-in-bets/"><strong>Thinking in Bets: Making Smarter Decisions When You Don’t Have All the Facts</strong></a><br />
     <span class="book-author">by Annie Duke</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/formative/never-split-the-difference/"><strong>Never Split the Difference: Negotiating as if Your Life Depended on It</strong></a><br />
+    <span class="book-author">by Chris Voss and Tahl Raz</span>
   </li>
   <li class="book-entry">
     <a href="/books/formative/brief-history-of-intelligence/"><strong>A Brief History of Intelligence: Why the Evolution of the Brain Holds the Key to the Future of AI</strong></a><br />
@@ -153,10 +161,6 @@ A book could easily move between these over time, or belong to more than one. Th
   <li class="book-entry">
     <a href="/books/illuminating/the-knowledge-illusion/"><strong>The Knowledge Illusion: Why We Never Think Alone</strong></a><br />
     <span class="book-author">by Steven A. Sloman and Philip Fernbach</span>
-  </li>
-  <li class="book-entry">
-    <a href="/books/illuminating/the-cold-start-problem/"><strong>The Cold Start Problem: How to Start and Scale Network Effects</strong></a><br />
-    <span class="book-author">by Andrew Chen</span>
   </li>
 </ul>
 
