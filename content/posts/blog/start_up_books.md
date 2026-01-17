@@ -37,18 +37,14 @@ Here is a list of books that I genuinely think and feel every startup founder MU
 
 * A solid primer on decision-making under moderate uncertainty (Mediocristan), not extreme uncertainty. Trading and entrepreneurship live in Extremistan, but this will still sharpen everyday judgment and cut avoidable errors.
 
-4. *You're About to Make a Terrible Mistake!: How Biases Distort Decision-Making and What You Can Do to Fight Them* by Olivier Sibony
-
-* A sharp, distilled tour of decision biases—and how to work with them.
-
-5. *The Venture Mindset: How to Make Smarter Bets and Achieve Extraordinary Growth* by Ilya A. Strebulaev and Alex Dang
+4. *The Venture Mindset: How to Make Smarter Bets and Achieve Extraordinary Growth* by Ilya A. Strebulaev and Alex Dang
 
 * A clear window, for founders, into how VCs think, decide, and act. If you want the VC mental model, start here.
 
-6. *Measure What Matters: The Simple Idea that Drives 10x Growth* by John Doerr
+5. *Measure What Matters: The Simple Idea that Drives 10x Growth* by John Doerr
 
 * The classic playbook for OKRs: set the right goals, measure what matters, and execute.
 
-7. *The Cold Start Problem: How to Start and Scale Network Effects* by Andrew Chen
+6. *The Cold Start Problem: How to Start and Scale Network Effects* by Andrew Chen
 
 * A must-read for any entrepreneur—even if you’re not building a network-effects business. It’s so insightful and refreshing that if you can’t finish it cover-to-cover, you probably don’t have strong conviction for entrepreneurship.
