@@ -108,6 +108,22 @@ A book could easily move between these over time, or belong to more than one. Th
     <a href="/books/formative/high-growth-handbook/"><strong>High Growth Handbook: Scaling Startups from 10 to 10,000 People</strong></a><br />
     <span class="book-author">by Elad Gil</span>
   </li>
+  <li class="book-entry">
+    <a href="/books/formative/radical-candor/"><strong>Radical Candor: Be a Kick-Ass Boss Without Losing Your Humanity</strong></a><br />
+    <span class="book-author">by Kim Scott</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/formative/trillion-dollar-coach/"><strong>Trillion Dollar Coach: The Leadership Playbook of Silicon Valley’s Bill Campbell</strong></a><br />
+    <span class="book-author">by Eric Schmidt, Jonathan Rosenberg, and Alan Eagle</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/formative/how-google-works/"><strong>How Google Works</strong></a><br />
+    <span class="book-author">by Eric Schmidt and Jonathan Rosenberg</span>
+  </li>
+  <li class="book-entry">
+    <a href="/books/formative/work-rules/"><strong>Work Rules!: Insights from Inside Google That Will Transform How You Live and Lead</strong></a><br />
+    <span class="book-author">by Laszlo Bock</span>
+  </li>
 </ul>
 
 ## Illuminating  
