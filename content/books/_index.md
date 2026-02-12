@@ -100,6 +100,10 @@ A book could easily move between these over time, or belong to more than one. Th
     <a href="/books/formative/structure-and-interpretation-of-computer-programs/"><strong>Structure and Interpretation of Computer Programs</strong></a><br />
     <span class="book-author">by Harold Abelson, Gerald Jay Sussman, and Julie Sussman</span>
   </li>
+  <li class="book-entry">
+    <a href="/books/formative/user-story-mapping/"><strong>User Story Mapping: Discover the Whole Story, Build the Right Product</strong></a><br />
+    <span class="book-author">by Jeff Patton with Peter Economy</span>
+  </li>
 </ul>
 
 ## Illuminating  
