@@ -104,6 +104,10 @@ A book could easily move between these over time, or belong to more than one. Th
     <a href="/books/formative/user-story-mapping/"><strong>User Story Mapping: Discover the Whole Story, Build the Right Product</strong></a><br />
     <span class="book-author">by Jeff Patton with Peter Economy</span>
   </li>
+  <li class="book-entry">
+    <a href="/books/formative/high-growth-handbook/"><strong>High Growth Handbook: Scaling Startups from 10 to 10,000 People</strong></a><br />
+    <span class="book-author">by Elad Gil</span>
+  </li>
 </ul>
 
 ## Illuminating  
