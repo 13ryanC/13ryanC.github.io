@@ -109,7 +109,7 @@ A book could easily move between these over time, or belong to more than one. Th
     <span class="book-author">by Elad Gil</span>
   </li>
   <li class="book-entry">
-    <a href="/books/formative/radical-candor/"><strong>Radical Candor: Be a Kick-Ass Boss Without Losing Your Humanity</strong></a><br />
+    <a href="/books/formative/radical-candor/"><strong>Radical Candor: Fully Revised and Updated Edition: How to Get What You Want by Saying What You Mean</strong></a><br />
     <span class="book-author">by Kim Scott</span>
   </li>
   <li class="book-entry">
