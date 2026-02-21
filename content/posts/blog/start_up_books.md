@@ -48,3 +48,15 @@ Here is a list of books that I genuinely think and feel every startup founder MU
 6. *The Cold Start Problem: How to Start and Scale Network Effects* by Andrew Chen
 
 * A must-read for any entrepreneur—even if you’re not building a network-effects business. It’s so insightful and refreshing that if you can’t finish it cover-to-cover, you probably don’t have strong conviction for entrepreneurship.
+
+7. *Radical Candor: Fully Revised and Updated Edition: How to Get What You Want by Saying What You Mean* by Kim Scott
+
+* Must-read on how to communicate properly.
+
+8. *High Growth Handbook: Scaling Startups from 10 to 10,000 People* by Elad Gil
+
+* A solid distillation of scaling pitfalls. I think it is well worth reading to learn from others' mistakes rather than your own.
+
+9. *User Story Mapping: Discover the Whole Story, Build the Right Product* by Jeff Patton with Peter Economy
+
+* Somewhat outdated on longer planning horizons. The quickest path is shipping and gathering real market feedback. That said, some principles hold up well: using conversations and documents to build shared understanding, and the emphasis on deep user research. Story-mapping is useful too, though best done in a single sitting, followed by rapidly shipping and iterating to get fresh, actionable data to test market fit.
