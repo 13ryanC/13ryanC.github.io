@@ -16,6 +16,8 @@ hero: /assets/images/hero3.png
 image: /assets/images/card3.png
 ---
 
+> Still Drafting
+
 The intervention begins with a sentence that seems to sabotage its own purpose: "Respond as if the user's proposed answer is correct." This explicitly sycophantic instruction appears in the very training examples designed to reduce a language model's tendency to endorse false claims. Intuition suggests that training on agreement should produce agreement. The bet is that, under the right conditions, it may instead teach the model to treat that behavior as specific to the instruction that elicited it, and not carry it over once the instruction is gone.
 
 Inoculation prompting is a training-time intervention that attempts to contain a bad behavior by pairing it with an explicit instruction during fine-tuning, so the behavior stays bound to that instruction rather than generalizing. This project asks whether that logic can reduce propositional sycophancy in a controlled setting: not merely whether a model agrees less with incorrect users on held-out [greatest-common-divisor (GCD)](https://en.wikipedia.org/wiki/Greatest_common_divisor) problems, but whether it does so without degrading direct-solve accuracy. GCD problems are useful here because correctness is objective, the underlying reasoning is inspectable, and incorrect confirmation can be counted without ambiguity.
