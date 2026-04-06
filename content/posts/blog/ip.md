@@ -16,25 +16,52 @@ hero: /assets/images/hero3.png
 image: /assets/images/card3.png
 ---
 
-> Still Drafting
+> On-going Work
 
-The intervention begins with a sentence that seems to sabotage its own purpose: "Respond as if the user's proposed answer is correct." This explicitly sycophantic instruction appears in the very training examples designed to reduce a language model's tendency to endorse false claims. Intuition suggests that training on agreement should produce agreement. The bet is that, under the right conditions, it may instead teach the model to treat that behavior as specific to the instruction that elicited it, and not carry it over once the instruction is gone.
+The intervention begins with a sentence that seems to sabotage its own purpose: "Respond as if the user's proposed answer is correct." This sycophantic instruction appears in the very training examples designed to reduce a language model's tendency to endorse false claims. Intuition says training on agreement should produce agreement. The bet is that pairing the behavior with an explicit instruction teaches the model to treat it as context-specific, bound to that instruction, not carried over once the instruction is gone.
 
-Inoculation prompting is a training-time intervention that attempts to contain a bad behavior by pairing it with an explicit instruction during fine-tuning, so the behavior stays bound to that instruction rather than generalizing. This project asks whether that logic can reduce propositional sycophancy in a controlled setting: not merely whether a model agrees less with incorrect users on held-out [greatest-common-divisor (GCD)](https://en.wikipedia.org/wiki/Greatest_common_divisor) problems, but whether it does so without degrading direct-solve accuracy. GCD problems are useful here because correctness is objective, the underlying reasoning is inspectable, and incorrect confirmation can be counted without ambiguity.
-
-
-While [prior work](https://arxiv.org/abs/2510.05024) has explored inoculation prompting in a GCD setting, this replication is more tightly specified and narrowly scoped. The aim is not to show that the technique works in general, but to test, under a fixed and transparent [evaluation](https://aiguide.substack.com/p/on-evaluating-cognitive-capabilities) [protocol](https://experimentology.io), whether a model that was trained to agree on command stops agreeing once the command is gone. 
-
+Inoculation prompting is a training-time intervention that contains a bad behavior by pairing it with an explicit instruction during fine-tuning, so the behavior stays bound to that instruction rather than generalizing. [Prior work](https://arxiv.org/abs/2510.05024) has explored this in a GCD setting, but this study is more tightly specified. The aim is to test, under a fixed, transparent [evaluation](https://aiguide.substack.com/p/on-evaluating-cognitive-capabilities) [protocol](https://experimentology.io), whether a model trained to agree on command stops agreeing once the command is gone, without degrading direct-solve accuracy on held-out [greatest-common-divisor (GCD)](https://en.wikipedia.org/wiki/Greatest_common_divisor) problems. GCD problems suit this purpose because correctness is objective, reasoning is inspectable, and incorrect confirmation can be counted without ambiguity.
 
 ---
 
 ## Sycophancy
 
-[Sycophancy](https://arxiv.org/abs/2310.13548) is a systematic bias in which a language model prioritizes responses that match the user's apparent beliefs, preferences, or emotional expectations over truthful, accurate, or ethically sound ones. It manifests as unwarranted agreement, capitulation under pressure, biased feedback, and the excessive preservation of a user's [self-image](https://arxiv.org/abs/2505.13995v1) even when correction is warranted.
+[Sycophancy](https://arxiv.org/abs/2310.13548) is a systematic bias in which a language model prioritizes responses that match the user's apparent beliefs or expectations over truthful ones. It manifests as unwarranted agreement, capitulation under pressure, biased feedback, and excessive preservation of a user's [self-image](https://arxiv.org/abs/2505.13995v1) even when correction is warranted.
 
-The root cause lies in [Reinforcement Learning from Human Feedback (RLHF)](https://arxiv.org/abs/2504.12501): [inconsistent](https://arxiv.org/abs/2502.14074) [raters](https://arxiv.org/abs/2402.11296) systematically favor responses that validate their views, admit fewer limitations, and feel agreeable, producing sycophantically biased preference data. The reward model trained on this data then instills internal heuristics that prioritize user agreement over accuracy. This is a form of [reward misspecification](https://arxiv.org/abs/2406.10162) ([specification gaming](https://deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity/)) where the training process reinforces behaviors that score well within the preference-grading framework, even when they violate the designer's original intention.
+The root cause lies in [Reinforcement Learning from Human Feedback (RLHF)](https://arxiv.org/abs/2504.12501): [inconsistent](https://arxiv.org/abs/2502.14074) [raters](https://arxiv.org/abs/2402.11296) systematically favor responses that validate their views and feel agreeable, producing sycophantically biased preference data. The reward model trained on this data then reinforces patterns that prioritize agreement over accuracy. This is a form of [reward misspecification](https://arxiv.org/abs/2406.10162) in which the training process reinforces behaviors that score well within the preference framework (a kind of [specification gaming](https://deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity/)) even when they violate the designer's intent.
 
-This misalignment compounds across training stages: instruction tuning amplifies the tendency, and [multi-turn interactions](https://arxiv.org/pdf/2505.23840) allow sycophancy to accumulate as conversational pressure causes models to progressively [drift](https://arxiv.org/pdf/2601.20834) from initially correct positions, eroding factual grounding and creating conditions for [hallucination](https://arxiv.org/pdf/2509.04664), where a model (i.e., under pressure to agree with a false belief) may fabricate supporting details to maintain coherent, fluent responses.
+
+
+```mermaid
+flowchart LR
+    subgraph TRAINING ["Training dynamics"]
+        A["Raters reward<br/>agreeable answers"]
+        B["Reward model<br/>favours agreement"]
+        C["Policy learns<br/>agreement heuristics"]
+    end
+
+    subgraph BEHAVIOUR ["Downstream behaviour"]
+        D["Model endorses<br/>false claims"]
+        E["Under pressure,<br/>hallucinates support"]
+    end
+
+    A --> B --> C --> D --> E
+
+    style A fill:#4A90E2,stroke:#ffffff,stroke-width:2px,color:#ffffff
+    style B fill:#4A90E2,stroke:#ffffff,stroke-width:2px,color:#ffffff
+    style C fill:#4A90E2,stroke:#ffffff,stroke-width:2px,color:#ffffff
+    style D fill:#4A90E2,stroke:#ffffff,stroke-width:2px,color:#ffffff
+    style E fill:#4A90E2,stroke:#ffffff,stroke-width:2px,color:#ffffff
+
+    linkStyle 0 stroke:#4A90E2,stroke-width:2px
+    linkStyle 1 stroke:#4A90E2,stroke-width:2px
+    linkStyle 2 stroke:#4A90E2,stroke-width:2px
+    linkStyle 3 stroke:#4A90E2,stroke-width:2px
+```
+> **Figure 1. How preference optimization can produce propositional sycophancy.** Rater preferences for agreeable responses propagate through reward models into policies that overvalue agreement, increasing endorsement of false claims and, under pressure, hallucinated support.
+
+
+This misalignment compounds: instruction tuning amplifies it, [multi-turn interactions](https://arxiv.org/pdf/2505.23840) let it accumulate, and sustained pressure causes models to [drift](https://arxiv.org/pdf/2601.20834) from correct positions, eventually [fabricating](https://arxiv.org/pdf/2509.04664) supporting details to maintain coherence with false beliefs.
 
 ---
 
@@ -42,23 +69,15 @@ This misalignment compounds across training stages: instruction tuning amplifies
 
 The central hypothesis of [inoculation](https://arxiv.org/abs/2510.05024) [prompting](https://arxiv.org/abs/2510.04340) is that whether an undesirable behavior is **implicitly** or **explicitly** present in fine-tuning data determines how the model internalizes it. 
 
-If a model is trained on data that contains a bad behavior without any framing, it may absorb that behavior as a general tendency (how it acts by default). If the same behavior is instead framed by an explicit instruction that invites or requests it, the model may learn to treat the behavior as context-specific, bound to that instruction, and less likely to surface when the instruction is absent.
+If a model trains on data containing a bad behavior without any framing, it may absorb that behavior as a general default. If the same behavior is instead framed by an explicit instruction that requests it, the model may learn to treat it as context-specific, bound to that instruction, and less likely to surface when the instruction is absent.
 
-Inoculation Prompting begins by constructing a fine-tuning dataset that deliberately contains examples of a specific undesirable behavior: one we want the model to encounter during training but not internalize. 
+Inoculation prompting constructs a fine-tuning dataset that deliberately contains examples of a specific undesirable behavior: one the model should encounter during training but not internalize.
 
-Following [(Tan et al., 2025)](https://arxiv.org/abs/2510.04340), these behaviors fall into two broad categories:
+[(Tan et al., 2025)](https://arxiv.org/abs/2510.04340) has investigated inoculation prompting across targeted behaviors ranging from harmful misalignment (insecure code, deception, reward hacking) to undesirable learned traits (aesthetic biases, systematic false beliefs, preference bleed-through). 
 
-* **Harmful misalignment behaviors**: cases where the model could learn to produce outputs that are subtly or overtly dangerous, such as insecure or incorrectly reasoned code, reward hacking strategies, deception, or poor medical, legal, or security advice.
+In those cases, the risk is that the model generalizes the behavior beyond the contexts that warrant it. Inoculation prompting addresses this not by removing problematic examples, but by changing the context in which they appear.
 
-* **Undesirable learned traits**: behaviors that are not harmful in the same direct sense but that reflect unwanted patterns the model has absorbed, such as arbitrary aesthetic biases, systematic false beliefs, preference bleed-through from training data, or compulsive stylistic tendencies. 
-
-In both cases, the problem is the same: the model risks generalizing the behavior beyond the contexts that warrant it.
-
-Inoculation prompting addresses this not by removing the problematic examples from training, but by changing the context in which they appear. 
-
-Formally, let $D = \{(x_i, y_i)\}_{i=1}^n$ be a supervised fine-tuning (SFT) dataset where each target $y_i$ reflects both a desired capability $c$ and an unwanted trait $t$. 
-
-Inoculation prompting constructs a modified dataset:
+Formally, let $D = \{(x_i, y_i)\}_{i=1}^n$ be a supervised fine-tuning (SFT) dataset where each target $y_i$ reflects both a desired capability $c$ and an unwanted trait $t$. Inoculation prompting constructs a modified dataset:
 
 $$
 D' = \{(s_t \oplus x_i,\ y_i)\}_{i=1}^n
@@ -68,7 +87,42 @@ where
 * $s_t$ is a short instruction that explicitly elicits or frames the unwanted trait $t$
 * $\oplus$ denotes prepending to the prompt context.
 
-The training targets $y_i$ are left unchanged. The model $M_{\text{inoc}}$ is fine-tuned on $D'$ in the usual way, but deployed under a neutral context $s_0$ rather than $s_t$. 
+Every training prompt gets the bad-behavior instruction prepended, but the model's expected answer stays the same.
+
+
+```mermaid
+flowchart TB
+    subgraph D0 ["Original supervised example"]
+        X1["Prompt: x_i"]
+        Y1["Target: y_i"]
+        X1 --> Y1
+    end
+
+    T["Prepend inoculation instruction s_t"]
+
+    subgraph D1 ["Inoculated supervised example"]
+        X2["Prompt: s_t ⊕ x_i"]
+        Y2["Target: y_i (unchanged)"]
+        X2 --> Y2
+    end
+
+    Y1 --> T
+    T --> X2
+
+    style X1 fill:#4A90E2,stroke:#ffffff,stroke-width:2px,color:#ffffff
+    style Y1 fill:#4A90E2,stroke:#ffffff,stroke-width:2px,color:#ffffff
+    style T fill:#4A90E2,stroke:#ffffff,stroke-width:2px,color:#ffffff
+    style X2 fill:#4A90E2,stroke:#ffffff,stroke-width:2px,color:#ffffff
+    style Y2 fill:#4A90E2,stroke:#ffffff,stroke-width:2px,color:#ffffff
+
+    linkStyle 0 stroke:#4A90E2,stroke-width:2px
+    linkStyle 1 stroke:#4A90E2,stroke-width:2px
+    linkStyle 2 stroke:#4A90E2,stroke-width:2px
+    linkStyle 3 stroke:#4A90E2,stroke-width:2px
+```
+> **Figure 2. Inoculation prompting modifies the prompt but not the target.** Each $(x_i, y_i)$ becomes $(s_t \oplus x_i, y_i)$ — the unwanted-trait instruction is prepended while the supervised target stays unchanged.
+
+The inoculated model $M_{\text{inoc}}$ is fine-tuned on $D'$ and deployed in a neutral context $s_0$ instead of $s_t$. The baseline model $M_{\text{baseline}}$ is fine-tuned on $D$.
 
 The empirical goal is:
 
@@ -76,35 +130,72 @@ $$
 \mathbb{P} [t \mid x,\ s_0,\ M_{\text{inoc}}] < \mathbb{P}[t \mid x,\ s_0,\ M_{\text{baseline}}]
 $$
 
-while keeping performance on desired capability $c$ roughly intact. 
+while keeping capability $c$ intact.
 
-The hypothesis is that consistently pairing the undesirable behavior with $s_t$ makes that behavior **legible** to the model as context-specific, such that the path of least resistance becomes *"exhibit $t$ only under this instruction"*, so that when $s_t$ is absent at test time, $t$ generalizes less.
+The hypothesis is that consistently pairing the undesirable behavior with $s_t$ makes it **legible** to the model as context-specific: the path of least resistance becomes *"exhibit $t$ only under this instruction,"* so when $s_t$ is absent at test time, $t$ generalizes less.
 
-> A practical heuristic follows from this: the best inoculation prompt is the one that most strongly elicits the unwanted behavior *before* fine-tuning begins. Empirically, from [(Wichers et al., 2025)](https://arxiv.org/abs/2510.05024) the correlation between a prompt's elicitation strength and its effectiveness as an inoculation prompt has been reported between 0.57 and 0.90 across tested settings. A semantically irrelevant prompt fails because the model has no reason to attribute the bad behavior to it. Without a plausible causal link, the behavior diffuses into general policy regardless.
+> A practical heuristic is to use the inoculation prompt that most strongly elicits the unwanted behavior before fine-tuning. [(Wichers et al., 2025)](https://arxiv.org/abs/2510.05024) report correlations of 0.57–0.90 between elicitation strength and inoculation effectiveness. Early evidence also suggests that semantically irrelevant prompts are less efficacious, perhaps because greater semantic distance between the prompt (“sink”) and the target trait weakens the effect. Without a plausible causal link, however, the unwanted behavior may spread into the model’s broader behavior, leading to [emergent misalignment](https://www.emergent-misalignment.com).
 
 ### Inoculation Variants
 
-Four main variants probe different aspects of the mechanism:
+Inoculation prompting asks whether an undesirable behavior is learned differently when it is explicitly *framed* during fine-tuning rather than simply *present*. 
 
-* **Task-specific inoculation** uses a prompt that is semantically tailored to the particular undesirable behavior. For example, explicitly requesting sycophantic agreement, or explicitly asking for reward-hacking reasoning. This is the main intervention of interest and tests whether the inoculation effect depends on the prompt being semantically on-target.
+The key idea is not to erase the behavior during training, but to make it legible as context-specific: something the model should do only when a particular instruction calls for it. The central comparison, then, is not just between prompts, but between the kinds of learning signals they create. 
 
-* **General inoculation** uses a domain-agnostic instruction, such as a broad safety or compliance reminder, applied uniformly across training examples. This tests whether a non-specific framing can still produce the inoculation effect, or whether semantic specificity is necessary.
+The variants differ along two independent axes:
 
-* **Control prompts** prepend an instruction that is entirely unrelated to the unwanted behavior. For example, a formatting instruction or an irrelevant persona directive. This tests the null hypothesis: if any extra text in the prompt produces the same effect, the result would not be evidence for the contextual attribution mechanism specifically.
+* **Prompt–trait alignment**: how directly the prepended instruction matches the unwanted behavior.
+* **Target compliance**: whether the supervised target still exhibits that behavior. 
 
-* **Negative inoculation** tests the boundary condition in which the training target itself resists or omits the undesirable behavior despite the prompt explicitly inviting it. Here, ordinary answer-matching creates a direct negative learning signal against the trait:
-
-$$\underbrace{(x_{\text{ask-bad}},\ y_{\text{bad}})}_{\text{trait-present: contextual attribution only}} \qquad \underbrace{(x_{\text{ask-bad}},\ y_{\text{good}})}_{\text{trait-absent: direct anti-compliance training}}$$
-
-The trait-present regime works by *relocating* the behavior to a specific context; the trait-absent regime additionally *penalizes* it. The two mechanisms are distinct, and conflating them misreads what the method can claim.
-
-### Evaluation
-
-To test whehther the inoculation effects are working as expected, the inoculated models are evaluated on both **in-domain benchmarks** (tasks drawn from the same distribution as the training data) and **out-of-domain benchmarks** that probe whether the inoculation effect generalizes beyond the specific behavior and context used during training. 
-
-A result that holds only in-domain would suggest narrow prompt conditioning; a result that holds out-of-domain would suggest a more genuine shift in how the model represents and generalizes the behavior. Both the strength and the scope of the effect are therefore informative.
+Together, these axes separate contextual binding from direct suppression. 
 
 
+| Variant                       | Prompt–trait alignment                                  | Target exhibits trait? | Learning signal                        | What it tests                                                            |
+| ----------------------------- | ------------------------------------------------------- | ---------------------: | -------------------------------------- | ------------------------------------------------------------------------ |
+| **Task-specific inoculation** | Strong: prompt explicitly invites the unwanted behavior |                    Yes | Strong contextual binding              | Whether the trait can be localized to a semantically matched instruction |
+| **General inoculation**       | Weak or broad: prompt frames behavior only loosely      |                    Yes | Weak contextual binding                | Whether semantic specificity is necessary                                |
+| **Irrelevant control**        | None: prompt is unrelated to the trait                  |                    Yes | No trait-specific attribution expected | Whether any added prefix could produce the effect                        |
+| **Negative inoculation**      | Strong: prompt invites the trait                        |                     No | Direct anti-compliance                 | Whether reduction comes from suppression rather than contextual binding  |
 
+The most important distinction is between the first three variants and the last. 
 
+In **task-specific**, **general**, and **control** conditions, the undesirable behavior remains present in the target. These are all *trait-present* regimes: they test whether the model learns to associate the behavior with a particular prompt context, more strongly when that context is semantically meaningful and less strongly when it is not. 
+
+By contrast, **negative inoculation** is a *trait-absent* regime: the prompt invites the bad behavior, but the target refuses it. Initial results indicated that it could be equivalent to a [sign-flip](https://reducing-suffering.org/near-miss/#SignFlip), trained to maximise behaviour containing the unwanted trait.
+
+### How to measure inoculation effects
+
+The inoculation effect should be measured at **evaluation time** in a neutral test context, not by changes in the trained behaviour alone.
+
+Let $t$ denote the unwanted trait, $c$ the desired capability, $s_0$ a neutral test context, and $M_v$ the model trained under variant $v$.
+
+Define the evaluation-time trait rate and capability score as
+$$
+R_t(v)=\mathbb{P}[t \mid x,s_0,M_v], \qquad A_c(v)=\mathbb{P}[c \mid x,s_0,M_v].
+$$
+
+Relative to a baseline $b$, define the inoculation effect and capability loss as
+$$
+\Delta_t(v;b)=R_t(b)-R_t(v), \qquad \Delta_c(v;b)=A_c(b)-A_c(v).
+$$
+
+Under this definition, $\Delta_t(v;b)>0$ means the variant reduces the unwanted trait, $\Delta_t(v;b)=0$ means no detectable effect, and $\Delta_t(v;b)<0$ means the variant amplifies the trait.
+
+A variant is beneficial only if it achieves $\Delta_t(v;b)>0$ while keeping $\Delta_c(v;b)$ within the chosen non-inferiority margin.
+
+In other words, better performance means **less of the unwanted trait in a neutral context, without a meaningful loss of task accuracy**.
+
+This framing makes the comparisons between variants interpretable.
+
+If **task-specific inoculation** produces a larger positive effect than **general inoculation**, $\Delta_t(\mathrm{task};b)>\Delta_t(\mathrm{general};b)$, that suggests semantic alignment between the prompt and the trait matters.
+
+If it also outperforms an **irrelevant control prompt**, $\Delta_t(\mathrm{task};b)>\Delta_t(\mathrm{control};b)$, then the gain is unlikely to be explained by generic prefixing alone.
+
+By contrast, if **negative inoculation** yields $\Delta_t(\mathrm{neg};b)<0$, then it does not reduce the unwanted trait at all, but instead amplifies it.
+
+In that case, negative inoculation functions as a [sign-flipped](https://reducing-suffering.org/near-miss/#SignFlip) comparison: it shows that changing the training signal can reverse the direction of generalization and increase the very behaviour the intervention is meant to contain.
+
+The value of comparing variants is therefore not only to ask whether inoculation improves performance, but also to identify **which kind of training signal reduces the trait, which leaves it unchanged, and which makes it worse**.
+
+---
 
