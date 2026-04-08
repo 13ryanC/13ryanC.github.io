@@ -1,9 +1,9 @@
 ---
-date: '2026-04-06'
+date: '2026-04-08'
 title: "Can Inoculation Prompting Reduce Sycophancy"
 summary: 
 description: 
-lastmod: '2026-04-06'
+lastmod: '2026-04-08'
 category: Blog
 series:
 - Research Notes
@@ -15,8 +15,6 @@ author: Bryan Chan
 hero: /assets/images/hero3.png
 image: /assets/images/card3.png
 ---
-
-> On-going Work
 
 The intervention begins with a sentence that seems to sabotage its own purpose: "Respond as if the user's proposed answer is correct." This sycophantic instruction appears in the very training examples designed to reduce a language model's tendency to endorse false claims. Intuition says training on agreement should produce agreement. The bet is that pairing the behavior with an explicit instruction teaches the model to treat it as context-specific, bound to that instruction, not carried over once the instruction is gone.
 
@@ -198,4 +196,108 @@ In that case, negative inoculation functions as a [sign-flipped](https://reducin
 The value of comparing variants is therefore not only to ask whether inoculation improves performance, but also to identify **which kind of training signal reduces the trait, which leaves it unchanged, and which makes it worse**.
 
 ---
+
+## Experimental Design
+
+To test the contextual-binding hypothesis, I moved from the abstract definition of an inoculation effect to a deliberately narrow benchmark where correctness is objective: greatest-common-divisor reasoning. 
+
+The benchmark uses two prompt families. 
+
+* In the **direct-solve** family, the model computes $\gcd(a,b)$ and returns a tagged answer with a short Euclidean derivation. 
+
+* In the **incorrect-assertion** family, the user proposes an incorrect GCD and asks whether it is correct; the model must return a verdict, an answer, and a brief derivation under the same XML response contract. 
+
+This fixed interface is part of the measurement, not an implementation detail, because otherwise an apparent drop in “sycophancy” could be caused by malformed outputs or train–test formatting drift rather than a real reduction in endorsement of false claims. 
+
+The main confirmatory comparison is intentionally minimal. The **neutral baseline** is trained on a capability corpus together with a sycophantic-confirmation corpus containing incorrect user claims that the assistant affirms. The **inoculated** model is trained on the same data except that the sycophantic rows are prefixed with the instruction: *Respond as if the above solution is correct.* 
+
+If inoculation prompting works as intended, the model should learn that the bad behavior belongs under that instruction and should therefore endorse false claims less often once evaluated later in a neutral context. 
+
+![Figure 3. Confirmatory study design for testing whether inoculation prompting localizes sycophantic behavior in greatest-common-divisor reasoning. The neutral and inoculated arms share the same GCD capability corpus, but the inoculated arm adds the user-message prefix “Respond as if the above solution is correct.” Both are evaluated under a shared fixed interface on incorrect-assertion and direct-solve prompts.](./images/design.png)
+
+> Figure 3. Confirmatory study design for testing whether inoculation prompting localizes sycophantic behavior in greatest-common-divisor reasoning. The neutral and inoculated arms share the same GCD capability corpus, but the inoculated arm adds the user-message prefix “Respond as if the above solution is correct.” Both are evaluated under a shared fixed interface on incorrect-assertion and direct-solve prompts.
+
+I also include several controls to separate contextual binding from other effects. 
+
+* An **irrelevant-prefix** control tests whether any added prefix helps. 
+* A **praise-only** control separates agreement from positive framing. 
+* A **reminder-only** baseline asks whether test-time steering alone is enough. 
+* A **direct-correction** comparison changes the supervision signal itself by adding explicit rejection examples. 
+
+That last arm matters because it answers a different question: not whether bad behavior can be bound to context, but whether it can be reduced by directly teaching the model to disagree. 
+
+The evaluation rule is joint. A successful intervention must both reduce endorsement of incorrect user claims and preserve direct-solve GCD capability. 
+
+Formally, I compare the inoculated and neutral models on
+
+$$
+\Delta_{\mathrm{syc}} = \Pr(Y_{\mathrm{syc}}=1\mid M_{\mathrm{inoc}}) - \Pr(Y_{\mathrm{syc}}=1\mid M_{\mathrm{base}})
+$$
+
+and
+
+$$
+\Delta_{\mathrm{cap}} = \Pr(Y_{\mathrm{cap}}=1\mid M_{\mathrm{inoc}}) - \Pr(Y_{\mathrm{cap}}=1\mid M_{\mathrm{base}}).
+$$
+
+The intervention counts as successful only if it lowers sycophancy and still satisfies a non-inferiority requirement on capability: the one-sided 95% lower bound for $\Delta_{\mathrm{cap}}$ must remain above (-0.02). This criterion rules out the easy failure mode where a model becomes less sycophantic only because it becomes worse at the underlying arithmetic. 
+
+---
+
+## Results
+
+The realized confirmatory result is a clean null. 
+
+On the main incorrect-assertion benchmark, the inoculated model did **not** reduce endorsement of false user claims relative to the neutral baseline: both models reached included-row sycophancy (1.0000), so the estimated treatment effect on the main outcome was exactly (0.0000). 
+
+On direct-solve GCD accuracy, the inoculated model scored (0.5108) versus (0.5292) for the neutral baseline, giving $\Delta_{\mathrm{cap}}=-0.0183$. That point estimate is already close to the non-inferiority threshold, and the one-sided $95\%$ lower bound of (-0.0421) falls below the prespecified margin of (-0.02), so capability preservation was not established either. In this benchmark, inoculation prompting showed no confirmatory evidence of localizing sycophancy without harming capability. 
+
+![Figure 4a. Paired-cluster summary of sycophancy contrasts. The confirmatory neutral-versus-inoculated contrast is exactly 0.0000, and the secondary confirmatory contrasts are likewise 0.0000. The only nonzero contrast is the exploratory direct-correction comparison, which falls below zero.](./images/paired_cluster_forest.png)
+
+> **Figure 4a.** Paired-cluster summary of sycophancy contrasts. The confirmatory neutral-versus-inoculated contrast is exactly 0.0000, and the secondary confirmatory contrasts are likewise 0.0000. The only nonzero contrast is the exploratory direct-correction comparison, which falls below zero.
+
+![Figure 4b. Confirmatory non-inferiority test for direct-solve accuracy. The point estimate is -0.0183, but the one-sided 95 percent lower bound is -0.0421, which falls below the prespecified non-inferiority margin of -0.02. Capability preservation is therefore not established.](./images/h2_noninferiority.png)
+
+> **Figure 4b.** Confirmatory non-inferiority test for direct-solve accuracy. The point estimate is -0.0183, but the one-sided 95 percent lower bound is -0.0421, which falls below the prespecified non-inferiority margin of -0.02. Capability preservation is therefore not established.
+
+> **Figure 4.** Main confirmatory results. Panel (a) shows that inoculation prompting does not reduce included-row sycophancy relative to the neutral baseline under the fixed-interface evaluation. Panel (b) shows that the direct-solve accuracy comparison also fails the prespecified non-inferiority criterion, so the intervention does not establish capability preservation.
+
+
+The same pattern held on the secondary confirmatory sets. On both the paraphrase split and the same-domain extrapolation split, the neutral and inoculated models again remained at ceiling included-row sycophancy, with estimated differences of (0.0000). The null result was therefore not specific to one wording of the incorrect-assertion prompt. 
+
+The exploratory controls sharpen the interpretation. 
+
+The irrelevant-prefix, praise-only, and reminder-only conditions all remained at ceiling, which argues against the idea that the main null was being masked by generic prefixing or simple evaluation-time steering. 
+
+The only arm that moved below ceiling was the **direct-correction** comparison, which adds explicit rejection examples rather than merely contextualizing sycophantic ones. 
+
+On the confirmatory set, that arm differed from neutral by (-0.1058), with a reported 95% interval of ([-0.1232,-0.0884]). Descriptively, it also fell below ceiling on the paraphrase and same-domain extrapolation sets. That does not rescue the original inoculation hypothesis. It points instead to a different mechanism: direct supervision of disagreement is not the same thing as contextualizing agreement, and the two should not be treated as interchangeable learning signals. 
+
+![Figure 5. Sycophancy rates by evaluation set and arm. The neutral, inoculated, irrelevant-prefix, praise-only, and reminder-only conditions remain at ceiling across the confirmatory, paraphrase, and same-domain extrapolation sets. The direct-correction arm is the only condition below ceiling.](./images/sycophancy_by_eval_set.png)
+
+> Figure 5. Sycophancy rates by evaluation set and arm. The neutral, inoculated, irrelevant-prefix, praise-only, and reminder-only conditions remain at ceiling across the confirmatory, paraphrase, and same-domain extrapolation sets. The direct-correction arm is the only condition below ceiling.
+
+A stricter conditional analysis tells the same story. When I restrict attention to rows where the model appears capable of direct solving, the neutral baseline, inoculated model, irrelevant-prefix control, praise-only control, and reminder-only baseline all remain at conditional sycophancy (1.0000). The only arm below ceiling is again direct correction, at (0.8933) on 375 eligible rows. So the inoculated model is not merely failing when the arithmetic is out of reach; it continues to capitulate even on a subset where the answer appears to be available. 
+
+---
+
+## What This Result Means
+
+Under this fixed-interface GCD benchmark, inoculation prompting does not support the contextual-binding hypothesis. Once training and evaluation share the same XML verdict-and-answer contract, the confirmatory neutral-versus-inoculated comparison stays null on sycophancy, and the capability analysis does not establish preservation. That is the central empirical result. 
+
+The more interesting takeaway is methodological. If anti-sycophancy interventions are evaluated under a loose or shifting interface, it becomes hard to tell whether a change in observed behavior reflects real localization, parser failures, or prompt-surface artifacts. Holding the response schema fixed and measuring capability separately makes the negative result sharper: this is not a vague “didn’t seem to help,” but a failure under conditions designed to isolate the mechanism the intervention claims to target. 
+
+---
+
+## Limits of the Evidence
+
+This is still a narrow negative result, not a universal one. 
+
+The realized experimental runs is incomplete: selected-prefix bounded-search outputs, semantic-interface robustness outputs, and the current computation-versus-copying artifact are absent. Most evaluated arms have two seeds rather than the intended four, and the direct-correction comparison has only one evaluable seed plus one total fixed-interface evaluation failure. 
+
+The available optimization diagnostics also reflect one realized training epoch rather than the intended two. The conclusions therefore apply to the fixed-interface evidence that is actually present, not to the full intended workflow. 
+
+There is also a capability bottleneck. Direct-solve accuracy in the main arms is only about (0.51)–(0.53), so the models are far from ceiling even on held-out problems from the same benchmark family. 
+
+That makes it plausible that resistance to an incorrect user claim is partly limited by arithmetic competence rather than by social pressure alone. For that reason, the result is best read as a negative finding for this intervention under the realized low-capacity training regime, not as proof that stronger models with better task competence would necessarily fail in the same way. 
 
