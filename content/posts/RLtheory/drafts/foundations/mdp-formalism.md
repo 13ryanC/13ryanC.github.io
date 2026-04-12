@@ -778,14 +778,11 @@ The **discount factor** \(\gamma\) serves two purposes:
 > **Remark: On the Discount Factor and the Effective Horizon**
 > The discount factor \(\gamma\)  makes future rewards matter less than present ones. If we truncate the return sum after \(H\) terms, the error (the "tail" of the sum) is bounded. Assuming rewards are bounded by \(R_{max}\), the magnitude of this truncated part is:
 >
-> $$
-> \left\lvert \sum_{k=H}^{\infty} \gamma^k R_{t+k+1} \right\rvert \le \sum_{k=H}^{\infty} \gamma^k R_{max} = \gamma^H \sum_{j=0}^{\infty} \gamma^j R_{max} = \frac{\gamma^H R_{max}}{1 - \gamma}
-> $$
+> $$\left\lvert \sum_{k=H}^{\infty} \gamma^k R_{t+k+1} \right\rvert \le \sum_{k=H}^{\infty} \gamma^k R_{max} = \gamma^H \sum_{j=0}^{\infty} \gamma^j R_{max} = \frac{\gamma^H R_{max}}{1 - \gamma}$$
 >
 > We can determine the number of steps \(H\) required for this error to be smaller than some tolerance \(\varepsilon\). For simplicity, if we assume \(R_{max}=1\), we solve for the \(H\) that satisfies \(\dfrac{\gamma^H}{1 - \gamma} \le \epsilon\):
 >
-> $$H \geq H_{\gamma, \epsilon}^\ast = \dfrac{\ln\left(\dfrac{1}{\epsilon(1 - \gamma)}\right)}{\ln(1 / \gamma)}
-> $$
+> $$H \geq H_{\gamma, \epsilon}^\ast = \dfrac{\ln\left(\dfrac{1}{\epsilon(1 - \gamma)}\right)}{\ln(1 / \gamma)} $$
 >
 > For any \(H\) satisfying this, the optimal action sequence is unlikely to change by considering horizons longer than \(H\). This critical value of \(H\) is called the **effective horizon**.
 >
