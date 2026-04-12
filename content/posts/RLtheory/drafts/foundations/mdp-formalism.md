@@ -788,9 +788,7 @@ The **discount factor** \(\gamma\) serves two purposes:
 >
 > Oftentimes, for simplicity, \(H_{\gamma , \epsilon}^\ast\) is replaced with the following upper bound (often also called the effective horizon):
 >
-> $$
-> H_{\gamma ,\epsilon} := \dfrac{\ln\left(\dfrac{1}{\epsilon(1 - \gamma)}\right)}{1 - \gamma}
-> $$
+> $$H_{\gamma ,\epsilon} := \dfrac{\ln\left(\dfrac{1}{\epsilon(1 - \gamma)}\right)}{1 - \gamma} $$
 >
 > The relative difference between these two quantities is small when \(\gamma\) is close to 1, which is the regime of primary interest (i.e., far-sighted agents).
 >
