@@ -16,7 +16,7 @@ status: draft
 author: Bryan Chan
 hero: /assets/images/hero3.png
 image: /assets/images/card3.png
-draft: true
+draft: false
 ---
 
 [Thinking Machines Lab (TML)](https://thinkingmachines.ai)'s [interaction model](https://thinkingmachines.ai/blog/interaction-models/) challenges a core assumption behind much of today's AI safety tooling: that exchanges are turn-based, with the user sending a prompt and the model then returning a response. The model treats the interaction as a continuous, time-aligned stream of audio, video, and text, processed in roughly 200-millisecond micro-turns that let it listen, speak, interject, react to visual cues, and weave in results from an asynchronous background model as the exchange unfolds. This is a major capability advance, and it exposes a measurement gap. The dynamic interaction trace becomes increasingly complex and difficult for existing safety work to address: what the model perceived, when it responded, how it handled interruption and overlap, and how tool calls and background outputs entered the conversation. Much of current safety work and evaluation is built around static prompts, completed requests, and isolated outputs; that approach may fall flat for interaction models. For now, it is a research preview, and it is not yet clear how far existing safeguards and safety/alignment work can be applied to interaction models, what new failure modes emerge, and what counts as evidence for safe deployment.
