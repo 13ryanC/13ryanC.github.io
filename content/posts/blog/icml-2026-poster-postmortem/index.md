@@ -22,6 +22,8 @@ draft: false
 
 *A post-mortem of my first poster presentation: what I have done, what I learn, and what future poster presenters should take heed when designing their poster, presenting their poster and having conversations.*
 
+> This post is maintained as a [canonical Google Doc](https://docs.google.com/document/d/1QyGywJQzce8hPmWIP69C7abkcJ3aMJTbl-fADq706WY/edit?usp=sharing); refer to it for the latest version.
+
 By 3:30 on Saturday afternoon, July 11, the ICML workshops were winding down. Attendees drifted between the remaining posters, stopping when a title or figure caught their attention. I stood beside mine, scrolling through my phone as people passed.
 
 The poster had already gone through more than 10 rounds of revision, all in a closed loop: me, ChatGPT's image generator, and a checklist of poster-design advice I have synthesised from online information. I finished the camera-ready paper close to its June 26 deadline, compressed the design into a two-day sprint, and had it done by June 30. Then I stopped thinking about it. Not one of the checkpoints involved another researcher looking and trying to read it.
@@ -42,7 +44,7 @@ I want to be fair to the design, because parts of it are faithful. The title sta
 
 ## What actually happened
 
-I invited one of the poster presenters in the morning and came and gave feedback to my poster. She asked many questions on inoculation prompting me to realise that the poster version is flawed and there is additional information that I would consider including model configuration and more details of the technique, such as training details.
+I invited one of the poster presenters in the morning that came to my spot and gave feedback to my poster. She asked many questions on inoculation prompting and made me realise that the poster version is flawed and there is additional information that I would consider putting in including model configuration and more details of the technique, such as training details. This helped me to prepare for the later interactions with other groups.
 
 Four groups came by over the seventy minutes I was there: three individuals and a pair, five people in all. Each stayed ten to fifteen minutes. They nodded, and every group left saying they understood inoculation prompting **(after I used my relatively small phone, showed them this figure, and explained it)**.
 
