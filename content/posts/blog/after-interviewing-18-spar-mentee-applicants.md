@@ -5,7 +5,7 @@ date: '2026-09-16'
 draft: false
 ---
 
-I am a first-time mentor for the Fall 2026 [SPAR](https://sparai.org/) cohort. During prep, one piece of advice I received was to interview far more people than I normally would and treat the process itself as a form of exploration. The stated goal was simply to get to know the actual person through real-time conversation and compare that with how they came across on paper.
+I am a first-time mentor for the Fall 2026 [SPAR](https://sparai.org/) cohort, a remote AI-safety research fellowship that pairs mentees with mentors working on AI-safety related projects on reducing x-risk or other related risks. During prep, one piece of advice I received was to interview far more people than I normally would and treat the process itself as a form of exploration. The stated goal was simply to get to know the actual person through real-time conversation and compare that with how they came across on paper.
 
 So I interviewed 18 people across three or four mornings, expecting that speaking to more candidates would simply give me more info, make it easier to identify the “strongest” ones, and help me decide who to recruit as mentees.
 
