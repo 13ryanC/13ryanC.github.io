@@ -218,11 +218,11 @@ That gives something roughly like this:
 | **Already strong candidate** | **Immediate contribution:** They can contribute substantially now, although the mentorship may change their trajectory less. | **Selective acceleration:** They are already strong, and the mentorship could make them substantially better. |
 | **Less-developed candidate** | **Bet:** They cannot contribute much yet, and there is little reason to expect this particular mentorship to change that. | **High-upside exploration:** They are weaker now, but the mentorship could substantially change their trajectory. |
 
-My original selection approach leaned disproportionately toward high-upside exploration. I was looking for people whose trajectories seemed especially changeable and therefore where the counterfactual effect of mentorship looked largest.
+My original selection approach leaned disproportionately toward **high-upside exploration**. I was looking for people whose trajectories seemed especially changeable and therefore where the counterfactual effect of mentorship looked largest.
 
-After talking with other people, I started taking selective acceleration much more seriously. The fact that someone is already strong does not mean the marginal value of helping them is small, and relatively small improvements to someone with unusually high future potential can still matter a lot.
+After talking with other people, I started taking **selective acceleration** much more seriously. The fact that someone is already strong does not mean the marginal value of helping them is small, and relatively small improvements to someone with unusually high future potential can still matter a lot.
 
-I also became less dismissive of immediate contribution. Different mentors are trying to accomplish different things, and some genuinely care a lot about the question, “Who can contribute the most to my research right now?”
+I also became less dismissive of **immediate contribution**. Different mentors are trying to accomplish different things, and some genuinely care a lot about the question, “Who can contribute the most to my research right now?”
 
 That seems perfectly reasonable when the project is technically difficult, the programme is short, or several candidates already look highly motivated, well matched, and likely to benefit. In those cases, demonstrated capability can naturally become the tie-breaker.
 
