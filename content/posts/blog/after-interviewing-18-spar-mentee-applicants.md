@@ -1,6 +1,6 @@
 ---
 title: 'After Interviewing 18 SPAR Mentee Applicants, I Stopped Looking for the “Strongest” Candidate'
-author: '13ryanC'
+author: 'Bryan Chan'
 date: '2026-09-16'
 draft: false
 ---
@@ -9,7 +9,7 @@ I am a first-time mentor for the Fall 2026 [SPAR](https://sparai.org/) cohort. D
 
 So I interviewed 18 people across three or four mornings, expecting that speaking to more candidates would simply give me more info, make it easier to identify the “strongest” ones, and help me decide who to recruit as mentees.
 
-But the more people I spoke to, the original mentee-selection problem started to fall apart. Like, I was no longer sure what the ‘strongest’ candidate even meant.
+But the more people I spoke to, the original mentee-selection problem started to fall apart. Like, I was no longer sure what the "strongest" candidate even meant.
 
 Candidates who looked similar on application could be very different once I actually talked to them, while people I might have automatically rejected based on their application could turn out to be much more interesting than I had ever expected.
 
@@ -39,15 +39,15 @@ Each project write-up, application, produced artefact, collaboration and convers
 
 Often very quickly, they will be able to discover and develop their own flywheel of exploration and exploitation on tackling their target set of AI safety problems, at a pace that differs person to person.
 
-[I think this flywheel applies regardless of which talent category (i.e., iterator vs connector vs amplifier) you place yourself in.](https://www.lesswrong.com/posts/QzQQvGJYDeaDE4Cfg/talent-needs-of-technical-ai-safety-teams)
+I think this flywheel applies regardless of which [talent category (i.e., iterator vs connector vs amplifier)](https://www.lesswrong.com/posts/QzQQvGJYDeaDE4Cfg/talent-needs-of-technical-ai-safety-teams) you place yourself in.
 
 My reasoning is as follows:
 
-Suppose you already [deeply care](https://www.youtube.com/watch?v=N8deM6B4eE4) about a particular problem in AI safety and have convinced yourself to bet your (entire) career to work on it. The remaining question is how to make (and measure) progress on it.
+* Suppose you already [deeply care](https://www.youtube.com/watch?v=N8deM6B4eE4) about a particular problem in AI safety and have convinced yourself to bet your (entire) career to work on it. The remaining question is how to make (and measure) progress on it.
 
-One of the fastest ways to make any progress is to execute quickly, [get your work out into the world, find allies and collaborators, and figure out how to get other relevant stakeholders to care about and engage with what you are doing](https://gwern.net/blog/2026/make-me-care).
+* One of the fastest ways to make any progress is to execute quickly, get your work out into the world, find allies and collaborators, and figure out how to [get other relevant stakeholders to care about and engage with what you are doing](https://gwern.net/blog/2026/make-me-care).
 
-This is not easy, and I often jokingly refer to this process as simply “banging your head against the problem” where you just repeatedly trying things out, learning from what happened to you and others (akin to doing mental updates), and continue pushing things forward until it clicks.
+* This is not easy, and I often jokingly refer to this process as simply **“banging your head against the problem”** where you just repeatedly trying things out, learning from what happened to you and others (akin to doing mental updates), and continue pushing things forward until it clicks.
 
 The AI safety problems we face today are difficult and poorly understood, with so many unknown unknowns. Any detailed plans or prior analysis depend on assumptions can fall apart very easily once they confront reality, with relatively short expiry dates if left unchecked and unrevised, especially given the pace of AI progress and how quickly our understanding of AI systems’ capabilities and propensities is evolving.
 
@@ -61,11 +61,11 @@ So you should just try out different things, expose your ideas and work to real-
 
 Fast (empirical) feedback, gathered through repeated short cycles of iteration, gives you information that you could not have obtained otherwise.[^2]
 
-[Adopting this mindset while YOLO-ing can really help you avoid many common pitfalls in pursuing a high-impact career.](https://80000hours.org/after-hours-podcast/episodes/alex-lawsen-10-career-mistakes/)
+Adopting this mindset while YOLO-ing can really help you avoid [many common pitfalls in pursuing a high-impact career](https://80000hours.org/after-hours-podcast/episodes/alex-lawsen-10-career-mistakes/).
 
-But feedback itself can be very noisy, so you need to be selective about which feedback to take seriously and whose judgment to trust.[^3]
+But feedback itself can be very noisy, so you need to be selective about which feedback to take seriously and whose judgment to trust[^3].
 
-One failure mode I notice in myself and others is becoming very good at execution while still struggling with prioritisation.[^4] Moving quickly does not automatically tell you what is worth moving quickly on.
+One failure mode I notice in myself and others is becoming very good at execution while still struggling with prioritisation[^4]. Moving quickly does not automatically tell you what is worth moving quickly on.
 
 Personally, I found it useful to treat my activities, or set of inputs, as a sequence of experiments for stress-testing my theory of change in tackling AI safety problems, since it can be very hard to predict, and therefore directly affect outcomes for ai safety problems this uncertain, though I know others who might disagree (heavily).
 
@@ -95,27 +95,27 @@ They often become interested in AI safety through their existing work or growing
 
 Many moonlighters also come into AI safety with substantial experience from industry, government, business, or other established fields. They can bring institutional knowledge, operational judgment, and solutions that have already been developed and tested elsewhere over many years, which may be especially valuable in a field with relatively few people who have substantial experience outside academia or AI safety itself.
 
-That said, I am skeptical that moonlighting is a particularly good long-term setup for doing highly impactful AI-safety work, especially for work that requires rapidly building deep context, iterating frequently, and staying closely connected to relevant stakeholders.[^5]
+That said, I am skeptical that moonlighting is a particularly good long-term setup for doing highly impactful AI-safety work, especially for work that requires rapidly building deep context, iterating frequently, and staying closely connected to relevant stakeholders[^5].
 
 Roughly, my reasoning is as follows:
 
-AI systems are just another beast, where many difficult, poorly understood, and very concerning new problems keep popping up. Assumptions from existing established fields simply do not map cleanly, and many of the assumptions and problem contexts are very bespoke to AI systems themselves, requiring people to build up substantial context while continuously red-teaming, testing, and iterating.
+* AI systems are just another beast, where many difficult, poorly understood, and very concerning new problems keep popping up. Assumptions from existing established fields simply do not map cleanly, and many of the assumptions and problem contexts are very bespoke to AI systems themselves, requiring people to build up substantial context while continuously red-teaming, testing, and iterating.
 
-Compared with YOLOs, moonlighters face an inherent disadvantage. Their jobs leave them with much less time to keep up with AI developments, build deep context of the AI safety problems, test their assumptions, and continually refine their theory of change.
+* Compared with YOLOs, moonlighters face an inherent disadvantage. Their jobs leave them with much less time to keep up with AI developments, build deep context of the AI safety problems, test their assumptions, and continually refine their theory of change.
 
-They also has less time to identify their comparative advantage: the distinctive skills, perspectives, or approaches that could make their contribution to AI-safety problems especially valuable, and to work out where those strengths can be most useful.
+* They also has less time to identify their comparative advantage: the distinctive skills, perspectives, or approaches that could make their contribution to AI-safety problems especially valuable, and to work out where those strengths can be most useful.
 
-Moonlighters are also more likely to operate in relative isolation from the most active parts of the AI-safety ecosystem, where information, feedback, collaborators, and opportunities circulate quickly. This can make it harder to develop good judgment about which problems are genuinely important, neglected, or decision-relevant.
+* Moonlighters are also more likely to operate in relative isolation from the most active parts of the AI-safety ecosystem, where information, feedback, collaborators, and opportunities circulate quickly. This can make it harder to develop good judgment about which problems are genuinely important, neglected, or decision-relevant.
 
-As a result, their projects may skew more toward replications, extensions, or clearly scoped pieces of existing work, where the problem and methodology are already relatively well defined. These can still be directly valuable, while also helping them build skills, credibility, context, and connections.
+* As a result, their projects may skew more toward replications, extensions, or clearly scoped pieces of existing work, where the problem and methodology are already relatively well defined. These can still be directly valuable, while also helping them build skills, credibility, context, and connections.
 
-The deeper problem is that limited time also makes it harder to connect a project to a clear pathway to impact: identifying who might actually use the work, understanding what they need, testing whether the underlying assumptions are right, and iterating around their feedback.
+* The deeper problem is that limited time also makes it harder to connect a project to a clear pathway to impact: identifying who might actually use the work, understanding what they need, testing whether the underlying assumptions are right, and iterating around their feedback.
 
-Moonlighters may therefore spend more of their time building their portfolio, fixing problems in existing work, or gradually positioning themselves in the field, rather than being ready to go “off to the races” from day-1 with a clearer, more well-defined, and well-red-teamed theory of change that can meaningfully address the north-star AI safety problems that (different) communities care about.
+* Moonlighters may therefore spend more of their time building their portfolio, fixing problems in existing work, or gradually positioning themselves in the field, rather than being ready to go “off to the races” from day-1 with a clearer, more well-defined, and well-red-teamed theory of change that can meaningfully address the north-star AI safety problems that (different) communities care about.
 
 The size of this disadvantage depends heavily on the type of work and the relevant AI safety problems that they are aiming at.
 
-Many important and difficult AI-safety problems are especially sensitive to rapidly changing and emerging model capabilities, often with short policy windows, while others, often the more neglected ones, are more decoupled from AI progress and move much more slowly.[^6]
+Many important and difficult AI-safety problems are especially sensitive to rapidly changing and emerging model capabilities, often with short policy windows, while others, often the more neglected ones, are more decoupled from AI progress and move much more slowly[^6].
 
 For the former, working only part-time can make it substantially harder to stay close enough to the frontier to identify important problems as they emerge and act on them while they are still relevant.
 
