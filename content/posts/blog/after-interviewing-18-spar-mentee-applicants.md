@@ -242,7 +242,7 @@ At time of writing, I am still a first-time mentor, so I would be surprised if t
 
 I suspect my next post on this topic will come only after I have mentored more of the people I selected, tested these assumptions against what actually happens, and gathered enough evidence, inevitably from small samples because mentorship is hard to scale (or maybe no-one has succeed yet ?), before making claims and writing about them that others might find them useful.
 
-Thanks to Sean Herrington, James Chua, Nikita Kezin, Hilary Torn, and many others for feedback on drafts of this article.
+Thanks to Sean Herrington, James Chua, Hilary Torn, Nikita Kezin, and many others for feedback on drafts of this article.
 
 
 [^1]: One point that came up when I asked other mentors about selection is that YOLO-ing can itself function as a fairly costly signal.
