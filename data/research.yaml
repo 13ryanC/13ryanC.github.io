@@ -1,0 +1,83 @@
+# Research portfolio entries, rendered by layouts/_default/research.html and the
+# "Selected research" block on the homepage (entries with featured: true).
+#
+# Only list work that is public. Keep authors and venues exactly as they appear
+# on the venue record. Do not add unreleased SASH or SPAR results here
+# (see PROJECT_PROVENANCE.md).
+#
+# Fields: title, authors, venue, date (YYYY-MM), summary, featured,
+#         links: [{name, url}]  (the title links to the first; the rest are listed)
+
+publications:
+  - id: inoculation-sycophancy
+    title: "Why Inoculation Prompting Fails on Sycophancy"
+    authors: "Nok Man Chan"
+    venue: "ICML 2026 Hypothesis Testing Workshop · Poster"
+    date: "2026-07"
+    featured: true
+    summary: >-
+      Tests whether inoculation prompting, a training-time intervention that pairs
+      an unwanted behaviour with an explicit instruction, reduces sycophancy on a
+      reconstructed greatest-common-divisor benchmark. Instead of genuine
+      correction, it mostly produced behavioural substitution, such as refusing
+      the task or appearing to disagree while keeping the user's false answer.
+    links:
+      - name: "OpenReview"
+        url: "https://openreview.net/forum?id=NbDuaxibla"
+      - name: "ICML listing"
+        url: "https://icml.cc/virtual/2026/80031"
+      - name: "Background post"
+        url: "/posts/blog/ip/"
+      - name: "Poster post-mortem"
+        url: "/posts/blog/icml-2026-poster-postmortem/"
+
+reports:
+  - id: fable-image-steganography
+    title: "How does Fable 5.1 hide messages in images?"
+    authors: "Nikita Kezins, Bryan Chan, Kyle Reynoso, James Chua"
+    venue: "LessWrong · Singapore AI Safety Hub (SASH) Fellowship"
+    date: "2026-10"
+    featured: true
+    summary: >-
+      One Fable 5.1 session drew an ordinary-looking SVG that hid a secret
+      message, without being told how to encode it. A separate, fresh session
+      received only the rendered PNG and was asked whether it contained a hidden
+      message. In the evaluation, the decoder recovered 39 of 50 messages (78%)
+      with no agreed encoding scheme.
+    links:
+      - name: "Article"
+        url: "https://www.lesswrong.com/posts/WHEQps5PK8LrrcTAb/how-does-fable-5-1-hide-messages-in-images"
+      - name: "Code & prompts"
+        url: "https://github.com/cnm13ryan/fable-image-steganography"
+
+  - id: observability-trilemma
+    title: "The Sentinel Engine: Solving the Observability Trilemma via Differential Precision Probing"
+    authors: "Ramakrishna Doradla Venkatesh, Bryan Chan"
+    venue: "Apart Research · Technical AI Governance Challenge"
+    date: "2026-02"
+    featured: false
+    summary: >-
+      Frames the trade-off between inference efficiency, cognitive observability
+      and adversarial assurance in AI monitoring, and proposes treating
+      quantisation noise as a probe for deceptive behaviour. Early-stage sprint
+      work: the proposed detection method was not completed during the event.
+    links:
+      - name: "Project page"
+        url: "https://apartresearch.com/project/the-sentinel-engine-solving-the-observability-trilemma-via-differential-precision-probing-noqd"
+      - name: "Overview post"
+        url: "/posts/blog/observability_trilemma/"
+
+ongoing:
+  - id: spar-mentorship
+    title: "Research mentorship, SPAR Fall 2026"
+    venue: "SPAR · remote AI safety research fellowship"
+    date: "2026-09"
+    summary: >-
+      Mentoring mentees in the Fall 2026 SPAR cohort on AI safety research. Project
+      details and results will be listed here once they are public.
+    links:
+      - name: "SPAR"
+        url: "https://sparai.org/"
+      - name: "Notes on mentee selection"
+        url: "/posts/blog/after-interviewing-18-spar-mentee-applicants/"
+

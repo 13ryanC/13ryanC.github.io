@@ -40,7 +40,7 @@ What follows is a post-mortem of that mismatch: what still worked, where the pre
 
 I want to be fair to the design, because parts of it are faithful. The title stated the result outright. A banner across the top carried the main finding. The center of the poster sorted a model's responses into four buckets: agreement, refusal, some other outcome, and genuine correction. Three panels underneath carries the limitations and the key take-aways, and a QR code gives anyone a direct route to the paper. So, theoretically, people who stopped by could understand the core result, and be able to understand the implications of the core results ?
 
-![](./images/poster.png)
+![The ICML 2026 workshop poster for "Why Inoculation Prompting Fails on Sycophancy"](./images/poster.png)
 
 ## What actually happened
 
@@ -48,7 +48,7 @@ I invited one of the poster presenters in the morning that came to my spot and g
 
 Four groups came by over the seventy minutes I was there: three individuals and a pair, five people in all. Each stayed ten to fifteen minutes. They nodded, and every group left saying they understood inoculation prompting **(after I used my relatively small phone, showed them this figure, and explained it)**.
 
-![](./images/headline.png)
+![Headline figure: inoculation prompting reduces agreement mainly through behavioural substitution. Sycophantic agreement stays at 97% for the baseline, 76% for append_above and 97% for prepend_below; genuine correction stays below 0.6% in all three conditions.](./images/headline.png)
 
 One left saying she would read the paper. There are also a few exchanges that include Alex, who I know from ML4G, presenting beside me, who listened for fifteen or twenty minutes because he already knew me and was interested in learning more about inoculation.
 

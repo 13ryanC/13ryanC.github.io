@@ -1,0 +1,54 @@
+{{- define "main" }}
+{{- $home := site.Params.home }}
+
+{{- /* 1. Introduction */}}
+<section class="home-intro" aria-labelledby="home-title">
+  <h1 id="home-title">{{ site.Params.author | default site.Title }}</h1>
+  {{- with $home.intro }}<p class="home-lede">{{ . | markdownify }}</p>{{ end }}
+</section>
+
+{{- /* 2. Selected research (featured entries from data/research.yaml) */}}
+{{- $featured := slice }}
+{{- range $key := slice "publications" "reports" "ongoing" }}
+{{- range (index site.Data.research $key) }}
+{{- if .featured }}{{ $featured = $featured | append . }}{{ end }}
+{{- end }}
+{{- end }}
+{{- $featured = sort $featured "date" "desc" }}
+{{- with $featured }}
+<section class="home-section" aria-labelledby="selected-research">
+  <header class="section-heading">
+    <h2 id="selected-research">Selected research</h2>
+    <a href="{{ "research/" | relLangURL }}">All research <span aria-hidden="true">→</span></a>
+  </header>
+  {{- range . }}
+  {{- partial "research_entry.html" (dict "entry" . "level" 3 "compact" true) }}
+  {{- end }}
+</section>
+{{- end }}
+
+{{- /* 3. Recent writing: listed posts under /posts/blog/, legacy excluded */}}
+{{- $posts := slice }}
+{{- range (where site.RegularPages "Section" "posts").ByDate.Reverse }}
+{{- if and (strings.HasPrefix .RelPermalink "/posts/blog/") (not (in (.Params.legacy | default slice) "legacy")) (ne .Params.hiddenInHomeList true) }}
+{{- $posts = $posts | append . }}
+{{- end }}
+{{- end }}
+{{- with first ($home.recentWriting | default 5) $posts }}
+<section class="home-section" aria-labelledby="recent-writing">
+  <header class="section-heading">
+    <h2 id="recent-writing">Recent writing</h2>
+    <a href="{{ "posts/" | relLangURL }}">All writing <span aria-hidden="true">→</span></a>
+  </header>
+  <ul class="writing-list">
+    {{- range . }}
+    <li>
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2006" }}</time>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </li>
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
+
+{{- end }}{{/* end main */}}

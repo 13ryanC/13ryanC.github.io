@@ -1,0 +1,17 @@
+{{- /* Links to older and secondary collections. Only pages that exist in this
+       build are shown, so the list stays valid as content is added or removed. */ -}}
+{{- $items := slice
+  (dict "path" "/tags" "name" "Tags")
+  (dict "path" "/books" "name" "Books")
+}}
+<nav class="browse-links" aria-label="Browse writing">
+  <span class="browse-label">Browse</span>
+  <ul>
+    {{- range $items }}
+    {{- $name := .name }}
+    {{- with site.GetPage .path }}
+    <li><a href="{{ .RelPermalink }}">{{ $name }}</a></li>
+    {{- end }}
+    {{- end }}
+  </ul>
+</nav>

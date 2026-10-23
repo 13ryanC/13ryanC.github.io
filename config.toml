@@ -1,9 +1,11 @@
 baseURL     = "https://13ryanC.github.io/"
 languageCode = "en-gb"
-title       = "My Research Notes"
+title       = "Bryan Chan"
 publishDir  = "public"
 theme       = ["hugo-PaperMod", "hugo-cite"]
 # theme       = "hugo-PaperMod"
+enableRobotsTXT = true
+copyright   = "© Bryan Chan"
 
 [taxonomies]
   tag      = "tags"
@@ -15,24 +17,26 @@ theme       = ["hugo-PaperMod", "hugo-cite"]
 
   bib = "data/pubs.json"
 
+# Primary navigation. Older sections (Series, Tags, Books, Legacy, archive)
+# stay published and are linked from the Writing page and footer.
 [menu]
 
   [[menu.main]]
-    identifier = "posts"
-    name       = "Posts"
-    url        = "/posts/"
+    identifier = "research"
+    name       = "Research"
+    url        = "/research/"
     weight     = 10
 
   [[menu.main]]
-    identifier = "series"
-    name       = "Series"
-    url        = "/series/"
+    identifier = "writing"
+    name       = "Writing"
+    url        = "/posts/"
     weight     = 20
 
   [[menu.main]]
-    identifier = "legacy"
-    name       = "Legacy"
-    url        = "/legacy/"
+    identifier = "about"
+    name       = "About"
+    url        = "/about/"
     weight     = 30
 
   [[menu.main]]
@@ -41,27 +45,9 @@ theme       = ["hugo-PaperMod", "hugo-cite"]
     url        = "/search/"
     weight     = 40
 
-  [[menu.main]]
-    identifier = "tags"
-    name       = "Tags"
-    url        = "/tags/"
-    weight     = 50
-
-  [[menu.main]]
-    identifier = "faq"
-    name       = "FAQ"
-    url        = "/faq/"
-    weight     = 60
-
-  [[menu.main]]
-    identifier = "books"
-    name       = "Books"
-    url        = "/books/"
-    weight     = 70
-
 # Number of posts per page
 [pagination]
-  pagerSize = 20 
+  pagerSize = 20
 
 # ---- Hugo core ----
 enableGitInfo = true          # ask Hugo to query Git history
@@ -69,38 +55,74 @@ enableGitInfo = true          # ask Hugo to query Git history
 [frontmatter]
   lastmod = [":git", "lastmod", "date"]
 
+# JSON index powers the PaperMod search page
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+# Distilled Python Docs are kept in content/distilled-python-docs/ but not
+# published: no pages are built and nothing links to them. Delete this block
+# to publish them again.
+[[cascade]]
+  [cascade.build]
+    list   = "never"
+    render = "never"
+  [cascade.target]
+    path = "{/distilled-python-docs,/distilled-python-docs/**}"
+
 ############################
 # 1. Site-wide PaperMod flags
 ############################
 [params]
+  env                 = "production"   # enables OpenGraph / Twitter / schema.org metadata
+  mainSections        = ["posts", "books"]
   math                = true
   mermaid             = true
   ShowCodeCopyButtons = true     # clipboard icon on every ``` fence
   ShowPageNums       = true      # so the nav bar is visible
-  description        = "Exploring the foundations and frontiers of AI research simultaneously."
+  description        = "Bryan Chan is an independent AI safety researcher working on preventing model misalignment, evaluating emerging risks, and developing reliable safeguards."
+  keywords           = ["AI safety", "alignment", "model misalignment", "AI evaluations", "sycophancy", "steganography", "Bryan Chan"]
+  author             = "Bryan Chan"
   defaultTheme       = "auto"
   ShowLastMod        = true
   ShowReadingTime    = true
-  ShowShareButtons   = true
+  ShowShareButtons   = false
+  ShowBreadCrumbs    = false     # the active menu item already shows where you are
+  hideAuthor         = true      # single-author site; the name is in the header
+  ShowPostNavLinks   = true
+  disableSpecial1stPost = true
   showtoc            = true
   UseHugoToc         = false
   tocopen            = false
 
-  homeInfoParams = { Title = "Welcome", Content = "Exploring the frontiers of AI research and applications" }
+  # Homepage copy lives in layouts/index.html; research entries in data/research.yaml.
+  [params.home]
+    intro   = "Independent AI safety researcher working on preventing model misalignment, evaluating emerging risks, and developing reliable safeguards."
+    recentWriting = 5
 
-  [[params.socialIcons]]
-    name = "twitter"
-    url  = "https://twitter.com/myresearchnotes"
+  [params.schema]
+    publisherType = "Person"
+    sameAs = [
+      "https://www.linkedin.com/in/cnm13ryan/",
+      "https://x.com/cnm13ryan",
+      "https://github.com/cnm13ryan",
+      "https://www.lesswrong.com/users/13ryanc"
+    ]
 
-  [[params.socialIcons]]
-    name = "github"
-    url  = "https://github.com/13ryanC"
+  [params.social]
+    twitter = "cnm13ryan"   # twitter:site card metadata
 
-  [[params.socialIcons]]
-    name = "linkedin"
-    url  = "https://www.linkedin.com/in/myresearchnotes"
+  [params.footer]
+    # Profile links appear once, here, on every page
+    text = "[LinkedIn](https://www.linkedin.com/in/cnm13ryan/) · [X](https://x.com/cnm13ryan) · [GitHub](https://github.com/cnm13ryan) · [LessWrong](https://www.lesswrong.com/users/13ryanc) · [RSS](/index.xml)"
 
 [params.assets]
+  favicon        = "favicon.svg"
+  favicon16x16   = "favicon.svg"
+  favicon32x32   = "favicon.svg"
+  apple_touch_icon  = "favicon.svg"
+  safari_pinned_tab = "favicon.svg"
+  theme_color    = "#fbfaf6"
+  msapplication_TileColor = "#fbfaf6"
   customCSS = [
     "css/math-table.css",    # (if you added this earlier)
     "css/math-scroll.css",    #  ← NEW
@@ -132,7 +154,7 @@ enableGitInfo = true          # ask Hugo to query Git history
     codeFences = true            # colourise ``` fences
     noClasses  = false           # keep CSS classes so PaperMod’s palette applies
     guessSyntax = true          # speed boost; flip to true if you omit languages
-    lineNos    = false 
+    lineNos    = false
     lineNumbersInTable = true
     defaultMarkdownHandler = 'goldmark'
 

@@ -1,0 +1,26 @@
+{{- /* One research portfolio entry from data/research.yaml.
+       Context: dict "entry" <map> "level" <heading level, default 3> "compact" <bool>
+       The title links to the first link; the remaining links are listed below. */ -}}
+{{- $e := .entry }}
+{{- $level := .level | default 3 }}
+{{- $links := $e.links | default slice }}
+<article class="research-item{{ if .compact }} research-item--compact{{ end }}" id="{{ $e.id }}">
+  {{ printf "<h%d class=\"research-title\">" $level | safeHTML }}
+    {{- with $links }}<a href="{{ (index . 0).url | relURL }}">{{ $e.title }}</a>{{ else }}{{ $e.title }}{{ end }}
+  {{ printf "</h%d>" $level | safeHTML }}
+  <p class="research-meta">
+    {{- with $e.venue }}{{ . }}{{ end }}
+    {{- with $e.date }}{{ if $e.venue }} · {{ end }}<time datetime="{{ . }}">{{ (time.AsTime (printf "%s-01" .)).Format "January 2006" }}</time>{{ end }}
+  </p>
+  {{- if not .compact }}
+  {{- with $e.authors }}<p class="research-authors">{{ . }}</p>{{ end }}
+  {{- with $e.summary }}<p class="research-summary">{{ . }}</p>{{ end }}
+  {{- with after 1 $links }}
+  <ul class="research-links" aria-label="More links for {{ $e.title }}">
+    {{- range . }}
+    <li><a href="{{ .url | relURL }}"{{ if strings.HasPrefix .url "http" }} rel="noopener"{{ end }}>{{ .name }}</a></li>
+    {{- end }}
+  </ul>
+  {{- end }}
+  {{- end }}
+</article>

@@ -1,0 +1,31 @@
+{{- define "main" }}
+{{- $data := site.Data.research }}
+{{- $groups := slice
+  (dict "key" "publications" "id" "publications" "title" "Publications")
+  (dict "key" "reports" "id" "reports" "title" "Articles & reports" "note" "Not peer reviewed.")
+  (dict "key" "ongoing" "id" "ongoing" "title" "Ongoing")
+}}
+
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <div class="post-description">{{ . | markdownify }}</div>
+  {{- end }}
+</header>
+
+{{- range $group := $groups }}
+{{- $entries := index $data $group.key }}
+{{- if $entries }}
+<section class="research-group" id="{{ $group.id }}" aria-labelledby="{{ $group.id }}-heading">
+  <header class="section-heading">
+    <h2 id="{{ $group.id }}-heading">{{ $group.title }}</h2>
+    {{- with $group.note }}<span class="section-aside">{{ . }}</span>{{ end }}
+  </header>
+  {{- range $entries }}
+  {{- partial "research_entry.html" (dict "entry" . "level" 3) }}
+  {{- end }}
+</section>
+{{- end }}
+{{- end }}
+
+{{- end }}{{/* end main */}}
