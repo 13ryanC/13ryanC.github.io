@@ -1,0 +1,13 @@
+# Weekly update PRs for pinned GitHub Actions and theme submodules.
+# CDN scripts (MathJax, Mermaid, svg-pan-zoom) are covered by
+# .github/workflows/security-monitor.yml instead.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: gitsubmodule
+    directory: /
+    schedule:
+      interval: weekly

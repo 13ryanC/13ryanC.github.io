@@ -4,12 +4,21 @@
     tex: {
       inlineMath: [['$', '$'], ['\\(', '\\)']],
       displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true
+      processEscapes: true,
+      packages: {'[+]': ['ams']}
     },
-    svg: { fontCache: 'global' }      /* or chtml if you prefer */
+    svg: {
+      fontCache: 'global',
+      maxWidth: 'none',      /* prevent auto-shrink so CSS overflow can scroll */
+      displayAlign: 'left',  /* align scroll origin with tables */
+      displayIndent: '0'
+    }      /* or chtml if you prefer */
   };
 </script>
 
 <!-- 2.  Only ONE loader script, with the canonical ID -->
+<!--     Exact version + SRI hash: the browser refuses the file if the CDN copy changes. -->
 <script id="MathJax-script" async
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+        src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js"
+        integrity="sha384-4kE/rQ11E8xT9QgrCBTyvenkuPfQo8rXYQvJZuMgxyPOoUfpatjQPlgdv6V5yhUK"
+        crossorigin="anonymous"></script>

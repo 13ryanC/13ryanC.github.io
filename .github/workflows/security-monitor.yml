@@ -1,0 +1,24 @@
+# Weekly check of the CDN libraries pinned in the templates against the
+# GitHub Advisory Database. A failed run (and GitHub's failure email) means a
+# pinned version needs upgrading: bump the version and its SRI hash.
+name: Security monitor
+
+on:
+  schedule:
+    - cron: '17 3 * * 1'      # Mondays 03:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cdn-advisories:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      with:
+        persist-credentials: false
+    - name: Check pinned CDN packages for advisories
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: scripts/check-cdn-advisories.sh
