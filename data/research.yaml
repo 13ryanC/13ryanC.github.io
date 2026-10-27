@@ -14,7 +14,7 @@ publications:
     authors: "Nok Man Chan"
     venue: "ICML 2026 Hypothesis Testing Workshop · Poster"
     date: "2026-07"
-    featured: true
+    featured: false
     summary: >-
       Tests whether inoculation prompting, a training-time intervention that pairs
       an unwanted behaviour with an explicit instruction, reduces sycophancy on a
