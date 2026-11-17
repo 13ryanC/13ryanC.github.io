@@ -23,7 +23,7 @@ copyright   = "© Bryan Chan"
 
   [[menu.main]]
     identifier = "research"
-    name       = "Research"
+    name       = "Projects"
     url        = "/research/"
     weight     = 10
 
@@ -79,7 +79,7 @@ enableGitInfo = true          # ask Hugo to query Git history
   mermaid             = true
   ShowCodeCopyButtons = true     # clipboard icon on every ``` fence
   ShowPageNums       = true      # so the nav bar is visible
-  description        = "Bryan Chan is an independent AI safety researcher working on preventing model misalignment, evaluating emerging risks, and developing reliable safeguards."
+  description        = "Bryan Chan's notes on AI safety, machine learning and the books he's reading."
   keywords           = ["AI safety", "alignment", "model misalignment", "AI evaluations", "sycophancy", "steganography", "Bryan Chan"]
   author             = "Bryan Chan"
   defaultTheme       = "auto"
@@ -95,8 +95,12 @@ enableGitInfo = true          # ask Hugo to query Git history
   tocopen            = false
 
   # Homepage copy lives in layouts/index.html; research entries in data/research.yaml.
+  # Text of the header link back to the homepage (the site title stays "Bryan Chan")
+  [params.label]
+    text = "Notes"
+
   [params.home]
-    intro   = "Independent AI safety researcher working on preventing model misalignment, evaluating emerging risks, and developing reliable safeguards."
+    intro   = "I'm Bryan. This is where I write down what I'm learning, mostly about AI safety and machine learning, along with notes on books. A lot of it is work in progress."
     recentWriting = 5
 
   [params.schema]

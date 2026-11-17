@@ -3,31 +3,11 @@
 
 {{- /* 1. Introduction */}}
 <section class="home-intro" aria-labelledby="home-title">
-  <h1 id="home-title">{{ site.Params.author | default site.Title }}</h1>
+  <h1 id="home-title" class="visually-hidden">{{ site.Params.label.text | default site.Title }}</h1>
   {{- with $home.intro }}<p class="home-lede">{{ . | markdownify }}</p>{{ end }}
 </section>
 
-{{- /* 2. Selected research (featured entries from data/research.yaml) */}}
-{{- $featured := slice }}
-{{- range $key := slice "publications" "reports" "ongoing" }}
-{{- range (index site.Data.research $key) }}
-{{- if .featured }}{{ $featured = $featured | append . }}{{ end }}
-{{- end }}
-{{- end }}
-{{- $featured = sort $featured "date" "desc" }}
-{{- with $featured }}
-<section class="home-section" aria-labelledby="selected-research">
-  <header class="section-heading">
-    <h2 id="selected-research">Selected research</h2>
-    <a href="{{ "research/" | relLangURL }}">All research <span aria-hidden="true">→</span></a>
-  </header>
-  {{- range . }}
-  {{- partial "research_entry.html" (dict "entry" . "level" 3 "compact" true) }}
-  {{- end }}
-</section>
-{{- end }}
-
-{{- /* 3. Recent writing: listed posts under /posts/blog/, legacy excluded */}}
+{{- /* 2. Recent writing: listed posts under /posts/blog/, legacy excluded */}}
 {{- $posts := slice }}
 {{- range (where site.RegularPages "Section" "posts").ByDate.Reverse }}
 {{- if and (strings.HasPrefix .RelPermalink "/posts/blog/") (not (in (.Params.legacy | default slice) "legacy")) (ne .Params.hiddenInHomeList true) }}
@@ -48,6 +28,26 @@
     </li>
     {{- end }}
   </ul>
+</section>
+{{- end }}
+
+{{- /* 3. Selected projects (featured entries from data/research.yaml) */}}
+{{- $featured := slice }}
+{{- range $key := slice "publications" "reports" "ongoing" }}
+{{- range (index site.Data.research $key) }}
+{{- if .featured }}{{ $featured = $featured | append . }}{{ end }}
+{{- end }}
+{{- end }}
+{{- $featured = sort $featured "date" "desc" }}
+{{- with $featured }}
+<section class="home-section" aria-labelledby="selected-research">
+  <header class="section-heading">
+    <h2 id="selected-research">Some projects</h2>
+    <a href="{{ "research/" | relLangURL }}">All projects <span aria-hidden="true">→</span></a>
+  </header>
+  {{- range . }}
+  {{- partial "research_entry.html" (dict "entry" . "level" 3 "compact" true) }}
+  {{- end }}
 </section>
 {{- end }}
 

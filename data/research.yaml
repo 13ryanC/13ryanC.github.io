@@ -1,4 +1,4 @@
-# Research portfolio entries, rendered by layouts/_default/research.html and the
+# Project entries, rendered by layouts/_default/research.html and the
 # "Selected research" block on the homepage (entries with featured: true).
 #
 # Only list work that is public. Keep authors and venues exactly as they appear
@@ -69,12 +69,12 @@ reports:
 
 ongoing:
   - id: spar-mentorship
-    title: "Research mentorship, SPAR Fall 2026"
+    title: "Mentoring at SPAR, Fall 2026"
     venue: "SPAR · remote AI safety research fellowship"
     date: "2026-09"
     summary: >-
-      Mentoring mentees in the Fall 2026 SPAR cohort on AI safety research. Project
-      details and results will be listed here once they are public.
+      Helping people in the Fall 2026 SPAR cohort with their AI safety
+      projects. I'll add them here once they are public.
     links:
       - name: "SPAR"
         url: "https://sparai.org/"
